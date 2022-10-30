@@ -1,0 +1,22 @@
+{
+  "dependencies": {
+    "firebase": "^9.12.1"
+  },
+  "name": "theoriesofconsciousness",
+  "version": "1.0.0",
+  "description": "websiteForROF",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "try"
+  },
+  "repository": {
+    "type": "git",
+    "url": "theoriesOfConsciousness"
+  },
+  "keywords": [
+    "consciousness"
+  ],
+  "author": "BradCaldwell",
+  "license": "UNLICENSED"
+}
