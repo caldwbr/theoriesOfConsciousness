@@ -6,46 +6,65 @@
   <meta name="keywords" content="consciousness, qualia, cognition, neuroscience, rings of fire, bank, matrix, dissociation, cyclism, perceptuospatiogenesis">
   <meta name="author" content="Brad Caldwell">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Theories of Consciousness</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" media="screen">
   <style>
     body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      color: #ddd;
-      background-color: #111;
     }
     
-    #ring {
+    .background {
       position: fixed;
-      width: 400px;
-      height: 400px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border-radius: 50%;
-      border: 1px solid white;
-      animation: morph 10s ease-in-out infinite alternate;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(#fff 10%, transparent 0);
+      background-size: 20px 20px;
+      transform-origin: center center;
+      animation: morph 10s linear infinite;
     }
     
     @keyframes morph {
       0% {
         border-radius: 50%;
       }
-        25% {
-            transform: rotate3d(1, 1, 1, 45deg);
-        }
       50% {
-        border-radius: 0%;
-        transform: rotate3d(1, 1, 1, 180deg);
+        border-radius: 0;
+        transform: rotate(45deg);
       }
-        65% {
-            transform: rotate3d(1, 1, 1, 215deg);
-        }
       100% {
         border-radius: 50%;
-        transform: rotate3d(1, 1, 1, 360deg);
+        transform: rotate(90deg);
       }
     }
+    
+    .copy {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.5;
+      background-image: radial-gradient(#fff 10%, transparent 0);
+      background-size: 20px 20px;
+      transform: translateZ(-100px);
+      animation: fadeout 10s linear infinite;
+    }
+    
+    @keyframes fadeout {
+      0% {
+        opacity: 0.5;
+        transform: translateZ(-100px);
+      }
+      100% {
+        opacity: 0;
+        transform: translateZ(-200px);
+      }
+    }
+    
     /* Define a custom font */
     @font-face {
       font-family: 'Montserrat';
@@ -55,19 +74,19 @@
     /* Use the custom font for headings */
     h1, h2, h3 {
       font-family: 'Montserrat', sans-serif;
-      color: #fff;
     }
-      
-    section {
-  padding: 50px;
-  background-color: #111;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        background-color: #111;
-}
+    /* Add a border and shadow to images */
+    img {
+      border: 1px solid #ccc;
+      box-shadow: 2px 2px 5px #ccc;
+    }
   </style>
 </head>
 <body>
-    <div id="ring"></div>
+    <div class="background"></div>
+    <div class="copy"></div>
+  <div class="copy"></div>
+  <div class="copy"></div>
     <header>
         <nav>
             <a href="#">Home</a>
@@ -78,9 +97,8 @@
     <main>
         <section>
             <h1>Theories of Consciousness</h1>
-            <p>Welcome to this site! Please note that it is currently under construction, and my understanding of how consciousness might arise has undergone significant refinement. I would like to share my current model with you:</p>
+            <p>Welcome to this site! Please note that it is currently under construction, and my understanding of how consciousness might arise has undergone significant refinement in recent years. While I am still grappling with the exact correlates and mechanisms of how 3D schemas can arise from neural ensemble coding, I would like to share my current model with you:</p>
             <p>The conscious cortex communicates using a sort of double-cipher. At the first level, each millisecond of neural activity maps to a single point voxel location in perceptual space - the space around you. Over the course of, say, one-tenth of a second, the voxels move slightly 100 times and trace out a squiggly ring path in a 2D plane at some attitude. At the second level, the ring path is a geometric cipher, which - combined with neural ensemble encoding - the brain understands as equivalent to the full 3D experience of consciousness. These "rings," whether drawn out over 100 ms or grouped into a nearly instantaneous flash, are the edges of the "frames of consciousness." These frames, with boundary rings, move around within perceptual space, largely unnoticed by us but painting the entirety of conscious experience.</p>
-            <a href="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/presentationPoster.jpg?alt=media&token=0333eec1-fdb8-403c-995a-32ae69991d82">Poster presentation for Italy 2023 Science of Consciousness</a>
             <p>Thank you for your interest in this ongoing exploration of the nature of consciousness.</p>
         </section>
         <section>
