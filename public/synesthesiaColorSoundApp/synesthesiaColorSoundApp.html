@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synesthesia Color-Sound App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        #noteDisplay {
+            font-size: 24px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Synesthesia Color-Sound Training</h1>
+    <p>Press the button below to start analyzing your singing or music:</p>
+    <button id="startButton">Start Microphone</button>
+    <div id="noteDisplay">Note: </div>
+
+    <script>
+        document.getElementById('startButton').addEventListener('click', function() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    const audioContext = new AudioContext();
+                    const source = audioContext.createMediaStreamSource(stream);
+                    const analyser = audioContext.createAnalyser();
+                    source.connect(analyser);
+                    analyser.fftSize = 2048;
+                    const bufferLength = analyser.frequencyBinCount;
+                    const dataArray = new Uint8Array(bufferLength);
+
+                    function analyze() {
+                        requestAnimationFrame(analyze);
+                        analyser.getByteFrequencyData(dataArray);
+                        // Process dataArray to identify predominant frequency and map to note
+                        // Update UI with corresponding color and note name
+                    }
+
+                    analyze();
+                })
+                .catch(error => {
+                    console.error('Error accessing microphone:', error);
+                });
+        });
+
+        function updateUI(note, color) {
+            document.body.style.backgroundColor = color;
+            document.getElementById('noteDisplay').innerText = 'Note: ' + note;
+        }
+    </script>
+</body>
+</html>
