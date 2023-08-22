@@ -175,9 +175,29 @@ function init() {
       if (typeof(valueToDisplay) == 'number') {
         valueToDisplay += ' Hz';
       }
-     
+        
+      var colors = {
+        'C': [255, 0, 0],
+        'C#': [255, 64, 0],
+        'D': [255, 128, 0],
+        'D#': [255, 192, 0],
+        'E': [255, 255, 0],
+        'F': [0, 255, 0],
+        'F#': [0, 255, 128],
+        'G': [0, 0, 255],
+        'G#': [128, 0, 255],
+        'A': [255, 0, 255],
+        'A#': [255, 0, 128],
+        'B': [255, 0, 255],
+        'Louder...': [0, 0, 0],
+        '*': [0, 0, 0]
+      };
+      var rgb = colors[valueToDisplay];
+      var rgbString = "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")";
+        
+      document.body.style.backgroundColor = rgbString;
       document.getElementById('note').innerText = valueToDisplay;
-    }
+      }
 
     var drawFrequency = function() {
       var bufferLengthAlt = analyser.frequencyBinCount;
