@@ -4,80 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Color-Sound Synesthesia Training App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 20px;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-        }
-        .visualizer {
-            border: 1px solid #000;
-            width: 100%;
-            height: 400px;
-        }
-        #note {
-            font-size: 24px;
-            font-weight: bold;
-            text-align: center;
-            margin-top: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-    </style>
+    <link rel="stylesheet" href="https://theoriesOfConsciousness.com/synesthesiaColorSoundApp/style.css">
+    <link rel="stylesheet" href="https://theoriesOfConsciousness.com/synesthesiaColorSoundApp/highlight.css">
+    <link rel="stylesheet" href="https://theoriesOfConsciousness.com/synesthesiaColorSoundApp/font.min.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Color-Sound Synesthesia Training App</h1>
-        <canvas class="visualizer"></canvas>
-        <div id="note"></div>
-    </div>
-    <p><canvas class="visualizer" width="640" height="100"></canvas>
+       <nav class="main-nav">
+
+	
+</nav>
+
+
+        <section id="wrapper">
+            <article class="post">
+                <header>
+                    <h1>
+                        Inducing Color-Sound Synesthesia with the Web Audio API and via autocorrelation
+                    </h1>
+
+                </header>
+                
+                <section id="post-body">
+                    <p>Color-sound synesthesia can be developed for letters as determined by Cambridge doing 30 minutes reading colored letters a day for 9 weeks, break on weekends. I am trying to see if I can induce color-sound synesthesia for the music letters C, C#, D, D#, E, F, F#, G, G#, A, A#, and B, by practicing with colored note-head music via flat dot io music program, playing piano. But I also wanted to see the note I am playing in real time, and the color I want to associate with it. I start with red for C and follow the rainbow up until reaching C again, according to Boomwhackers color scheme.</p>
+<p><canvas class="visualizer" width="640" height="100"></canvas>
 <br>
 <button id="init" onClick="init()">Start</button></p>
 <h1 id="note">Press start to begin</h1>
 <legend>Rounding options:</legend>
 <div>
   <input type="radio" id="roundingNone" name="rounding" value="none" >
-  <label for="roundingNone">No rounding</label>
+  <label for="roundingNone">As is</label>
   <br>
   <input type="radio" id="roundingMedium" name="rounding" value="hz" checked>
-  <label for="roundingMedium">Round to nearest Hz</label>
+  <label for="roundingMedium">Round to Hz</label>
   <br>
   <input type="radio" id="roundingHard" name="rounding" value="note">
-  <label for="roundingHard">Round to nearest note</label>
+  <label for="roundingHard">Round to note</label>
   <br>
 </div>
 <br>
 <legend>Smoothing options:</legend>
 <div>
   <input type="radio" id="smoothingNone" name="smoothing" value="none">
-  <label for="smoothingNone">No smoothing</label>
+  <label for="smoothingNone">As is</label>
   <br>
   <input type="radio" id="smoothingMedium" name="smoothing" value="basic" checked>
-  <label for="smoothingMedium">Basic smoothing</label>
+  <label for="smoothingMedium">Smoothed a little</label>
   <br>
   <input type="radio" id="smoothingHard" name="smoothing" value="very">
-  <label for="smoothingHard">Very smoothed (note must be more consistent and held for longer)</label>
+  <label for="smoothingHard">Smoothed a lot</label>
   <br>
 </div>
 <br>
 <legend>Display (click Start after you switch):</legend>
 <div>
   <input type="radio" id="displaySine" name="display" value="sine" checked>
-  <label for="displaySine">Sine wave</label>
+  <label for="displaySine">Time</label>
   <br>
   <input type="radio" id="displayFrequency" name="display" value="frequency" >
   <label for="displayFrequency">Frequency</label>
   <br>
 </div>
 <br>
+
+<script src="tuner.js"></script>
+                </section>
+            </article>
+
+            
+
+            
+
+            
+
+            <footer id="footer">
     
-    <script src="tuner.js"></script>
-</body>
+
+
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+    
+    </p>
+</footer>
+
+        </section>
+
+
+
+
+
+
+
+    </body>
 </html>
