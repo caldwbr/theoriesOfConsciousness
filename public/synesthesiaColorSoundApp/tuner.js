@@ -24,6 +24,7 @@ with the above license.
 
 function init() {
   var source;
+  var currentNoteName = null;
   var audioContext = new (window.AudioContext || window.webkitAudioContext)();
   var analyser = audioContext.createAnalyser();
   analyser.minDecibels = -100;
@@ -137,7 +138,7 @@ function init() {
 
 
       if (autoCorrelateValue === -1) {
-        document.getElementById('note').innerText = 'Too quiet...';
+        document.getElementById('note').innerText = 'Louder...';
         return;
       }
       if (smoothingValue === 'none') {
@@ -175,37 +176,44 @@ function init() {
       if (typeof(valueToDisplay) == 'number') {
         valueToDisplay += ' Hz';
       }
-
-      document.getElementById('note').innerText = valueToDisplay;
+      currentNoteName = valueToDisplay; // Assuming this is the note name
+      document.getElementById('note').innerText = currentNoteName;
+      document.getElementById('note').style.color = mapNoteToColor(currentNoteName);
     }
 
     var drawFrequency = function() {
-      var bufferLengthAlt = analyser.frequencyBinCount;
-      var dataArrayAlt = new Uint8Array(bufferLengthAlt);
+  var bufferLengthAlt = analyser.frequencyBinCount;
+  var dataArrayAlt = new Uint8Array(bufferLengthAlt);
 
-      canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
+  canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
 
-      var drawAlt = function() {
-        drawVisual = requestAnimationFrame(drawAlt);
+  var drawAlt = function() {
+    drawVisual = requestAnimationFrame(drawAlt);
 
-        analyser.getByteFrequencyData(dataArrayAlt);
+    analyser.getByteFrequencyData(dataArrayAlt);
+    var noteColor = mapNoteToColor(currentNoteName);
+    canvasContext.fillStyle = noteColor;
+    canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
 
-        canvasContext.fillStyle = 'rgb(0, 0, 0)';
-        canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
+    var barWidth = (WIDTH / bufferLengthAlt) * 2.5;
+    var barHeight;
+    var x = 0;
 
-        var barWidth = (WIDTH / bufferLengthAlt) * 2.5;
-        var barHeight;
-        var x = 0;
+    for(var i = 0; i < bufferLengthAlt; i++) {
+      barHeight = dataArrayAlt[i];
 
-        for(var i = 0; i < bufferLengthAlt; i++) {
-          barHeight = dataArrayAlt[i];
+      // Modify the color based on the current note name
+      var gradientColor = mapNoteToColor(noteStrings[(noteFromPitch(autoCorrelateValue) + i) % 12]);
+      canvasContext.fillStyle = gradientColor;
+      canvasContext.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight / 2);
 
-          canvasContext.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
-          canvasContext.fillRect(x,HEIGHT-barHeight/2,barWidth,barHeight/2);
+      x += barWidth + 1;
+    }
+  };
 
-          x += barWidth + 1;
-        }
-      };
+  drawAlt();
+}
+
 
       console.log('wut')
       drawAlt();
@@ -220,6 +228,26 @@ function init() {
     drawNote();
   }
 }
+
+function mapNoteToColor(note) {
+  var colors = {
+      'C': [255, 0, 0],
+      'C#': [255, 64, 0],
+      'D': [255, 128, 0],
+      'D#': [255, 192, 0],
+      'E': [255, 255, 0],
+      'F': [0, 255, 0],
+      'F#': [0, 255, 128],
+      'G': [0, 0, 255],
+      'G#': [128, 0, 255],
+      'A': [255, 0, 255],
+      'A#': [255, 0, 128],
+      'B': [255, 0, 255]
+  };
+  var rgb = colors[note];
+  return "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")";
+}
+
 
 
 // Must be called on analyser.getFloatTimeDomainData and audioContext.sampleRate
