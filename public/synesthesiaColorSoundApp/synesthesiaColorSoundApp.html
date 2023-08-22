@@ -14,8 +14,6 @@
             margin-top: 20px;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.30/Tone.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/urtzurd/html-piano/pitchy.min.js"></script>
 </head>
 <body>
     <h1>Synesthesia Color-Sound Training</h1>
@@ -25,43 +23,77 @@
 
     <script>
         document.getElementById('startButton').addEventListener('click', function() {
-            const mic = new Tone.UserMedia().toDestination();
-            mic.open().then(() => {
-                const analyser = new Tone.Analyser('waveform', 1024);
-                mic.connect(analyser);
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(stream => {
+                    const audioContext = new AudioContext();
+                    const source = audioContext.createMediaStreamSource(stream);
+                    const analyser = audioContext.createAnalyser();
+                    source.connect(analyser);
+                    analyser.fftSize = 2048;
+                    const bufferLength = analyser.frequencyBinCount;
+                    const dataArray = new Float32Array(bufferLength);
 
-                function analyze() {
-                    requestAnimationFrame(analyze);
-                    const waveform = analyser.getValue();
-                    const frequency = detectPitch(waveform);
-                    const note = Tone.Frequency(frequency).toNote();
-                    const color = mapNoteToColor(note);
-                    updateUI(note, color);
-                }
+                    function analyze() {
+                        requestAnimationFrame(analyze);
+                        analyser.getFloatTimeDomainData(dataArray);
+                        const frequency = detectPitch(dataArray, audioContext.sampleRate);
+                        const note = frequencyToNote(frequency);
+                        const color = mapNoteToColor(note);
+                        updateUI(note, color);
+                    }
 
-                analyze();
-            }).catch(error => {
-                console.error('Error accessing microphone:', error);
-            });
+                    analyze();
+                })
+                .catch(error => {
+                    console.error('Error accessing microphone:', error);
+                });
         });
 
-        function detectPitch(waveform) {
-            const sampleRate = Tone.context.sampleRate;
-            const pitch = Pitchy.detect(waveform, sampleRate);
-            return pitch.freq;
+        function detectPitch(dataArray, sampleRate) {
+            let maxVal = 0;
+            let maxIndex = -1;
+            const threshold = 0.02;
+
+            for (let i = 0; i < dataArray.length; i++) {
+                if (Math.abs(dataArray[i]) > threshold && Math.abs(dataArray[i]) > maxVal) {
+                    maxVal = Math.abs(dataArray[i]);
+                    maxIndex = i;
+                }
+            }
+
+            let nextMaxIndex = maxIndex + 1;
+            while (nextMaxIndex < dataArray.length && dataArray[nextMaxIndex] * dataArray[nextMaxIndex - 1] > 0) {
+                nextMaxIndex++;
+            }
+
+            const period = nextMaxIndex - maxIndex;
+            const frequency = sampleRate / period;
+            return frequency;
+        }
+
+        function frequencyToNote(frequency) {
+            const noteNames = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B'];
+            const noteNumber = 12 * (Math.log(frequency / 440) / Math.log(2));
+            return noteNames[Math.round(noteNumber) % 12];
         }
 
         function mapNoteToColor(note) {
             const colors = {
-                'C': 'red',
-                'D': 'orange',
-                'E': 'yellow',
-                'F': 'green',
-                'G': 'blue',
-                'A': 'purple',
-                'B': 'pink'
-            };
-            return colors[note[0]];
+                'C': [255, 0, 0],
+                'C#': [255, 64, 0],
+                'D': [255, 128, 0],
+                'D#': [255, 192, 0],
+                'E': [255, 255, 0],
+                'F': [0, 255, 0],
+                'F#': [0, 255, 128],
+                'G': [0, 0, 255],
+                'G#': [128, 0, 255],
+                'A': [255, 0, 255],
+                'A#': [255, 0, 128],
+                'B': [255, 0, 255]
+                };
+            const rgb = colors[note];
+            return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
         }
 
         function updateUI(note, color) {
@@ -71,5 +103,3 @@
     </script>
 </body>
 </html>
-
-
