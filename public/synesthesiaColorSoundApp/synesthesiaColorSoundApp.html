@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Synesthesia Sound-Color App</title>
+    <title>Synesthesia Color-Sound App</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,42 +15,43 @@
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.30/Tone.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/urtzurd/html-piano/pitchy.min.js"></script>
 </head>
 <body>
-    <h1>Synesthesia Sound-Color Training</h1>
+    <h1>Synesthesia Color-Sound Training</h1>
     <p>Press the button below to start analyzing your singing or music:</p>
     <button id="startButton">Start Microphone</button>
     <div id="noteDisplay">Note: </div>
 
     <script>
         document.getElementById('startButton').addEventListener('click', function() {
-            // Create a new Tone.js UserMedia instance to access the microphone
             const mic = new Tone.UserMedia().toDestination();
-
-            // Open the microphone
             mic.open().then(() => {
-                // Create a new Tone.js PitchShift instance to analyze the pitch
-                const pitchShift = new Tone.PitchShift().toDestination();
-                mic.connect(pitchShift);
+                const analyser = new Tone.Analyser('waveform', 1024);
+                mic.connect(analyser);
 
-                // Create an animation loop to continuously analyze the pitch
-                Tone.Transport.scheduleRepeat(time => {
-                    const frequency = pitchShift.frequency.value;
+                function analyze() {
+                    requestAnimationFrame(analyze);
+                    const waveform = analyser.getValue();
+                    const frequency = detectPitch(waveform);
                     const note = Tone.Frequency(frequency).toNote();
                     const color = mapNoteToColor(note);
                     updateUI(note, color);
-                }, '16n');
+                }
 
-                // Start the Tone.js Transport
-                Tone.Transport.start();
+                analyze();
             }).catch(error => {
                 console.error('Error accessing microphone:', error);
             });
         });
 
+        function detectPitch(waveform) {
+            const sampleRate = Tone.context.sampleRate;
+            const pitch = Pitchy.detect(waveform, sampleRate);
+            return pitch.freq;
+        }
+
         function mapNoteToColor(note) {
-            // Map the note to a corresponding color (e.g., C to red, D to orange, etc.)
-            // You can customize this mapping based on your preferences
             const colors = {
                 'C': 'red',
                 'D': 'orange',
@@ -60,16 +61,8 @@
                 'A': 'purple',
                 'B': 'pink'
             };
-            return colors[note[0]]; // Use the first character of the note name (e.g., 'C' in 'C4')
+            return colors[note[0]];
         }
-        
-        // Create an animation loop to continuously analyze the pitch
-        Tone.Transport.scheduleRepeat(time => {
-            const frequency = pitchShift.frequency.value;
-            const note = Tone.Frequency(frequency).toNote();
-            const color = mapNoteToColor(note); // Call the function to map the note to a color
-            updateUI(note, color);
-        }, '16n');
 
         function updateUI(note, color) {
             document.body.style.backgroundColor = color;
@@ -78,4 +71,5 @@
     </script>
 </body>
 </html>
+
 
