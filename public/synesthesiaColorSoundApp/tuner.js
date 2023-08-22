@@ -182,38 +182,32 @@ function init() {
     }
 
     var drawFrequency = function() {
-  var bufferLengthAlt = analyser.frequencyBinCount;
-  var dataArrayAlt = new Uint8Array(bufferLengthAlt);
+      var bufferLengthAlt = analyser.frequencyBinCount;
+      var dataArrayAlt = new Uint8Array(bufferLengthAlt);
 
-  canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
+      canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
 
-  var drawAlt = function() {
-    drawVisual = requestAnimationFrame(drawAlt);
+      var drawAlt = function() {
+        drawVisual = requestAnimationFrame(drawAlt);
 
-    analyser.getByteFrequencyData(dataArrayAlt);
-    var noteColor = mapNoteToColor(currentNoteName);
-    canvasContext.fillStyle = noteColor;
-    canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
+        analyser.getByteFrequencyData(dataArrayAlt);
+        var noteColor = mapNoteToColor(currentNoteName);
+        canvasContext.fillStyle = noteColor;
+        canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
 
-    var barWidth = (WIDTH / bufferLengthAlt) * 2.5;
-    var barHeight;
-    var x = 0;
+        var barWidth = (WIDTH / bufferLengthAlt) * 2.5;
+        var barHeight;
+        var x = 0;
 
-    for(var i = 0; i < bufferLengthAlt; i++) {
-      barHeight = dataArrayAlt[i];
+        for(var i = 0; i < bufferLengthAlt; i++) {
+          barHeight = dataArrayAlt[i];
 
-      // Modify the color based on the current note name
-      var gradientColor = mapNoteToColor(noteStrings[(noteFromPitch(autoCorrelateValue) + i) % 12]);
-      canvasContext.fillStyle = gradientColor;
-      canvasContext.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight / 2);
+          canvasContext.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
+          canvasContext.fillRect(x,HEIGHT-barHeight/2,barWidth,barHeight/2);
 
-      x += barWidth + 1;
-    }
-  };
-
-  drawAlt();
-}
-
+          x += barWidth + 1;
+        }
+      };
 
       console.log('wut')
       drawAlt();
@@ -227,7 +221,7 @@ function init() {
     }
     drawNote();
   }
-
+}
 
 function mapNoteToColor(note) {
   var colors = {
@@ -248,13 +242,13 @@ function mapNoteToColor(note) {
   return "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")";
 }
 
-var SIZE = 0;
+
 
 // Must be called on analyser.getFloatTimeDomainData and audioContext.sampleRate
 // From https://github.com/cwilso/PitchDetect/pull/23
 function autoCorrelate(buffer, sampleRate) {
   // Perform a quick root-mean-square to see if we have enough signal
-  SIZE = buffer.length;
+  var SIZE = buffer.length;
   var sumOfSquares = 0;
   for (var i = 0; i < SIZE; i++) {
     var val = buffer[i];
