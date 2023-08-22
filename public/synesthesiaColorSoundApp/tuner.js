@@ -24,7 +24,6 @@ with the above license.
 
 function init() {
   var source;
-  var currentNoteName = null;
   var audioContext = new (window.AudioContext || window.webkitAudioContext)();
   var analyser = audioContext.createAnalyser();
   analyser.minDecibels = -100;
@@ -176,9 +175,9 @@ function init() {
       if (typeof(valueToDisplay) == 'number') {
         valueToDisplay += ' Hz';
       }
-      currentNoteName = valueToDisplay; // Assuming this is the note name
-      document.getElementById('note').innerText = currentNoteName;
-      document.getElementById('note').style.color = mapNoteToColor(currentNoteName);
+      var noteName = valueToDisplay; // Assuming this is the note name
+      document.getElementById('note').innerText = noteName;
+      document.getElementById('note').style.color = mapNoteToColor(noteName);
     }
 
     var drawFrequency = function() {
@@ -191,7 +190,7 @@ function init() {
         drawVisual = requestAnimationFrame(drawAlt);
 
         analyser.getByteFrequencyData(dataArrayAlt);
-        var noteColor = mapNoteToColor(currentNoteName);
+        var noteColor = mapNoteToColor(noteName);
         canvasContext.fillStyle = noteColor;
         canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
 
@@ -224,7 +223,7 @@ function init() {
 }
 
 function mapNoteToColor(note) {
-  var colors = {
+  const colors = {
       'C': [255, 0, 0],
       'C#': [255, 64, 0],
       'D': [255, 128, 0],
@@ -238,8 +237,8 @@ function mapNoteToColor(note) {
       'A#': [255, 0, 128],
       'B': [255, 0, 255]
   };
-  var rgb = colors[note];
-  return "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")";
+  const rgb = colors[note];
+  return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
 }
 
 
