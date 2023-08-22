@@ -175,9 +175,8 @@ function init() {
       if (typeof(valueToDisplay) == 'number') {
         valueToDisplay += ' Hz';
       }
-      var noteName = valueToDisplay; // Assuming this is the note name
-      document.getElementById('note').innerText = noteName;
-      document.getElementById('note').style.color = mapNoteToColor(noteName);
+     
+      document.getElementById('note').innerText = valueToDisplay;
     }
 
     var drawFrequency = function() {
@@ -190,8 +189,8 @@ function init() {
         drawVisual = requestAnimationFrame(drawAlt);
 
         analyser.getByteFrequencyData(dataArrayAlt);
-        var noteColor = mapNoteToColor(noteName);
-        canvasContext.fillStyle = noteColor;
+
+        canvasContext.fillStyle = 'rgb(0, 0, 0)';
         canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
 
         var barWidth = (WIDTH / bufferLengthAlt) * 2.5;
