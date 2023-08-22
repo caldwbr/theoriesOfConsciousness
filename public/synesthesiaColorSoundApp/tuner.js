@@ -227,7 +227,7 @@ function init() {
     }
     drawNote();
   }
-}
+
 
 function mapNoteToColor(note) {
   var colors = {
@@ -248,13 +248,13 @@ function mapNoteToColor(note) {
   return "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")";
 }
 
-
+var SIZE = 0;
 
 // Must be called on analyser.getFloatTimeDomainData and audioContext.sampleRate
 // From https://github.com/cwilso/PitchDetect/pull/23
 function autoCorrelate(buffer, sampleRate) {
   // Perform a quick root-mean-square to see if we have enough signal
-  var SIZE = buffer.length;
+  SIZE = buffer.length;
   var sumOfSquares = 0;
   for (var i = 0; i < SIZE; i++) {
     var val = buffer[i];
@@ -293,8 +293,8 @@ function autoCorrelate(buffer, sampleRate) {
   // Create a new array of the sums of offsets to do the autocorrelation
   var c = new Array(SIZE).fill(0);
   // For each potential offset, calculate the sum of each buffer value times its offset value
-  for (let i = 0; i < SIZE; i++) {
-    for (let j = 0; j < SIZE - i; j++) {
+  for (var i = 0; i < SIZE; i++) {
+    for (var j = 0; j < SIZE - i; j++) {
       c[i] = c[i] + buffer[j] * buffer[j+i]
     }
   }
