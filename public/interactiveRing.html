@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Interactive 3D Ring</title>
+  <style>
+    body { margin: 0; }
+    canvas { display: block; }
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      background-color: white;
+      padding: 10px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<div id="controls">
+  <label for="frequency">Frequency</label>
+  <input type="range" id="frequency" min="0.5" max="10" step="0.1" value="1">
+  <label for="fade">Fade Duration</label>
+  <input type="range" id="fade" min="0.1" max="5" step="0.1" value="1">
+</div>
+
+<canvas id="3d-ring"></canvas>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+  let scene = new THREE.Scene();
+  let camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  let renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('3d-ring') });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  camera.position.z = 5;
+
+  // Tracer object
+  let tracer = new THREE.Mesh(new THREE.SphereGeometry(0.05, 32, 32), new THREE.MeshBasicMaterial({ color: 0x00ffff }));
+  scene.add(tracer);
+
+  let dots = [];
+  const maxDots = 300; // Limit number of dots in trail
+  const dotSpacing = 0.5; // Spacing between dots (in degrees)
+  let lastAngle = 0;
+  let lastUpdateTime = 0;
+
+  // Limit the number of dots added to avoid array buffer overload
+  function createDot(position) {
+    if (dots.length >= maxDots) {
+      let oldDot = dots.shift(); // Remove the oldest dot
+      scene.remove(oldDot); // Remove it from the scene
+    }
+
+    const dot = new THREE.Mesh(new THREE.SphereGeometry(0.03, 16, 16), new THREE.MeshBasicMaterial({ color: 0xff00ff }));
+    dot.position.copy(position);
+    scene.add(dot);
+    dots.push(dot); // Add the new dot to the trail
+  }
+
+  // Function to calculate time delta (time between frames)
+  function getDeltaTime() {
+    const now = Date.now();
+    const deltaTime = (now - lastUpdateTime) / 1000; // Convert to seconds
+    lastUpdateTime = now;
+    return deltaTime;
+  }
+
+  // Animate function, limiting to 25 fps
+  function animate() {
+    setTimeout(() => {
+      requestAnimationFrame(animate);
+
+      const deltaTime = getDeltaTime();
+      const frequency = parseFloat(document.getElementById('frequency').value);
+      const angularSpeed = (frequency * 2 * Math.PI) / 360; // Convert frequency to angular speed
+
+      // Move the tracer based on time passed
+      const angle = lastAngle + angularSpeed * deltaTime;
+      const x = 2 * Math.cos(angle);
+      const y = 2 * Math.sin(angle);
+
+      tracer.position.set(x, y, 0);
+
+      // Place dots based on angular spacing (0.5 degrees)
+      if (angle - lastAngle >= THREE.MathUtils.degToRad(dotSpacing)) {
+        createDot(tracer.position.clone());
+        lastAngle = angle;
+      }
+
+      // Render the scene
+      renderer.render(scene, camera);
+    }, 1000 / 25); // 25 fps limit
+  }
+
+  lastUpdateTime = Date.now();
+  animate();
+</script>
+
+</body>
+</html>
