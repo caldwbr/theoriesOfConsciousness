@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spherical Spiral Demo</title>
+  <style>
+    body { margin: 0; overflow: hidden; }
+    #info { position: absolute; top: 10px; left: 10px; color: #fff; font-family: sans-serif; }
+  </style>
+</head>
+<body>
+  <div id="info"></div>
+  <!-- Three.js and dat.GUI from CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
+  <script>
+    // Basic Three.js setup:
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
+    camera.position.set(0, -4, 2);
+    camera.lookAt(0, 0, 0);
+    
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+    
+    // Add ambient and directional light:
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
+    const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
+    dirLight.position.set(5,5,5);
+    scene.add(dirLight);
+    
+    // Create sphere
+    const sphereRadius = 1.22;
+    const sphereGeom = new THREE.SphereGeometry(sphereRadius, 32, 32);
+    const sphereMat = new THREE.MeshPhongMaterial({ color: 0x888888, opacity: 0.3, transparent: true });
+    const sphereMesh = new THREE.Mesh(sphereGeom, sphereMat);
+    scene.add(sphereMesh);
+    
+    // Create line for the spiral:
+    let spiralLine;
+    function createSpiralPoints(params) {
+      const points = [];
+      const numPoints = 360;
+      for (let i = 0; i <= numPoints; i++) {
+        const u = i / numPoints; // normalized progress from 0 to 1
+        let phi, theta;
+        // Mode: Clelia (spherical Archimedean spiral)
+        if (params.mode === "Clelia") {
+          phi = (Math.PI/2) * u;  // from 0 (great circle) to 90° (north pole)
+          theta = 2 * Math.PI * params.turns * u;
+        } else if (params.mode === "Loxodrome") {
+          // For a loxodrome, we want a constant bearing.
+          // One formulation: set phi linearly, then compute theta from:
+          phi = (Math.PI/2) * u;
+          // Here we choose k so that at u=1, theta = 2*pi*T.
+          // The loxodrome equation (starting at phi=0) can be written as:
+          // theta = (1/k) * ln( tan(pi/4 + phi/2) / tan(pi/4) )
+          // Since tan(pi/4)=1, theta = (1/k)*ln( tan(pi/4 + phi/2) ).
+          // To get theta(1)=2*pi*T, set k = ln(tan(pi/4+pi/4))/(2*pi*T) = ln(tan(pi/2))/(2*pi*T)
+          // But tan(pi/2) is infinite. So a common method is to choose a fixed bearing, say 45°.
+          // For our demo, we'll pick a simple transformation:
+          const bearing = Math.PI/4; // constant angle to meridians
+          // The loxodrome differential relation gives:
+          // dθ/dφ = 1 / tan(bearing)
+          theta = (phi) / Math.tan(bearing);
+          // Then scale theta so that theta(1) equals 2*pi*T:
+          theta *= (2 * Math.PI * params.turns) / thetaAtPoleLox(params.turns, bearing);
+        }
+        // Convert spherical coordinates (using phi as vertical from equator, but here our phi is from great circle upward)
+        const x = sphereRadius * Math.cos(phi) * Math.cos(theta);
+        const y = sphereRadius * Math.cos(phi) * Math.sin(theta);
+        const z = sphereRadius * Math.sin(phi);
+        points.push(new THREE.Vector3(x, y, z));
+      }
+      return points;
+    }
+    
+    // Helper: Estimate theta at pole for loxodrome mode for scaling.
+    function thetaAtPoleLox(turns, bearing) {
+      // For phi from 0 to pi/2, the ideal unscaled theta would be:
+      const thetaUnscaled = (Math.PI/2) / Math.tan(bearing);
+      return thetaUnscaled;
+    }
+    
+    // Create a line object for the spiral
+    let spiralGeometry = new THREE.BufferGeometry();
+    let spiralMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
+    spiralLine = new THREE.Line(spiralGeometry, spiralMaterial);
+    scene.add(spiralLine);
+    
+    // Parameters object for dat.GUI:
+    const params = {
+      mode: "Clelia", // or "Loxodrome"
+      turns: 5,       // number of full turns
+    };
+    
+    // GUI setup:
+    const gui = new dat.GUI();
+    gui.add(params, "mode", ["Clelia", "Loxodrome"]).name("Spiral Type").onChange(updateSpiral);
+    gui.add(params, "turns", 1, 30, 1).name("Turns").onChange(updateSpiral);
+    
+    // Function to update the spiral based on parameters:
+    function updateSpiral() {
+      const pts = createSpiralPoints(params);
+      const posArray = new Float32Array(pts.length * 3);
+      pts.forEach((pt, i) => {
+        posArray[i*3] = pt.x;
+        posArray[i*3+1] = pt.y;
+        posArray[i*3+2] = pt.z;
+      });
+      spiralGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+      spiralGeometry.computeBoundingSphere();
+      updateInfo(pts);
+    }
+    
+    // Function to update info table (or text) about current spiral values:
+    function updateInfo(pts) {
+      // For example, show the horizontal radius and phi at the midpoint:
+      const mid = pts[Math.floor(pts.length/2)];
+      // Convert mid point to spherical coordinates:
+      const phi = Math.asin(mid.z / sphereRadius);  // vertical angle
+      const horizontalRadius = sphereRadius * Math.cos(phi);
+      document.getElementById("info").innerHTML =
+        "Midpoint φ (deg): " + (phi*180/Math.PI).toFixed(2) + "<br>" +
+        "Horizontal radius: " + horizontalRadius.toFixed(3) + " m<br>" +
+        "Total Turns: " + params.turns;
+    }
+    
+    // Initial update:
+    updateSpiral();
+    
+    // Render loop:
+    function animate() {
+      requestAnimationFrame(animate);
+      renderer.render(scene, camera);
+    }
+    animate();
+    
+    // Handle window resize:
+    window.addEventListener("resize", function() {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+    
+  </script>
+</body>
+</html>
