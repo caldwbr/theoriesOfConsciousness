@@ -18,7 +18,7 @@
     #info { top: 10px; }
     #explanation { top: 120px; }
   </style>
-  <!-- MathJax for pretty formulas -->
+  <!-- MathJax for prettier formulas -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
           src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -40,21 +40,21 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     
-    // Lights:
+    // Lights
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    dirLight.position.set(5, 5, 5);
+    dirLight.position.set(5,5,5);
     scene.add(dirLight);
     
-    // Create sphere:
+    // Create sphere
     const sphereRadius = 1.22;
     const sphereGeom = new THREE.SphereGeometry(sphereRadius, 32, 32);
     const sphereMat = new THREE.MeshPhongMaterial({ color: 0x888888, opacity: 0.3, transparent: true });
     const sphereMesh = new THREE.Mesh(sphereGeom, sphereMat);
     scene.add(sphereMesh);
     
-    // Create spiral line:
+    // Create spiral line
     let spiralLine;
     function createSpiralPoints(params) {
       const points = [];
@@ -64,15 +64,23 @@
         let phi, theta;
         if (params.mode === "Clelia") {
           // Clelia (Apple Peel) Spiral:
-          phi = (Math.PI/2) * u;  // linearly from 0° to 90°
+          // Vertical angle increases linearly from 0 (great circle) to 90° (north pole)
+          phi = (Math.PI/2) * u;
+          // Horizontal rotation: constant pitch per revolution
           theta = 2 * Math.PI * params.turns * u;
         } else if (params.mode === "Loxodrome") {
-          const phi_max = (Math.PI/2) * 0.99;  // slightly less than 90° to avoid divergence
+          // Loxodrome (Rhumb Line)
+          // Here we let phi increase linearly from 0 to nearly 90° (avoid divergence)
+          const phi_max = (Math.PI/2) * 0.99;
           phi = phi_max * u;
+          // The loxodrome formula:
+          //   theta = cot(α) * ln( tan(π/4 + φ/2) )
+          // We choose cot(α) such that at u=1, theta = 2π * (turns)
           const thetaUnscaled = Math.log(Math.tan(Math.PI/4 + phi_max/2));
           const cot_alpha = (2 * Math.PI * params.turns) / thetaUnscaled;
           theta = cot_alpha * Math.log(Math.tan(Math.PI/4 + phi/2));
         }
+        // Convert spherical coordinates to Cartesian:
         const x = sphereRadius * Math.cos(phi) * Math.cos(theta);
         const y = sphereRadius * Math.cos(phi) * Math.sin(theta);
         const z = sphereRadius * Math.sin(phi);
@@ -81,31 +89,16 @@
       return points;
     }
     
-    // Create spiral line object:
+    // Create spiral line object
     let spiralGeometry = new THREE.BufferGeometry();
     let spiralMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
     spiralLine = new THREE.Line(spiralGeometry, spiralMaterial);
     scene.add(spiralLine);
     
-    // --- Marker for 15° φ and 30° θ ---
-    // We'll create a small sphere to mark this point.
-    const markerRadius = 0.05;
-    const markerGeom = new THREE.SphereGeometry(markerRadius, 16, 16);
-    const markerMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const marker = new THREE.Mesh(markerGeom, markerMat);
-    // Convert 15° and 30° to radians:
-    const phi_marker = THREE.MathUtils.degToRad(15);   // 15° φ
-    const theta_marker = THREE.MathUtils.degToRad(30);   // 30° θ
-    const x_marker = sphereRadius * Math.cos(phi_marker) * Math.cos(theta_marker);
-    const y_marker = sphereRadius * Math.cos(phi_marker) * Math.sin(theta_marker);
-    const z_marker = sphereRadius * Math.sin(phi_marker);
-    marker.position.set(x_marker, y_marker, z_marker);
-    scene.add(marker);
-    
     // Parameters for dat.GUI:
     const params = {
       mode: "Clelia", // or "Loxodrome"
-      turns: 5,       // allow decimals (e.g. 2.34 turns)
+      turns: 5,       // allow decimals, e.g. 2.34 turns
     };
     
     // GUI setup:
@@ -145,22 +138,24 @@
         explanationDiv.innerHTML =
           "<strong>Clelia (Apple Peel) Spiral</strong><br>" +
           "<ul>" +
-          "<li>Vertical (colatitude) increments are constant.</li>" +
-          "<li>$$\\phi(u) = \\frac{\\pi}{2} \\; u$$" +
-          " (from 0° at the great circle to 90° at the pole)</li>" +
+          "<li>Vertical (colatitude) increments are constant (constant thickness apple peel).</li>" +
+          "<li>$$\\phi(u) = \\frac{\\pi}{2} \\; u$$ " +
+          "<em>(0° at the great circle, 90° at the pole)</em></li>" +
           "<li>$$\\theta(u) = 2\\pi \\; (\\text{turns}) \\; u$$</li>" +
           "</ul>" +
-          "Note: The bearing changes as the spiral ascends.";
+          "Each full revolution raises the spiral by the same vertical angle.";
       } else if (params.mode === "Loxodrome") {
         explanationDiv.innerHTML =
           "<strong>Loxodrome (Rhumb Line)</strong><br>" +
           "<ul>" +
-          "<li>Maintains a constant crossing angle with meridians.</li>" +
+          "<li>Maintains a constant bearing like a sailor with steady Northeast heading (crossing all meridians at the same angle).</li>" +
           "<li>$$\\phi(u) = \\phi_{\\text{max}}\\,u, \\quad \\phi_{\\text{max}} \\approx 0.99\\;\\frac{\\pi}{2}$$</li>" +
           "<li>$$\\theta(u) = \\cot(\\alpha)\\,\\ln\\!\\left(\\tan\\!\\left(\\frac{\\pi}{4}+\\frac{\\phi(u)}{2}\\right)\\right)$$</li>" +
           "</ul>" +
-          "Here, the vertical increment per revolution is not constant; tighter circles appear near the pole.";
+          "Vertical increments per revolution are not constant; the spiral tightens near the pole.<br>" +
+          "Here, \\(\\theta(u)\\) is scaled so that at \\(u=1\\), \\(\\theta = 2\\pi \\;(\\text{turns})\\).";
       }
+      // Re-typeset MathJax to render the updated formulas
       if (window.MathJax) {
         MathJax.typeset();
       }
