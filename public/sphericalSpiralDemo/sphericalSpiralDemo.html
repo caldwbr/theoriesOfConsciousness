@@ -99,7 +99,7 @@
     // GUI setup:
     const gui = new dat.GUI();
     gui.add(params, "mode", ["Clelia", "Loxodrome"]).name("Spiral Type").onChange(updateSpiral);
-    gui.add(params, "turns", 1, 30, 1).name("Turns").onChange(updateSpiral);
+    gui.add(params, "turns", 1, 30, 0.1).name("Turns").onChange(updateSpiral);
     
     // Function to update the spiral based on parameters:
     function updateSpiral() {
