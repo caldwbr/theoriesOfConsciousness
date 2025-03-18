@@ -132,7 +132,7 @@
     gui.add(params, "turns", 1, 30, 0.1).name("Turns").onChange(() => { updateSpiral(); updateExplanation(); updateChart(); updateChart2(); });
     
     function updateInfo(pts) {
-      document.getElementById("info").innerHTML = "";
+      document.getElementById("info").innerHTML = "Spherical Spiral Demo: Clelia vs Loxodrome";
     }
 
     
@@ -161,134 +161,152 @@
       if (window.MathJax) { MathJax.typeset(); }
     }
     
-    // ------------------------------
-    // Chart 1: Bearing vs. Spiral Progress (u) for Clelia mode
-    let bearingChart;
-    function updateChart() {
-      const chartContainer = document.getElementById("chartContainer");
-      // Only show chart for Clelia mode.
-      if (params.mode !== "Clelia") {
-        chartContainer.style.display = "none";
-      } else {
-        chartContainer.style.display = "block";
-      }
-      const numSamples = 50;
-      const uData = [];
-      const bearingData = [];
-      const phi_max = (85 * Math.PI)/180; // 85° in radians
-      const A = phi_max; // dphi/du
-      const B = 2 * Math.PI * params.turns; // dtheta/du
-      for (let i = 0; i <= numSamples; i++) {
-        const u = i / numSamples;
-        const phi = phi_max * u; // phi in radians
-        // Compute bearing deviation:
-        // bearing = arccos( (B*cos(phi)) / sqrt( A^2 + B^2*cos^2(phi) ) )
-        const numerator = B * Math.cos(phi);
-        const denominator = Math.sqrt(A*A + B*B * Math.cos(phi)*Math.cos(phi));
-        let bearingRad = Math.acos(numerator / denominator);
-        let bearingDeg = bearingRad * 180/Math.PI;
-        uData.push(u.toFixed(2)); // x-axis: u (progress, 0 to 1)
-        bearingData.push(bearingDeg.toFixed(2));
-      }
-      
-      const ctx = document.getElementById("chartCanvas").getContext("2d");
-      if (bearingChart) {
-        bearingChart.data.labels = uData;
-        bearingChart.data.datasets[0].data = bearingData;
-        bearingChart.update();
-      } else {
-        bearingChart = new Chart(ctx, {
-          type: 'line',
-          data: {
-            labels: uData,
-            datasets: [{
-              label: "Bearing (wrt East) (°)",
-              data: bearingData,
-              borderColor: "blue",
-              fill: false,
-              tension: 0.1
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                title: { display: true, text: "Spiral Progress (u) from Equator to Pole" },
-                ticks: { autoSkip: true, maxTicksLimit: 10 }
-              },
-              y: {
-                title: { display: true, text: "Bearing (wrt East) (°)" }
-              }
-            }
-          }
-        });
-      }
+    // Chart 1: Bearing vs. Spiral Progress (u) for both Clelia and Loxodrome modes
+let bearingChart;
+function updateChart() {
+  const chartContainer = document.getElementById("chartContainer");
+  // Show the chart container only when mode is Clelia or Loxodrome
+  if (params.mode !== "Clelia" && params.mode !== "Loxodrome") {
+    chartContainer.style.display = "none";
+  } else {
+    chartContainer.style.display = "block";
+  }
+  const numSamples = 50;
+  const uData = [];
+  const bearingData = [];
+  const phi_max = (85 * Math.PI) / 180; // 85° in radians
+  const A = phi_max; // dφ/du for Clelia
+  const B = 2 * Math.PI * params.turns; // dθ/du for Clelia
+  if (params.mode === "Clelia") {
+    for (let i = 0; i <= numSamples; i++) {
+      const u = i / numSamples;
+      const phi = phi_max * u;
+      // Bearing deviation computed from:
+      // bearing = arccos( (B*cos(phi)) / sqrt(A^2 + B^2*cos^2(phi)) )
+      const numerator = B * Math.cos(phi);
+      const denominator = Math.sqrt(A * A + B * B * Math.cos(phi) * Math.cos(phi));
+      let bearingRad = Math.acos(numerator / denominator);
+      let bearingDeg = bearingRad * 180 / Math.PI;
+      uData.push(u.toFixed(2));
+      bearingData.push(bearingDeg.toFixed(2));
     }
-    
-    // ------------------------------
-    // Chart 2: Bearing vs. φ for Clelia mode
-    let bearingChart2;
-    function updateChart2() {
-      const chartContainer2 = document.getElementById("chartContainer2");
-      // Only show chart for Clelia mode.
-      if (params.mode !== "Clelia") {
-        chartContainer2.style.display = "none";
-      } else {
-        chartContainer2.style.display = "block";
-      }
-      const numSamples = 50;
-      const phiData = [];
-      const bearingData2 = [];
-      const phi_max = (85 * Math.PI)/180; // 85° in radians
-      const A = phi_max; // dphi/du
-      const B = 2 * Math.PI * params.turns; // dtheta/du
-      // Now let phi vary from 0 to phi_max.
-      for (let i = 0; i <= numSamples; i++) {
-        const phi = (i / numSamples) * phi_max;
-        // Compute bearing as before:
-        const numerator = B * Math.cos(phi);
-        const denominator = Math.sqrt(A*A + B*B * Math.cos(phi)*Math.cos(phi));
-        let bearingRad = Math.acos(numerator / denominator);
-        let bearingDeg = bearingRad * 180/Math.PI;
-        phiData.push((phi * 180/Math.PI).toFixed(1)); // x-axis: phi in degrees
-        bearingData2.push(bearingDeg.toFixed(2));
-      }
-      
-      const ctx2 = document.getElementById("chartCanvas2").getContext("2d");
-      if (bearingChart2) {
-        bearingChart2.data.labels = phiData;
-        bearingChart2.data.datasets[0].data = bearingData2;
-        bearingChart2.update();
-      } else {
-        bearingChart2 = new Chart(ctx2, {
-          type: 'line',
-          data: {
-            labels: phiData,
-            datasets: [{
-              label: "Bearing (wrt East) (°)",
-              data: bearingData2,
-              borderColor: "green",
-              fill: false,
-              tension: 0.1
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                title: { display: true, text: "φ (deg)" },
-                ticks: { autoSkip: true, maxTicksLimit: 10 }
-              },
-              y: {
-                title: { display: true, text: "Bearing (wrt East) (°)" }
-              }
-            }
-          }
-        });
-      }
+  } else if (params.mode === "Loxodrome") {
+    // For a loxodrome, the bearing relative to east is constant.
+    const thetaUnscaled = Math.log(Math.tan(Math.PI / 4 + phi_max / 2));
+    const cot_alpha = (2 * Math.PI * params.turns) / thetaUnscaled;
+    const constantBearing = Math.atan2(1, cot_alpha) * 180 / Math.PI; // constant in degrees
+    for (let i = 0; i <= numSamples; i++) {
+      const u = i / numSamples;
+      uData.push(u.toFixed(2));
+      bearingData.push(constantBearing.toFixed(2));
     }
+  }
+  const ctx = document.getElementById("chartCanvas").getContext("2d");
+  if (bearingChart) {
+    bearingChart.data.labels = uData;
+    bearingChart.data.datasets[0].data = bearingData;
+    bearingChart.update();
+  } else {
+    bearingChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: uData,
+        datasets: [{
+          label: "Bearing (wrt East) (°)",
+          data: bearingData,
+          borderColor: "blue",
+          fill: false,
+          tension: 0.1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            title: { display: true, text: "Spiral Progress (u)" },
+            ticks: { autoSkip: true, maxTicksLimit: 10 }
+          },
+          y: {
+            title: { display: true, text: "Bearing (wrt East) (°)" }
+          }
+        }
+      }
+    });
+  }
+}
+
+// Chart 2: Bearing vs. φ for both Clelia and Loxodrome modes
+let bearingChart2;
+function updateChart2() {
+  const chartContainer2 = document.getElementById("chartContainer2");
+  // Show chart container only when mode is Clelia or Loxodrome
+  if (params.mode !== "Clelia" && params.mode !== "Loxodrome") {
+    chartContainer2.style.display = "none";
+  } else {
+    chartContainer2.style.display = "block";
+  }
+  const numSamples = 50;
+  const phiData = [];
+  const bearingData2 = [];
+  const phi_max = (85 * Math.PI) / 180; // 85° in radians
+  const A = phi_max;
+  const B = 2 * Math.PI * params.turns;
+  if (params.mode === "Clelia") {
+    for (let i = 0; i <= numSamples; i++) {
+      const phi = (i / numSamples) * phi_max;
+      const numerator = B * Math.cos(phi);
+      const denominator = Math.sqrt(A * A + B * B * Math.cos(phi) * Math.cos(phi));
+      let bearingRad = Math.acos(numerator / denominator);
+      let bearingDeg = bearingRad * 180 / Math.PI;
+      phiData.push((phi * 180 / Math.PI).toFixed(1));
+      bearingData2.push(bearingDeg.toFixed(2));
+    }
+  } else if (params.mode === "Loxodrome") {
+    const thetaUnscaled = Math.log(Math.tan(Math.PI / 4 + phi_max / 2));
+    const cot_alpha = (2 * Math.PI * params.turns) / thetaUnscaled;
+    const constantBearing = Math.atan2(1, cot_alpha) * 180 / Math.PI;
+    for (let i = 0; i <= numSamples; i++) {
+      const phi = (i / numSamples) * phi_max;
+      phiData.push((phi * 180 / Math.PI).toFixed(1));
+      bearingData2.push(constantBearing.toFixed(2));
+    }
+  }
+  const ctx2 = document.getElementById("chartCanvas2").getContext("2d");
+  if (bearingChart2) {
+    bearingChart2.data.labels = phiData;
+    bearingChart2.data.datasets[0].data = bearingData2;
+    bearingChart2.update();
+  } else {
+    bearingChart2 = new Chart(ctx2, {
+      type: 'line',
+      data: {
+        labels: phiData,
+        datasets: [{
+          label: "Bearing (wrt East) (°)",
+          data: bearingData2,
+          borderColor: "green",
+          fill: false,
+          tension: 0.1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            title: { display: true, text: "φ (deg)" },
+            ticks: { autoSkip: true, maxTicksLimit: 10 }
+          },
+          y: {
+            title: { display: true, text: "Bearing (wrt East) (°)" }
+          }
+        }
+      }
+    });
+  }
+}
+
     
     // ------------------------------
     // Main update function:
