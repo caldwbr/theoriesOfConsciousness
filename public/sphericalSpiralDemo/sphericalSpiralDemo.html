@@ -151,68 +151,64 @@
       if (window.MathJax) { MathJax.typeset(); }
     }
     
-    // ------------------------------
-    // Chart: Bearing vs. φ for Clelia mode
-    // The bearing (horizontal direction of the spiral's tangent) is computed from:
-    //   T_x = -sin(φ)*A*cos(θ) - cos(φ)*sin(θ)*B
-    //   T_y = -sin(φ)*A*sin(θ) + cos(φ)*cos(θ)*B
-    // where A = dφ/du = π/2, B = dθ/du = 2π*turns.
-    // Bearing = arctan2(T_y, T_x) in degrees.
-    let bearingChart;
+       let bearingChart;
     function updateChart() {
       const chartContainer = document.getElementById("chartContainer");
+      // Only show chart for Clelia mode.
       if (params.mode !== "Clelia") {
         chartContainer.style.display = "none";
         return;
       } else {
         chartContainer.style.display = "block";
       }
-      // Generate data for u from 0 to 1:
       const numSamples = 50;
-      const phiData = [];
+      const uData = [];
       const bearingData = [];
-      const A = Math.PI/2;              // dφ/du for clelia
-      const B = 2 * Math.PI * params.turns; // dθ/du for clelia
+      const phi_max = (85 * Math.PI)/180; // 85° in radians
+      const A = phi_max; // dphi/du
+      const B = 2 * Math.PI * params.turns; // dtheta/du
       for (let i = 0; i <= numSamples; i++) {
         const u = i / numSamples;
-        const phi = (Math.PI/2) * u; // in radians
-        const theta = 2 * Math.PI * params.turns * u; // in radians
-        // Compute tangent components (ignoring constant factors R, since they cancel)
-        const T_x = -Math.sin(phi)*A*Math.cos(theta) - Math.cos(phi)*Math.sin(theta)*B;
-        const T_y = -Math.sin(phi)*A*Math.sin(theta) + Math.cos(phi)*Math.cos(theta)*B;
-        const bearing = Math.atan2(T_y, T_x); // in radians
-        // Convert bearing to degrees in range [0,360)
-        let bearingDeg = bearing * 180/Math.PI;
-        if (bearingDeg < 0) bearingDeg += 360;
-        phiData.push((phi * 180/Math.PI).toFixed(1)); // φ in degrees
-        bearingData.push(bearingDeg.toFixed(1));
+        const phi = phi_max * u; // phi in radians
+        // Compute bearing deviation:
+        // bearing = arccos( (B*cos(phi)) / sqrt( A^2 + B^2*cos^2(phi) ) )
+        const numerator = B * Math.cos(phi);
+        const denominator = Math.sqrt(A*A + B*B * Math.cos(phi)*Math.cos(phi));
+        let bearingRad = Math.acos(numerator / denominator);
+        let bearingDeg = bearingRad * 180/Math.PI;
+        uData.push(u.toFixed(2)); // x-axis: u (progress, 0 to 1)
+        bearingData.push(bearingDeg.toFixed(2));
       }
       
       const ctx = document.getElementById("chartCanvas").getContext("2d");
-      // If chart exists, update data; else create new Chart:
       if (bearingChart) {
-        bearingChart.data.labels = phiData;
+        bearingChart.data.labels = uData;
         bearingChart.data.datasets[0].data = bearingData;
         bearingChart.update();
       } else {
         bearingChart = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: phiData,
+            labels: uData,
             datasets: [{
-              label: "Bearing (deg)",
+              label: "Bearing Deviation (°)",
               data: bearingData,
               borderColor: "blue",
               fill: false,
-              tension: 0.1,
+              tension: 0.1
             }]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-              x: { title: { display: true, text: "φ (deg)" } },
-              y: { title: { display: true, text: "Bearing (deg)" } }
+              x: {
+                title: { display: true, text: "Progress (u)" },
+                ticks: { autoSkip: true, maxTicksLimit: 10 }
+              },
+              y: {
+                title: { display: true, text: "Bearing Deviation (°)" }
+              }
             }
           }
         });
@@ -220,7 +216,7 @@
     }
     
     // ------------------------------
-    // Main update functions:
+    // Main update function:
     function updateSpiral() {
       const pts = createSpiralPoints(params);
       const posArray = new Float32Array(pts.length * 3);
@@ -235,7 +231,7 @@
     }
     
     // ------------------------------
-    // Initial update:
+    // Initial updates:
     updateSpiral();
     updateExplanation();
     updateChart();
@@ -248,7 +244,6 @@
     }
     animate();
     
-    // Handle window resize:
     window.addEventListener("resize", function() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
