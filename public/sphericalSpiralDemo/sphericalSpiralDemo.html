@@ -5,11 +5,23 @@
   <title>Spherical Spiral Demo</title>
   <style>
     body { margin: 0; overflow: hidden; }
-    #info { position: absolute; top: 10px; left: 10px; color: #fff; font-family: sans-serif; }
+    #info, #explanation {
+      position: absolute;
+      left: 10px;
+      color: #fff;
+      font-family: sans-serif;
+      background-color: rgba(0,0,0,0.5);
+      padding: 10px;
+      max-width: 300px;
+      z-index: 1;
+    }
+    #info { top: 10px; }
+    #explanation { top: 120px; }
   </style>
 </head>
 <body>
   <div id="info"></div>
+  <div id="explanation"></div>
   <!-- Three.js and dat.GUI from CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
@@ -46,34 +58,31 @@
       for (let i = 0; i <= numPoints; i++) {
         const u = i / numPoints; // normalized progress from 0 to 1
         let phi, theta;
-        // Mode: Clelia (spherical Archimedean spiral)
         if (params.mode === "Clelia") {
-          phi = (Math.PI/2) * u;  // from 0 (great circle) to 90° (north pole)
+          // Clelia (spherical Archimedean, "Apple Peel") Spiral:
+          // Vertical angle increases linearly: 0 to 90° (0 to π/2)
+          phi = (Math.PI/2) * u;
+          // Horizontal rotation: constant pitch per revolution
           theta = 2 * Math.PI * params.turns * u;
         } else if (params.mode === "Loxodrome") {
-          // Define phi_max as slightly less than 90° (to avoid divergence)
-          const phi_max = (Math.PI/2) * 0.99;  // ~89.1° in radians
-          // Let phi vary linearly from 0 (great circle) to phi_max:
+          // Loxodrome (Rhumb Line) with constant bearing:
+          // Here, set phi to vary linearly from 0 to phi_max (slightly less than π/2)
+          const phi_max = (Math.PI/2) * 0.99;  // e.g. 89.1° max
           phi = phi_max * u;
-          // Now, we want the total horizontal rotation at u=1 to be 2π * params.turns.
-          const cot_alpha = (2 * Math.PI * params.turns) / Math.log(Math.tan(Math.PI/4 + phi_max/2));
-          // Then compute theta for the current phi:
+          // For a true loxodrome, the formula is:
+          // theta = cot(alpha) * ln( tan(π/4 + φ/2) )
+          // We choose cot(alpha) so that at u=1, theta equals 2π * params.turns.
+          const thetaUnscaled = Math.log(Math.tan(Math.PI/4 + phi_max/2));
+          const cot_alpha = (2 * Math.PI * params.turns) / thetaUnscaled;
           theta = cot_alpha * Math.log(Math.tan(Math.PI/4 + phi/2));
         }
-        // Convert spherical coordinates (using phi as vertical from equator, but here our phi is from great circle upward)
+        // Convert spherical coordinates to Cartesian:
         const x = sphereRadius * Math.cos(phi) * Math.cos(theta);
         const y = sphereRadius * Math.cos(phi) * Math.sin(theta);
         const z = sphereRadius * Math.sin(phi);
         points.push(new THREE.Vector3(x, y, z));
       }
       return points;
-    }
-    
-    // Helper: Estimate theta at pole for loxodrome mode for scaling.
-    function thetaAtPoleLox(turns, bearing) {
-      // For phi from 0 to pi/2, the ideal unscaled theta would be:
-      const thetaUnscaled = (Math.PI/2) / Math.tan(bearing);
-      return thetaUnscaled;
     }
     
     // Create a line object for the spiral
@@ -85,13 +94,13 @@
     // Parameters object for dat.GUI:
     const params = {
       mode: "Clelia", // or "Loxodrome"
-      turns: 5,       // number of full turns
+      turns: 5,       // number of full turns (allow decimals)
     };
     
     // GUI setup:
     const gui = new dat.GUI();
-    gui.add(params, "mode", ["Clelia", "Loxodrome"]).name("Spiral Type").onChange(updateSpiral);
-    gui.add(params, "turns", 1, 30, 0.1).name("Turns").onChange(updateSpiral);
+    gui.add(params, "mode", ["Clelia", "Loxodrome"]).name("Spiral Type").onChange(() => { updateSpiral(); updateExplanation(); });
+    gui.add(params, "turns", 1, 30, 0.1).name("Turns").onChange(() => { updateSpiral(); updateExplanation(); });
     
     // Function to update the spiral based on parameters:
     function updateSpiral() {
@@ -107,21 +116,41 @@
       updateInfo(pts);
     }
     
-    // Function to update info table (or text) about current spiral values:
+    // Function to update info panel:
     function updateInfo(pts) {
-      // For example, show the horizontal radius and phi at the midpoint:
       const mid = pts[Math.floor(pts.length/2)];
-      // Convert mid point to spherical coordinates:
-      const phi = Math.asin(mid.z / sphereRadius);  // vertical angle
+      const phi = Math.asin(mid.z / sphereRadius);  // vertical angle (radians)
       const horizontalRadius = sphereRadius * Math.cos(phi);
       document.getElementById("info").innerHTML =
-        "Midpoint φ (deg): " + (phi*180/Math.PI).toFixed(2) + "<br>" +
+        "Midpoint φ (deg): " + (phi * 180/Math.PI).toFixed(2) + "<br>" +
         "Horizontal radius: " + horizontalRadius.toFixed(3) + " m<br>" +
         "Total Turns: " + params.turns;
     }
     
+    // Function to update explanation text based on selected mode:
+    function updateExplanation() {
+      const explanationDiv = document.getElementById("explanation");
+      if (params.mode === "Clelia") {
+        explanationDiv.innerHTML =
+          "<strong>Clelia (Apple Peel) Spiral</strong><br>" +
+          "• Vertical pitch is constant.<br>" +
+          "• φ(u) = (π/2) · u<br>" +
+          "• θ(u) = 2π · (turns) · u<br>" +
+          "Each full revolution raises the spiral by the same vertical angle.";
+      } else if (params.mode === "Loxodrome") {
+        explanationDiv.innerHTML =
+          "<strong>Loxodrome (Rhumb Line)</strong><br>" +
+          "• Maintains a constant crossing angle with meridians.<br>" +
+          "• φ(u) = φ<sub>max</sub> · u, where φ<sub>max</sub> is slightly less than 90°<br>" +
+          "• θ(u) = cot(α) · ln[tan(π/4 + φ(u)/2)]<br>" +
+          "   (scaled so that at u = 1, θ = 2π · (turns))<br>" +
+          "Vertical increments per revolution are not constant; tighter turns occur near the pole.";
+      }
+    }
+    
     // Initial update:
     updateSpiral();
+    updateExplanation();
     
     // Render loop:
     function animate() {
