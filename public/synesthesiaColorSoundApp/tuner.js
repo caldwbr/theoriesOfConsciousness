@@ -181,19 +181,20 @@ function init() {
     
     for (var i = 0; i < bufferLengthAlt; i++) {
       var barHeight = dataArrayAlt[i];
-      // Compute the frequency corresponding to bin i:
+      
+      // Compute frequency for this bin:
       var freq = i * (sampleRate / analyser.fftSize);
-      // Prevent taking log(0)
-      if (freq < 20) freq = 20;
-      // Compute the fractional part of log base 2 (i.e., repeat every octave)
+      if (freq < 20) freq = 20; // Avoid log(0) or extremely low freq
+      
+      // Compute the fractional part of log base 2 so that hues repeat every octave.
       var octaveFraction = (Math.log(freq) / Math.log(2)) % 1;
-      // Map the fraction to a hue (0 to 360 degrees)
-      var hue = octaveFraction * 360;
-      // Use HSL color with full saturation and 50% lightness
+      var hue = octaveFraction * 360; // Map to 0-360
+      
+      // Set fillStyle using HSL with full saturation and 50% lightness:
       canvasContext.fillStyle = "hsl(" + hue + ", 100%, 50%)";
       
-      // Draw the bar
-      canvasContext.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight / 2);
+      // Draw the frequency bar:
+      canvasContext.fillRect(x, HEIGHT - barHeight/2, barWidth, barHeight/2);
       
       x += barWidth + 1;
     }
