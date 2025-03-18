@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Spherical Spiral Demo</title>
+  <title>Spherical Spiral Demo with Markers</title>
   <style>
     body { margin: 0; overflow: hidden; }
     #info, #explanation {
@@ -30,6 +30,76 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
   <script>
+    // ------------------------------
+    // Helper: Create a text sprite from a canvas
+    function makeTextSprite(message, parameters) {
+      if (parameters === undefined) parameters = {};
+      var fontface = parameters.hasOwnProperty("fontface") ? parameters["fontface"] : "Arial";
+      var fontsize = parameters.hasOwnProperty("fontsize") ? parameters["fontsize"] : 24;
+      var borderThickness = parameters.hasOwnProperty("borderThickness") ? parameters["borderThickness"] : 4;
+      var borderColor = parameters.hasOwnProperty("borderColor") ? parameters["borderColor"] : { r:0, g:0, b:0, a:1.0 };
+      var backgroundColor = parameters.hasOwnProperty("backgroundColor") ? parameters["backgroundColor"] : { r:255, g:255, b:255, a:1.0 };
+
+      var canvas = document.createElement('canvas');
+      var context = canvas.getContext('2d');
+      context.font = fontsize + "px " + fontface;
+      var metrics = context.measureText(message);
+      var textWidth = metrics.width;
+      canvas.width = textWidth + borderThickness * 2;
+      canvas.height = fontsize + borderThickness * 2;
+      context.font = fontsize + "px " + fontface;
+
+      // Background
+      context.fillStyle = "rgba(" + backgroundColor.r + "," + backgroundColor.g + "," + backgroundColor.b + "," + backgroundColor.a + ")";
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      // Border
+      context.strokeStyle = "rgba(" + borderColor.r + "," + borderColor.g + "," + borderColor.b + "," + borderColor.a + ")";
+      context.lineWidth = borderThickness;
+      context.strokeRect(0, 0, canvas.width, canvas.height);
+      // Text
+      context.fillStyle = "rgba(0, 0, 0, 1.0)";
+      context.fillText(message, borderThickness, fontsize + borderThickness / 2);
+
+      var texture = new THREE.Texture(canvas);
+      texture.needsUpdate = true;
+
+      var spriteMaterial = new THREE.SpriteMaterial({ map: texture });
+      var sprite = new THREE.Sprite(spriteMaterial);
+      // Adjust scale based on canvas size:
+      sprite.scale.set(canvas.width/100, canvas.height/100, 1);
+      return sprite;
+    }
+
+    // ------------------------------
+    // Helper: Create arc points along a circular arc.
+    // plane: "xy" for theta arc (z fixed), "xz" for phi arc (y fixed)
+    function createArcPoints(center, radius, startAngle, endAngle, plane) {
+      const points = [];
+      const segments = 50;
+      for (let i = 0; i <= segments; i++) {
+        const t = i / segments;
+        const angle = startAngle + t * (endAngle - startAngle);
+        let x, y, z;
+        if (plane === "xy") {
+          x = center.x + radius * Math.cos(angle);
+          y = center.y + radius * Math.sin(angle);
+          z = center.z;
+        } else if (plane === "xz") {
+          x = center.x + radius * Math.cos(angle);
+          y = center.y;
+          z = center.z + radius * Math.sin(angle);
+        }
+        points.push(new THREE.Vector3(x, y, z));
+      }
+      return points;
+    }
+    function createArcLine(points, color) {
+      const geometry = new THREE.BufferGeometry().setFromPoints(points);
+      const material = new THREE.LineBasicMaterial({ color: color });
+      return new THREE.Line(geometry, material);
+    }
+
+    // ------------------------------
     // Basic Three.js setup:
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -54,20 +124,83 @@
     const sphereMesh = new THREE.Mesh(sphereGeom, sphereMat);
     scene.add(sphereMesh);
     
+    // ------------------------------
+    // Add marker arms for theta and phi.
+    const sphereCenter = new THREE.Vector3(0, 0, 0);
+    
+    // Theta markers: arms on the great circle (phi = 0, z=0) in the xy plane.
+    // Arm for theta = 0°
+    const thetaArm0Geo = new THREE.Geometry();
+    thetaArm0Geo.vertices.push(new THREE.Vector3(0, 0, 0));
+    thetaArm0Geo.vertices.push(new THREE.Vector3(sphereRadius, 0, 0));
+    const thetaArmMat = new THREE.LineBasicMaterial({ color: 0xffff00 });
+    const thetaArm0 = new THREE.Line(thetaArm0Geo, thetaArmMat);
+    scene.add(thetaArm0);
+    
+    // Arm for theta = 30° (in radians)
+    const theta30 = THREE.MathUtils.degToRad(30);
+    const thetaArm30Geo = new THREE.Geometry();
+    thetaArm30Geo.vertices.push(new THREE.Vector3(0, 0, 0));
+    thetaArm30Geo.vertices.push(new THREE.Vector3(sphereRadius * Math.cos(theta30), sphereRadius * Math.sin(theta30), 0));
+    const thetaArm30 = new THREE.Line(thetaArm30Geo, thetaArmMat);
+    scene.add(thetaArm30);
+    
+    // Curved arc for theta: along the equator (xy plane, z=0) from theta=0 to theta=30°
+    const thetaArcPoints = createArcPoints(sphereCenter, sphereRadius, 0, theta30, "xy");
+    const thetaArcLine = createArcLine(thetaArcPoints, 0xffff00);
+    scene.add(thetaArcLine);
+    
+    // Label for theta arc: placed at mid-angle (15°)
+    const thetaLabel = makeTextSprite("θ = 30°", { fontsize: 24, borderThickness: 1 });
+    const midTheta = THREE.MathUtils.degToRad(15);
+    // Slightly offset outward (multiply radius by 1.1)
+    thetaLabel.position.set(sphereRadius * 1.1 * Math.cos(midTheta), sphereRadius * 1.1 * Math.sin(midTheta), 0);
+    scene.add(thetaLabel);
+    
+    // Phi markers: along a meridian with theta=0.
+    // Arm for phi = 0° (point on equator at theta=0, same as before).
+    const phiArm0Geo = new THREE.Geometry();
+    phiArm0Geo.vertices.push(new THREE.Vector3(0, 0, 0));
+    phiArm0Geo.vertices.push(new THREE.Vector3(sphereRadius, 0, 0));
+    const phiArmMat = new THREE.LineBasicMaterial({ color: 0x00ffff });
+    const phiArm0 = new THREE.Line(phiArm0Geo, phiArmMat);
+    scene.add(phiArm0);
+    
+    // Arm for phi = 15°: along the meridian at theta=0.
+    const phi15 = THREE.MathUtils.degToRad(15);
+    const phiArm15Geo = new THREE.Geometry();
+    phiArm15Geo.vertices.push(new THREE.Vector3(0, 0, 0));
+    phiArm15Geo.vertices.push(new THREE.Vector3(sphereRadius * Math.cos(phi15), 0, sphereRadius * Math.sin(phi15)));
+    const phiArm15 = new THREE.Line(phiArm15Geo, phiArmMat);
+    scene.add(phiArm15);
+    
+    // Curved arc for phi: in the xz plane (y=0) from phi=0 to phi=15°.
+    const phiArcPoints = createArcPoints(sphereCenter, sphereRadius, 0, phi15, "xz");
+    const phiArcLine = createArcLine(phiArcPoints, 0x00ffff);
+    scene.add(phiArcLine);
+    
+    // Label for phi arc: placed at mid-angle (7.5°)
+    const phiLabel = makeTextSprite("φ = 15°", { fontsize: 24, borderThickness: 1 });
+    const midPhi = THREE.MathUtils.degToRad(7.5);
+    phiLabel.position.set(sphereRadius * 1.1 * Math.cos(midPhi), 0, sphereRadius * 1.1 * Math.sin(midPhi));
+    scene.add(phiLabel);
+    
+    // ------------------------------
     // Create spiral line:
     let spiralLine;
     function createSpiralPoints(params) {
       const points = [];
       const numPoints = 360;
       for (let i = 0; i <= numPoints; i++) {
-        const u = i / numPoints; // normalized progress from 0 to 1
+        const u = i / numPoints; // normalized progress
         let phi, theta;
         if (params.mode === "Clelia") {
-          // Clelia (Apple Peel) Spiral:
-          phi = (Math.PI/2) * u;  // linearly from 0° to 90°
+          // Clelia (Apple Peel) Spiral: constant vertical (colatitude) increments.
+          phi = (Math.PI/2) * u;  // from 0° to 90°
           theta = 2 * Math.PI * params.turns * u;
         } else if (params.mode === "Loxodrome") {
-          const phi_max = (Math.PI/2) * 0.99;  // slightly less than 90° to avoid divergence
+          // Loxodrome (Rhumb Line) with constant bearing:
+          const phi_max = (Math.PI/2) * 0.99;
           phi = phi_max * u;
           const thetaUnscaled = Math.log(Math.tan(Math.PI/4 + phi_max/2));
           const cot_alpha = (2 * Math.PI * params.turns) / thetaUnscaled;
@@ -81,39 +214,22 @@
       return points;
     }
     
-    // Create spiral line object:
     let spiralGeometry = new THREE.BufferGeometry();
     let spiralMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
     spiralLine = new THREE.Line(spiralGeometry, spiralMaterial);
     scene.add(spiralLine);
     
-    // --- Marker for 15° φ and 30° θ ---
-    // We'll create a small sphere to mark this point.
-    const markerRadius = 0.05;
-    const markerGeom = new THREE.SphereGeometry(markerRadius, 16, 16);
-    const markerMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const marker = new THREE.Mesh(markerGeom, markerMat);
-    // Convert 15° and 30° to radians:
-    const phi_marker = THREE.MathUtils.degToRad(15);   // 15° φ
-    const theta_marker = THREE.MathUtils.degToRad(30);   // 30° θ
-    const x_marker = sphereRadius * Math.cos(phi_marker) * Math.cos(theta_marker);
-    const y_marker = sphereRadius * Math.cos(phi_marker) * Math.sin(theta_marker);
-    const z_marker = sphereRadius * Math.sin(phi_marker);
-    marker.position.set(x_marker, y_marker, z_marker);
-    scene.add(marker);
-    
     // Parameters for dat.GUI:
     const params = {
       mode: "Clelia", // or "Loxodrome"
-      turns: 5,       // allow decimals (e.g. 2.34 turns)
+      turns: 5,       // allow decimal turns (e.g., 2.34)
     };
     
-    // GUI setup:
+    // dat.GUI setup:
     const gui = new dat.GUI();
     gui.add(params, "mode", ["Clelia", "Loxodrome"]).name("Spiral Type").onChange(() => { updateSpiral(); updateExplanation(); });
     gui.add(params, "turns", 1, 30, 0.1).name("Turns").onChange(() => { updateSpiral(); updateExplanation(); });
     
-    // Update spiral geometry:
     function updateSpiral() {
       const pts = createSpiralPoints(params);
       const posArray = new Float32Array(pts.length * 3);
@@ -127,7 +243,6 @@
       updateInfo(pts);
     }
     
-    // Update info panel:
     function updateInfo(pts) {
       const mid = pts[Math.floor(pts.length/2)];
       const phi = Math.asin(mid.z / sphereRadius);
@@ -138,7 +253,6 @@
         "Total Turns: " + params.turns;
     }
     
-    // Update explanation text with MathJax formulas:
     function updateExplanation() {
       const explanationDiv = document.getElementById("explanation");
       if (params.mode === "Clelia") {
@@ -146,9 +260,9 @@
           "<strong>Clelia (Apple Peel) Spiral</strong><br>" +
           "<ul>" +
           "<li>Vertical (colatitude) increments are constant.</li>" +
-          "<li>$$\\phi(u) = \\frac{\\pi}{2} \\; u$$" +
-          " (from 0° at the great circle to 90° at the pole)</li>" +
-          "<li>$$\\theta(u) = 2\\pi \\; (\\text{turns}) \\; u$$</li>" +
+          "<li>$$\\phi(u) = \\frac{\\pi}{2}\\, u$$ " +
+          "<em>(from 0° at the great circle to 90° at the pole)</em></li>" +
+          "<li>$$\\theta(u) = 2\\pi\\,(\\text{turns})\\, u$$</li>" +
           "</ul>" +
           "Note: The bearing changes as the spiral ascends.";
       } else if (params.mode === "Loxodrome") {
@@ -156,28 +270,25 @@
           "<strong>Loxodrome (Rhumb Line)</strong><br>" +
           "<ul>" +
           "<li>Maintains a constant crossing angle with meridians.</li>" +
-          "<li>$$\\phi(u) = \\phi_{\\text{max}}\\,u, \\quad \\phi_{\\text{max}} \\approx 0.99\\;\\frac{\\pi}{2}$$</li>" +
+          "<li>$$\\phi(u) = \\phi_{\\text{max}}\\, u, \\quad \\phi_{\\text{max}} \\approx 0.99\\,\\frac{\\pi}{2}$$</li>" +
           "<li>$$\\theta(u) = \\cot(\\alpha)\\,\\ln\\!\\left(\\tan\\!\\left(\\frac{\\pi}{4}+\\frac{\\phi(u)}{2}\\right)\\right)$$</li>" +
           "</ul>" +
-          "Here, the vertical increment per revolution is not constant; tighter circles appear near the pole.";
+          "Here, vertical increments per revolution are not constant; tighter circles appear near the pole.";
       }
       if (window.MathJax) {
         MathJax.typeset();
       }
     }
     
-    // Initial update:
     updateSpiral();
     updateExplanation();
     
-    // Render loop:
     function animate() {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);
     }
     animate();
     
-    // Handle window resize:
     window.addEventListener("resize", function() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
