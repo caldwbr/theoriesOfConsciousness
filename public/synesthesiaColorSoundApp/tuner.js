@@ -187,7 +187,9 @@ function init() {
       if (freq < 20) freq = 20; // Avoid log(0) or extremely low freq
       
       // Compute the fractional part of log base 2 so that hues repeat every octave.
-      var octaveFraction = (Math.log(freq) / Math.log(2)) % 1;
+      var logVal = Math.log(freq) / Math.log(2);
+      var octaveFraction = logVal - Math.floor(logVal);
+
       var hue = octaveFraction * 360; // Map to 0-360
       
       // Set fillStyle using HSL with full saturation and 50% lightness:
