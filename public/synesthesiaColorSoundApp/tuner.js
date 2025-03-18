@@ -162,36 +162,46 @@ function init() {
     }
 
     var drawFrequency = function() {
-      var bufferLengthAlt = analyser.frequencyBinCount;
-      var dataArrayAlt = new Uint8Array(bufferLengthAlt);
-
-      canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
-
-      var drawAlt = function() {
-        drawVisual = requestAnimationFrame(drawAlt);
-
-        analyser.getByteFrequencyData(dataArrayAlt);
-
-        canvasContext.fillStyle = 'rgb(0, 0, 0)';
-        canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
-
-        var barWidth = (WIDTH / bufferLengthAlt) * 2.5;
-        var barHeight;
-        var x = 0;
-
-        for(var i = 0; i < bufferLengthAlt; i++) {
-          barHeight = dataArrayAlt[i];
-
-          canvasContext.fillStyle = 'rgb(' + (barHeight+100) + ',50,50)';
-          canvasContext.fillRect(x,HEIGHT-barHeight/2,barWidth,barHeight/2);
-
-          x += barWidth + 1;
-        }
-      };
-
-      console.log('wut')
-      drawAlt();
+  var bufferLengthAlt = analyser.frequencyBinCount;
+  var dataArrayAlt = new Uint8Array(bufferLengthAlt);
+  var sampleRate = audioContext.sampleRate;
+  
+  canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
+  
+  var drawAlt = function() {
+    drawVisual = requestAnimationFrame(drawAlt);
+    analyser.getByteFrequencyData(dataArrayAlt);
+    
+    // Clear canvas with black
+    canvasContext.fillStyle = 'rgb(0, 0, 0)';
+    canvasContext.fillRect(0, 0, WIDTH, HEIGHT);
+    
+    var barWidth = (WIDTH / bufferLengthAlt) * 2.5;
+    var x = 0;
+    
+    for (var i = 0; i < bufferLengthAlt; i++) {
+      var barHeight = dataArrayAlt[i];
+      // Compute the frequency corresponding to bin i:
+      var freq = i * (sampleRate / analyser.fftSize);
+      // Prevent taking log(0)
+      if (freq < 20) freq = 20;
+      // Compute the fractional part of log base 2 (i.e., repeat every octave)
+      var octaveFraction = (Math.log(freq) / Math.log(2)) % 1;
+      // Map the fraction to a hue (0 to 360 degrees)
+      var hue = octaveFraction * 360;
+      // Use HSL color with full saturation and 50% lightness
+      canvasContext.fillStyle = "hsl(" + hue + ", 100%, 50%)";
+      
+      // Draw the bar
+      canvasContext.fillRect(x, HEIGHT - barHeight / 2, barWidth, barHeight / 2);
+      
+      x += barWidth + 1;
     }
+  };
+  
+  drawAlt();
+};
+
 
     var displayValue = document.querySelector('input[name="display"]:checked').value
     if (displayValue == 'sine') {
