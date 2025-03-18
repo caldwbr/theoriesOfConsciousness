@@ -168,6 +168,13 @@ function init() {
   
   canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
   
+  var drawFrequency = function() {
+  var bufferLengthAlt = analyser.frequencyBinCount;
+  var dataArrayAlt = new Uint8Array(bufferLengthAlt);
+  var sampleRate = audioContext.sampleRate;
+  
+  canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
+  
   var drawAlt = function() {
     drawVisual = requestAnimationFrame(drawAlt);
     analyser.getByteFrequencyData(dataArrayAlt);
@@ -184,15 +191,14 @@ function init() {
       
       // Compute frequency for this bin:
       var freq = i * (sampleRate / analyser.fftSize);
-      if (freq < 20) freq = 20; // Avoid log(0) or extremely low freq
+      if (freq < 20) freq = 20; // Avoid very low frequencies
       
-      // Compute the fractional part of log base 2 so that hues repeat every octave.
+      // Compute fractional part of log2(freq) so that hues repeat every octave.
       var logVal = Math.log(freq) / Math.log(2);
       var octaveFraction = logVal - Math.floor(logVal);
-
-      var hue = octaveFraction * 360; // Map to 0-360
+      var hue = octaveFraction * 360;
       
-      // Set fillStyle using HSL with full saturation and 50% lightness:
+      // Set fillStyle using HSL:
       canvasContext.fillStyle = "hsl(" + hue + ", 100%, 50%)";
       
       // Draw the frequency bar:
@@ -200,10 +206,28 @@ function init() {
       
       x += barWidth + 1;
     }
+    
+    // --- Add frequency markers under the spectrogram ---
+    // Set font and text color
+    canvasContext.font = "12px sans-serif";
+    canvasContext.fillStyle = "white";
+    
+    // Decide on a step (for example, every 1000 Hz)
+    var freqStep = 1000;
+    var nyquist = sampleRate / 2;
+    // Loop from 20 Hz (or some lower limit) up to Nyquist:
+    for (var f = 20; f < nyquist; f += freqStep) {
+      // Map frequency f to an x position:
+      var xPos = (f / nyquist) * WIDTH;
+      // Draw the frequency label
+      canvasContext.fillText(Math.round(f) + " Hz", xPos, HEIGHT - 5);
+    }
+    
   };
   
   drawAlt();
 };
+
 
 
     var displayValue = document.querySelector('input[name="display"]:checked').value
