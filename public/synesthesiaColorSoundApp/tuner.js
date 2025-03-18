@@ -43,7 +43,7 @@ function init() {
 
     var draw = function() {
       drawVisual = requestAnimationFrame(draw);
-      analyser.fftSize = 2048;
+      analyser.fftSize = 4096;
       var bufferLength = analyser.fftSize;
       var dataArray = new Uint8Array(bufferLength);
       analyser.getByteTimeDomainData(dataArray);
