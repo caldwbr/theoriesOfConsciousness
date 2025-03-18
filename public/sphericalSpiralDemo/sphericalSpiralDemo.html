@@ -131,6 +131,10 @@
     gui.add(params, "mode", ["Clelia", "Loxodrome"]).name("Spiral Type").onChange(() => { updateSpiral(); updateExplanation(); updateChart(); updateChart2(); });
     gui.add(params, "turns", 1, 30, 0.1).name("Turns").onChange(() => { updateSpiral(); updateExplanation(); updateChart(); updateChart2(); });
     
+    function updateInfo(pts) {
+      document.getElementById("info").innerHTML = "";
+    }
+
     
     function updateExplanation() {
       const explanationDiv = document.getElementById("explanation");
