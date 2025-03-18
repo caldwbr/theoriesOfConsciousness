@@ -131,17 +131,6 @@
     gui.add(params, "mode", ["Clelia", "Loxodrome"]).name("Spiral Type").onChange(() => { updateSpiral(); updateExplanation(); updateChart(); updateChart2(); });
     gui.add(params, "turns", 1, 30, 0.1).name("Turns").onChange(() => { updateSpiral(); updateExplanation(); updateChart(); updateChart2(); });
     
-    // ------------------------------
-    // Info and explanation panels:
-    function updateInfo(pts) {
-      const mid = pts[Math.floor(pts.length/2)];
-      const phi = Math.asin(mid.z / sphereRadius);
-      const horizontalRadius = sphereRadius * Math.cos(phi);
-      document.getElementById("info").innerHTML =
-        "Midpoint φ (deg): " + (phi * 180/Math.PI).toFixed(2) + "<br>" +
-        "Horizontal radius: " + horizontalRadius.toFixed(3) + " m<br>" +
-        "Total Turns: " + params.turns;
-    }
     
     function updateExplanation() {
       const explanationDiv = document.getElementById("explanation");
@@ -209,7 +198,7 @@
           data: {
             labels: uData,
             datasets: [{
-              label: "Bearing (wrt Eastward) (°)",
+              label: "Bearing (wrt East) (°)",
               data: bearingData,
               borderColor: "blue",
               fill: false,
@@ -221,11 +210,11 @@
             maintainAspectRatio: false,
             scales: {
               x: {
-                title: { display: true, text: "Spiral Progress (u)" },
+                title: { display: true, text: "Spiral Progress (u) from Equator to Pole" },
                 ticks: { autoSkip: true, maxTicksLimit: 10 }
               },
               y: {
-                title: { display: true, text: "Bearing Deviation (°)" }
+                title: { display: true, text: "Bearing (wrt East) (°)" }
               }
             }
           }
@@ -289,7 +278,7 @@
                 ticks: { autoSkip: true, maxTicksLimit: 10 }
               },
               y: {
-                title: { display: true, text: "Bearing (°)" }
+                title: { display: true, text: "Bearing (wrt East) (°)" }
               }
             }
           }
