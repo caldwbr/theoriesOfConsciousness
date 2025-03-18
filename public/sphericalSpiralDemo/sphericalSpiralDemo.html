@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Spherical Spiral Demo</title>
+  <title>Spherical Spiral Demo with Graph</title>
   <style>
     body { margin: 0; overflow: hidden; }
     #info, #explanation {
@@ -17,19 +17,36 @@
     }
     #info { top: 10px; }
     #explanation { top: 120px; }
+    #chartContainer {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 300px;
+      height: 300px;
+      background: rgba(255,255,255,0.9);
+      padding: 10px;
+      z-index: 1;
+    }
   </style>
-  <!-- MathJax for prettier formulas -->
+  <!-- MathJax for formulas -->
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async
           src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div id="info"></div>
   <div id="explanation"></div>
+  <!-- Graph container: only for Clelia mode -->
+  <div id="chartContainer" style="display:none;">
+    <canvas id="chartCanvas"></canvas>
+  </div>
   <!-- Three.js and dat.GUI from CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js"></script>
   <script>
+    // ------------------------------
     // Basic Three.js setup:
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
@@ -40,47 +57,39 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     
-    // Lights
+    // Lights:
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
     scene.add(ambientLight);
     const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
-    dirLight.position.set(5,5,5);
+    dirLight.position.set(5, 5, 5);
     scene.add(dirLight);
     
-    // Create sphere
+    // Create sphere:
     const sphereRadius = 1.22;
     const sphereGeom = new THREE.SphereGeometry(sphereRadius, 32, 32);
     const sphereMat = new THREE.MeshPhongMaterial({ color: 0x888888, opacity: 0.3, transparent: true });
     const sphereMesh = new THREE.Mesh(sphereGeom, sphereMat);
     scene.add(sphereMesh);
     
-    // Create spiral line
-    let spiralLine;
+    // ------------------------------
+    // Create spiral line:
     function createSpiralPoints(params) {
       const points = [];
       const numPoints = 360;
       for (let i = 0; i <= numPoints; i++) {
-        const u = i / numPoints; // normalized progress from 0 to 1
+        const u = i / numPoints; // normalized progress
         let phi, theta;
         if (params.mode === "Clelia") {
           // Clelia (Apple Peel) Spiral:
-          // Vertical angle increases linearly from 0 (great circle) to 90° (north pole)
-          phi = (Math.PI/2) * u;
-          // Horizontal rotation: constant pitch per revolution
+          phi = (Math.PI/2) * u;  // 0 to 90°
           theta = 2 * Math.PI * params.turns * u;
         } else if (params.mode === "Loxodrome") {
-          // Loxodrome (Rhumb Line)
-          // Here we let phi increase linearly from 0 to nearly 90° (avoid divergence)
           const phi_max = (Math.PI/2) * 0.99;
           phi = phi_max * u;
-          // The loxodrome formula:
-          //   theta = cot(α) * ln( tan(π/4 + φ/2) )
-          // We choose cot(α) such that at u=1, theta = 2π * (turns)
           const thetaUnscaled = Math.log(Math.tan(Math.PI/4 + phi_max/2));
           const cot_alpha = (2 * Math.PI * params.turns) / thetaUnscaled;
           theta = cot_alpha * Math.log(Math.tan(Math.PI/4 + phi/2));
         }
-        // Convert spherical coordinates to Cartesian:
         const x = sphereRadius * Math.cos(phi) * Math.cos(theta);
         const y = sphereRadius * Math.cos(phi) * Math.sin(theta);
         const z = sphereRadius * Math.sin(phi);
@@ -89,24 +98,129 @@
       return points;
     }
     
-    // Create spiral line object
     let spiralGeometry = new THREE.BufferGeometry();
     let spiralMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
-    spiralLine = new THREE.Line(spiralGeometry, spiralMaterial);
+    let spiralLine = new THREE.Line(spiralGeometry, spiralMaterial);
     scene.add(spiralLine);
     
-    // Parameters for dat.GUI:
+    // ------------------------------
+    // Parameters and dat.GUI:
     const params = {
       mode: "Clelia", // or "Loxodrome"
-      turns: 5,       // allow decimals, e.g. 2.34 turns
+      turns: 5,       // allow decimals (e.g., 2.34)
     };
     
-    // GUI setup:
     const gui = new dat.GUI();
-    gui.add(params, "mode", ["Clelia", "Loxodrome"]).name("Spiral Type").onChange(() => { updateSpiral(); updateExplanation(); });
-    gui.add(params, "turns", 1, 30, 0.1).name("Turns").onChange(() => { updateSpiral(); updateExplanation(); });
+    gui.add(params, "mode", ["Clelia", "Loxodrome"]).name("Spiral Type").onChange(() => { updateSpiral(); updateExplanation(); updateChart(); });
+    gui.add(params, "turns", 1, 30, 0.1).name("Turns").onChange(() => { updateSpiral(); updateExplanation(); updateChart(); });
     
-    // Update spiral geometry:
+    // ------------------------------
+    // Info and explanation panels:
+    function updateInfo(pts) {
+      const mid = pts[Math.floor(pts.length/2)];
+      const phi = Math.asin(mid.z / sphereRadius);
+      const horizontalRadius = sphereRadius * Math.cos(phi);
+      document.getElementById("info").innerHTML =
+        "Midpoint φ (deg): " + (phi * 180/Math.PI).toFixed(2) + "<br>" +
+        "Horizontal radius: " + horizontalRadius.toFixed(3) + " m<br>" +
+        "Total Turns: " + params.turns;
+    }
+    
+    function updateExplanation() {
+      const explanationDiv = document.getElementById("explanation");
+      if (params.mode === "Clelia") {
+        explanationDiv.innerHTML =
+          "<strong>Clelia (Apple Peel) Spiral</strong><br>" +
+          "<ul>" +
+          "<li>Vertical (colatitude) increments are constant (constant apple peel thickness).</li>" +
+          "<li>$$\\phi(u) = \\frac{\\pi}{2}\\,u$$ " +
+          "<em>(0° at the great circle, 90° at the pole)</em></li>" +
+          "<li>$$\\theta(u) = 2\\pi\\,(\\text{turns})\\,u$$</li>" +
+          "</ul>" +
+          "Note: The bearing changes as the spiral ascends.";
+      } else if (params.mode === "Loxodrome") {
+        explanationDiv.innerHTML =
+          "<strong>Loxodrome (Rhumb Line)</strong><br>" +
+          "<ul>" +
+          "<li>Maintains a constant bearing (like a sailor heading northeast) (constant crossing angle with meridians).</li>" +
+          "<li>$$\\phi(u) = \\phi_{\\text{max}}\\,u, \\quad \\phi_{\\text{max}} \\approx 0.99\\,\\frac{\\pi}{2}$$</li>" +
+          "<li>$$\\theta(u) = \\cot(\\alpha)\\,\\ln\\!\\left(\\tan\\!\\left(\\frac{\\pi}{4}+\\frac{\\phi(u)}{2}\\right)\\right)$$</li>" +
+          "</ul>" +
+          "Vertical increments per revolution are not constant; tighter circles appear near the pole.";
+      }
+      if (window.MathJax) { MathJax.typeset(); }
+    }
+    
+    // ------------------------------
+    // Chart: Bearing vs. φ for Clelia mode
+    // The bearing (horizontal direction of the spiral's tangent) is computed from:
+    //   T_x = -sin(φ)*A*cos(θ) - cos(φ)*sin(θ)*B
+    //   T_y = -sin(φ)*A*sin(θ) + cos(φ)*cos(θ)*B
+    // where A = dφ/du = π/2, B = dθ/du = 2π*turns.
+    // Bearing = arctan2(T_y, T_x) in degrees.
+    let bearingChart;
+    function updateChart() {
+      const chartContainer = document.getElementById("chartContainer");
+      if (params.mode !== "Clelia") {
+        chartContainer.style.display = "none";
+        return;
+      } else {
+        chartContainer.style.display = "block";
+      }
+      // Generate data for u from 0 to 1:
+      const numSamples = 50;
+      const phiData = [];
+      const bearingData = [];
+      const A = Math.PI/2;              // dφ/du for clelia
+      const B = 2 * Math.PI * params.turns; // dθ/du for clelia
+      for (let i = 0; i <= numSamples; i++) {
+        const u = i / numSamples;
+        const phi = (Math.PI/2) * u; // in radians
+        const theta = 2 * Math.PI * params.turns * u; // in radians
+        // Compute tangent components (ignoring constant factors R, since they cancel)
+        const T_x = -Math.sin(phi)*A*Math.cos(theta) - Math.cos(phi)*Math.sin(theta)*B;
+        const T_y = -Math.sin(phi)*A*Math.sin(theta) + Math.cos(phi)*Math.cos(theta)*B;
+        const bearing = Math.atan2(T_y, T_x); // in radians
+        // Convert bearing to degrees in range [0,360)
+        let bearingDeg = bearing * 180/Math.PI;
+        if (bearingDeg < 0) bearingDeg += 360;
+        phiData.push((phi * 180/Math.PI).toFixed(1)); // φ in degrees
+        bearingData.push(bearingDeg.toFixed(1));
+      }
+      
+      const ctx = document.getElementById("chartCanvas").getContext("2d");
+      // If chart exists, update data; else create new Chart:
+      if (bearingChart) {
+        bearingChart.data.labels = phiData;
+        bearingChart.data.datasets[0].data = bearingData;
+        bearingChart.update();
+      } else {
+        bearingChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: phiData,
+            datasets: [{
+              label: "Bearing (deg)",
+              data: bearingData,
+              borderColor: "blue",
+              fill: false,
+              tension: 0.1,
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: { title: { display: true, text: "φ (deg)" } },
+              y: { title: { display: true, text: "Bearing (deg)" } }
+            }
+          }
+        });
+      }
+    }
+    
+    // ------------------------------
+    // Main update functions:
     function updateSpiral() {
       const pts = createSpiralPoints(params);
       const posArray = new Float32Array(pts.length * 3);
@@ -120,51 +234,13 @@
       updateInfo(pts);
     }
     
-    // Update info panel:
-    function updateInfo(pts) {
-      const mid = pts[Math.floor(pts.length/2)];
-      const phi = Math.asin(mid.z / sphereRadius);
-      const horizontalRadius = sphereRadius * Math.cos(phi);
-      document.getElementById("info").innerHTML =
-        "Midpoint φ (deg): " + (phi * 180/Math.PI).toFixed(2) + "<br>" +
-        "Horizontal radius: " + horizontalRadius.toFixed(3) + " m<br>" +
-        "Total Turns: " + params.turns;
-    }
-    
-    // Update explanation text with MathJax formulas:
-    function updateExplanation() {
-      const explanationDiv = document.getElementById("explanation");
-      if (params.mode === "Clelia") {
-        explanationDiv.innerHTML =
-          "<strong>Clelia (Apple Peel) Spiral</strong><br>" +
-          "<ul>" +
-          "<li>Vertical (colatitude) increments are constant (constant thickness apple peel).</li>" +
-          "<li>$$\\phi(u) = \\frac{\\pi}{2} \\; u$$ " +
-          "<em>(0° at the great circle, 90° at the pole)</em></li>" +
-          "<li>$$\\theta(u) = 2\\pi \\; (\\text{turns}) \\; u$$</li>" +
-          "</ul>" +
-          "Each full revolution raises the spiral by the same vertical angle.";
-      } else if (params.mode === "Loxodrome") {
-        explanationDiv.innerHTML =
-          "<strong>Loxodrome (Rhumb Line)</strong><br>" +
-          "<ul>" +
-          "<li>Maintains a constant bearing like a sailor with steady Northeast heading (crossing all meridians at the same angle).</li>" +
-          "<li>$$\\phi(u) = \\phi_{\\text{max}}\\,u, \\quad \\phi_{\\text{max}} \\approx 0.99\\;\\frac{\\pi}{2}$$</li>" +
-          "<li>$$\\theta(u) = \\cot(\\alpha)\\,\\ln\\!\\left(\\tan\\!\\left(\\frac{\\pi}{4}+\\frac{\\phi(u)}{2}\\right)\\right)$$</li>" +
-          "</ul>" +
-          "Vertical increments per revolution are not constant; the spiral tightens near the pole.<br>" +
-          "Here, \\(\\theta(u)\\) is scaled so that at \\(u=1\\), \\(\\theta = 2\\pi \\;(\\text{turns})\\).";
-      }
-      // Re-typeset MathJax to render the updated formulas
-      if (window.MathJax) {
-        MathJax.typeset();
-      }
-    }
-    
+    // ------------------------------
     // Initial update:
     updateSpiral();
     updateExplanation();
+    updateChart();
     
+    // ------------------------------
     // Render loop:
     function animate() {
       requestAnimationFrame(animate);
