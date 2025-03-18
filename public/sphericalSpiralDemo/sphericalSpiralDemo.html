@@ -51,22 +51,14 @@
           phi = (Math.PI/2) * u;  // from 0 (great circle) to 90° (north pole)
           theta = 2 * Math.PI * params.turns * u;
         } else if (params.mode === "Loxodrome") {
-          // For a loxodrome, we want a constant bearing.
-          // One formulation: set phi linearly, then compute theta from:
-          phi = (Math.PI/2) * u;
-          // Here we choose k so that at u=1, theta = 2*pi*T.
-          // The loxodrome equation (starting at phi=0) can be written as:
-          // theta = (1/k) * ln( tan(pi/4 + phi/2) / tan(pi/4) )
-          // Since tan(pi/4)=1, theta = (1/k)*ln( tan(pi/4 + phi/2) ).
-          // To get theta(1)=2*pi*T, set k = ln(tan(pi/4+pi/4))/(2*pi*T) = ln(tan(pi/2))/(2*pi*T)
-          // But tan(pi/2) is infinite. So a common method is to choose a fixed bearing, say 45°.
-          // For our demo, we'll pick a simple transformation:
-          const bearing = Math.PI/4; // constant angle to meridians
-          // The loxodrome differential relation gives:
-          // dθ/dφ = 1 / tan(bearing)
-          theta = (phi) / Math.tan(bearing);
-          // Then scale theta so that theta(1) equals 2*pi*T:
-          theta *= (2 * Math.PI * params.turns) / thetaAtPoleLox(params.turns, bearing);
+          // Define phi_max as slightly less than 90° (to avoid divergence)
+          const phi_max = (Math.PI/2) * 0.99;  // ~89.1° in radians
+          // Let phi vary linearly from 0 (great circle) to phi_max:
+          phi = phi_max * u;
+          // Now, we want the total horizontal rotation at u=1 to be 2π * params.turns.
+          const cot_alpha = (2 * Math.PI * params.turns) / Math.log(Math.tan(Math.PI/4 + phi_max/2));
+          // Then compute theta for the current phi:
+          theta = cot_alpha * Math.log(Math.tan(Math.PI/4 + phi/2));
         }
         // Convert spherical coordinates (using phi as vertical from equator, but here our phi is from great circle upward)
         const x = sphereRadius * Math.cos(phi) * Math.cos(theta);
