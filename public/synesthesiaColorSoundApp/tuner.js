@@ -168,13 +168,6 @@ function init() {
   
   canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
   
-  var drawFrequency = function() {
-  var bufferLengthAlt = analyser.frequencyBinCount;
-  var dataArrayAlt = new Uint8Array(bufferLengthAlt);
-  var sampleRate = audioContext.sampleRate;
-  
-  canvasContext.clearRect(0, 0, WIDTH, HEIGHT);
-  
   var drawAlt = function() {
     drawVisual = requestAnimationFrame(drawAlt);
     analyser.getByteFrequencyData(dataArrayAlt);
