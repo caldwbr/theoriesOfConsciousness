@@ -180,7 +180,7 @@ function init() {
     var x = 0;
     
     for (var i = 0; i < bufferLengthAlt; i++) {
-      var barHeight = dataArrayAlt[i];
+      var barHeight = 4 * dataArrayAlt[i];
       
       // Compute frequency for this bin:
       var freq = i * (sampleRate / analyser.fftSize);
@@ -213,7 +213,7 @@ function init() {
       // Map frequency f to an x position:
       var xPos = (f / nyquist) * WIDTH;
       // Draw the frequency label
-      canvasContext.fillText(Math.round(f) + " Hz", xPos, HEIGHT - 5);
+      canvasContext.fillText(Math.round(f/2) + " Hz", xPos, HEIGHT - 5);
     }
     
   };
