@@ -236,20 +236,21 @@ function init() {
 
 // Function to map note to color
 function mapNoteToColor(note) {
-  var colors = {
-      'C': [255, 0, 0],
-      'C#': [255, 64, 0],
-      'D': [255, 128, 0],
-      'D#': [255, 192, 0],
-      'E': [255, 255, 0],
-      'F': [0, 255, 0],
-      'F#': [0, 255, 128],
-      'G': [0, 191, 255],
-      'G#': [0, 0, 255],
-      'A': [75, 0, 130],
-      'A#': [138, 43, 226],
-      'B': [255, 0, 180]
-  };
+var colors = {
+  'C':   [255,   0,   0],   // red
+  'C#':  [255, 128,   0],   // orange‑red
+  'D':   [255, 255,   0],   // yellow
+  'D#':  [128, 255,   0],   // yellow‑green
+  'E':   [  0, 255,   0],   // green
+  'F':   [  0, 255, 128],   // spring green
+  'F#':  [  0, 255, 255],   // cyan
+  'G':   [  0, 128, 255],   // sky blue
+  'G#':  [  0,   0, 255],   // blue
+  'A':   [128,   0, 255],   // indigo
+  'A#':  [255,   0, 255],   // magenta
+  'B':   [255,   0, 128]    // pink
+};
+
   var rgb = colors[note];
   return "rgb(" + rgb[0] + ", " + rgb[1] + ", " + rgb[2] + ")";
 }
