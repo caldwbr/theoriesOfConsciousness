@@ -120,6 +120,76 @@
     }
   });
 </script>
+  
+  <script>
+  let currentFrame = 0;
+  let playbackInterval = null;
+
+  function stopPlayback() {
+    if (playbackInterval) {
+      clearInterval(playbackInterval);
+      playbackInterval = null;
+    }
+  }
+
+  function startPlayback(direction = 1) {
+    stopPlayback();
+    playbackInterval = setInterval(() => {
+      currentFrame += direction;
+      if (currentFrame < 0 || currentFrame >= data.t.length) {
+        stopPlayback();
+        return;
+      }
+      slider.value = currentFrame;
+      drawFrame(currentFrame);
+    }, 20); // 20 ms = ~50Hz
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (!data) return;
+
+    // Shift+Right = play forward
+    if (event.shiftKey && event.key === "ArrowRight") {
+      startPlayback(1);
+    }
+
+    // Shift+Left = play backward
+    else if (event.shiftKey && event.key === "ArrowLeft") {
+      startPlayback(-1);
+    }
+
+    // ArrowRight = step forward
+    else if (event.key === "ArrowRight") {
+      stopPlayback();
+      currentFrame = Math.min(currentFrame + 1, data.t.length - 1);
+      slider.value = currentFrame;
+      drawFrame(currentFrame);
+    }
+
+    // ArrowLeft = step backward
+    else if (event.key === "ArrowLeft") {
+      stopPlayback();
+      currentFrame = Math.max(currentFrame - 1, 0);
+      slider.value = currentFrame;
+      drawFrame(currentFrame);
+    }
+
+    // ESC or space to stop
+    else if (event.key === "Escape" || event.key === " ") {
+      stopPlayback();
+    }
+  });
+
+  // Keep slider and keyframe in sync
+  slider.addEventListener("input", () => {
+    if (data) {
+      currentFrame = parseInt(slider.value);
+      drawFrame(currentFrame);
+      stopPlayback(); // stop if manually dragged
+    }
+  });
+</script>
+
 
 
 </body>
