@@ -129,17 +129,23 @@ for (let col = 1; col <= 8; col++) {
   columnStripes.y.push(y0, y0, y1, y1);
   columnStripes.z.push(z,  z,  z,  z);
 
-  // Two triangles to make a rectangle
-  columnStripes.i.push(vertexCount,     vertexCount + 1);
-  columnStripes.j.push(vertexCount + 1, vertexCount + 2);
-  columnStripes.k.push(vertexCount + 2, vertexCount + 3);
+  // Triangle 1: pt0, pt1, pt2
+  columnStripes.i.push(vertexCount);
+  columnStripes.j.push(vertexCount + 1);
+  columnStripes.k.push(vertexCount + 2);
 
-  // Add color to both triangles
+  // Triangle 2: pt0, pt2, pt3
+  columnStripes.i.push(vertexCount);
+  columnStripes.j.push(vertexCount + 2);
+  columnStripes.k.push(vertexCount + 3);
+
+  // Add color for both triangles
   columnStripes.facecolor.push(stripeColors[colorIndex]);
   columnStripes.facecolor.push(stripeColors[colorIndex]);
 
   vertexCount += 4;
 }
+
 
 
 
