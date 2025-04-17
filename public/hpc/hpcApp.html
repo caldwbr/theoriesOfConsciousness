@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Hippocampal Voltage Viewer</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body { font-family: sans-serif; margin: 30px; background-color: #f7f7f7; }
+    #slider { width: 100%; margin-top: 20px; }
+    #plot { height: 600px; margin-bottom: 20px; }
+    select { font-size: 16px; padding: 5px; }
+    h2 { margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+
+  <h2>🧠 Hippocampal Voltage Explorer</h2>
+
+  <label for="subjectSelect">Select subject:</label>
+  <select id="subjectSelect">
+    <option value="P1.json">P1</option>
+    <option value="P2.json">P2</option>
+    <option value="P3.json">P3</option>
+    <option value="P4.json">P4</option>
+    <option value="P5a.json">P5a</option>
+    <option value="P5b.json">P5b</option>
+    <option value="P6.json">P6</option>
+  </select>
+
+  <div id="plot"></div>
+  <input type="range" id="slider" min="0" max="1" value="0">
+
+  <script>
+    let data = null;
+    const slider = document.getElementById("slider");
+    const subjectSelect = document.getElementById("subjectSelect");
+
+    subjectSelect.addEventListener("change", () => {
+      loadSubject(subjectSelect.value);
+    });
+
+    slider.addEventListener("input", () => {
+      if (data) drawFrame(parseInt(slider.value));
+    });
+
+    function loadSubject(filename) {
+      fetch(filename)
+        .then(response => response.json())
+        .then(json => {
+          data = json;
+          slider.max = data.t.length - 1;
+          slider.value = 0;
+          drawFrame(0);
+        });
+    }
+
+    function drawFrame(tIndex) {
+      const voltages = data.z.map(ch => ch[tIndex]);
+
+      const trace = {
+        x: data.x,
+        y: data.y,
+        z: voltages,
+        mode: 'markers',
+        type: 'scatter3d',
+        marker: {
+          size: 6,
+          color: voltages,
+          colorscale: 'Jet',
+          cmin: -1000,
+          cmax: 1000,
+          colorbar: { title: 'μV' }
+        }
+      };
+
+      const layout = {
+        title: `Time = ${data.t[tIndex].toFixed(3)} s`,
+        scene: {
+          xaxis: { title: 'SEPTAL → TEMPORAL' },
+          yaxis: { title: 'INFERIOR → SUPERIOR' },
+          zaxis: { title: 'Voltage (μV)' }
+        }
+      };
+
+      Plotly.newPlot('plot', [trace], layout);
+    }
+
+    // Load default subject on startup
+    loadSubject("P1.json");
+  </script>
+
+</body>
+</html>
