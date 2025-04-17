@@ -30,6 +30,8 @@
   <input type="range" id="slider" min="0" max="1" value="0">
 
   <script>
+    let currentCamera = null;
+
     const subjectURLs = {
       "P1": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P1.json?alt=media&token=bb95893b-b252-4951-8e94-71e8ffe43253",
       "P2": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P2.json?alt=media&token=23fa463a-5ed2-408b-b705-91988ab3969b",
@@ -41,8 +43,16 @@
     };
 
     let data = null;
-    const slider = document.getElementById("slider");
-    const subjectSelect = document.getElementById("subjectSelect");
+const slider = document.getElementById("slider");
+const subjectSelect = document.getElementById("subjectSelect");
+
+// 👇 ADD THIS RIGHT HERE, so it only attaches once
+document.getElementById('plot').on('plotly_relayout', (eventData) => {
+  if (eventData['scene.camera']) {
+    currentCamera = eventData['scene.camera'];
+  }
+});
+
 
     subjectSelect.addEventListener("change", () => {
       const subjKey = subjectSelect.value;
@@ -61,6 +71,7 @@
           slider.max = data.t.length - 1;
           slider.value = 0;
           drawFrame(0);
+        
         });
     }
 
@@ -170,14 +181,21 @@ for (let col = 1; col <= 8; col++) {
   const layout = {
     title: `Time = ${data.t[tIndex].toFixed(3)} s`,
     scene: {
-      xaxis: { title: 'SEPTAL → TEMPORAL', range: [0.5, 8.5] },
-      yaxis: { title: 'INFERIOR → SUPERIOR', range: [0.5, 4.5] },
+      xaxis: { title: '', range: [0.5, 8.5] },
+      yaxis: { title: '', range: [0.5, 4.5] },
       zaxis: { title: 'Voltage (μV)', range: [-3000, 3000] }
     },
     margin: { t: 50 }
   };
 
-  Plotly.newPlot('plot', [columnStripes, lines, trace, labelTrace], layout);
+  Plotly.react('plot', [columnStripes, lines, trace, labelTrace], {
+  ...layout,
+  scene: {
+    ...layout.scene,
+    camera: currentCamera  // 💡 Apply current camera view
+  }
+});
+
 
 }
 
