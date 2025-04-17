@@ -99,33 +99,57 @@
     lines.z.push(0, voltages[i], null);
   }
 
-  // ===== Grid checkerboard at z = 0 =====
-  const squares = {
-    x: [],
-    y: [],
-    z: [],
-    mode: 'markers',
-    type: 'scatter3d',
-    marker: {
-      size: 20,
-      color: [],
-      colorscale: [[0, 'lightgray'], [1, 'darkgray']],
-      cmin: 0,
-      cmax: 1,
-      showscale: false,
-      opacity: 0.3,
-      symbol: 'square'
-    },
-    hoverinfo: 'none'
-  };
+const columnStripes = {
+  type: 'mesh3d',
+  x: [],
+  y: [],
+  z: [],
+  i: [],
+  j: [],
+  k: [],
+  facecolor: [],
+  showscale: false,
+  opacity: 0.15,
+  hoverinfo: 'skip'
+};
+
+const stripeColors = ['#d3d3d3', '#a9a9a9'];  // lightgray, darkgray
+let vertexCount = 0;
+
+for (let col = 1; col <= 8; col++) {
+  const colorIndex = col % 2;  // 0 = light, 1 = dark
+  const x0 = col - 0.5;
+  const x1 = col + 0.5;
+  const y0 = 0.5;
+  const y1 = 4.5;
+  const z = 0;
+
+  // Define 4 corners (counter-clockwise)
+  columnStripes.x.push(x0, x1, x1, x0);
+  columnStripes.y.push(y0, y0, y1, y1);
+  columnStripes.z.push(z,  z,  z,  z);
+
+  // Two triangles to make a rectangle
+  columnStripes.i.push(vertexCount,     vertexCount + 1);
+  columnStripes.j.push(vertexCount + 1, vertexCount + 2);
+  columnStripes.k.push(vertexCount + 2, vertexCount + 3);
+
+  // Add color to both triangles
+  columnStripes.facecolor.push(stripeColors[colorIndex]);
+  columnStripes.facecolor.push(stripeColors[colorIndex]);
+
+  vertexCount += 4;
+}
+
 
   for (let row = 1; row <= 4; row++) {
     for (let col = 1; col <= 8; col++) {
       squares.x.push(col);
       squares.y.push(row);
       squares.z.push(0);
-      const isDark = (row + col) % 2 === 0;
-      squares.marker.color.push(isDark ? 1 : 0);
+      const isDark = col % 2 === 0;
+squares.marker.color.push(isDark ? 1 : 0);
+
     }
   }
 
@@ -156,7 +180,8 @@
     margin: { t: 50 }
   };
 
-  Plotly.newPlot('plot', [squares, lines, trace, labelTrace], layout);
+  Plotly.newPlot('plot', [columnStripes, lines, trace, labelTrace], layout);
+
 }
 
 
