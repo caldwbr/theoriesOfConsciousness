@@ -142,16 +142,7 @@ for (let col = 1; col <= 8; col++) {
 }
 
 
-  for (let row = 1; row <= 4; row++) {
-    for (let col = 1; col <= 8; col++) {
-      squares.x.push(col);
-      squares.y.push(row);
-      squares.z.push(0);
-      const isDark = col % 2 === 0;
-squares.marker.color.push(isDark ? 1 : 0);
 
-    }
-  }
 
   // ===== Axis + Text Labels (REAL 3D) =====
   const labelTrace = {
