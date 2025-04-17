@@ -65,75 +65,102 @@
     }
 
     function drawFrame(tIndex) {
-      const voltages = data.z.map(ch => ch[tIndex]);
+  const voltages = data.z.map(ch => ch[tIndex]);
 
-      const trace = {
-        x: data.x,
-        y: data.y,
-        z: voltages,
-        mode: 'markers',
-        type: 'scatter3d',
-        marker: {
-          size: 6,
-          color: voltages,
-          colorscale: 'Jet',
-          cmin: -1000,
-          cmax: 1000,
-          colorbar: { title: 'μV' }
-        }
-      };
+  // ===== Main 3D voltage dots =====
+  const trace = {
+    x: data.x,
+    y: data.y,
+    z: voltages,
+    mode: 'markers',
+    type: 'scatter3d',
+    marker: {
+      size: 6,
+      color: voltages,
+      colorscale: 'Jet',
+      cmin: -1000,
+      cmax: 1000,
+      colorbar: { title: 'μV' }
+    }
+  };
 
-      const layout = {
-        title: `Time = ${data.t[tIndex].toFixed(3)} s`,
-        scene: {
-          xaxis: { title: 'SEPTAL → TEMPORAL' },
-          yaxis: { title: 'INFERIOR → SUPERIOR' },
-          zaxis: {
-            title: 'Voltage (μV)',
-            range: [-3000, 3000]   // 🔥 Lock Z axis here
-          }
-        }
-      };
+  // ===== Thin vertical stalk lines =====
+  const lines = {
+    x: [], y: [], z: [],
+    mode: 'lines',
+    type: 'scatter3d',
+    line: { color: 'gray', width: 1 },
+    hoverinfo: 'skip'
+  };
 
+  for (let i = 0; i < data.x.length; i++) {
+    lines.x.push(data.x[i], data.x[i], null);
+    lines.y.push(data.y[i], data.y[i], null);
+    lines.z.push(0, voltages[i], null);
+  }
 
-      const lines = {
-  x: [],
-  y: [],
-  z: [],
-  mode: 'lines',
-  type: 'scatter3d',
-  line: {
-    color: 'gray',
-    width: 1
-  },
-  hoverinfo: 'skip'
-};
+  // ===== Grid checkerboard at z = 0 =====
+  const squares = {
+    x: [],
+    y: [],
+    z: [],
+    mode: 'markers',
+    type: 'scatter3d',
+    marker: {
+      size: 20,
+      color: [],
+      colorscale: [[0, 'lightgray'], [1, 'darkgray']],
+      cmin: 0,
+      cmax: 1,
+      showscale: false,
+      opacity: 0.3,
+      symbol: 'square'
+    },
+    hoverinfo: 'none'
+  };
 
-for (let i = 0; i < data.x.length; i++) {
-  lines.x.push(data.x[i], data.x[i], null);
-  lines.y.push(data.y[i], data.y[i], null);
-  lines.z.push(0, voltages[i], null);
+  for (let row = 1; row <= 4; row++) {
+    for (let col = 1; col <= 8; col++) {
+      squares.x.push(col);
+      squares.y.push(row);
+      squares.z.push(0);
+      const isDark = (row + col) % 2 === 0;
+      squares.marker.color.push(isDark ? 1 : 0);
+    }
+  }
+
+  // ===== Axis + Text Labels (REAL 3D) =====
+  const labelTrace = {
+    x: [1, 8, 4.5, 4.5],
+    y: [2, 2, 1, 4],
+    z: [3000, 3000, 3000, 3000],
+    mode: 'text',
+    type: 'scatter3d',
+    text: ['SEPTAL', 'TEMPORAL', 'INFERIOR', 'SUPERIOR'],
+    textposition: 'top center',
+    textfont: {
+      size: 14,
+      color: 'black'
+    },
+    hoverinfo: 'none'
+  };
+
+  // ===== Layout =====
+  const layout = {
+    title: `Time = ${data.t[tIndex].toFixed(3)} s`,
+    scene: {
+      xaxis: { title: 'SEPTAL → TEMPORAL', range: [0.5, 8.5] },
+      yaxis: { title: 'INFERIOR → SUPERIOR', range: [0.5, 4.5] },
+      zaxis: { title: 'Voltage (μV)', range: [-3000, 3000] }
+    },
+    margin: { t: 50 }
+  };
+
+  Plotly.newPlot('plot', [squares, lines, trace, labelTrace], layout);
 }
 
-const labelTrace = {
-  x: [1, 8],
-  y: [2, 2],
-  z: [2200, 2200],
-  mode: 'text',
-  type: 'scatter3d',
-  text: ['SEPTAL', 'TEMPORAL'],
-  textposition: 'top center',
-  textfont: {
-    size: 14,
-    color: 'black'
-  },
-  hoverinfo: 'none'
-};
 
-Plotly.newPlot('plot', [lines, trace, labelTrace], layout);
-
-
-    }
+    
 
     // Load default subject on startup
     loadSubject(subjectURLs["P1"]);
