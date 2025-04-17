@@ -102,6 +102,25 @@
     // Load default subject on startup
     loadSubject(subjectURLs["P1"]);
   </script>
+  
+  <script>
+  let currentFrame = 0;
+
+  document.addEventListener("keydown", (event) => {
+    if (!data) return;
+
+    if (event.key === "ArrowRight") {
+      currentFrame = Math.min(currentFrame + 1, data.t.length - 1);
+      slider.value = currentFrame;
+      drawFrame(currentFrame);
+    } else if (event.key === "ArrowLeft") {
+      currentFrame = Math.max(currentFrame - 1, 0);
+      slider.value = currentFrame;
+      drawFrame(currentFrame);
+    }
+  });
+</script>
+
 
 </body>
 </html>
