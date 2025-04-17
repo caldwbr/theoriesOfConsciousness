@@ -83,17 +83,42 @@
         }
       };
 
-      const layout = {
-        title: `Time = ${data.t[tIndex].toFixed(3)} s`,
-        scene: {
-          xaxis: { title: 'SEPTAL → TEMPORAL' },
-          yaxis: { title: 'INFERIOR → SUPERIOR' },
-          zaxis: {
-            title: 'Voltage (μV)',
-            range: [-3000, 3000]   // 🔥 Lock Z axis here
-          }
-        }
-      };
+const layout = {
+  title: `Time = ${data.t[tIndex].toFixed(3)} s`,
+  scene: {
+    xaxis: {
+      title: 'SEPTAL → TEMPORAL',
+      range: [0.5, 8.5],
+    },
+    yaxis: {
+      title: 'INFERIOR → SUPERIOR',
+      range: [0.5, 4.5],
+    },
+    zaxis: {
+      title: 'Voltage (μV)',
+      range: [-2000, 2000]
+    },
+    annotations: [
+      {
+        x: 1,
+        y: 2,
+        z: 2200,
+        text: 'SEPTAL',
+        showarrow: false,
+        font: { size: 14, color: 'black' }
+      },
+      {
+        x: 8,
+        y: 2,
+        z: 2200,
+        text: 'TEMPORAL',
+        showarrow: false,
+        font: { size: 14, color: 'black' }
+      }
+    ]
+  }
+};
+
 
 
       const lines = {
