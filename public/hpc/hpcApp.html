@@ -90,13 +90,33 @@
           yaxis: { title: 'INFERIOR → SUPERIOR' },
           zaxis: {
             title: 'Voltage (μV)',
-            range: [-2000, 2000]   // 🔥 Lock Z axis here
+            range: [-3000, 3000]   // 🔥 Lock Z axis here
           }
         }
       };
 
 
-      Plotly.newPlot('plot', [trace], layout);
+      const lines = {
+  x: [],
+  y: [],
+  z: [],
+  mode: 'lines',
+  type: 'scatter3d',
+  line: {
+    color: 'gray',
+    width: 1
+  },
+  hoverinfo: 'skip'
+};
+
+for (let i = 0; i < data.x.length; i++) {
+  lines.x.push(data.x[i], data.x[i], null);
+  lines.y.push(data.y[i], data.y[i], null);
+  lines.z.push(0, voltages[i], null);
+}
+
+Plotly.newPlot('plot', [lines, trace], layout);
+
     }
 
     // Load default subject on startup
