@@ -1,0 +1,8 @@
+[
+  {
+    "origin": ["https://theoriesofconsciousness.com"],
+    "method": ["GET"],
+    "maxAgeSeconds": 3600
+  }
+]
+

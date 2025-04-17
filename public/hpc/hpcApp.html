@@ -88,9 +88,13 @@
         scene: {
           xaxis: { title: 'SEPTAL → TEMPORAL' },
           yaxis: { title: 'INFERIOR → SUPERIOR' },
-          zaxis: { title: 'Voltage (μV)' }
+          zaxis: {
+            title: 'Voltage (μV)',
+            range: [-1000, 1000]   // 🔥 Lock Z axis here
+          }
         }
       };
+
 
       Plotly.newPlot('plot', [trace], layout);
     }
