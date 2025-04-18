@@ -195,6 +195,14 @@ for (let col = 1; col <= 8; col++) {
     camera: currentCamera  // 💡 Apply current camera view
   }
 });
+if (!drawFrame.listenerAdded) {
+  document.getElementById('plot').on('plotly_relayout', function(eventData) {
+    if (eventData['scene.camera']) {
+      currentCamera = eventData['scene.camera'];
+    }
+  });
+  drawFrame.listenerAdded = true;
+}
 
 
 }
