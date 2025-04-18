@@ -107,7 +107,13 @@ function loadSubject(url) {
   fetch(url)
     .then(response => response.json())
     .then(json => {
-      data = json;
+  // 🔀 SWAP x and y here to correct display layout
+  const temp = json.x;
+  json.x = json.y;
+  json.y = temp;
+
+  data = json;
+
       slider.max = data.t.length - 1;
       slider.value = 0;
       drawFrame(0);
