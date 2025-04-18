@@ -4,6 +4,10 @@
   <title>Hippocampal Voltage Viewer</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
   <style>
+    @keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
     body { font-family: sans-serif; margin: 30px; background-color: #f7f7f7; }
     #slider { width: 100%; margin-top: 20px; }
     #plot { height: 600px; margin-bottom: 20px; }
@@ -31,6 +35,27 @@
 <div id="hint" style="font-size: 14px; margin-top: 8px; color: #444;">
   → / ← = fine pan (slow);  SHIFT + → / ← = coarse pan (fast)
 </div>
+<div id="loader" style="
+  display: none;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 16px;
+  color: #666;
+">
+  <div style="
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #999;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+    vertical-align: middle;
+  "></div>
+  Loading...
+</div>
+
 
 <script>
 let currentCamera = null;
@@ -77,16 +102,19 @@ document.addEventListener("keydown", (event) => {
 });
 
 function loadSubject(url) {
+  document.getElementById("loader").style.display = "block"; // 🔥 Show spinner
+
   fetch(url)
     .then(response => response.json())
     .then(json => {
       data = json;
       slider.max = data.t.length - 1;
       slider.value = 0;
-      currentFrame = 0;
       drawFrame(0);
+      document.getElementById("loader").style.display = "none"; // ✅ Hide spinner
     });
 }
+
 
 function drawFrame(tIndex) {
   const voltages = data.z.map(ch => ch[tIndex]);
@@ -113,6 +141,8 @@ function drawFrame(tIndex) {
     type: 'scatter3d',
     line: { color: 'gray', width: 1 },
     hoverinfo: 'skip'
+    showlegend: false
+
   };
 
   for (let i = 0; i < data.x.length; i++) {
@@ -167,6 +197,8 @@ function drawFrame(tIndex) {
     textposition: 'top center',
     textfont: { size: 14, color: 'black' },
     hoverinfo: 'none'
+    showlegend: false
+
   };
 
   const layout = {
@@ -178,6 +210,8 @@ function drawFrame(tIndex) {
       ...(currentCamera && { camera: currentCamera }) // Only apply if exists
     },
     margin: { t: 50 }
+    showlegend: false
+
   };
 
   Plotly.react('plot', [columnStripes, lines, trace, labelTrace], layout).then(() => {
