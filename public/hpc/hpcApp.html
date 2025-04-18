@@ -140,7 +140,7 @@ function drawFrame(tIndex) {
     mode: 'lines',
     type: 'scatter3d',
     line: { color: 'gray', width: 1 },
-    hoverinfo: 'skip'
+    hoverinfo: 'skip',
     showlegend: false
 
   };
@@ -196,7 +196,7 @@ function drawFrame(tIndex) {
     text: ['SEPTAL', 'TEMPORAL', 'INFERIOR', 'SUPERIOR'],
     textposition: 'top center',
     textfont: { size: 14, color: 'black' },
-    hoverinfo: 'none'
+    hoverinfo: 'none',
     showlegend: false
 
   };
@@ -209,7 +209,7 @@ function drawFrame(tIndex) {
       zaxis: { title: 'Voltage (μV)', range: [-3000, 3000] },
       ...(currentCamera && { camera: currentCamera }) // Only apply if exists
     },
-    margin: { t: 50 }
+    margin: { t: 50 },
     showlegend: false
 
   };
