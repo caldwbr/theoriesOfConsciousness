@@ -83,7 +83,7 @@
 
 <h2>🧠 Hippocampal Voltage Explorer</h2>
   
-  <div id="topbar">
+<div id="topbar">
   <label for="subjectSelect">Select subject:</label>
   <select id="subjectSelect">
     <option value="P1">P1</option>
@@ -98,19 +98,21 @@
   <label for="zrangeSlider">Z Axis Range:</label>
   <input type="range" id="zrangeSlider" min="500" max="4000" step="100" value="3000">
   <span id="zrangeLabel">±3000 μV</span>
+
+  <span id="hint" style="color: #444; font-size: 13px; margin-left: 20px;">
+    → / ← = fine pan (slow); SHIFT + → / ← = coarse pan (fast)
+  </span>
+
+  <span id="statusNote" style="color: #666; font-size: 12px; margin-left: auto;">
+    P1–P4 = Anesthetized • P5–P6 = Awake
+  </span>
 </div>
+
 
 
 <div id="plot"></div>
 <input type="range" id="slider" min="0" max="1" value="0">
-<div id="hint" style="font-size: 14px; margin-top: 8px; color: #444;">
-  → / ← = fine pan (slow);  SHIFT + → / ← = coarse pan (fast)
-</div>
 
-
-<div style="font-size: 13px; color: #666; margin-top: 6px;">
-  P1–P4 = Anesthetized, P5–P6 = Awake
-</div>
 
 <div id="loader" style="
   display: none;
