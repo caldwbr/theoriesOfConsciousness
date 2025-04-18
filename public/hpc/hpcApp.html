@@ -35,6 +35,16 @@
 <div id="hint" style="font-size: 14px; margin-top: 8px; color: #444;">
   → / ← = fine pan (slow);  SHIFT + → / ← = coarse pan (fast)
 </div>
+  <div style="margin-top: 10px;">
+  <label for="rangeSlider">Voltage Range (±μV):</label>
+  <input type="range" id="rangeSlider" min="500" max="4000" step="100" value="1000" style="width: 200px; vertical-align: middle;">
+  <span id="rangeLabel">±1000</span>
+</div>
+
+<div style="font-size: 13px; color: #666; margin-top: 6px;">
+  P1–P4 = Anesthetized, P5–P6 = Awake
+</div>
+
 <div id="loader" style="
   display: none;
   margin-top: 20px;
@@ -59,6 +69,19 @@
 
 <script>
 let currentCamera = null;
+  let voltageRange = 1000;
+const rangeSlider = document.getElementById("rangeSlider");
+const rangeLabel = document.getElementById("rangeLabel");
+
+rangeSlider.addEventListener("input", () => {
+  voltageRange = parseInt(rangeSlider.value);
+  rangeLabel.textContent = `±${voltageRange}`;
+  if (data) drawFrame(currentFrame);
+});
+<div style="font-size: 14px; color: crimson; font-weight: bold; margin-top: 8px;">
+  P1–P4 = Anesthetized • P5–P6 = Awake
+</div>
+
 
 const subjectURLs = {
   "P1": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P1.json?alt=media&token=eb2e2233-158f-4c02-979f-057583cf7d2d",
@@ -145,21 +168,22 @@ function loadSubject(url) {
 function drawFrame(tIndex) {
   const voltages = data.z.map(ch => ch[tIndex]);
 
-  const trace = {
-    x: data.x,
-    y: data.y,
-    z: voltages,
-    mode: 'markers',
-    type: 'scatter3d',
-    marker: {
-      size: 6,
-      color: voltages,
-      colorscale: 'Jet',
-      cmin: -1000,
-      cmax: 1000,
-      colorbar: { title: 'μV' }
-    }
-  };
+const trace = {
+  x: data.x,
+  y: data.y,
+  z: voltages,
+  mode: 'markers',
+  type: 'scatter3d',
+  marker: {
+    size: 6,
+    color: voltages,
+    colorscale: 'Jet',
+    cmin: -voltageRange,
+    cmax: voltageRange,
+    colorbar: { title: 'μV' }
+  }
+};
+
   
     // ===== Electrode number labels =====
 const channelLabels = {
