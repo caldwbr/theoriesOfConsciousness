@@ -142,21 +142,22 @@ function drawFrame(tIndex) {
   };
   
     // ===== Electrode number labels =====
-  const channelLabels = {
-    x: data.x,
-    y: data.y,
-    z: voltages.map(v => v + 100), // raise slightly above the dot
-    mode: 'text',
-    type: 'scatter3d',
-    text: data.x.map((_, i) => String(i + 1)),  // labels 1–32
-    textfont: {
-      size: 10,
-      color: 'black'
-    },
-    textposition: 'top center',
-    hoverinfo: 'none',
-    showlegend: false
-  };
+const channelLabels = {
+  x: data.x,
+  y: data.y,
+  z: voltages.map(v => v + 100),
+  mode: 'text',
+  type: 'scatter3d',
+  text: [...Array(data.z.length).keys()].map(i => String(i + 1)),  // 1 to 32
+  textfont: {
+    size: 10,
+    color: 'black'
+  },
+  textposition: 'top center',
+  hoverinfo: 'none',
+  showlegend: false
+};
+
 
 
   const lines = {
