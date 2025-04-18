@@ -75,10 +75,9 @@ document.getElementById('plot').on('plotly_relayout', (eventData) => {
         });
     }
 
-    function drawFrame(tIndex) {
+function drawFrame(tIndex) {
   const voltages = data.z.map(ch => ch[tIndex]);
 
-  // ===== Main 3D voltage dots =====
   const trace = {
     x: data.x,
     y: data.y,
@@ -95,7 +94,6 @@ document.getElementById('plot').on('plotly_relayout', (eventData) => {
     }
   };
 
-  // ===== Thin vertical stalk lines =====
   const lines = {
     x: [], y: [], z: [],
     mode: 'lines',
@@ -110,58 +108,38 @@ document.getElementById('plot').on('plotly_relayout', (eventData) => {
     lines.z.push(0, voltages[i], null);
   }
 
-const columnStripes = {
-  type: 'mesh3d',
-  x: [],
-  y: [],
-  z: [],
-  i: [],
-  j: [],
-  k: [],
-  facecolor: [],
-  showscale: false,
-  opacity: 0.15,
-  hoverinfo: 'skip'
-};
+  const columnStripes = {
+    type: 'mesh3d',
+    x: [], y: [], z: [],
+    i: [], j: [], k: [],
+    facecolor: [],
+    showscale: false,
+    opacity: 0.15,
+    hoverinfo: 'skip'
+  };
 
-const stripeColors = ['#d3d3d3', '#a9a9a9'];  // lightgray, darkgray
-let vertexCount = 0;
+  const stripeColors = ['#d3d3d3', '#a9a9a9'];
+  let vertexCount = 0;
 
-for (let col = 1; col <= 8; col++) {
-  const colorIndex = col % 2;  // 0 = light, 1 = dark
-  const x0 = col - 0.5;
-  const x1 = col + 0.5;
-  const y0 = 0.5;
-  const y1 = 4.5;
-  const z = 0;
+  for (let col = 1; col <= 8; col++) {
+    const colorIndex = col % 2;
+    const x0 = col - 0.5, x1 = col + 0.5;
+    const y0 = 0.5, y1 = 4.5, z = 0;
 
-  // Define 4 corners (counter-clockwise)
-  columnStripes.x.push(x0, x1, x1, x0);
-  columnStripes.y.push(y0, y0, y1, y1);
-  columnStripes.z.push(z,  z,  z,  z);
+    columnStripes.x.push(x0, x1, x1, x0);
+    columnStripes.y.push(y0, y0, y1, y1);
+    columnStripes.z.push(z, z, z, z);
 
-  // Triangle 1: pt0, pt1, pt2
-  columnStripes.i.push(vertexCount);
-  columnStripes.j.push(vertexCount + 1);
-  columnStripes.k.push(vertexCount + 2);
+    columnStripes.i.push(vertexCount,     vertexCount + 1);
+    columnStripes.j.push(vertexCount + 1, vertexCount + 2);
+    columnStripes.k.push(vertexCount + 2, vertexCount + 3);
 
-  // Triangle 2: pt0, pt2, pt3
-  columnStripes.i.push(vertexCount);
-  columnStripes.j.push(vertexCount + 2);
-  columnStripes.k.push(vertexCount + 3);
+    columnStripes.facecolor.push(stripeColors[colorIndex]);
+    columnStripes.facecolor.push(stripeColors[colorIndex]);
 
-  // Add color for both triangles
-  columnStripes.facecolor.push(stripeColors[colorIndex]);
-  columnStripes.facecolor.push(stripeColors[colorIndex]);
+    vertexCount += 4;
+  }
 
-  vertexCount += 4;
-}
-
-
-
-
-
-  // ===== Axis + Text Labels (REAL 3D) =====
   const labelTrace = {
     x: [1, 8, 4.5, 4.5],
     y: [2, 2, 1, 4],
@@ -170,43 +148,32 @@ for (let col = 1; col <= 8; col++) {
     type: 'scatter3d',
     text: ['SEPTAL', 'TEMPORAL', 'INFERIOR', 'SUPERIOR'],
     textposition: 'top center',
-    textfont: {
-      size: 14,
-      color: 'black'
-    },
+    textfont: { size: 14, color: 'black' },
     hoverinfo: 'none'
   };
 
-  // ===== Layout =====
   const layout = {
     title: `Time = ${data.t[tIndex].toFixed(3)} s`,
     scene: {
       xaxis: { title: '', range: [0.5, 8.5] },
       yaxis: { title: '', range: [0.5, 4.5] },
-      zaxis: { title: 'Voltage (μV)', range: [-3000, 3000] }
+      zaxis: { title: 'Voltage (μV)', range: [-3000, 3000] },
+      ...(currentCamera && { camera: currentCamera })  // Only apply if non-null
     },
     margin: { t: 50 }
   };
 
-  Plotly.react('plot', [columnStripes, lines, trace, labelTrace], {
-  ...layout,
-  scene: {
-    ...layout.scene,
-    camera: currentCamera  // 💡 Apply current camera view
-  }
-});
-if (!drawFrame.listenerAdded) {
-  document.getElementById('plot').on('plotly_relayout', function(eventData) {
-    if (eventData['scene.camera']) {
-      currentCamera = eventData['scene.camera'];
+  Plotly.react('plot', [columnStripes, lines, trace, labelTrace], layout).then(() => {
+    if (!drawFrame.listenerAdded) {
+      document.getElementById('plot').on('plotly_relayout', (eventData) => {
+        if (eventData['scene.camera']) {
+          currentCamera = eventData['scene.camera'];
+        }
+      });
+      drawFrame.listenerAdded = true;
     }
   });
-  drawFrame.listenerAdded = true;
 }
-
-
-}
-
 
     
 
