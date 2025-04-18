@@ -134,6 +134,24 @@ function drawFrame(tIndex) {
       colorbar: { title: 'μV' }
     }
   };
+  
+    // ===== Electrode number labels =====
+  const channelLabels = {
+    x: data.x,
+    y: data.y,
+    z: voltages.map(v => v + 100), // raise slightly above the dot
+    mode: 'text',
+    type: 'scatter3d',
+    text: data.x.map((_, i) => String(i + 1)),  // labels 1–32
+    textfont: {
+      size: 10,
+      color: 'black'
+    },
+    textposition: 'top center',
+    hoverinfo: 'none',
+    showlegend: false
+  };
+
 
   const lines = {
     x: [], y: [], z: [],
@@ -214,7 +232,7 @@ function drawFrame(tIndex) {
 
   };
 
-  Plotly.react('plot', [columnStripes, lines, trace, labelTrace], layout).then(() => {
+  Plotly.react('plot', [columnStripes, lines, trace, channelLabels, labelTrace], layout).then(() => {
     const plotDiv = document.getElementById('plot');
     if (!drawFrame.listenerAdded) {
       plotDiv.on('plotly_relayout', (eventData) => {
