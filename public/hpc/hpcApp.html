@@ -40,9 +40,10 @@
   → / ← = fine pan (slow);  SHIFT + → / ← = coarse pan (fast)
 </div>
   <div style="margin-top: 10px;">
-  <label for="rangeSlider">Voltage Range (±μV):</label>
-  <input type="range" id="rangeSlider" min="500" max="4000" step="100" value="1000" style="width: 200px; vertical-align: middle;">
-  <span id="rangeLabel">±1000</span>
+  <label for="zrangeSlider">Z Axis Range (±μV):</label>
+<input type="range" id="zrangeSlider" min="500" max="4000" step="100" value="3000" style="width: 200px; vertical-align: middle;">
+<span id="zrangeLabel">±3000</span>
+
 </div>
 
 <div style="font-size: 13px; color: #666; margin-top: 6px;">
@@ -77,12 +78,16 @@ let currentCamera = null;
 const rangeSlider = document.getElementById("rangeSlider");
 const rangeLabel = document.getElementById("rangeLabel");
 
-rangeSlider.addEventListener("input", () => {
-  voltageRange = parseInt(rangeSlider.value);
-  rangeLabel.textContent = `±${voltageRange}`;
+
+let zAxisRange = 3000;
+const zrangeSlider = document.getElementById("zrangeSlider");
+const zrangeLabel = document.getElementById("zrangeLabel");
+
+zrangeSlider.addEventListener("input", () => {
+  zAxisRange = parseInt(zrangeSlider.value);
+  zrangeLabel.textContent = `±${zAxisRange}`;
   if (data) drawFrame(currentFrame);
 });
-
 
 
 const subjectURLs = {
@@ -277,7 +282,8 @@ const channelLabels = {
     scene: {
       xaxis: { title: '', range: [0.5, 8.5] },
       yaxis: { title: '', range: [0.5, 4.5] },
-      zaxis: { title: 'Voltage (μV)', range: [-3000, 3000] },
+      zaxis: { title: 'Voltage (μV)', range: [-zAxisRange, zAxisRange] },
+
       ...(currentCamera && { camera: currentCamera }) // Only apply if exists
     },
     margin: { t: 50 },
