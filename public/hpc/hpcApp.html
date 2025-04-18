@@ -107,24 +107,21 @@ function loadSubject(url) {
   fetch(url)
     .then(response => response.json())
     .then(json => {
-      // Unpack z: channels x time
-      const numCh = json.z.length;
-      const zOriginal = json.z;
+      const rawZ = json.z;  // z[ch][t]
+      const nCh = rawZ.length;
+      const nT = rawZ[0].length;
 
-      // === Fix layout by remapping x/y/z ===
       const x_fixed = [];
       const y_fixed = [];
       const z_fixed = [];
 
-      // Original layout: x = [1 2 3 4 5 6 7 8 1 2 3 4 ...] (row-major)
-      // We want column-major: channels 1–8 = x=1, y=1–4, then x=2, y=1–4, etc.
-      for (let col = 1; col <= 8; col++) {
-        for (let row = 1; row <= 4; row++) {
-          const ch = (row - 1) * 8 + col - 1;  // original index
-          if (ch >= numCh) continue;
-          x_fixed.push(col);
-          y_fixed.push(row);
-          z_fixed.push(zOriginal[ch]);  // array of values over time
+      for (let row = 1; row <= 4; row++) {
+        for (let col = 1; col <= 8; col++) {
+          const ch = (row - 1) * 8 + (col - 1);  // proper 0-indexed
+          if (ch >= nCh) continue;
+          x_fixed.push(col);        // septal → temporal
+          y_fixed.push(row);        // inferior → superior
+          z_fixed.push(rawZ[ch]);   // voltage trace for that channel
         }
       }
 
@@ -141,6 +138,7 @@ function loadSubject(url) {
       document.getElementById("loader").style.display = "none";
     });
 }
+
 
 
 
