@@ -13,67 +13,77 @@
 </head>
 <body>
 
-  <h2>🧠 Hippocampal Voltage Explorer</h2>
+<h2>🧠 Hippocampal Voltage Explorer</h2>
 
-  <label for="subjectSelect">Select subject:</label>
-  <select id="subjectSelect">
-    <option value="P1">P1</option>
-    <option value="P2">P2</option>
-    <option value="P3">P3</option>
-    <option value="P4">P4</option>
-    <option value="P5a">P5a</option>
-    <option value="P5b">P5b</option>
-    <option value="P6">P6</option>
-  </select>
+<label for="subjectSelect">Select subject:</label>
+<select id="subjectSelect">
+  <option value="P1">P1</option>
+  <option value="P2">P2</option>
+  <option value="P3">P3</option>
+  <option value="P4">P4</option>
+  <option value="P5a">P5a</option>
+  <option value="P5b">P5b</option>
+  <option value="P6">P6</option>
+</select>
 
-  <div id="plot"></div>
-  <input type="range" id="slider" min="0" max="1" value="0">
+<div id="plot"></div>
+<input type="range" id="slider" min="0" max="1" value="0">
 
-  <script>
-    let currentCamera = null;
+<script>
+let currentCamera = null;
 
-    const subjectURLs = {
-      "P1": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P1.json?alt=media&token=bb95893b-b252-4951-8e94-71e8ffe43253",
-      "P2": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P2.json?alt=media&token=23fa463a-5ed2-408b-b705-91988ab3969b",
-      "P3": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P3.json?alt=media&token=44a89613-eb6a-4c87-8217-4c5c50fc803f",
-      "P4": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P4.json?alt=media&token=6f1e398d-cffe-40d0-89b6-b8df63de2927",
-      "P5a": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P5a.json?alt=media&token=9cb28213-9150-4995-93b0-bfb50a9b79e1",
-      "P5b": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P5b.json?alt=media&token=51338ae4-9185-49b5-8c56-f6736757786f",
-      "P6": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P6.json?alt=media&token=4f64fcdf-cea1-4c88-bb57-279e4369a94aa"
-    };
+const subjectURLs = {
+  "P1": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P1.json?alt=media&token=bb95893b-b252-4951-8e94-71e8ffe43253",
+  "P2": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P2.json?alt=media&token=23fa463a-5ed2-408b-b705-91988ab3969b",
+  "P3": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P3.json?alt=media&token=44a89613-eb6a-4c87-8217-4c5c50fc803f",
+  "P4": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P4.json?alt=media&token=6f1e398d-cffe-40d0-89b6-b8df63de2927",
+  "P5a": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P5a.json?alt=media&token=9cb28213-9150-4995-93b0-bfb50a9b79e1",
+  "P5b": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P5b.json?alt=media&token=51338ae4-9185-49b5-8c56-f6736757786f",
+  "P6": "https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/P6.json?alt=media&token=4f64fcdf-cea1-4c88-bb57-279e4369a94aa"
+};
 
-    let data = null;
+let data = null;
+let currentFrame = 0;
 const slider = document.getElementById("slider");
 const subjectSelect = document.getElementById("subjectSelect");
 
-// 👇 ADD THIS RIGHT HERE, so it only attaches once
-document.getElementById('plot').on('plotly_relayout', (eventData) => {
-  if (eventData['scene.camera']) {
-    currentCamera = eventData['scene.camera'];
+subjectSelect.addEventListener("change", () => {
+  const subjKey = subjectSelect.value;
+  loadSubject(subjectURLs[subjKey]);
+});
+
+slider.addEventListener("input", () => {
+  if (data) {
+    currentFrame = parseInt(slider.value);
+    drawFrame(currentFrame);
   }
 });
 
+document.addEventListener("keydown", (event) => {
+  if (!data) return;
+  const step = event.shiftKey ? 20 : 1;
+  if (event.key === "ArrowRight") {
+    currentFrame = Math.min(currentFrame + step, data.t.length - 1);
+    slider.value = currentFrame;
+    drawFrame(currentFrame);
+  } else if (event.key === "ArrowLeft") {
+    currentFrame = Math.max(currentFrame - step, 0);
+    slider.value = currentFrame;
+    drawFrame(currentFrame);
+  }
+});
 
-    subjectSelect.addEventListener("change", () => {
-      const subjKey = subjectSelect.value;
-      loadSubject(subjectURLs[subjKey]);
+function loadSubject(url) {
+  fetch(url)
+    .then(response => response.json())
+    .then(json => {
+      data = json;
+      slider.max = data.t.length - 1;
+      slider.value = 0;
+      currentFrame = 0;
+      drawFrame(0);
     });
-
-    slider.addEventListener("input", () => {
-      if (data) drawFrame(parseInt(slider.value));
-    });
-
-    function loadSubject(url) {
-      fetch(url)
-        .then(response => response.json())
-        .then(json => {
-          data = json;
-          slider.max = data.t.length - 1;
-          slider.value = 0;
-          drawFrame(0);
-        
-        });
-    }
+}
 
 function drawFrame(tIndex) {
   const voltages = data.z.map(ch => ch[tIndex]);
@@ -130,9 +140,13 @@ function drawFrame(tIndex) {
     columnStripes.y.push(y0, y0, y1, y1);
     columnStripes.z.push(z, z, z, z);
 
-    columnStripes.i.push(vertexCount,     vertexCount + 1);
-    columnStripes.j.push(vertexCount + 1, vertexCount + 2);
-    columnStripes.k.push(vertexCount + 2, vertexCount + 3);
+    columnStripes.i.push(vertexCount);
+    columnStripes.j.push(vertexCount + 1);
+    columnStripes.k.push(vertexCount + 2);
+
+    columnStripes.i.push(vertexCount);
+    columnStripes.j.push(vertexCount + 2);
+    columnStripes.k.push(vertexCount + 3);
 
     columnStripes.facecolor.push(stripeColors[colorIndex]);
     columnStripes.facecolor.push(stripeColors[colorIndex]);
@@ -158,14 +172,15 @@ function drawFrame(tIndex) {
       xaxis: { title: '', range: [0.5, 8.5] },
       yaxis: { title: '', range: [0.5, 4.5] },
       zaxis: { title: 'Voltage (μV)', range: [-3000, 3000] },
-      ...(currentCamera && { camera: currentCamera })  // Only apply if non-null
+      ...(currentCamera && { camera: currentCamera }) // Only apply if exists
     },
     margin: { t: 50 }
   };
 
   Plotly.react('plot', [columnStripes, lines, trace, labelTrace], layout).then(() => {
+    const plotDiv = document.getElementById('plot');
     if (!drawFrame.listenerAdded) {
-      document.getElementById('plot').on('plotly_relayout', (eventData) => {
+      plotDiv.on('plotly_relayout', (eventData) => {
         if (eventData['scene.camera']) {
           currentCamera = eventData['scene.camera'];
         }
@@ -175,43 +190,9 @@ function drawFrame(tIndex) {
   });
 }
 
-    
-
-    // Load default subject on startup
-    loadSubject(subjectURLs["P1"]);
-  </script>
-  
-<script>
-  let currentFrame = 0;
-
-  document.addEventListener("keydown", (event) => {
-    if (!data) return;
-
-    const step = event.shiftKey ? 20 : 1;
-
-    if (event.key === "ArrowRight") {
-      currentFrame = Math.min(currentFrame + step, data.t.length - 1);
-      slider.value = currentFrame;
-      drawFrame(currentFrame);
-    } else if (event.key === "ArrowLeft") {
-      currentFrame = Math.max(currentFrame - step, 0);
-      slider.value = currentFrame;
-      drawFrame(currentFrame);
-    }
-  });
-
-  slider.addEventListener("input", () => {
-    if (data) {
-      currentFrame = parseInt(slider.value);
-      drawFrame(currentFrame);
-    }
-  });
+// Load default subject
+loadSubject(subjectURLs["P1"]);
 </script>
-
-  
-
-
-
 
 </body>
 </html>
