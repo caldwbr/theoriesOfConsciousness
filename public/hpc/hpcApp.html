@@ -10,6 +10,10 @@
 
     body { font-family: sans-serif; margin: 30px; background-color: #f7f7f7; }
     #slider { width: 100%; margin-top: 20px; }
+    <div style="font-size: 14px; color: crimson; font-weight: bold; margin-top: 8px;">
+  P1–P4 = Anesthetized • P5–P6 = Awake
+</div>
+
     #plot { height: 600px; margin-bottom: 20px; }
     select { font-size: 16px; padding: 5px; }
     h2 { margin-bottom: 10px; }
@@ -78,9 +82,7 @@ rangeSlider.addEventListener("input", () => {
   rangeLabel.textContent = `±${voltageRange}`;
   if (data) drawFrame(currentFrame);
 });
-<div style="font-size: 14px; color: crimson; font-weight: bold; margin-top: 8px;">
-  P1–P4 = Anesthetized • P5–P6 = Awake
-</div>
+
 
 
 const subjectURLs = {
