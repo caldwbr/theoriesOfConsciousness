@@ -1,3 +1,4 @@
+<html lang=en>
 <head>
   <title>Hippocampal Voltage Viewer</title>
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -17,36 +18,42 @@
 
     #topbar {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 20px;
+      gap: 16px;
       padding: 16px 24px 0 24px;
+      flex-wrap: wrap;
     }
 
     #plot {
-      flex: 1 1 auto;
+      flex: 1;
       min-height: 0;
+      max-height: calc(100vh - 220px);
+      margin: 0 24px;
     }
 
-    select {
-      font-size: 16px;
-      padding: 5px;
+    select,
+    #zrangeSlider {
+      font-size: 14px;
+      padding: 4px;
+    }
+
+    label {
+      font-size: 14px;
     }
 
     h2 {
-      margin: 0;
+      margin: 0 0 8px 24px;
     }
 
     #hint, #statusNote {
-      font-size: 14px;
+      font-size: 13px;
       color: #444;
-      padding: 8px 24px;
+      padding: 4px 24px 0;
     }
 
     #statusNote {
       color: #666;
-      font-size: 13px;
-      padding-top: 0;
+      font-size: 12px;
     }
 
     #loader {
@@ -71,23 +78,25 @@
   </style>
 </head>
 
+
 <body>
 
 <h2>🧠 Hippocampal Voltage Explorer</h2>
+  
+  <div id="topbar">
+  <label for="subjectSelect">Select subject:</label>
+  <select id="subjectSelect">
+    <option value="P1">P1</option>
+    <option value="P2">P2</option>
+    <option value="P3">P3</option>
+    <option value="P4">P4</option>
+    <option value="P5a">P5a</option>
+    <option value="P5b">P5b</option>
+    <option value="P6">P6</option>
+  </select>
 
-<label for="subjectSelect">Select subject:</label>
-<select id="subjectSelect">
-  <option value="P1">P1</option>
-  <option value="P2">P2</option>
-  <option value="P3">P3</option>
-  <option value="P4">P4</option>
-  <option value="P5a">P5a</option>
-  <option value="P5b">P5b</option>
-  <option value="P6">P6</option>
-</select>
-  <div style="margin-top: 10px;">
   <label for="zrangeSlider">Z Axis Range:</label>
-  <input type="range" id="zrangeSlider" min="500" max="4000" step="100" value="3000" style="width: 200px;">
+  <input type="range" id="zrangeSlider" min="500" max="4000" step="100" value="3000">
   <span id="zrangeLabel">±3000 μV</span>
 </div>
 
