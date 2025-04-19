@@ -37,7 +37,7 @@
 
         h1 {
             color: #0f0;
-            text-shadow: 0 0 5px #0f0;
+            text-shadow: 0 0 3px #0f0;
         }
 
         p {
@@ -47,30 +47,55 @@
 </head>
 <body>
     <article>
-        <h1>Thoughts on the Binding Problem</h1>
-        <p>
-            <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_bestICanDo.jpeg?alt=media&token=e0bcb410-e2ed-4eaa-b3d1-cf49fd1d827a"
+<h1>Thoughts on the Binding Problem</h1>
+
+
+<!-- 💬 Paragraph block: neat and padded -->
+<div style="margin-bottom: 3em;">
+    <!-- 🧠 Meme: center-aligned and spaced -->
+<img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_bestICanDo.jpeg?alt=media&token=e0bcb410-e2ed-4eaa-b3d1-cf49fd1d827a"
      alt="Best I Can Do Binding Meme"
-     style="float: left; margin-left: 1em; margin-right: 1em; height: 400px;" />
-
-            The binding problem is a problem you keep running into when exploring mechanisms for consciousness. In your experience, you hear a bird chirp once. But when you
+     style="float: right; margin: 1em auto; height: 400px;" />
+  <p>
+    The binding problem is a problem you keep running into when exploring mechanisms for consciousness. In your experience, you hear a bird chirp once. But when you
     look in the brain, every region shows different timing and shapes of electrical crests.
+  </p>
 
-    What makes this more bizarre is that even though these signals arrive at different speeds, with different lags and encodings, your conscious experience welds them into a single, unified event.
-    It doesn't feel like a bunch of partial, offset fragments — it feels like *one* moment, *one* world. That’s the magic: how do those separate threads snap together into the seamless fabric we call now?
+  <p>
+    What makes this more bizarre is that even though visual/auditory/somatic signals arrive with different lags, your conscious experience compensates — welds them —
+    to have a single agreed time for every event, even when the event has both visual and somatic components.
+    Experience shows no echoes or spread of timing of events — events feel singular. That’s the question: what is the orchestration process, and where in the brain can we see it?
+  </p>
+    <p>
+    The image below shows event-related potentials (ERPs) for somatic, auditory, and visual stimuli- the timing and shape are different.
+    </p>
+</div>
 
-        </p>
-        <div style="clear: both;"></div>
-        <h2>1. Anastomotic Processing (Warren McCulloch/IIT)?</h2>
+<!-- 🧪 ERP Image: centered and scaled -->
+<div style="width: 90%; height: 250px; overflow: hidden; margin: 3em auto;">
+  <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_ERPS.png?alt=media&token=22bb0379-6276-4723-b54a-a5f37ec34fef"
+       alt="ERPs"
+       style="width: 100%; object-fit: cover; object-position: -30px -40px;" />
+</div>
+
+<h2>1. Anastomotic Processing (Warren McCulloch/IIT)?</h2>
 <p>
-    <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_warrenMcCulloch.jpg?alt=media&token=e2d9a6fb-b008-432e-a369-27c2db034c18"
-         alt="Warren McCulloch"
-         style="float: left; margin-left: -1em; margin-right: -1em; height: 140px;" />
-    Warren McCulloch was a neuroscientist who proposed the idea of anastomotic processing&mdash;that the brain's main magic is not serial or parallel, but a third
-    kind of thing&mdash;a neural network style mixing. If you imagine a net with three layers, input to each node on the bottom layer gets broadcast with differing
-    weights to the middle layer, and so on. In this way, you can extract invariant patterns in the input, and perhaps bind several inputs into a singular complex representation.
-    Maybe this is what IIT (Integrated Information Theory) is hinting at, that a unitary temporal stream arises by this criss-cross mixing.
+  <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_warrenMcCulloch.jpg?alt=media&token=e2d9a6fb-b008-432e-a369-27c2db034c18"
+       alt="Warren McCulloch"
+       style="float: left; margin-right: 1em; height: 140px;" />
+
+  Warren McCulloch was a neuroscientist who proposed the idea of anastomotic processing&mdash;that the brain's main magic is not serial or parallel, but a third
+  kind of thing&mdash;a neural network style mixing. If you imagine a net with three layers, input to each node on the bottom layer gets broadcast with differing
+  weights to the middle layer, and so on. In this way, you can extract invariant patterns in the input, and perhaps bind several inputs into a singular complex representation.
+  Maybe this is what Integrated Information Theory (IIT) is hinting at, that a unitary temporal stream arises by this criss-cross mixing. One might imagine that the coexistence of multiple operating timescales within the network helps forge a unified temporal stream&mdash;with ionotropic receptors generating sharp, millisecond bursts, and metabotropic receptors stretching that same signal into a slow, echoing persistence across seconds.
+
+  <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/anastomoticBinding.png?alt=media&token=3e45abaa-f009-42ee-b6d6-b22cda0d19ce"
+       alt="Anastomotic Processing"
+       style="display: block; margin: 2em auto; height: 400px;" />
 </p>
+
+        <div style="clear: both;"></div>
+
 
         <h2>2. Matrix Cell or Other Clock (Rodolpho Llinás/GWT)?</h2>
 <p>
@@ -81,15 +106,18 @@
     thalamus has two types of functions: (1) relaying sensory input, and (2) providing a global, binding, amodal 'clock' signal. Primary (LGN, MGN) and associational (Pulvinar) thalamus
     would do function one; while intralaminar and other matrix cell regions, which broadcast roughly to the whole cortex, would provide the timing of frames of consciousness. Where two signals join
     in time at cortex, this would dictate what is attended to from moment to moment. Bernard Baars' Global Workspace Theory (GWT) suggests frontal or attentional systems may serve as the 
-integrating clock. To Baars' point, mPFC (medial prefrontal cortex) does appear to show FM crest response to transients in music, etc.
+integrating clock. To Baars' point, mPFC (medial prefrontal cortex) does appear to show FM crest response to transients in music, etc. The graphic below demonstrates how matrix cells might clock the brain.
 </p>
-
+          <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_realThalCor.jpeg?alt=media&token=7a531b25-e230-435e-83bd-649441e30d9f"
+       alt="Thalamocortical circuit specific and nonspecific"
+       style="display: block; margin: 2em auto; height: 500px;" />
+        
         <h2>3. Inputs, Priors and Posteriors (Jeff Hawkins/Shamil Chandaria/Karl Friston)?</h2>
 <p>
     <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_jeffHawkins.jpeg?alt=media&token=c989f041-d0d3-4866-90b0-3d607ce43e7b"
          alt="Jeff Hawkins"
          style="float: left; margin-left: 1em; height: 140px;" />
-    Many view the brain as Bayesian or predictive/probabilistic. Hawkins argues more for a sparse encoding model, which resembles higher nodes in McCulloch's neural net theory. 
+    Many view the brain as Bayesian (predictive/probabilistic). Hawkins argues more for a sparse encoding model, which resembles higher nodes in McCulloch's neural net theory. 
     His two books, "On Intelligence," and "Thousand Brains Theory," are excellent reads. Chandaria extends Friston's ideas and proposes that sensory inputs are compared against priors and context
     before concluding with an interpretive posterior (your actual experience). This is good as far as it goes, but I feel it does not look enough at phenomenology, because I see no
     accounting for the observation that the worldsim is often refreshed by a revolvic sweep (like a vertical rolodex with 10 cards, all equidistant, and printed one every 100 ms, sweeping
