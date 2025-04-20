@@ -15,39 +15,323 @@
     <!-- Matrixy Font -->
     <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
-    <title>Thoughts on the Binding Problem</title>
+    <title>Thoughts on the Binding Problem: How Is the Worldsim Unitary?</title>
 
-    <style>
-        body {
-            font-family: 'Share Tech Mono', monospace;
-            background-color: #000;
-            color: #00FF00;
-            padding: 2em;
-            line-height: 1.5;
-        }
+<style>
+    html, body {
+  height: auto !important;
+  overflow-y: scroll;
+}
 
-        article {
-            max-width: 800px;
-            margin: auto;
-            background: #111;
-            padding: 2em;
-            box-shadow: 0 0 10px #0f0;
-            border: 1px solid #0f0;
-        }
+body {
+  margin: 0;
+  background-color: #000;
+  color: #0f0;
+  font-family: 'Share Tech Mono', monospace;
+  line-height: 1.5;
+  padding: 2em;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
 
-        h1 {
-            color: #0f0;
-            text-shadow: 0 0 3px #0f0;
-        }
+#matrix-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Don't block mouse/scroll */
+  display: block;
+}
 
-        p {
-            margin-bottom: 1.5em;
-        }
-    </style>
+
+article {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: auto;
+  background: #111;
+  padding: 2em;
+  box-shadow: 0 0 10px #0f0;
+  border: 1px solid #0f0;
+}
+
+h1 {
+  color: #0f0;
+  font-size: 36px;
+  text-shadow:
+    0 0 1px #fff,
+    0 0 2px #0f0,
+    0 0 3px #0f0;
+}
+
+p {
+  margin-bottom: 1.5em;
+}
+
+a:link, a:visited, a:hover, a:active {
+  color: #006400;
+  text-decoration: underline;
+}
+    
+/* 🖥️ Default desktop styling (unchanged) */
+    img[alt*="Rodolfo Llinás"] {
+        float: left;
+  margin-right: 1em;
+  height: 140px;
+  width: auto;
+    }
+img[alt*="Warren McCulloch"] {
+  float: left;
+  margin-right: -1em;
+  margin-left: -1em;
+  height: 140px;
+  width: auto;
+}
+
+/* 📱 Mobile overrides */
+@media screen and (max-width: 768px) {
+    img[alt*="Rodolfo Llinás"] {
+        float: none !important;
+    display: block !important;
+    margin: 1em auto !important;
+    height: auto !important;
+    max-width: 100px !important;
+    }
+  img[alt*="Warren McCulloch"] {
+    float: none !important;
+    display: block !important;
+    margin: 1em auto !important;
+    height: auto !important;
+    max-width: 200px !important;
+  }
+}
+
+/* 🖥️ Desktop: looks good as-is, but ensure it's not too wide */
+img[alt*="Best I Can Do Binding Meme"] {
+  float: right;
+  margin-left: 1em;
+  height: 600px;
+  width: auto;
+  max-width: 50%;
+}
+
+@media screen and (max-width: 768px) {
+  img[alt*="Best I Can Do Binding Meme"] {
+    float: none !important;
+    display: block !important;
+    margin: 1em auto !important;
+    width: auto !important;
+    height: auto !important;
+    max-width: 90% !important;
+    max-height: 600px !important;
+  }
+}
+
+    
+/* 🔧 Mobile: fix layout-wrecking elements */
+@media screen and (max-width: 768px) {
+  body {
+    padding: 1em;
+  }
+
+  article {
+    padding: 1.2em;
+    margin: 1em auto;
+    font-size: 14px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  h1 {
+    font-size: 24px;
+    line-height: 1.2;
+  }
+
+  p {
+    font-size: 15px;
+  }
+
+  img,
+  video,
+  iframe {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: auto !important;
+    float: none !important;
+    display: block !important;
+    margin: 1em auto !important;
+  }
+
+  /* 📉 Thalamo-cortical circuit — smack it down */
+  img[alt*="Thalamocortical"] {
+    max-height: 300px !important;
+  }
+
+  /* 📉 Radar refresh gif — shrink it too */
+  img[alt*="Radar Refresh"] {
+    max-height: 250px !important;
+  }
+
+  /* 🤼‍♂️ Double-image row fix */
+  div[style*="display: flex"] {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 1em !important;
+  }
+
+  div[style*="display: flex"] img {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+.erp-container {
+  width: 90%;
+  margin: 3em auto;
+  overflow: hidden;
+  max-height: 250px;
+}
+
+.erp-image {
+  width: 100%;
+  object-fit: cover;
+  object-position: -30px -40px;
+  display: block;
+}
+
+/* 📱 On mobile, show full ERP image instead of cropped */
+@media screen and (max-width: 768px) {
+  .erp-container {
+    max-height: none;
+  }
+
+  .erp-image {
+    object-fit: contain;
+    object-position: center center;
+    height: auto;
+  }
+}
+@media screen and (max-width: 768px) {
+  img[alt*="Jeff Hawkins"] {
+    float: none !important;
+    display: block !important;
+    margin: 1em auto !important;
+    max-width: 50% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+}
+
+iframe {
+  height: 500px;
+}
+
+/* 🧯 Mobile override — let it auto-scale */
+@media screen and (max-width: 768px) {
+  iframe {
+    height: auto !important;
+    aspect-ratio: 16 / 9 !important;
+  }
+}
+    
+    body.greyscale {
+  color: #ccc !important;
+  background-color: #000 !important;
+  filter: grayscale(100%);
+}
+
+body.greyscale img {
+  filter: grayscale(100%) !important;
+}
+
+body.greyscale h1,
+body.greyscale h2,
+body.greyscale h3 {
+  color: #eee !important;
+  text-shadow: 0 0 3px #666, 0 0 5px #aaa;
+}
+
+body.greyscale a {
+  color: #888 !important;
+}
+
+/* Optional: Matrix rain greyscale */
+body.greyscale canvas {
+  filter: grayscale(100%) !important;
+}
+body.invert-mode {
+  filter: invert(1) hue-rotate(180deg) contrast(1.1);
+}
+    
+body.invert-mode #mode-toggle-buttons {
+  filter: invert(1) hue-rotate(180deg) contrast(1.1);
+}
+
+
+body.invert-mode img,
+body.invert-mode video,
+body.invert-mode iframe {
+  filter: invert(1) hue-rotate(180deg) contrast(1.1); /* reverse the invert for content */
+}
+
+#invert-toggle {
+  background-color: black;
+  border: 1px solid #0f0;
+  color: #0f0;
+  font-family: 'Share Tech Mono', monospace;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+#mode-toggle-buttons {
+  display: flex;
+  gap: 1em;
+  margin-bottom: 2em;
+  justify-content: center;
+}
+
+#mode-toggle-buttons button {
+  background-color: black;
+  border: 1px solid #0f0;
+  color: #0f0;
+  font-family: 'Share Tech Mono', monospace;
+  padding: 0.5em 1em;
+  cursor: pointer;
+  z-index: 1000;
+  position: relative;
+}
+    
+    @media screen and (max-width: 768px) {
+  #mode-toggle-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #mode-toggle-buttons button {
+    width: 80%;
+    margin-bottom: 0.5em;
+  }
+}
+
+
+</style>
+
 </head>
 <body>
+
+<canvas id="matrix-canvas"></canvas>
+
+
+
+<div id="mode-toggle-buttons" style="display: flex; gap: 1em; margin-bottom: 1em;">
+  <button id="gray-toggle">🫥 Gray Mode</button>
+  <button id="invert-toggle">🌓 Invert Mode</button>
+</div>
+
+
     <article>
-<h1>Thoughts on the Binding Problem</h1>
+<h1>Thoughts on the Binding Problem:<br>How Is the Worldsim Unitary?</h1>
 
 
 <!-- 💬 Paragraph block: neat and padded -->
@@ -55,7 +339,7 @@
     <!-- 🧠 Meme: center-aligned and spaced -->
 <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_bestICanDo.jpeg?alt=media&token=e0bcb410-e2ed-4eaa-b3d1-cf49fd1d827a"
      alt="Best I Can Do Binding Meme"
-     style="float: right; margin: 1em auto; height: 400px;" />
+     style="float: right; margin-left: 1em; max-height: 360px;" />
   <p>
     The binding problem is a problem you keep running into when exploring mechanisms for consciousness. In your experience, you hear a bird chirp once. But when you
     look in the brain, every region shows different timing and shapes of electrical crests.
@@ -71,18 +355,18 @@
     </p>
 </div>
 
-<!-- 🧪 ERP Image: centered and scaled -->
-<div style="width: 90%; height: 250px; overflow: hidden; margin: 3em auto;">
+<div class="erp-container">
   <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_ERPS.png?alt=media&token=22bb0379-6276-4723-b54a-a5f37ec34fef"
        alt="ERPs"
-       style="width: 100%; object-fit: cover; object-position: -30px -40px;" />
+       class="erp-image" />
 </div>
+
 
 <h2>1. Anastomotic Processing (Warren McCulloch/IIT)?</h2>
 <p>
   <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_warrenMcCulloch.jpg?alt=media&token=e2d9a6fb-b008-432e-a369-27c2db034c18"
        alt="Warren McCulloch"
-       style="float: left; margin-right: 1em; height: 140px;" />
+       style="float: left; margin-right: 1em; max-height: 140px;" />
 
   Warren McCulloch was a neuroscientist who proposed the idea of anastomotic processing&mdash;that the brain's main magic is not serial or parallel, but a third
   kind of thing&mdash;a neural network style mixing. If you imagine a net with three layers, input to each node on the bottom layer gets broadcast with differing
@@ -91,18 +375,18 @@
 
   <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/anastomoticBinding.png?alt=media&token=3e45abaa-f009-42ee-b6d6-b22cda0d19ce"
        alt="Anastomotic Processing"
-       style="display: block; margin: 2em auto; height: 400px;" />
+       style="display: block; margin: 2em auto; max-height: 400px;" />
 </p>
 
         <div style="clear: both;"></div>
 
 
-        <h2>2. Matrix Cell or Other Clock (Rodolpho Llinás/GWT)?</h2>
+        <h2>2. Matrix Cell or Other Clock (Rodolfo Llinás/GWT)?</h2>
 <p>
     <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_rodolfoLlinas.png?alt=media&token=d7d5530a-492b-4db0-a704-5844108813d2"
-         alt="Rodolpho Llinás"
-         style="float: left; margin-left: 1em; margin-right: 1em; height: 140px;" />
-    Llinás is another neuroscientist whose book "I of the Vortex" proposes that the thalamus is key in overcoming the binding problem&mdash;to wit, that the 
+         alt="Rodolfo Llinás"
+         style="float: left; margin-left: 1em; margin-right: 1em; max-height: 140px;" />
+    Llinás is another neuroscientist whose book, "I of the Vortex," proposes that the thalamus is key in overcoming the binding problem&mdash;to wit, that the 
     thalamus has two types of functions: (1) relaying sensory input, and (2) providing a global, binding, amodal 'clock' signal. Primary (LGN, MGN) and associational (Pulvinar) thalamus
     would do function one; while intralaminar and other matrix cell regions, which broadcast roughly to the whole cortex, would provide the timing of frames of consciousness. Where two signals join
     in time at cortex, this would dictate what is attended to from moment to moment. Bernard Baars' Global Workspace Theory (GWT) suggests frontal or attentional systems may serve as the 
@@ -110,19 +394,89 @@ integrating clock. To Baars' point, mPFC (medial prefrontal cortex) does appear 
 </p>
           <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_realThalCor.jpeg?alt=media&token=7a531b25-e230-435e-83bd-649441e30d9f"
        alt="Thalamocortical circuit specific and nonspecific"
-       style="display: block; margin: 2em auto; height: 500px;" />
+       style="display: block; margin: 2em auto; max-height: 650px;" />
         
+        <p>René Descartes was obsessed with consciousness needing a unitary seat (not lateralized to either hemisphere). He thought the pineal gland sounded good. However, people without a 
+pineal gland appear moderately unaffected and certainly still conscious (nor does that gland show any reason to be performing such a task). At first glance, the cerebellum offers a better seat 
+for making a unified body schema (see homunculi below), but again, people without a cerebellum appear to still retain felt (somatic) qualia and are able to learn to operate their body even without 
+a cerebellum. But, the cerebellum does appear critical to have precisely timed and located frames of consciousness for allowing fast response times and precise motor control. The lower left image 
+is taken from Steven Lehar's <a href="https://qualiacomputing.com/2022/12/28/cartoon-epistemology-by-steven-lehar-2003/">Cartoon Epistemology,</a> and shows the *not-directly-observable* physical body (bones/muscle, left), the brain of which conjures the experiential body you're familiar with (pole body depiction, right). The experiential body is a kind of servo to drive the not-directly-observable physical body.</p>
+        
+                  <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_cerebellarHomunculus.jpeg?alt=media&token=538689e0-0e6f-4080-8057-ea544b0748bc"
+       alt="Homunculi cerebellum"
+       style="display: block; margin: 2em auto; max-height: 350px;" />
+        
+        <!-- 🧬 Row 2: Two side-by-side images -->
+<div style="display: flex; justify-content: center; gap: 2em; margin: 2em 0;">
+      <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_leharBodySchema.png?alt=media&token=2e0adbb2-98d0-49eb-b061-054873588395"
+       alt="Lehar Body Schema"
+       style="max-height: 300px;" />
+  <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_tether.jpeg?alt=media&token=6482cdc8-2007-4ed4-a1a0-e9ff5a9d5c94"
+       alt="Tether"
+       style="max-height: 300px;" />
+    
+        </div>
+            <p>There are all kinds of loops in the brain. The best known is the thalamo-cortical loop (involving both specific and non-specific components). The trisynaptic circuit goes serially through the hippocampus. But there's another large loop connecting the cerebrum and cerebellum, depicted below. Outputs from cortex proceed to the pons and then to the cerebellum and back to the thalamus and cortex. The image below explores whether the cerebellum might contribute to the timing of the frames of consciousness, but as mentioned earlier, it is unlikely that the cerebellum is necessary for them, only that it helps with their precision.</p>
+          <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_cerebellarLoop.jpeg?alt=media&token=4830111b-8a17-48fa-9c56-675fe508fefd"
+       alt="CerebroCerebellar Loop"
+       style="display: block; margin: 2em auto; max-height: 500px;" />
+    <p>The cerebellum also features a loop originating in the inferior olive&mdash;a structure Rodolfo Llinás has long been fascinated with. He proposes that this olivocerebellar system may represent an evolutionary outgrowth of the original "go" signal generator found in flagellar movement&mdash;a primitive, rhythmic timing mechanism that became repurposed for coordinating complex motor sequences.</p>
+          <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_cerebellarInfOlive.jpeg?alt=media&token=cd375720-203d-4cf3-a9b1-6d42b494c129"
+       alt="Inferior olive Cerebellar Loop"
+       style="display: block; margin: 2em auto; max-height: 500px;" />
+        
+        <p>Central pattern generators (CPGs) are roughly a pair of neurons that cylically excite each other, and thereby take turns sending alternating signals to a flagella to drive movement. 
+Work by Mark Churchland on principle component analysis (PCA) looks eerily similar&mdash;weighted populations of neurons contribute to two or more component axes, passing max frequency around like a hot potato, to hold phase addresses to specific components of muscle commands. This enables the overall command (like "walk") to be performed with variable speed, in real-time. 
+This also looks similar to phenomenology, where the 0º phase of revolvic refresh of worldsim often coincides with the 0º phase of the walk cycle (perhaps at left elbow). Below is an illustration of radar refresh of the worldsim.</p>
+        <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/radarRefresh.gif?alt=media&token=08c468bf-75d8-48d2-baea-746f934f0e17"
+     alt="Radar Refresh Loop"
+     style="display: block; margin: 2em auto; max-height: 500px;" />
+        <p>Mark Churchland PCA rings in motor cortex of monkeys are displayed below. More can be read on <a href="https://elifesciences.org/articles/67620/figures#content">PCA rings here.</a> 
+They do in fact find that the tracer following these rings slows or speeds with the variation in speed of motor command (and also that it moves upward/downward to a slightly segregated trajectory). This variation in tracer 
+speed is exactly in accord with how the tracer following rings making consciousness behaves. But, when the motor activity stops, the rings die (not true in phenomenology), suggesting other brain regions take up the slack (mu waves?), or that 
+another mechanism is behind the render of consciousness. For simplicity’s sake, imagine the ring occurring in a 2D neural space, where neuron 1 and neuron 2 show sinusoidal firing rate patterns that are 90° out of phase—one peaks while the other is at baseline. This phase-offset pattern is known as being in quadrature. Over the course of a second, each neuron's firing rate modulates sinusoidally between 10 Hz and 80 Hz, tracing out a smooth loop when plotted as principal components (PC1 vs. PC2)—and that’s what creates the observed ring in PCA space.</p>
+        <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_churchRings.jpg?alt=media&token=aa379b10-9491-402b-90e1-39af1e53b5ed"
+     alt="Churchland PCA Rings"
+     style="display: block; margin: 2em auto; max-height: 500px;" />
+    
         <h2>3. Inputs, Priors and Posteriors (Jeff Hawkins/Shamil Chandaria/Karl Friston)?</h2>
 <p>
-    <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_jeffHawkins.jpeg?alt=media&token=c989f041-d0d3-4866-90b0-3d607ce43e7b"
-         alt="Jeff Hawkins"
-         style="float: left; margin-left: 1em; height: 140px;" />
+<img 
+  src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_jeffHawkins.jpeg?alt=media&token=c989f041-d0d3-4866-90b0-3d607ce43e7b"
+  alt="Jeff Hawkins"
+  style="float: left; margin-left: 1em; max-height: 140px; height: auto; width: auto;" />
+
     Many view the brain as Bayesian (predictive/probabilistic). Hawkins argues more for a sparse encoding model, which resembles higher nodes in McCulloch's neural net theory. 
     His two books, "On Intelligence," and "Thousand Brains Theory," are excellent reads. Chandaria extends Friston's ideas and proposes that sensory inputs are compared against priors and context
-    before concluding with an interpretive posterior (your actual experience). This is good as far as it goes, but I feel it does not look enough at phenomenology, because I see no
-    accounting for the observation that the worldsim is often refreshed by a revolvic sweep (like a vertical rolodex with 10 cards, all equidistant, and printed one every 100 ms, sweeping
-    around the entire deck or volume in 1 second). This refresh is very dynamic (may vary in revolution speed from 1 second to 25 milliseconds, may vary from 10-20 cards, may vary in 3D orientation [isn't always vertical], etc.).
+    before concluding with an interpretive posterior (your actual experience), depicted below (<a href="https://www.youtube.com/watch?v=WWaYKsUhXqg&t=1471s">taken from his YouTube presentation</a>). 
 </p>
+        
+                <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_shamil.png?alt=media&token=ec0479d7-ef68-4bb7-87a2-07bf535f62da"
+     alt="Priors and posteriors"
+     style="display: block; margin: 2em auto; max-height: 500px;" />
+        <p>This is good as far as it goes, but I feel it does not look enough at phenomenology, because the worldsim is often refreshed by a revolvic sweep (like a vertical rolodex with 10 cards, all equidistant, and printed one every 100 ms, sweeping
+    around the entire deck or volume in 1 second). This refresh is very dynamic (may vary in revolution speed from 1 second to 25 milliseconds, may vary from 10-20 cards, may vary in 3D orientation [isn't always vertical], etc.). The image below is illustrative, taken from Abraham and Shaw's "Dynamics: The Geometry of Behavior," an excellent 4-volume set.</p>
+                <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_vRolodex.jpeg?alt=media&token=7e1242b7-9e99-4bdd-94e7-36367a4affcd"
+     alt="Vertical rolodex"
+     style="display: block; margin: 2em auto; max-height: 500px;" />
+<!-- 🌱 Embedded YouTube Video -->
+<div style="display: block; margin: 2em auto; max-width: 100%; box-shadow: 0 0 20px #0f0;">
+  <iframe 
+    width="100%" 
+    max-height="500" 
+    src="https://www.youtube.com/embed/a_MiAk1cJc8" 
+    title="greenified horizontal rolodex"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+    style="display: block; border: 1px solid #0f0;">
+  </iframe>
+</div>
+
+
+
+
+
+
 
         <h2>4. Spatial Cyclism?</h2>
         <p>
@@ -139,6 +493,99 @@ the zigzags. You observe a singular 'mic' of transients which encode one qualia 
 This shows that consciousness is highly orchestrated, and certain 'apple slices' of your modeling space get cyclic time-division access to being printed, perhaps somewhat holographically, in the sense that you can 
 deduce the full 3D 'paint' video intended merely from the slice touch points.
         </p>
+        <p>
+        What seems most likely to me is that the conscious part of brain is the use of frequency modulation crests (just as is done to encode strength of incoming or outgoing signals) passed amongst a few groups of neurons. Passing the highest frequency crest around, as a kind of stadium wave between intermingled teams, is actually passing the 'bank' around the brain's modeling space. Each phase in this hot-potato game is a slice of worldsim. Each pronounced phase is pretending there is this bank and that it is at a given location/scale/orientation in modeling space. The neurons pull off the rally around a more complex thing (consciousness) via intelligent orchestration over a second of duration.
+        </p>
+                        <img src="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/greenified_bankC.jpeg?alt=media&token=9fdcaf17-568f-48d3-8793-576f168233dd"
+     alt="Bank Schema"
+     style="display: block; margin: 2em auto; max-height: 500px;" />
+        
     </article>
+    <script>
+const canvas = document.getElementById("matrix-canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const katakana = "アカサタナハマヤラワンカキクケコ";
+const binary = "01";
+const chars = "01アカサタナハマヤラワン".split("");
+
+
+const fontSize = 14;
+const columns = canvas.width / fontSize;
+const drops = Array.from({ length: columns }).fill(1);
+
+function drawMatrix() {
+  ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  ctx.fillStyle = "#0f0";
+  ctx.font = fontSize + "px 'Courier New', monospace";
+
+
+  for (let i = 0; i < drops.length; i++) {
+    const text = chars[Math.floor(Math.random() * chars.length)];
+    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+      drops[i] = 0;
+    }
+    drops[i]++;
+  }
+}
+
+setInterval(drawMatrix, 50);
+</script>
+<script>
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+<script>
+  window.onload = () => {
+    window.scrollTo(0, 0);
+  };
+</script>
+<script>
+  const grayBtn = document.getElementById("gray-toggle");
+
+  grayBtn.addEventListener("click", function () {
+    const body = document.body;
+    body.classList.toggle("greyscale");
+
+    if (body.classList.contains("greyscale")) {
+      grayBtn.innerText = "Matrix Mode";
+      grayBtn.style.color = "#ccc";
+      grayBtn.style.borderColor = "#ccc";
+    } else {
+      grayBtn.innerText = "Noir Mode";
+      grayBtn.style.color = "#0f0";
+      grayBtn.style.borderColor = "#0f0";
+    }
+  });
+</script>
+<script>
+  const invertBtn = document.getElementById("invert-toggle");
+
+  invertBtn.addEventListener("click", function () {
+    const body = document.body;
+    body.classList.toggle("invert-mode");
+
+    if (body.classList.contains("invert-mode")) {
+      invertBtn.innerText = "🌓 Normal Mode";
+      invertBtn.style.color = "#fff";
+      invertBtn.style.borderColor = "#fff";
+    } else {
+      invertBtn.innerText = "🌓 Invert Mode";
+      invertBtn.style.color = "#0f0";
+      invertBtn.style.borderColor = "#0f0";
+    }
+  });
+</script>
+
+
 </body>
 </html>
