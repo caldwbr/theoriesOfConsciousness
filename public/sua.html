@@ -125,9 +125,30 @@
       data.forEach((sess, i) => {
         const opt = document.createElement('option');
         opt.value = i;
-        opt.textContent = `P${sess.subject.id} — S${sess.session.description.match(/\d+/)?.[0] || '?'}`;
+
+        let subjNum = sess.subject?.id || '?';
+        let sesNum = '?';
+
+        // Try using session_id (it's in the general info)
+        if (sess.session?.description?.toLowerCase().includes('scid')) {
+          // Fallback if it's one of the screening sessions
+          sesNum = '1';
+        } else if (sess.session?.description?.toLowerCase().includes('sbid')) {
+          sesNum = '2'; // Guess: SBID = Session 1
+        } else if (sess.identifier) {
+          const match = sess.identifier.match(/sub-(\d+)_ses-(\d+)/);
+          if (match) {
+            subjNum = match[1];
+            sesNum = match[2];
+          }
+        }
+
+        opt.textContent = `P${subjNum} — S${sesNum}`;
         select.appendChild(opt);
       });
+
+
+
 
       const updateSessionInfo = (idx) => {
         const sess = data[idx];
