@@ -2,26 +2,32 @@
 <html lang="en">
 <head>
   <title>Neuron Spike Viewer</title>
-  <style>
-    canvas { border: 1px solid black; }
-    body { font-family: sans-serif; }
-    .legend {
-      display: flex;
-      gap: 20px;
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    .legend-item {
-      display: flex;
-      align-items: center;
-    }
-    .color-box {
-      width: 20px;
-      height: 20px;
-      margin-right: 6px;
-      border: 1px solid #aaa;
-    }
-  </style>
+<style>
+  canvas { border: 1px solid black; }
+  body { font-family: sans-serif; margin: 20px; }
+
+  .legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    margin-top: 12px;
+    max-width: 1000px;
+    font-size: 14px;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+  }
+
+  .color-box {
+    width: 20px;
+    height: 20px;
+    margin-right: 6px;
+    border: 1px solid #aaa;
+  }
+</style>
+
 </head>
 <body>
   <h2>Spike Raster Viewer</h2>
