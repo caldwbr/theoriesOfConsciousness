@@ -161,8 +161,10 @@
         currentStart = 0;
         updateSessionInfo(idx);
         updateLegend();
+        canvas.height = neurons.length * 12 + 20; // 🪄 Resize canvas to fit neurons
         drawRaster();
       });
+
 
       // Load first session
       neurons = data[0].neurons;
