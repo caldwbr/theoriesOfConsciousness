@@ -31,7 +31,15 @@
 </head>
 <body>
   <h2>Spike Raster Viewer</h2>
+<div style="display: flex; align-items: center; gap: 20px;">
   <select id="sessionSelect"></select>
+  <div id="sessionInfo" style="font-weight: bold;"></div>
+</div>
+
+<div id="loader" style="margin-top: 10px; display: none;">
+  <span style="font-style: italic; color: gray;">Loading data...</span>
+</div>
+
   <br><br>
   <canvas id="rasterCanvas" width="1000" height="600"></canvas>
   <div id="legend" class="legend"></div>
@@ -97,30 +105,40 @@
     };
 
     const loadData = async () => {
+      document.getElementById('loader').style.display = 'block';
       const res = await fetch('https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/all_nwb_summary.json?alt=media&token=cf1d370f-acd6-403d-8541-a97bb548ab77');
       data = await res.json();
+      document.getElementById('loader').style.display = 'none';
 
       const select = document.getElementById('sessionSelect');
+      const sessionInfo = document.getElementById('sessionInfo');
+
       data.forEach((sess, i) => {
         const opt = document.createElement('option');
         opt.value = i;
-        opt.textContent = `P${sess.subject.id}S${sess.session.description.includes('2') ? '2' : '1'}`;
+        opt.textContent = `P${sess.subject.id} — ${sess.session.description}`;
         select.appendChild(opt);
       });
+
+      const updateSessionInfo = (idx) => {
+        const sess = data[idx];
+        sessionInfo.textContent = `Age: ${sess.subject.age}, Sex: ${sess.subject.sex}, Start: ${sess.session.start_time}`;
+      };
 
       select.addEventListener('change', () => {
         const idx = select.value;
         neurons = data[idx].neurons;
         currentStart = 0;
+        updateSessionInfo(idx);
         drawRaster();
-        updateLegend();
       });
 
-      // Load first session by default
+      // Load first session
       neurons = data[0].neurons;
+      updateSessionInfo(0);
       drawRaster();
-      updateLegend();
     };
+
 
     loadData();
 
