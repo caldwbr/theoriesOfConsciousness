@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+  <title>Neuron Spike Viewer</title>
+  <style>
+    canvas { border: 1px solid black; }
+    body { font-family: sans-serif; }
+  </style>
+</head>
+<body>
+  <h2>Spike Raster Viewer</h2>
+  <select id="sessionSelect"></select>
+  <br><br>
+  <canvas id="rasterCanvas" width="1000" height="600"></canvas>
+  <script>
+    const canvas = document.getElementById('rasterCanvas');
+    const ctx = canvas.getContext('2d');
+    let data, neurons, currentStart = 0, windowSize = 1.0;
+
+    const drawRaster = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const pixelsPerSec = canvas.width / windowSize;
+      const visibleEnd = currentStart + windowSize;
+
+      neurons.forEach((neuron, i) => {
+        neuron.spike_times.forEach(spike => {
+          if (spike >= currentStart && spike <= visibleEnd) {
+            const x = (spike - currentStart) * pixelsPerSec;
+            const y = i * 12 + 10;
+            ctx.beginPath();
+            ctx.moveTo(x, y - 5);
+            ctx.lineTo(x, y + 5);
+            ctx.stroke();
+          }
+        });
+      });
+    };
+
+    const loadData = async () => {
+      const res = await fetch('https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/all_nwb_summary.json?alt=media&token=cf1d370f-acd6-403d-8541-a97bb548ab77'); // or Firebase URL
+      data = await res.json();
+
+      const select = document.getElementById('sessionSelect');
+      data.forEach((sess, i) => {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `${sess.subject.id} — ${sess.session.description}`;
+        select.appendChild(opt);
+      });
+
+      select.addEventListener('change', () => {
+        const idx = select.value;
+        neurons = data[idx].neurons;
+        currentStart = 0;
+        drawRaster();
+      });
+
+      // Load first session
+      neurons = data[0].neurons;
+      drawRaster();
+    };
+
+    loadData();
+
+    document.addEventListener('keydown', (e) => {
+      const delta = e.shiftKey ? 1.0 : 0.1;
+      if (e.key === 'ArrowRight') {
+        currentStart += delta;
+        drawRaster();
+      } else if (e.key === 'ArrowLeft') {
+        currentStart = Math.max(0, currentStart - delta);
+        drawRaster();
+      }
+    });
+  </script>
+</body>
+</html>
