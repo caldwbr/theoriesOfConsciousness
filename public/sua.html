@@ -113,10 +113,19 @@
       const select = document.getElementById('sessionSelect');
       const sessionInfo = document.getElementById('sessionInfo');
 
+      // Sort by subject number, then session
+      data.sort((a, b) => {
+        const idA = parseInt(a.subject.id), idB = parseInt(b.subject.id);
+        if (idA !== idB) return idA - idB;
+        const sesA = a.session.description.includes('1') ? 1 : 2;
+        const sesB = b.session.description.includes('1') ? 1 : 2;
+        return sesA - sesB;
+      });
+
       data.forEach((sess, i) => {
         const opt = document.createElement('option');
         opt.value = i;
-        opt.textContent = `P${sess.subject.id} — ${sess.session.description}`;
+        opt.textContent = `P${sess.subject.id} — S${sess.session.description.match(/\d+/)?.[0] || '?'}`;
         select.appendChild(opt);
       });
 
@@ -130,14 +139,17 @@
         neurons = data[idx].neurons;
         currentStart = 0;
         updateSessionInfo(idx);
+        updateLegend();
         drawRaster();
       });
 
       // Load first session
       neurons = data[0].neurons;
       updateSessionInfo(0);
+      updateLegend();
       drawRaster();
     };
+
 
 
     loadData();
