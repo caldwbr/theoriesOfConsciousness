@@ -36,6 +36,7 @@
   <div id="sessionInfo" style="font-weight: bold;"></div>
 </div>
 
+
 <div id="loader" style="margin-top: 10px; display: none;">
   <span style="font-style: italic; color: gray;">Loading data...</span>
 </div>
@@ -48,7 +49,7 @@
     const canvas = document.getElementById('rasterCanvas');
     const ctx = canvas.getContext('2d');
     const legendDiv = document.getElementById('legend');
-    let data, neurons, currentStart = 0, windowSize = 1.0;
+    let data, neurons, currentStart = 0, windowSize = 10.0;
 
     const regionColors = {
       amygdala_left: '#ffcccc',
@@ -67,6 +68,7 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const pixelsPerSec = canvas.width / windowSize;
       const visibleEnd = currentStart + windowSize;
+
 
       neurons.forEach((neuron, i) => {
         const y = i * 12 + 10;
@@ -90,6 +92,24 @@
           }
         });
       });
+      // AFTER drawing spikes...
+      // Now draw grid on top of everything
+      ctx.strokeStyle = '#ddd';
+      ctx.lineWidth = 1;
+      ctx.font = '10px sans-serif';
+      ctx.fillStyle = '#666';
+
+      for (let sec = Math.ceil(currentStart); sec < currentStart + windowSize; sec++) {
+        const x = (sec - currentStart) * (canvas.width / windowSize);
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, canvas.height);
+        ctx.stroke();
+
+        // Draw second label
+        ctx.fillText(`${sec.toFixed(0)}s`, x + 2, 10);
+      }
+
     };
 
     const updateLegend = () => {
@@ -152,8 +172,17 @@
 
       const updateSessionInfo = (idx) => {
         const sess = data[idx];
-        sessionInfo.textContent = `Age: ${sess.subject.age}, Sex: ${sess.subject.sex}, Start: ${sess.session.start_time}`;
+        sessionInfo.innerHTML = `
+          Age: ${sess.subject.age}, Sex: ${sess.subject.sex}, Start: ${sess.session.start_time}<br>
+          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10796636/" target="_blank" style="font-size: 13px; color: #0077cc;">
+            Dataset of human single-neuron activity during a Sternberg working memory task
+          </a><br>
+          <span style="font-size: 13px; color: #444;">
+            ⌨️ <b>Controls:</b> ← / → = pan, ⇧ + ← / → = fast pan, ＋ / − = zoom
+          </span>
+        `;
       };
+      
 
       select.addEventListener('change', () => {
         const idx = select.value;
@@ -174,19 +203,30 @@
     };
 
 
+    const clamp = (val, min, max) => Math.max(min, Math.min(max, val));
 
     loadData();
 
     document.addEventListener('keydown', (e) => {
       const delta = e.shiftKey ? 1.0 : 0.1;
+
       if (e.key === 'ArrowRight') {
         currentStart += delta;
         drawRaster();
       } else if (e.key === 'ArrowLeft') {
         currentStart = Math.max(0, currentStart - delta);
         drawRaster();
+      } else if (e.key === '+' || e.key === '=') {
+        // Zoom in (narrower window)
+        windowSize = clamp(windowSize * 0.8, 0.1, 30);
+        drawRaster();
+      } else if (e.key === '-' || e.key === '_') {
+        // Zoom out (wider window)
+        windowSize = clamp(windowSize * 1.25, 0.1, 30);
+        drawRaster();
       }
     });
+
   </script>
 </body>
 </html>
