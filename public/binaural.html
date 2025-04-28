@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Binaural + Phase Offset Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        input { width: 100px; margin: 5px; }
+        label { display: block; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Binaural + Phase Offset Generator</h1>
+    <p>Set Left / Right frequencies and phase offset (0–360°). Try same freq + phase shift to check beat hypothesis!</p>
+
+    <label>
+        Left Frequency (Hz):
+        <input type="number" id="freqLeft" value="500" min="20" max="2000">
+    </label>
+    <label>
+        Right Frequency (Hz):
+        <input type="number" id="freqRight" value="503" min="20" max="2000">
+    </label>
+    <label>
+        Phase Offset (degrees):
+        <input type="number" id="phaseOffset" value="0" min="0" max="360">
+    </label>
+    <br>
+    <button onclick="startAudio()">Play</button>
+    <button onclick="stopAudio()">Stop</button>
+
+    <script>
+        let audioCtx, oscLeft, oscRight, gainNodeLeft, gainNodeRight;
+
+        function startAudio() {
+            stopAudio();
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            oscLeft = audioCtx.createOscillator();
+            oscRight = audioCtx.createOscillator();
+            gainNodeLeft = audioCtx.createGain();
+            gainNodeRight = audioCtx.createGain();
+
+            const freqL = parseFloat(document.getElementById('freqLeft').value);
+            const freqR = parseFloat(document.getElementById('freqRight').value);
+            const phaseDeg = parseFloat(document.getElementById('phaseOffset').value);
+            const phaseRad = phaseDeg * Math.PI / 180;
+
+            oscLeft.frequency.value = freqL;
+            oscRight.frequency.value = freqR;
+
+            // Phase Offset using PeriodicWave
+            const real = new Float32Array([1, Math.cos(phaseRad)]);
+            const imag = new Float32Array([0, Math.sin(phaseRad)]);
+            const wave = audioCtx.createPeriodicWave(real, imag);
+            oscRight.setPeriodicWave(wave);
+
+            const merger = audioCtx.createChannelMerger(2);
+
+            oscLeft.connect(gainNodeLeft).connect(merger, 0, 0);
+            oscRight.connect(gainNodeRight).connect(merger, 0, 1);
+
+            gainNodeLeft.gain.value = 0.5;
+            gainNodeRight.gain.value = 0.5;
+
+            merger.connect(audioCtx.destination);
+
+            oscLeft.start();
+            oscRight.start();
+        }
+
+        function stopAudio() {
+            if (oscLeft) { oscLeft.stop(); oscLeft.disconnect(); }
+            if (oscRight) { oscRight.stop(); oscRight.disconnect(); }
+            if (audioCtx) { audioCtx.close(); }
+        }
+    </script>
+</body>
+</html>
