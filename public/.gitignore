@@ -21,6 +21,10 @@ npm-debug.log*
 *.svg
 *.webp
 
+# Song files
+*.mp3
+*.wav
+
 # Video files
 *.mp4
 *.mov
