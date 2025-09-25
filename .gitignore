@@ -103,3 +103,10 @@ npm-debug.log*
 
 *.woff2
 *.woff
+# Ignore huge binaries
+*.avi
+*.mp4
+*.mov
+*.mkv
+*.zip
+*.dmg
