@@ -1,30 +1,202 @@
-#content-desktop {display: block;}
-#content-mobile {display: none;}
-
-@media screen and (max-width: 768px) {
-
-#content-desktop {display: none;}
-#content-mobile {display: block;}
-p { font-size: 20px; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+/* General site-wide styles for a warm, minimalist feel */
+body {
+    margin: 0;
+    padding: 0;
+    color: #3b3a30; /* A rich, deep brown-gray */
+    background-color: #fcfbf8; /* A warm, creamy off-white */
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevents horizontal scroll on mobile */
 }
 
-h1 {}
-
-.responsive {
-  width: 100%;
-  max-width: 800px;
-  height: auto;
+/* Headings with a touch of elegance */
+h1, h2, h3 {
+    font-family: 'Georgia', serif; /* A classic serif font for sophistication */
+    color: #1a1a1a;
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-top: 2rem;
+    position: relative;
+    display: inline-block;
 }
 
-.responsive-mobile {
-  width: 100%;
-  height: auto;
+h1 { font-size: 3em; text-align: center; }
+h2 { font-size: 2.2em; }
+h3 { font-size: 1.6em; }
+
+
+/* Main content area */
+main {
+    max-width: 900px;
+    margin: auto;
+    padding: 2rem;
 }
 
-#note {
-  font-size: 2em;
-  text-align: center;
-  margin: 20px auto;
-  color: #000;
+/* Header and navigation (unchanged from previous) */
+header {
+    text-align: center;
+    padding: 2rem 0;
+    background-color: #fcfbf8;
+}
+
+header h1 {
+    font-size: 2.5rem;
+    color: #1a1a1a;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.header-menu {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropbtn {
+    background-color: transparent;
+    color: #3b3a30;
+    padding: 14px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.dropbtn:hover {
+    color: #1a1a1a;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 250px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+    z-index: 1;
+    border: 1px solid #ddd;
+    border-top: none;
+    text-align: left;
+}
+
+.dropdown-content a {
+    color: #3b3a30;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    white-space: nowrap;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.nav-link {
+    text-decoration: none;
+    background-color: transparent;
+    color: #3b3a30;
+    padding: 14px 20px;
+    font-size: 1.1em;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: #1a1a1a;
+}
+
+/* Dictionary page and filter styles */
+.filter-controls {
+    text-align: center;
+    margin: 3rem 0 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    background-color: transparent;
+    color: #888;
+    padding: 10px 18px;
+    font-size: 1em;
+    font-weight: bold;
+    border: none; /* No border for a clean look */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.filter-btn.active {
+    color: #a35d4f; /* A warm, beautiful accent color */
+    border-bottom: 2px solid #a35d4f; /* A clean, modern indicator line */
+}
+
+.filter-btn:hover:not(.active) {
+    color: #1a1a1a;
+}
+
+#dictionary-entries {
+    display: grid;
+    gap: 20px;
+}
+
+.entry {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Softer, more elegant shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.entry:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+}
+
+.entry h3 {
+    margin-top: 0;
+    color: #2b2b2b;
+    border-bottom: 1px solid #d1c9bd; /* Match the main heading line */
+    padding-bottom: 8px;
+    font-size: 1.5em;
+    font-weight: 500;
+}
+
+.entry p {
+    color: #4b4b4b;
+    margin-bottom: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    main {
+        padding: 1rem;
+    }
+    h1 { font-size: 2em; }
+    h2 { font-size: 1.5em; }
+    .dropbtn, .nav-link { font-size: 1em; padding: 10px; }
+    .filter-controls {
+        flex-direction: column;
+        align-items: center;
+    }
+    .filter-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }

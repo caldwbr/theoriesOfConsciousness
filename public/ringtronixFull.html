@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ringtronix Full – Type Specimen</title>
+<link rel="icon" href="/favicon.ico">
+
+<style>
+  @font-face {
+    font-family: "RingtronixFull";
+    src: url("/fonts/Ringtronix-Full.woff2") format("woff2"),
+         url("/fonts/Ringtronix-Full.woff") format("woff");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  :root{
+    --bg:#ffffff; --fg:#0b1220; --muted:#5f6b7a; --line:#e7e9ee; --accent:#0f62fe;
+    --card:#ffffff;
+  }
+  .dark{
+    --bg:#0b1220; --fg:#eaf0ff; --muted:#a6b0c2; --line:#1d2636; --accent:#7aa2ff;
+    --card:#0f1725;
+  }
+
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0; font-family: ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans";
+       background:var(--bg); color:var(--fg);}
+  .wrap{max-width:1100px; margin:0 auto; padding:24px}
+  header{display:flex; align-items:center; justify-content:space-between; gap:16px;
+         padding:12px 0; border-bottom:1px solid var(--line); margin-bottom:18px;}
+  .brand{display:flex; align-items:center; gap:14px}
+  .logo{font-family:"RingtronixFull",system-ui,sans-serif; font-size:28px; letter-spacing:0.5px;}
+  .chip{font-size:12px; padding:4px 8px; border:1px solid var(--line); border-radius:999px; color:var(--muted)}
+  button,.btn{border:1px solid var(--line); background:var(--card); color:var(--fg);
+              padding:8px 12px; border-radius:10px; cursor:pointer;}
+  button:hover{border-color:var(--muted)}
+  .hero{display:grid; grid-template-columns:1.1fr 1fr; gap:28px; align-items:center; margin:24px 0 10px;}
+  @media (max-width:900px){.hero{grid-template-columns:1fr}}
+  .hero h1{font-family:"RingtronixFull",system-ui,sans-serif; font-size:clamp(42px,8vw,88px); line-height:1; margin:0 0 8px;}
+  .hero p{margin:0; color:var(--muted); font-size:18px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:16px; padding:16px;}
+  .controls{display:flex; flex-wrap:wrap; gap:10px; margin-top:10px}
+  .controls label{font-size:12px; color:var(--muted); display:flex; align-items:center; gap:8px}
+  input[type=range]{width:160px}
+  .preview{font-family:"RingtronixFull",system-ui,sans-serif; min-height:110px; padding:10px;
+           border-radius:12px; border:1px dashed var(--line); margin-top:10px; font-size:48px; line-height:1.15; letter-spacing:0;}
+  .section{margin:26px 0}
+  .ladder h2{margin:0 0 6px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted)}
+  .ramp{display:grid; gap:10px}
+  .ramp .row{display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--line); padding:10px 0;}
+  .size{width:70px; color:var(--muted); font-size:12px}
+  .sample{font-family:"RingtronixFull",system-ui,sans-serif}
+  .pangram{color:var(--muted); font-size:14px; margin-top:6px}
+  .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px}
+  @media(max-width:700px){.grid{grid-template-columns:1fr}}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:14px}
+  footer{margin:34px 0 10px; color:var(--muted); font-size:12px; text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo">Ringtronix Full</div>
+      <span class="chip">Specimen</span>
+    </div>
+    <div style="display:flex; gap:10px">
+      <button id="toggleTheme">Dark / Light</button>
+      <a class="btn" href="/fonts/Ringtronix-Full.woff2" download>Download .woff2</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Solid Geometry</h1>
+      <p>Ringtronix Full is the filled counterpart to the stroke cut — dense, monolithic, designed for bold presence.</p>
+    </div>
+    <div class="card">
+      <div contenteditable="true" class="preview" id="preview">RingBank • Full Form • Solidity</div>
+      <div class="controls">
+        <label>Size <input id="size" type="range" min="18" max="120" value="56"></label>
+        <label>Line <input id="line" type="range" min="90" max="160" value="115"></label>
+        <label>Track <input id="track" type="range" min="-50" max="100" value="0"></label>
+        <button id="reset">Reset</button>
+      </div>
+      <div class="pangram">Try: “Bold RingBank bricks build form.”</div>
+    </div>
+  </section>
+
+  <section class="section ladder">
+    <h2>Size Ladder</h2>
+    <div class="ramp">
+      <div class="row"><div class="size">96 px</div><div class="sample" style="font-size:96px">RingBank Institute</div></div>
+      <div class="row"><div class="size">72 px</div><div class="sample" style="font-size:72px">RingBank Institute</div></div>
+      <div class="row"><div class="size">48 px</div><div class="sample" style="font-size:48px">RingBank Institute</div></div>
+      <div class="row"><div class="size">36 px</div><div class="sample" style="font-size:36px">RingBank Institute</div></div>
+      <div class="row"><div class="size">28 px</div><div class="sample" style="font-size:28px">RingBank Institute</div></div>
+      <div class="row"><div class="size">22 px</div><div class="sample" style="font-size:22px">RingBank Institute</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="grid">
+      <div class="card">
+        <h3>Pangrams</h3>
+        <div class="sample" style="font-size:28px">Sphinx of black quartz, judge my vow.</div>
+        <div class="sample" style="font-size:26px">Pack my box with five dozen liquor jugs.</div>
+        <div class="sample" style="font-size:24px">Jived fox nymph grabs quick waltz.</div>
+      </div>
+      <div class="card">
+        <h3>Numerals & Punctuation</h3>
+        <div class="sample" style="font-size:34px">0123456789 • ! ? @ # $ % & * ( ) [ ] { }</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section card">
+    <h3>Alphabet</h3>
+    <div class="sample" style="font-size:40px; line-height:1.2">A B C D … Z</div>
+    <div class="sample" style="font-size:40px; line-height:1.2; margin-top:6px">a b c d … z</div>
+  </section>
+
+  <section class="section card">
+    <h3>Tech Details</h3>
+    <div class="mono">
+      Family: Ringtronix Full<br>
+      Style: Regular (display)<br>
+      Formats: WOFF2 (web), WOFF (fallback), OTF/TTF (desktop)<br>
+      Recommended use: Headlines, logos, emphatic titles.
+    </div>
+  </section>
+
+  <footer>© <span id="year"></span> RingBank Institute · Typeface: Ringtronix Full</footer>
+</div>
+
+<script>
+  const preview=document.getElementById('preview'), size=document.getElementById('size'), line=document.getElementById('line'), track=document.getElementById('track');
+  function apply(){preview.style.fontSize=size.value+'px'; preview.style.lineHeight=line.value/100; preview.style.letterSpacing=(track.value/1000)+'em';}
+  size.addEventListener('input',apply); line.addEventListener('input',apply); track.addEventListener('input',apply);
+  document.getElementById('reset').addEventListener('click',()=>{size.value=56;line.value=115;track.value=0;apply();});
+  document.getElementById('toggleTheme').addEventListener('click',()=>document.documentElement.classList.toggle('dark'));
+  document.getElementById('year').textContent=new Date().getFullYear();
+  apply();
+</script>
+</body>
+</html>

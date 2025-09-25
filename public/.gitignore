@@ -1,0 +1,30 @@
+# Firebase and Node.js
+node_modules/
+.firebase/
+firebase-debug.log
+
+# Common log files and dependencies
+*.log
+npm-debug.log*
+.DS_Store
+
+# Other local files
+*.env
+.vscode/
+
+# Image files
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.svg
+*.webp
+
+# Video files
+*.mp4
+*.mov
+*.avi
+*.wmv
+*.flv
+*.webm
