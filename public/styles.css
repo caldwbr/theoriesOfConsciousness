@@ -1,3 +1,8 @@
+* {
+    box-sizing: border-box;
+    max-width: 100%;
+}
+
 /* General site-wide styles for a warm, minimalist feel */
 body {
     margin: 0;
@@ -197,53 +202,57 @@ header h1 {
     flex-shrink: 0;
 }
 
-/* Unique colors for each category tag */
-.category-tag-ring-bank {
-    background-color: #a35d4f; /* Warm accent color */
+/* Beautiful, distinguishable category tag colors */
+.category-tag-mainstream {
+    background-color: #6c757d; /* Neutral gray for foundational concepts */
 }
 
-.category-tag-mainstream {
-    background-color: #007bff; /* Blue */
+.category-tag-ring-bank {
+    background-color: #a35d4f; /* Keep your warm accent color */
 }
 
 .category-tag-michael-levin {
-    background-color: #dc3545; /* Red */
+    background-color: #20c997; /* Fresh teal for bioelectric research */
 }
 
 .category-tag-predictive-processing {
-    background-color: #28a745; /* Green */
+    background-color: #e83e8c; /* Vibrant pink for modern cognitive theory */
 }
 
 .category-tag-neuroscience {
-    background-color: #6c757d; /* Gray */
+    background-color: #6f42c1; /* Rich purple for brain science */
+}
+
+.category-tag-neural-nets {
+    background-color: #fd7e14; /* Warm orange for AI/neural networks */
 }
 
 .category-tag-immanuel-kant {
-    background-color: #556b2f; /* Dark olive green */
+    background-color: #7952b3; /* Deep violet for classical philosophy */
 }
 
 .category-tag-person {
-    background-color: #8b4513; /* A warm saddle brown */
+    background-color: #20c997; /* Teal (same as Levin) for people */
 }
 
 .category-tag-math {
-    background-color: #4CAF50; /* A vibrant green */
+    background-color: #17a2b8; /* Cyan blue for mathematical concepts */
 }
 
 .category-tag-dynamics {
-    background-color: #2196F3; /* A bright blue */
+    background-color: #2196F3; /* Keep your nice bright blue */
 }
 
 .category-tag-book {
-    background-color: #9c27b0; /* A deep purple */
+    background-color: #343a40; /* Dark charcoal for books */
 }
 
 .category-tag-paper {
-    background-color: #FF9800; /* A bold orange */
+    background-color: #6c757d; /* Medium gray for academic papers */
 }
 
 .category-tag-video {
-    background-color: #FF0000; /* A bold, pure red for YouTube */
+    background-color: #FF0000; /* Keep YouTube red */
 }
 
 /* Ensure existing entry p tags are correctly styled */
@@ -253,24 +262,143 @@ header h1 {
     margin-bottom: 0;
 }
 
-/* Responsive design */
+/* Responsive design - COMPREHENSIVE FIX */
 @media (max-width: 768px) {
-    main {
-        padding: 1rem;
+    /* Reset body constraints */
+    body {
+        padding: 0;
+        margin: 0;
+        width: 100vw;
+        overflow-x: hidden;
     }
-    h1 { font-size: 2em; }
-    h2 { font-size: 1.5em; }
-    .dropbtn, .nav-link { font-size: 1em; padding: 10px; }
+    
+    /* Header container - full width with consistent padding */
+    #header-placeholder {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    /* Actual header element - match main content padding */
+    #header-placeholder > header {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 2rem 1rem !important;
+        margin: 0;
+    }
+    
+    /* Header content - force full available width */
+    #header-placeholder header h1 {
+        width: 100%;
+        box-sizing: border-box;
+        margin: 0 auto;
+        text-align: center;
+    }
+    
+    #header-placeholder .header-menu {
+        width: 100%;
+        box-sizing: border-box;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        margin: 1rem 0 0 0;
+    }
+    
+    #header-placeholder .dropdown {
+        width: 100%;
+    }
+    
+    #header-placeholder .dropbtn,
+    #header-placeholder .nav-link {
+        width: 100%;
+        display: block;
+        text-align: center;
+        box-sizing: border-box;
+    }
+    
+    #header-placeholder .dropdown-content {
+        width: 100%;
+        min-width: auto;
+        position: relative;
+        left: 0;
+        right: 0;
+    }
+    
+    /* Main content - same padding as header */
+    main {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 1rem;
+        margin: 0;
+        box-sizing: border-box;
+    }
+    
+    /* Filter controls */
     .filter-controls {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        width: 100%;
+        gap: 0.5rem;
+        margin: 1rem 0;
     }
+    
     .filter-btn {
         width: 100%;
-        margin-bottom: 10px;
+        margin-bottom: 0;
+        text-align: center;
+    }
+    
+    /* Dictionary entries */
+    #dictionary-entries {
+        width: 100%;
+    }
+    
+    .entry {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Fix for iframes and videos */
+    .video-container {
+        width: 100%;
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+        overflow: hidden;
+    }
+    
+    .video-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100% !important;
+        height: 100% !important;
+        max-width: 100%;
+    }
+    
+    /* Fix for Plotly containers */
+    .plotly-graph-div,
+    #morlet-graph,
+    #lorenz-plot {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Ensure all interactive elements don't break layout */
+    .card-link .entry iframe,
+    .card-link .entry .video-container,
+    .card-link .entry .plotly-graph-div {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+    
+    h1 { 
+        font-size: 2em; 
+        width: 100%;
+        text-align: center;
     }
 }
-
 /* Collapse whitespace in entry text and hide truly empty paragraphs */
 .entry p { white-space: normal; }
 .entry p:empty { display: none; }
@@ -412,4 +540,28 @@ input[type="range"] {
 /* Keep the symbol clickable */
 .entry-link-symbol {
     pointer-events: auto;
+}
+
+/* Allow affiliate links to be clickable */
+.card-link .entry a,
+.card-link .entry .affiliate-link {
+    pointer-events: auto !important;
+}
+
+.affiliate-link {
+    display: inline-block;
+    background: #a35d4f;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px; /* Smaller radius for rectangle */
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+}
+
+.affiliate-link:hover {
+    background: #8a4d3f;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(163, 93, 79, 0.3);
 }
