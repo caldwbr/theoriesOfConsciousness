@@ -1,153 +1,1720 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Consciousness Dictionary</title>
-    <meta name="description" content="A dictionary of terms related to consciousness, including mainstream concepts and terms from the Ring/Bank Theory." />
-    <meta name="author" content="Brad Caldwell">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    
-    <link rel="stylesheet" href="../styles.css" />
-    
-    <script src="../dictionary.js" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Consciousness Dictionary</title>
+    <meta name="description" content="A dictionary of terms related to consciousness, including mainstream concepts and terms from the Ring/Bank Theory." />
+    <meta name="author" content="Brad Caldwell">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    <div id="header-placeholder"></div>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch("/header.html").then(res => res.text()).then(html => {
-                document.getElementById("header-placeholder").innerHTML = html;
-            });
-            fetch('/footer.html')
-                .then(response => response.text())
-                .then(html => { document.getElementById('footer-placeholder').innerHTML = html; });
-        });
+    document.addEventListener('DOMContentLoaded', () => {
+      const fixNbsp = (root) => {
+        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+        const nodes = [];
+        while (walker.nextNode()) nodes.push(walker.currentNode);
+        nodes.forEach(n => { n.nodeValue = n.nodeValue.replace(/\$nbsp;?/gi,' ').replace(/\u00A0+/g,' '); });
+        root.querySelectorAll('p').forEach(p => { if (/^[\s\u00A0]*$/.test(p.textContent)) p.remove(); });
+      };
+
+      fetch("/header.html").then(r => r.text()).then(html => {
+        const el = document.getElementById("header-placeholder");
+        el.innerHTML = html;
+        fixNbsp(el);
+      });
+      fetch('/footer.html').then(r => r.text()).then(html => {
+        const el = document.getElementById('footer-placeholder');
+        if (el) { el.innerHTML = html; fixNbsp(el); }
+      });
+    });
     </script>
+    <main>
+        <h1>Consciousness Dictionary</h1>
 
-    <main>
-        <h1>Consciousness Dictionary</h1>
-
-        <div class="filter-controls">
+        <div class="filter-controls">
             <button class="filter-btn active" data-filter="all">All</button>
             <button class="filter-btn" data-filter="mainstream">Mainstream Terms</button>
             <button class="filter-btn" data-filter="ring-bank">Ring/Bank Terms</button>
-            </div>
+            <button class="filter-btn" data-filter="michael-levin">Michael Levin</button>
+            <button class="filter-btn" data-filter="predictive-processing">Predictive Processing</button>
+            <button class="filter-btn" data-filter="neuroscience">Neuroscience</button>
+            <button class="filter-btn" data-filter="immanuel-kant">Immanuel Kant</button>
+            <button class="filter-btn" data-filter="person">People</button>
+            <button class="filter-btn" data-filter="math">Math</button>
+            <button class="filter-btn" data-filter="dynamics">Dynamics</button>
+            <button class="filter-btn" data-filter="book">Books</button>
+            <button class="filter-btn" data-filter="paper">Papers</button>
+            <button class="filter-btn" data-filter="video">Videos</button>
+        </div>
 
-        <div id="dictionary-entries">
+        <div id="dictionary-entries">
             <div class="entry mainstream">
-                <h3>Qualia, Mainstream</h3>
-                <p>The individual, subjective, and conscious experience of sensations. For example, the "redness" of the color red, the "painfulness" of pain, or the "sweetness" of sugar. Qualia are often considered the hardest problem of consciousness because their subjective nature makes them difficult to explain with objective, physical processes.</p>
+                <div class="entry-header">
+                    <h3 class="entry-title">Qualia, Mainstream</h3>
+                    <span class="category-tag category-tag-mainstream">Mainstream</span>
+                </div>
+                <p>The individual, subjective, and conscious experience of sensations. For example, the “redness” of the color red, the “painfulness” of pain, or the “sweetness” of sugar. Qualia are often considered the hardest problem of consciousness because their subjective nature makes them difficult to explain with objective, physical processes.</p>
             </div>
-            
             <div class="entry ring-bank">
-                <h3>Qualia, Ring/Bank</h3>
+                <div class="entry-header">
+                    <h3 class="entry-title">Qualia, Ring/Bank</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
                 <p>The qualia stream is largely temporo-geometric. It is largely the same as the attention stream.</p>
                 <p>Explicit qualia are the self-same as the mic voice event stream. Qualia have two components—tactile(somatic)(explicit) and paint(implicit). The intensity, timing, shape, location, and movement/acceleration/deceleration of the print of ringframes of consciousness is the explicit qualia stream. Red is not (or isn't necessarily) an explicit (texture) qualia in ring/bank understanding—it is an implicit (paint) qualia. Unexpected qualia additions from ring/bank thinking: acceleration qualia, selfness qualia, fear qualia, mood qualia, thought qualia, crunch of lettuce qualia. Qualia can be about reified objects outside the body (crisp crunch of lettuce) and be experienced outside of the body, as the entire worldsim is the creation of the brain.</p>
             </div>
-            
-            <div class="entry mainstream theory-iit">
-                <h3>Integrated Information Theory (IIT)</h3>
-                <p>A theory of consciousness that posits consciousness is a physical property of matter that has the ability to cause-and-effect a large repertoire of states in an irreducible way. Consciousness is theorized to be related to the system's "phi" value, which is a measure of its integrated information.</p>
-            </div>
-
-            <div class="entry mainstream theory-glt">
-                <h3>Global Workspace Theory (GWT)</h3>
-                <p>A theory that models consciousness as a "global broadcast" system in the brain. Unconscious processing modules compete for access to a central "global workspace," and whatever information wins access is broadcast to the entire system, making it conscious. The "winner-take-all" competition is often likened to a theatrical stage, where a limited number of actors are in the spotlight.</p>
-            </div>
-            
             <div class="entry mainstream">
-                <h3>The Hard Problem</h3>
-                <p>A term coined by philosopher David Chalmers to distinguish the question of subjective experience (why does it feel like anything to be us?) from the "easy problems," which are objective, functional questions about how the brain processes information and behavior. The Hard Problem asks how physical processes give rise to phenomenal consciousness.</p>
+                <div class="entry-header">
+                    <h3 class="entry-title">Integrated Information Theory (IIT)</h3>
+                    <span class="category-tag category-tag-mainstream">Mainstream</span>
+                </div>
+                <p>A theory of consciousness that posits consciousness is a physical property of matter that has the ability to cause-and-effect a large repertoire of states in an irreducible way. Consciousness is theorized to be related to the system's “phi” value, which is a measure of its integrated information.</p>
+            </div>
+            <div class="entry mainstream">
+                <div class="entry-header">
+                    <h3 class="entry-title">Global Workspace Theory (GWT)</h3>
+                    <span class="category-tag category-tag-mainstream">Mainstream</span>
+                </div>
+                <p>A theory that models consciousness as a “global broadcast” system in the brain. Unconscious processing modules compete for access to a central “global workspace,” and whatever information wins access is broadcast to the entire system, making it conscious. The “winner-take-all” competition is often likened to a theatrical stage, where a limited number of actors are in the spotlight.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Dynamical System</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A mathematical model describing the evolution of a system's state over time, governed by a fixed rule. In neuroscience, it's used to model brain activity as a trajectory through a state space.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">State Space</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>An abstract space where each point represents a possible state of a dynamical system. The system's behavior is represented as a path or “trajectory” through this space.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Phase Portrait</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A geometric representation of the trajectories of a dynamical system in its state space. It visualizes the flow of states and highlights key features like fixed points and limit cycles.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Attractor</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A set of states toward which a dynamical system tends to evolve, regardless of the initial state. Examples include fixed points and limit cycles.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Fixed Point</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A point in state space where a dynamical system remains at rest. It represents an equilibrium state. A system can have stable, unstable, or saddle fixed points.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Limit Cycle</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A closed loop in a phase portrait that represents a stable, periodic, and self-sustaining oscillation. In neuroscience, it can model rhythmic brain activity like spiking or brainwaves.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Basin of Attraction</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>The set of all initial conditions (states) from which a dynamical system will evolve to a specific attractor.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Strange Attractor</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A fractal-like attractor that exhibits chaotic behavior. Trajectories within it never repeat but remain bounded within a specific region of the state space. They are often associated with non-linear systems.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Bifurcation</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A qualitative change in a dynamical system's behavior as a result of a small change in a system parameter. For example, a stable fixed point might split into a limit cycle, marking the onset of rhythmic oscillations.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Hysteresis</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>The phenomenon where the current state of a system depends not only on its current input but also on its history. In neural dynamics, it can describe how a neuron’s response to a stimulus depends on what has happened before.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Spiking Neuron Model</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A simplified mathematical model of a biological neuron that generates a discrete "spike" or action potential when its membrane potential reaches a threshold.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Action Potential</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A rapid, temporary rise and fall in the voltage across a neuron's membrane. It is the fundamental electrical signal used by neurons for communication.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Hodgkin-Huxley Model</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A mathematical model that describes how action potentials in neurons are initiated and propagated. It is a set of non-linear differential equations that explain the flow of ions across the cell membrane.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Izhikevich Model</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A simplified spiking neuron model that can reproduce a wide range of firing patterns seen in real neurons, while being computationally more efficient than the Hodgkin-Huxley model.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Lyapunov Exponent</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A measure of the rate at which nearby trajectories in a dynamical system diverge. A positive Lyapunov exponent is a key indicator of chaotic behavior.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Saddle Node Bifurcation</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A type of bifurcation where two fixed points (one stable and one unstable) collide and annihilate each other as a parameter is varied.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Unstable Manifold</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>The set of all points in a state space that approach an unstable fixed point as time runs backward.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Subthreshold Oscillation</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A rhythmic fluctuation in a neuron's membrane potential that does not reach the firing threshold to generate an action potential.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Firing Rate</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>The number of action potentials (spikes) a neuron produces per unit of time, often used as a measure of a neuron's activity.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Non-linear Dynamics</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>The study of systems where the output is not directly proportional to the input. The brain is a classic example of a non-linear dynamical system.</p>
+            </div>
+            <div class="entry dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Chaos</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>The behavior of certain non-linear dynamical systems that are highly sensitive to initial conditions. This is popularly known as the "butterfly effect."</p>
+            </div>
+            <div class="entry dynamics" id="lorenz-attractor-dynamics">
+                <div class="entry-header">
+                    <h3 class="entry-title">Lorenz Attractor</h3>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                </div>
+                <p>A set of chaotic solutions to the Lorenz equations, which describe a simplified model of atmospheric convection. Its phase portrait resembles a butterfly, making it a classic example of a strange attractor and a foundational concept in chaos theory. The system exhibits extreme sensitivity to initial conditions, where tiny differences in starting position lead to wildly different long-term behavior.</p>
+                <div style="text-align: center; margin: 20px 0;">
+                    <button id="lorenz-play-button">Play</button>
+                    <button id="lorenz-stop-button" disabled>Stop</button>
+                    <button id="lorenz-reset-button">Reset</button>
+                </div>
+                <div id="lorenz-plot"></div>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Eugene Izhikevich</h3>
+                    <span class="category-tag category-tag-person">People</span>
+                </div>
+                <p>A prominent computational neuroscientist known for his simplified yet powerful mathematical models of spiking neurons, particularly the Izhikevich model which is celebrated for its efficiency and ability to reproduce complex firing patterns.</p>
             </div>
 
+            <div class="entry book">
+                <div class="entry-header">
+                    <h3 class="entry-title">Dynamical Systems in Neuroscience</h3>
+                    <span class="category-tag category-tag-book">Book</span>
+                </div>
+                <p>A comprehensive textbook by Eugene Izhikevich that provides a detailed overview of the mathematical foundations of spiking neuron models and neural dynamics, bridging the gap between computational neuroscience and dynamical systems theory.</p>
+            </div>
+            <div class="entry book">
+                <div class="entry-header">
+                    <h3 class="entry-title">On Intelligence</h3>
+                    <span class="category-tag category-tag-book">Book</span>
+                </div>
+                <p>A book by Jeff Hawkins that outlines his theory of Hierarchical Temporal Memory (HTM), arguing that the neocortex uses a common algorithm to recognize patterns and make predictions, which forms the basis of intelligence.</p>
+            </div>
+            <div class="entry book">
+                <div class="entry-header">
+                    <h3 class="entry-title">A Thousand Brains</h3>
+                    <span class="category-tag category-tag-book">Book</span>
+                </div>
+                <p>Jeff Hawkins’s follow-up book to "On Intelligence," which further develops his theory by proposing that the neocortex learns a complete model of the world by using a thousand independent models stored in cortical columns, each making predictions and collectively agreeing on a single perception.</p>
+            </div>
+
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Ralph Abraham</h3>
+                    <span class="category-tag category-tag-person">People</span>
+                </div>
+                <p>An American mathematician and a founder of the visual mathematics movement. He is known for co-authoring the four-volume book series "Dynamics: The Geometry of Behavior," which introduced dynamical systems and chaos theory to a wider audience with a strong emphasis on geometric intuition.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Alan Hodgkin</h3>
+                    <span class="category-tag category-tag-person">People</span>
+                </div>
+                <p>A British physiologist and biophysicist who, along with Andrew Huxley, developed a groundbreaking mathematical model to describe the initiation and propagation of the action potential in neurons. They were awarded the Nobel Prize in Physiology or Medicine in 1963 for their work.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Andrew Huxley</h3>
+                    <span class="category-tag category-tag-person">People</span>
+                </div>
+                <p>A British physiologist and biophysicist who, along with Alan Hodgkin, developed the Hodgkin-Huxley model. His contributions were essential in describing the mechanisms by which ions flow through cell membranes during an action potential.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Artem Kirsanov</h3>
+                    <span class="category-tag category-tag-person">People</span>
+                </div>
+                <p>A computer scientist and video creator known for his engaging explanations of complex topics in neuroscience and computer science, including his video exploring the elegant geometry behind Izhikevich's neural computation model.</p>
+            </div>
+            
+            <div class="entry book">
+                <div class="entry-header">
+                    <h3 class="entry-title">Dynamics: The Geometry of Behavior</h3>
+                    <span class="category-tag category-tag-book">Book</span>
+                </div>
+                <p>A seminal four-volume book series by Ralph Abraham and Christopher Shaw that introduced the concepts of dynamical systems and chaos theory to a broad audience using vivid visual examples and geometric interpretations.</p>
+            </div>
+            <div class="entry video dynamics neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Elegant Geometry of Neural Computations</h3>
+                    <span class="category-tag category-tag-video">Video</span>
+                    <span class="category-tag category-tag-dynamics">Dynamics</span>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A YouTube video by Artem Kirsanov that provides a clear and intuitive explanation of the geometric principles underlying the Izhikevich spiking neuron model, helping to visualize how a simple set of equations can produce complex, realistic neural behavior.</p>
+                <div class="video-container">
+                    <iframe title="Neural Dynamics" width="560" height="315" src="https://www.youtube.com/embed/gLtGVEhMFN4" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+            <div class="entry book">
+                <div class="entry-header">
+                    <h3 class="entry-title">Dynamics: The Geometry of Behavior</h3>
+                    <span class="category-tag category-tag-book">Book</span>
+                </div>
+                <p>A seminal four-volume book series by Ralph Abraham and Christopher Shaw that introduced the concepts of dynamical systems and chaos theory to a broad audience using vivid visual examples and geometric interpretations.</p>
+            </div>
+            <div class="entry mainstream">
+                <div class="entry-header">
+                    <h3 class="entry-title">The Hard Problem</h3>
+                    <span class="category-tag category-tag-mainstream">Mainstream</span>
+                </div>
+                <p>A term coined by philosopher David Chalmers to distinguish the question of subjective experience (why does it feel like anything to be us?) from the “easy problems,” which are objective, functional questions about how the brain processes information and behavior. The Hard Problem asks how physical processes give rise to phenomenal consciousness.</p>
+            </div>
             <div class="entry ring-bank">
-                <h3>Frame</h3>
-                <p>An incomplete (2D) interpretation of a mic voice event, pre-meaning (incipient to full meaning attachment; i.e., prior to 'scratch-to-reveal' revelation of intended touched content).</p>
-                <p>A low-dimensional (2D) reification (a concrete representation) of an event or stimulus as it is processed in the brain's time schema. These geometric representations are the fundamental building blocks of conscious experience.</p>
+                <div class="entry-header">
+                    <h3 class="entry-title">Frame</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>An incomplete (2D manifold) interpretation of a mic voice event, pre-meaning (incipient to full meaning attachment; i.e., prior to 'scratch-to-reveal' revelation of intended touched content).</p>
+                <p>A low-dimensional (2D manifold) reification (a concrete representation) of an event or stimulus as it is processed in the brain's time schema. These geometric representations are the fundamental building blocks of conscious experience.</p>
                 <p>The keyframe at the beginning of a unit or chunk (or bin) of conscious reality, slightly analogous to a single frame in a film. In time schema, there is a series of distinct, low-frequency snapshots (amplitude crests of mic voice) that, once they unveil the content they are supposed to touch, the content is time-interpolable, and this content is what feels like smooth, flowing reality. The mic changes voices roughly 2-4 times a second, with each voice's speech (amplitude modulations) getting interpreted into its own short series of amplitude-varied ringframes (or full worldsim content).</p>
             </div>
-
             <div class="entry ring-bank">
-                <h3>Ring</h3>
-                <p>An incomplete (0-1D) interpretation of a mic voice event, pre-meaning (incipient to full meaning attachment; i.e., prior to 'scratch-to-reveal' revelation of intended touched content).</p>
-                <p>A low-dimensional (0-1D) reification (a concrete representation) of an event or stimulus as it is processed in the brain's time schema. These geometric representations are the fundamental building blocks of conscious experience. When the brain's buffer is not as exceeded, the mic voice events are interpreted more fully into 2D frames or even into the 3D volumetric worldsim content supposed to be touched by the ringframes.</p>
+                <div class="entry-header">
+                    <h3 class="entry-title">Ring</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>An incomplete (0-1D manifold) interpretation of a mic voice event, pre-meaning (incipient to full meaning attachment; i.e., prior to 'scratch-to-reveal' revelation of intended touched content).</p>
+                <p>A low-dimensional (0-1D manifold) reification (a concrete representation) of an event or stimulus as it is processed in the brain's time schema. These geometric representations are the fundamental building blocks of conscious experience. When the brain's buffer is not as exceeded, the mic voice events are interpreted more fully into 2D frames or even into the 3D volumetric worldsim content supposed to be touched by the ringframes.</p>
                 <p>The keyframe at the beginning of a unit or chunk (or bin) of conscious reality, slightly analogous to a single frame in a film. In time schema, there is a series of distinct, low-frequency snapshots (amplitude crests of mic voice) that, once they unveil the content they are supposed to touch, the content is time-interpolable, and this content is what feels like smooth, flowing reality. The mic changes voices roughly 2-4 times a second, with each voice's speech (amplitude modulations) getting interpreted into its own short series of amplitude-varied ringframes (or full worldsim content).</p>
             </div>
-            
             <div class="entry ring-bank">
-                <h3>Ringframe</h3>
-                <p>A ring (0-1D) or frame (2D) incomplete interpretation of a mic voice event. See <em>Ring</em> or <em>Frame</em>.</p>
+                <div class="entry-header">
+                    <h3 class="entry-title">AGU—Anti Gravity Up</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>A conceptual vector in real/imaginal schemas denoting the up direction. When dealing with multiple schemas, it is useful for partially understanding the relative 3D orientation of two schema volumes that are not <em>3D-Parallel</em>.</p>
             </div>
-            
             <div class="entry ring-bank">
-                <h3>Mic (TDMA, IRQ)</h3>
-                <p>The mic is an underappreciated concept in consciousness study, and it represents the conscious timestamping and most incipient conscious processing/awareness of any stimulus event. Stunningly, there is never any echo or phase-mismatch in perception for events. They seem to occur once, in perfect ordering and spacing. One can observe that further interpretation of these events has quite variable latency (5–500 ms), yet the varying interpretation lag never muddles the time record system of <em>Time Schema</em>. There is an ongoing tracking of a flowing window or buffer. The mic is critical to ring/bank theory.</p>
-                <p>Attention rapidly (2-4 Hz) changes what it is listens to/hears/focuses on. The mic has a rapid gatekeeper or <em>Mic Bouncer</em>, rapidly switching who gets the mic. That is, there is a rapid (1–4 Hz) switch of its input source to a different part of the brain (or more broadly, rapidly changing the attended thing that gets to voice its amplitude modulations briefly). The brain takes turns listening to different sensory streams (visual, auditory, somatic, insular mood, etc.), giving each a brief moment of access to a central processing unit. This is an interrupt-style processing system akin to a computer's <strong>Interrupt Request (IRQ)</strong> or <strong>Time-Division Multiple Access (TDMA)</strong>, where different processes are handled in a rapid cycle.</p>
-                <p>This mechanism allows differing modes or types of things to be the input to conscious attention and to reification to worldsim. An auditory voice (playing a song on car radio) leads to faint 3D mental imagery of the players or of the concepts discussed in the song. There is already decent evidence that this occurs in the Pulvinar of rats–that a series of neural bursts can magically change from being 'about' (and locking to timing of) air puffs to whiskers, to being 'about' (and locking to timing of) cyclic changes in visual field. </p>
+                <div class="entry-header">
+                    <h3 class="entry-title">Gaze Vector</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>A conceptual vector from the <em>Cyclopean Eye</em> of the <em>Avatar</em> to the foveal object which gaze is fixed upon. Alternatively, a conceptual vector from the mind's eye to the foveal object which gaze is fixed upon.</p>
             </div>
-            
             <div class="entry ring-bank">
-                <h3>Mic Bouncer</h3>
-                <p>Just as bars have bouncers determining who gets in, the conscious mic has a bouncer that rapidly (1–4 times per second) removes whoever (whatever mode or thing) is speaking and replaces them with another voice. For example, I may attend to the voice of typing on this Macbook keyboard. Then it begins raining or hailing, and that voice grabs the mic. Then I notice my leg bouncing. Then I notice my hunger. This is the rapid, real-time switching of voice. It is all-or-none. Certainly, the worldsim continues to float in most cases, but the mic of attended events seems to be monotoned, only capable of looking at one kind of ampitude modulation patterning at a time.</p>
+                <div class="entry-header">
+                    <h3 class="entry-title">HCU—Head Crown Up</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>A conceptual vector from the superior point of the head upwards, where up is defined from head coordinates (e.g. the line going from under chin up through the topmost point of head and continuing on), which is often different from <em>Anti-Gravity Up</em>.</p>
             </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Avatar</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>The body schema.</p>
+               <p>What you think is your real body, but is actually the brain's model of the physical body (the physical body, and the <em>Noumenal</em> [Physical] realm in general, cannot be directly observed).</p>
+            </div>
+            <div class="entry immanuel-kant">
+                <div class="entry-header">
+                    <h3 class="entry-title">Phenomenal, Immanuel Kant</h3>
+                    <span class="category-tag category-tag-immanuel-kant">Immanuel Kant</span>
+                </div>
+                <p>In Kant's philosophy, the phenomenal realm is the world as it appears to us, structured and organized by the categories of our human mind (e.g., space, time, and causality). It is the world of our sensory experience and empirical knowledge, and it is the only world we can directly perceive and understand.</p>
+            </div>
+            <div class="entry immanuel-kant">
+                <div class="entry-header">
+                    <h3 class="entry-title">Noumenal, Immanuel Kant</h3>
+                    <span class="category-tag category-tag-immanuel-kant">Immanuel Kant</span>
+                </div>
+                <p>In Kant's philosophy, the noumenal realm is the world of “things-in-themselves,” existing independently of our perception. It is a reality that is unknowable and inaccessible to human reason and sensory experience. While we cannot have direct knowledge of the noumenal, Kant argued that it must exist as the source of our phenomenal experience. Ring/bank thinking fully embraces this distinction, calling the noumenal realm the actual physical universe, which is not directly observable.</p>
+            </div>
+            <div class="entry immanuel-kant">
+                <div class="entry-header">
+                    <h3 class="entry-title">A Priori vs. A Posteriori</h3>
+                    <span class="category-tag category-tag-immanuel-kant">Immanuel Kant</span>
+                </div>
+                <p>In Kantian epistemology, knowledge is distinguished by how it is acquired. “A priori” knowledge is gained independently of experience, such as the truths of logic and mathematics. “A posteriori” knowledge, by contrast, is derived from empirical observation and experience, such as scientific findings.</p>
+            </div>
+            <div class="entry math">
+                <div class="entry-header">
+                    <h3 class="entry-title">FM-PCA</h3>
+                    <span class="category-tag category-tag-math">Math</span>
+                </div>
+                <p>Frequency modulation principle component analysis. The FM (frequency modulation) term is added to clarify the basis of many PCA studies. A task may be repeated several times and averaged to obtain a fairly clean firing frequency of a neuron at each time point of the trial. Z-scoring and sometimes log are applied to the datapoints prior to running PCA to rotate the n-dimensioned coordinates such that dimension 1:n will align with and order maximal variance of the tracer.</p>
+            </div>
+            <div class="entry math">
+                <div class="entry-header">
+                    <h3 class="entry-title">AM-PCA</h3>
+                    <span class="category-tag category-tag-math">Math</span>
+                </div>
+                <p>Amplitude modulation principle component analysis. The AM (amplitude modulation) term is added to clarify the basis of a few studies by Brad Caldwell. <em>Complex Morlet Wavelet</em> convolution (or other method) is used to convert time series data (say, from EEG channels) to time-frequency data (amplitude or power of each frequency band). Rather than having n individual neuron dimensions, it has n channel dimensions (number of electrodes), and generally looks at the entire cortex's <em>LFP</em> (local field potential). Initial tests showed ring behavior sometimes arising part-way into song-listening, with rings at a steady 5.15 Hz.</p>
+            </div>
+            <div class="entry math">
+                <div class="entry-header">
+                    <h3 class="entry-title">Complex Morlet Wavelet</h3>
+                    <span class="category-tag category-tag-math">Math</span>
+                </div>
+                <p>A mathematical function used in signal processing to analyze <strong>time-frequency representations</strong>, particularly of oscillatory neural activity. It is essentially a (complex) sine wave tapered by a Gaussian curve, which allows it to measure the power and phase of different frequency bands (like theta, alpha, or gamma) at specific moments in time. This provides a detailed, high-resolution view of how brain rhythms change dynamically during cognitive tasks.</p>
+                <div class="controls">
+                    <label for="frequency">Frequency (Hz):</label>
+                    <input type="range" id="frequency" name="frequency" min="1" max="20" value="10" step="1">
+                    <span id="frequency-value">10</span> Hz<br>
 
-            <div class="entry ring-bank">
-                <h3>Bank Schema</h3>
-                <p>The printhead of consciousness.</p>
-                <p>The play/record device of conscious geometry. By playing (printing) a shape, you also further record it onto the bank (greater rut or attraction for that shape).</p>
-                <p>A 3D Etch-a-Sketch, but the tracer doesn't have to remain a 0D point—it can also utilize 1D rings or 2D frames. And, you don't print motion—you can only ever print static snapshots of or from the bank. Once printed, that-printed as a ringframe can be immediately flowing and fading in time schema, but the print itself was static.</p>
-                <p>The lifetime agglomeration of all <em>Ringframe</em> manifolds. It is the repository of the shape of all past perceptual experiences (and more so of the shape of condensed attention [ringframes]), similar to a mental library or database. The brain pulls from this bank to interpret new incoming signals, effectively giving meaning and context to each new frame of reality.</p>
+                    <label for="sigma">Sigma:</label>
+                    <input type="range" id="sigma" name="sigma" min="0.1" max="2" value="0.5" step="0.1">
+                    <span id="sigma-value">0.5</span><br>
+
+                    <label for="resolution">Resolution:</label>
+                    <input type="range" id="resolution" name="resolution" min="200" max="2000" value="1000" step="50">
+                    <span id="resolution-value">200</span>
+                </div>
+                <div id="morlet-graph"></div>
             </div>
-            
-            <div class="entry ring-bank">
-                <h3>Schema</h3>
-                <p>1. A useful grouping of information; e.g., all information pertaining to your car is a your-car-schema.</p>
-                <p>2. A (3D) volume of congruent worldsim; e.g., real schema fits in a single 3D volume. A single spin-up of imaginal schema also fits into a single 3D volume, but as it is non-veridical to real schema, it must overlay that volume in a fairly happenstantial and possibly heteroscaled manner.</p>
-                <p>There are four typical schemas in ring/bank theory: <em>Real Schema</em>, <em>Imaginal Schema</em>, <em>Time Schema</em>, and <em>Shape Schema</em> (the last is also called <em>Bank Schema</em>). The first two schemas (real and imaginal) are sometimes also referred to as <em>Paint</em>.</p>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Local Field Potential (LFP)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The bulk voltage fluctuations recorded from the brain's extracellular space, reflecting the synchronized activity of thousands or millions of neurons in a local area. It primarily captures the aggregate of dendritic currents and synaptic activity, rather than the sharp action potentials of individual neurons. The <strong>Local Field Potential</strong> is a key measure in systems neuroscience for observing <strong>mesoscopic</strong> neural dynamics, particularly the brain's collective oscillatory rhythms.</p>
             </div>
-            <div class="entry ring-bank">
-                <h3>Paint</h3>
-                <p>The meaningful content that floats or remains utilizable and perceptually visible as long as there is an ongoing complete (successful), low-latency interpretation of the mic voice events (and possibly also subconscious information) into reified posterior (experience). Paint 'floats' when the brain is operating optimally. In sedation, sleep deprivation, and traumatic events, a heightened burst mode may be entered globally by the cortex, which seems to result in an inability to fully inflate or interpret <em>Inputs</em> to <em>Posteriors</em>, using <em>Priors</em>. In this mode where the buffer is exceeded, or latency of interpretation is too great, the paint can 'cease to float,' whereby one gets <em>Paint Anesthesia</em>—the loss of the 3D volume of experience.</p>
-                <p>As paint requires a view and a viewer, a simple rough understanding of paint is that it is <em>Perspective</em>, as opposed to mere <em>Physics</em>-modeling (In Blender animations, one must first set up the physics of the scene and any keyframed movements of the objects; then, one must also set a camera and any camera movement keyframes for shooting the perspective impingment of that 4D (3D+Time) physics playout upon a camera). However, paint is both the physics-playout <strong>and</strong> the perspective impingment onto the avatar's/mind's eye's visual field; it also includes the complex meanings of auditory, somatic, and conceptual contributions as well. So, paint is omnimodal. Ringframes are a physics-playout model, and they have to 'scratch-to-reveal' the paint: the physics-playout model of content and of the avatar's perspective viewing it.</p>
-                <p>When paint floats, an <em>Avatar</em> or <em>Mind's Eye</em> must also float or be rendered.</p>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Earl Miller</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American neuroscientist from MIT who is a leading voice in the study of brain waves. While many in the field have traditionally viewed brain waves as a mere byproduct of neural activity—like the exhaust from an engine—Miller has argued that they are, in fact, the brain’s <strong>fundamental language of communication</strong>. His research demonstrates how different frequency bands (such as gamma, beta, and alpha waves) work together to control cognitive functions like attention and working memory. According to his theory, gamma waves package information while slower beta waves provide a top-down signal, acting as a “director” to gate and prioritize information. His work suggests that a true understanding of cognition requires a deeper appreciation for how these rhythmic oscillations may orchestrate cognition.</p>
             </div>
-            <div class="entry ring-bank">
-                <h3>CMW—Cartoon Motor World</h3>
-                <p>A first term coined to describe a volume of non-veridical or imaginal worldsim. See also <em>Imaginal Schema</em>.</p>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Stuart Hameroff</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American anesthesiologist and philosopher of science best known for his work with physicist Roger Penrose. Together, they developed the <strong>Orchestrated Objective Reduction (Orch-OR)</strong> theory of consciousness. The theory proposes that consciousness is not a product of classical computation within neurons but arises from quantum gravity effects within protein structures called microtubules inside neurons. According to Orch-OR, consciousness results from “orchestrated” quantum collapses within these structures, making it a phenomenon that is both non-computational and fundamentally linked to the physical laws of the universe. He is also a prominent figure in the field for his role in organizing and hosting the <strong>Science of Consciousness conferences</strong>, which have become a major international forum for discussing the nature of conscious experience.</p>
             </div>
-            <div class="entry ring-bank">
-                <h3>SPW—Sensory Physical World</h3>
-                <p>A first term coined to describe the volume of veridical or real worldsim. See also <em>Real Schema</em>.</p>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Shamil Chandaria</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A neuroscientist and entrepreneur known for his research on the <strong>cerebellum</strong> and its role in consciousness. His work challenges the traditional view that the cerebellum is a simple motor-coordination center, instead arguing that it is essential for the unified, predictive nature of conscious experience. He proposes that the cerebellum, as a massive prediction machine, is constantly making and correcting models of the world, and that this process is integral to the seamless flow of consciousness. His research suggests that our sense of a continuous, subjective present is, in large part, a result of the cerebellum's continuous predictive activity.</p>
             </div>
-            <div class="entry ring-bank">
-                <h3>Paint Anesthesia</h3>
-                <p>Full anesthesia results in the loss of conscious experience of time, or of events, or of the sense of self. Paint anesthesia is the partial loss of one component of consciousness—the full 3D volumetric experience. In paint anesthesia, time, events (with amplitude), and possibly ringframes are still experienced, and the volumetric worldsim paint can often be deduced from the limited touchpoints, but is not explicitly rendered (is not perceptually visible). Paint anesthesia shows up occasionally in sedation and in heavy sedation.</p>
-            </div>       
-            <div class="entry ring-bank">
-                <h3>Throw</h3>
-                <p>Acceleration/deceleration qualia.</p>
-                <p>The unexpected movement of the bank printhead of consciousness (relative to the last printed frame), as caused by (or subconsciously rendered as) unexpected external force.</p>
-                <p>The unexpected movement of attention to render that an external force has occurred. If you are riding in a car and it turns sharply left, your attention (the bank printhead) will be thrown rightward to render the force of the turn.</p>
+            <div class="entry math">
+                <div class="entry-header">
+                    <h3 class="entry-title">Principal Component Analysis (PCA)</h3>
+                    <span class="category-tag category-tag-math">Math</span>
+                </div>
+                <p>A statistical technique used to simplify complex, high-dimensional data by reducing it to a few key dimensions, called “principal components.” The goal of PCA is to find the directions in the data that account for the most variance. By transforming the data onto these new axes, a researcher can visualize and analyze the most important patterns and relationships, often revealing underlying structure that would be hidden in the original high-dimensional space. PCA is widely used in neuroscience to analyze neural population data and understand how a group of neurons collectively encodes information.</p>
             </div>
-            <div class="entry ring-bank">
-                <h3>Vibes</h3>
-                <p>Scaler/positional change qualia.</p>
-                <p>Changes in amplitude of the mic voice in real time, to encode salient keyframes of peaks/troughs of the amplitude envelope of that voice.</p>
-                <p>When listening to music, the peaks in intensity sometimes result in ringframes with peaked radial scale. There are many other ways besides radial scale that amplitude envelope peaks gain fitting geometric representation prior to full 3D schema interpretation.</p>
+            <div class="entry immanuel-kant">
+                <div class="entry-header">
+                    <h3 class="entry-title">Transcendental Idealism</h3>
+                    <span class="category-tag category-tag-immanuel-kant">Immanuel Kant</span>
+                </div>
+                <p>This is Kant's central philosophical position. It states that our knowledge of the world is based on our sensory experience (the “idealism” part) but that the structure of that experience is determined by the innate, organizing principles of our mind (the “transcendental” part). It posits that we can only know things as they appear to us, not as they are in themselves.</p>
             </div>
-            <div class="entry ring-bank">
-                <h3>Flow</h3>
-                <p>The linear or logarithmic continual movement of timestamped ringframes in time schema along the time axis over time. The ringframe is already moving at flow velocity as soon as it is printed (no acceleration needed). The ringframe fades in opacity over roughly 0.1–5 seconds, though it may leave a utilistic impression (memory) for an entire lifetime. Utility (memory) is a lower opacity that falls below perceptual visibility noise gate.</p>
-                <p>When listening to music, a note ringframe flows quickly (roughly 0.3 m/s) as it fades into past. When walking, earth schema (a part of real schema) may flow backwards relative to body schema at roughly 0.1 m/s. Other qualia may sometimes invoke faster, 1–2 m/s, flow rates. The voxels of a worldsim may be revolvingly refreshed (like a sweeping radar plane forming a donut) at 10+ times a second, resulting in 3–12 m/s movement of the bank printhead.</p>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Voxel</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>The equivalent of a pixel, but for volumes (VOlume piXEL).</p>
+                <p>1. As a phone screen has individual pixels as the smallest color divisions, one could think of schemas as having individual, near-infinitesimally small cubes, as the smallest or finest color or form detail in our experience. For example, the physical universe has Planck length and Planck time much finer resolution than our worldsim. What the limits of the worldsim's resolution are may not be a hard voxel-type limit, but it is a useful concept for discussion.</p>
+                <p>2. Confusingly, neuroscience/LLMs rush to assume a 'voxel' always means the tiny spatial cube of resolution in an fMRI or MRI scan. Though related, this is of little interest to ring/bank discussion of voxels.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Cyclopean Eye</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>In ring/bank thinking, <em>Environment Schema</em> can be subdivided into <em>Left Eye Environment Schema</em> and <em>Right Eye Environment Schema</em>. These are two 3D volumes of the world, as understood from each eye's unique location and unique gaze vector. The two volumes are rotated (about a line 1D-parallel with <em>Head Crown Up</em>, and going through the <em>Foveal Gaze Voxel</em> [at focal plane], such that the pupil of the two eyes is brought to an average location, just above the nose, and slightly behind it. This cyclopean eye results into a doubled environment schema, with a range of crossed and uncrossed disparities from foveal gaze voxel going closer and farther from focal plane, respectively. It also fuses the left eye gaze vector and right eye gaze vector into a single cyclopean gaze vector. This is why, when you hold your index finger to your nose, and focus in the distance, the single finger splits into two and crosses a large distance.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Environment Schema</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>The <em>Real Schema</em> can be divided into the Environment Schema and the Body Schema (see <em>Avatar</em>). The environment schema is everything in your brain's model of reality that has your body stripped out. When you walk down a trail, the environment schema must move relative to your body schema.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Ringframe</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>A ring (0-1D manifold) or frame (2D manifold) incomplete interpretation of a mic voice event. See <em>Ring</em> or <em>Frame</em>.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">2D-Parallel/3D-Parallel</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>We are familiar with (1D) parallel lines. Planes can also be 2D-parallel, and 3D schema volumes can be 3D-parallel. The term 'coplanar' sounds like it would mean 2D-parallel, but it actually refers to points sharing a single common plane.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Homoscaler/Heteroscaler</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>Equal or different volumetric scale between two schemas.</p>
+                <p>Blueprints and advertisements could be “to scale” (life-sized) or “not to scale.” A 2D blueprint can be drawn such that 1/4" on the printed paper represents 1' of actual distance. Imaginal schema is often not 'to scale' relative to real schema (it is usually enlarged, such that 1' = 1"). If you imagine bending your toe, you may get mental imagery, where the toe is 1' as it overlays real schema. We know a toe in reality is about 1". In this example, the scale of imaginal:real is 1 cubic foot = 1 cubic inch. In those cases where two schemas are equal scale, they are homoscalar. Where they are different volumetric scales, they are heteroscaler.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Mic (TDMA, IRQ)</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>The mic is an underappreciated concept in consciousness study, and it represents the conscious timestamping and most incipient conscious processing/awareness of any stimulus event. Stunningly, there is never any echo or phase-mismatch in perception for events. They seem to occur once, in perfect ordering and spacing. One can observe that further interpretation of these events has quite variable latency (5–500 ms), yet the varying interpretation lag never muddles the time record system of <em>Time Schema</em>. There is an ongoing tracking of a flowing window or buffer. The mic is critical to ring/bank theory.</p>
+                <p>Attention rapidly (2-4 Hz) changes what it is listens to/hears/focuses on. The mic has a rapid gatekeeper or <em>Mic Bouncer</em>, rapidly switching who gets the mic. That is, there is a rapid (1–4 Hz) switch of its input source to a different part of the brain (or more broadly, rapidly changing the attended thing that gets to voice its amplitude modulations briefly). The brain takes turns listening to different sensory streams (visual, auditory, somatic, insular mood, etc.), giving each a brief moment of access to a central processing unit. This is an interrupt-style processing system akin to a computer's <strong>Interrupt Request (IRQ)</strong> or <strong>Time-Division Multiple Access (TDMA)</strong>, where different processes are handled in a rapid cycle.</p>
+                <p>This mechanism allows differing modes or types of things to be the input to conscious attention and to reification to worldsim. An auditory voice (playing a song on car radio) leads to faint 3D mental imagery of the players or of the concepts discussed in the song. There is already decent evidence that this occurs in the Pulvinar of rats–that a series of neural bursts can magically change from being 'about' (and locking to timing of) air puffs to whiskers, to being 'about' (and locking to timing of) cyclic changes in visual field. </p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Mic Bouncer</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>Just as bars have bouncers determining who gets in, the conscious mic has a bouncer that rapidly (1–4 times per second) removes whoever (whatever mode or thing) is speaking and replaces them with another voice. For example, I may attend to the voice of typing on this Macbook keyboard. Then it begins raining or hailing, and that voice grabs the mic. Then I notice my leg bouncing. Then I notice my hunger. This is the rapid, real-time switching of voice. It is all-or-none. Certainly, the worldsim continues to float in most cases, but the mic of attended events seems to be monotoned, only capable of looking at one kind of amplitude modulation patterning at a time.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Incommensurable</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>Unmappable.</p>
+                <p>Because worldsim is of type utilizable-meaning, the geometry therein cannot be located relative to the geometry of the physical world it is modeling.</p>
+                <p>This principle might not destroy materialistic theories, as arrangements of matter could stand in to direct output 'as if' the encoded thing were the real thing.</p>
+                <p>The Middle Earth of Lord of the Rings is incommensurable with the history of the actual Earth, since one is of type fictional-story, and the other of type physical-reality.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Bank Schema</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>The printhead of consciousness.</p>
+                <p>The play/record device of conscious geometry. By playing (printing) a shape, you also further record it onto the bank (greater rut or attraction for that shape).</p>
+                <p>A 3D Etch-a-Sketch, but the tracer doesn't have to remain a 0D point—it can also utilize 1D rings or 2D frames. And, you don't print motion—you can only ever print static snapshots of or from the bank. Once printed, that-printed as a ringframe can be immediately flowing and fading in time schema, but the print itself was static.</p>
+                <p>The lifetime agglomeration of all <em>Ringframe</em> manifolds. It is the repository of the shape of all past perceptual experiences (and more so of the shape of condensed attention [ringframes]), similar to a mental library or database. The brain pulls from this bank to interpret new incoming signals, effectively giving meaning and context to each new frame of reality.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Schema</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>1. A useful grouping of information; e.g., all information pertaining to your car is a your-car-schema.</p>
+                <p>2. A (3D) volume of congruent worldsim; e.g., real schema fits in a single 3D volume. A single spin-up of imaginal schema also fits into a single 3D volume, but as it is non-veridical to real schema, it must overlay that volume in a fairly happenstantial and possibly heteroscaled manner.</p>
+                <p>There are four typical schemas in ring/bank theory: <em>Real Schema</em>, <em>Imaginal Schema</em>, <em>Time Schema</em>, and <em>Shape Schema</em> (the last is also called <em>Bank Schema</em>). The first two schemas (real and imaginal) are sometimes also referred to as <em>Paint</em>.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Paint</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>The meaningful content that floats or remains utilizable and perceptually visible as long as there is an ongoing complete (successful), low-latency interpretation of the mic voice events (and possibly also subconscious information) into reified posterior (experience). Paint 'floats' when the brain is operating optimally. In sedation, sleep deprivation, and traumatic events, a heightened burst mode may be entered globally by the cortex, which seems to result in an inability to fully inflate or interpret <em>Inputs</em> to <em>Posteriors</em>, using <em>Priors</em>. In this mode where the buffer is exceeded, or latency of interpretation is too great, the paint can 'cease to float,' whereby one gets <em>Paint Anesthesia</em>—the loss of the 3D volume of experience.</p>
+                <p>As paint requires a view and a viewer, a simple rough understanding of paint is that it is <em>Perspective</em>, as opposed to mere <em>Physics</em>-modeling (In Blender animations, one must first set up the physics of the scene and any keyframed movements of the objects; then, one must also set a camera and any camera movement keyframes for shooting the perspective impingment of that 4D (3D+Time) physics playout upon a camera). However, paint is both the physics-playout <strong>and</strong> the perspective impingment onto the avatar's/mind's eye's visual field; it also includes the complex meanings of auditory, somatic, and conceptual contributions as well. So, paint is omnimodal. Ringframes are a physics-playout model, and they have to 'scratch-to-reveal' the paint: the physics-playout model of content and of the avatar's perspective viewing it.</p>
+                <p>When paint floats, an <em>Avatar</em> or <em>Mind's Eye</em> must also float or be rendered.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">CMW—Cartoon Motor World</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>A first term coined to describe a volume of non-veridical or imaginal worldsim. See also <em>Imaginal Schema</em>.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">SPW—Sensory Physical World</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>A first term coined to describe the volume of veridical or real worldsim. See also <em>Real Schema</em>.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Union Set</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>The voxels making up the current ringframe impinge simultaneously into all schema volumes whilst remaining a single 0–2D manifold.</p>
+                <p>The current ringframe (union set) is a hotkey between 3D schemas.</p>
+                <p>In time schema, what was previously a unioned set ringframe can become increasingly split apart as that-printed flows and fades, going into past over 0.5–1 seconds. The previously unitary manifold may split into 2 or more locations as the present flows into the past. Attention holds the attention manifolds across all schemas unitary for the present moment representation of the present moment only. Once it becomes slightly past, it may split apart again.</p>
+                <p>A difficult example is, say your attention ringframe is the shape and location of your head at 12:00 noon. Then, over the next second, you turn your head rightward in imaginal schema. You will notice that the previously unified head ringframe, printed at exactly noon, splits into two copies doing different things. The real schema portion of the printed ringframe remains stationary, as you didn't turn your head in reality. But the imaginal schema portion of the head ringframe printed at noon now appears counter-turned leftward relative to real schema portion of head ringframe (both copies now appear at t=-1 second i.e. in the past location in time schema). There is a new head ringframe for one second past noon in which the head in imagination and the head in reality are aligned (and their whole schema volumes rotated as needed so that heads can be aligned for one second past noon).</p>
+                <p>The union set is the moment-by-moment, updated agreement of the location and shape of attention, between all schemas. The current representation of future and past is allowed to split apart any upcoming or previous fusings so as to maintain a unitary manifold ringframe at the present moment, each new moment. In this way, the process of consciousness resembles a continual fusing and then splitting of two strands of DNA (or a broken zipper pulling two halves of a shirt together but then they split back apart as the zipper moves further up), but in slightly higher dimensionality.</p>
+                <p>This continual zippering (of future into present)/unzippering (of present into past) of schemas is foundational to ring/bank theory, and is the very heart of conscious experience/qualia.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Paint Anesthesia</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>Full anesthesia results in the loss of conscious experience of time, or of events, or of the sense of self. Paint anesthesia is the partial loss of one component of consciousness—the full 3D volumetric experience. In paint anesthesia, time, events (with amplitude), and possibly ringframes are still experienced, and the volumetric worldsim paint can often be deduced from the limited touchpoints, but is not explicitly rendered (is not perceptually visible). Paint anesthesia shows up occasionally in sedation and in heavy sedation.</p>
+            </div>       
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Throw</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>Acceleration/deceleration qualia.</p>
+                <p>The unexpected movement of the bank printhead of consciousness (relative to the last printed frame), as caused by (or subconsciously rendered as) unexpected external force.</p>
+                <p>The unexpected movement of attention to render that an external force has occurred. If you are riding in a car and it turns sharply left, your attention (the bank printhead) will be thrown rightward to render the force of the turn.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Vibes</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>Scaler/positional change qualia.</p>
+                <p>Changes in amplitude of the mic voice in real time, to encode salient keyframes of peaks/troughs of the amplitude envelope of that voice.</p>
+                <p>When listening to music, the peaks in intensity sometimes result in ringframes with peaked radial scale. There are many other ways besides radial scale that amplitude envelope peaks gain fitting geometric representation prior to full 3D schema interpretation.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">Flow</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>The linear or logarithmic continual movement of timestamped ringframes in time schema along the time axis over time. The ringframe is already moving at flow velocity as soon as it is printed (no acceleration needed). The ringframe fades in opacity over roughly 0.1–5 seconds, though it may leave a utilistic impression (memory) for an entire lifetime. Utility (memory) is a lower opacity that falls below perceptual visibility noise gate.</p>
+                <p>When listening to music, a note ringframe flows quickly (roughly 0.3 m/s) as it fades into past. When walking, earth schema (a part of real schema) may flow backwards relative to body schema at roughly 0.1 m/s. Other qualia may sometimes invoke faster, 1–2 m/s, flow rates. The voxels of a worldsim may be revolvingly refreshed (like a sweeping radar plane forming a donut) at 10+ times a second, resulting in 3–12 m/s movement of the bank printhead.</p>
+            </div>
+            <div class="entry ring-bank">
+                <div class="entry-header">
+                    <h3 class="entry-title">2D/1D Manifolds</h3>
+                    <span class="category-tag category-tag-ring-bank">Ring/Bank</span>
+                </div>
+                <p>Many think of 2D objects or manifolds as planar. I think of a 2D manifold/object as a surface that appears flat locally. I would consider the skin surface over your entire body to be a 2D manifold for this reason. Yes, it requires a 3D embedding space. Yes, it takes up 3D volume in a sense. But if the manifold itself is 2D or flat-like locally, I consider the entire manifold to be 2D. Thus, frames of consciousness are defined as 2D manifolds in this way, requiring and sometimes taking up a 3D volume to exist. Frames can also be literal 2D planar manifolds though, at times, as well.</p>
+                <p>This entire principle also applies to 1D manifolds, which I would consider to be a line manifold in a 1D embedding space, or a line or curve manifold in a 2D or 3D embedding space. If the surface is 1D-like at the tiny, local scale, I consider the whole thing 1D. Rings are 1D manifolds in this way, though it is possible for them to require anything from a 1D to a 2D to a 3D embedding space (a ring can be a straight line in very rare cases).</p>
+            </div> 
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Bioelectricity</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The use of electrical signals and bioelectric patterns to regulate biological processes such as development, regeneration, and cancer suppression.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Morphological Freedom</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The idea that biological forms and functions are not rigidly dictated by a genetic blueprint but can be manipulated and changed through bioelectric and biochemical signals.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Platonic Space</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>A theoretical space of possible forms and behaviors that living systems can inhabit, suggesting that biological systems are not just physical but also exist as information patterns.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Multiscale Cognition</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The concept that intelligence and problem-solving abilities exist at multiple levels of biological organization, from molecules and cells to tissues and organisms.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Cognitive Light Cone</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>A theoretical concept that describes the spatiotemporal boundary within which a biological system's goals can be pursued and information can be integrated.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Teleonomy</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The study of goal-directedness in biological systems, which Levin argues is a fundamental property of life that goes beyond simple genetic determinism.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Xenobots</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>A term for synthetic life forms created from living cells, which exhibit new forms of cognition and problem-solving abilities.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Brad Caldwell</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>Originator of the Ring/Bank theory (Dynamic Frame Theory), which proposes that consciousness arises dimensionally. The most incipient processing of stimuli* is their “when” and “how much;” with increased processing time (added latency), this intensity signal (mic voice) is interpreted into low-dimensional 0-2D manifold ringframes (“where,” “what shape”), and with further processing (latency), the ringframes “scratch-to-reveal” content voxels which can auto-complete to a full 3D experience schema (“what,” meaning). In normal state consciousness, the entire heirarchy usually occurs with little latency, and ongoing context helps the volume of experience stay afloat and seem continuous.</p>
+                <p>*These stimuli are not the entire swath of inputs hitting primary cortices; they are a filtered, TDMA <em>Mic</em> which changes <em>Voice</em> roughly 1–4 times a second, and seems capable of millisecond, if not microsecond, resolution, and a large bit depth of intensity variation.</p>
             </div>
-            <div class="entry ring-bank">
-                <h3>2D/1D Manifolds</h3>
-                <p>Many think of 2D objects or manifolds as planar. I think of a 2D manifold/object as a surface that appears flat locally. I would consider the skin surface over your entire body to be a 2D manifold for this reason. Yes, it requires a 3D embedding space. Yes, it takes up 3D volume in a sense. But if the manifold itself is 2D or flat-like locally, I consider the entire manifold to be 2D. Thus, frames of consciousness are defined as 2D manifolds in this way, requiring and sometimes taking up a 3D volume to exist. Frames can also be literal 2D planar manifolds though, at times, as well.</p>
-                <p>This entire principle also applies to 1D manifolds, which I would consider to be a line manifold in a 1D embedding space, or a line or curve manifold in a 2D or 3D embedding space. If the surface is 1D-like at the tiny, local scale, I consider the whole thing 1D. Rings are 1D manifolds in this way, though it is possible for them to require anything from a 1D to a 2D to a 3D embedding space (a ring can be a straight line in very rare cases).</p>
-            </div> 
-        </div>
-    </main>
-    <div id="footer-placeholder"></div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Mark Churchland</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A neuroscientist known for his work on how the brain plans and executes movement. His research on the motor cortex of rhesus monkeys during tasks like cyclic hand movements revealed that neural activity evolves in a complex but highly structured way, following a “rotational dynamic.” His work, using techniques such as Principal Component Analysis (PCA), showed that the population of neurons behaves like a dynamical system, generating a predictable neural trajectory that can be visualized as a “ring” in a low-dimensional space. This challenges the older view that individual neurons directly represent muscle commands and instead suggests that movement is generated by an elegant, unified choreography of a large population of neurons. The form of PCA often used by neuroscience could be called <em>FM-PCA</em> (frequency modulation PCA), as it uses the changing frequency of action potentials of single neurons as the axes for PCA consideration. This is in distinction from <em>AM-PCA</em> (amplitude modulation PCA), where variations in amplitude or power of a frequency band are taken as the axes for PCA consideration.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Santiago Ramón y Cajal</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A Spanish neuroscientist and pathologist, he is considered the father of modern neuroscience. He was the first person to identify the neuron as the fundamental unit of the nervous system, a discovery that earned him the Nobel Prize in Physiology or Medicine in 1906. His work established the “Neuron Doctrine,” which states that the nervous system is made up of individual cells, laying the groundwork for all future study of the brain.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Wilder Penfield</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A pioneering Canadian neurosurgeon, Penfield's research provided groundbreaking insights into the link between the brain and conscious experience. By stimulating different regions of the brains of awake patients during surgery for epilepsy, he was able to map the sensory and motor cortices, revealing how specific brain areas correspond to physical sensations and body movements. His work showed that memories and emotions could be “re-enacted” by stimulating specific parts of the temporal lobe, suggesting that conscious experiences are localized within the brain.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Warren McCulloch</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American neurophysiologist and cybernetics pioneer, he is best known for his work with Walter Pitts on the computational model of the neuron. He also introduced the concept of “anastomotic processing,” a model of neural networks that contrasts with serial or parallel processing. In this model, information is processed in a tangled, interwoven network where upper layers of the neural net can receive feedback from the lower layers, allowing for the unification of meaning.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Steven Lehar</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A cognitive scientist known for his work on the visual system and a <strong>geometric model of consciousness</strong>. Lehar proposes that conscious experience is a <strong>geometric-topological</strong> representation of reality, a kind of internal <strong>virtual reality</strong> created by the brain. His work attempts to explain phenomena like illusions and the nature of qualia by modeling the brain's internal representations. This approach resonates with other dimensional theories, such as the Ring/Bank theory, as both see consciousness as a process of building a structured, dimensional model of the world, rather than a mere collection of disparate neural signals.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Jeff Hawkins</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American computer engineer, known for his work on artificial intelligence and brain theory. His book “A Thousand Brains: A New Theory of Intelligence” introduces the “Thousand Brains Theory,” which proposes that the brain uses a common algorithm to create a model of the world. This model is based on a hierarchical network of cortical columns, each creating its own complete model of an object or concept. These models are then unified through a voting mechanism to produce a single conscious perception.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Christof Koch</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A German-American neuroscientist known for his work on consciousness and for proposing the Integrated Information Theory (IIT) with Giulio Tononi. He has spent his career seeking the neural correlates of consciousness (NCC), which are the minimal neural mechanisms jointly sufficient for any one specific conscious percept. His work has focused on the claustrum, a thin sheet of neurons deep within the brain, as a potential "seat of consciousness."</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Francis Crick</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A British molecular biologist and neuroscientist, best known for co-discovering the structure of the DNA molecule. In the later part of his career, he turned his attention to neuroscience and consciousness. In his book “The Astonishing Hypothesis: The Scientific Search for the Soul,” he proposed that consciousness can be explained by the physical workings of the brain and that consciousness is a biological problem to be solved.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Giulio Tononi</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A neuroscientist and psychiatrist who, along with Christof Koch, proposed the Integrated Information Theory (IIT) of consciousness. IIT postulates that consciousness is a fundamental property of a system that has a high degree of integrated information. It is based on the idea that consciousness corresponds to a system's capacity to integrate information and that it is both “differentiated” (having many states) and “integrated” (the states form a unified whole).</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">David Chalmers</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An Australian philosopher and cognitive scientist who coined the term “the hard problem of consciousness.” The "hard problem" is the question of why and how we have subjective, qualitative experiences (qualia), which he argues cannot be explained by purely physical processes. This is contrasted with the "easy problems," such as explaining brain function and cognitive abilities, which he believes can be solved through neuroscience.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Daniel Dennett</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American philosopher and cognitive scientist who has a well-known materialist perspective on consciousness. He argues that there is no "hard problem" of consciousness because there is no non-physical or subjective quality of experience. In his “Multiple Drafts Model,” he proposes that conscious experience is not a single, unified stream but is rather a collection of parallel processes in the brain that create a series of "drafts" of experience.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Antonio Damasio</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A Portuguese-American neuroscientist who has focused on the neural basis of emotion and consciousness. He argues that consciousness is not a single, centralized process but is built upon a foundation of basic body sensations and feelings. His work in his book “Descartes’ Error” challenges the traditional mind-body dualism and proposes that emotions and the body's internal state are essential components of conscious experience.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Gerald Edelman</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American neuroscientist who won the Nobel Prize for his work on the structure of antibodies. He later developed a theory of consciousness called “Neural Darwinism” or the “Theory of Neuronal Group Selection” (TNGS). This theory proposes that the brain creates consciousness through a process similar to natural selection, where certain groups of neurons are selected and strengthened based on their ability to respond to and interpret sensory input from the world.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Roger Penrose</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A British mathematical physicist and philosopher of science who has proposed a controversial theory of consciousness based on quantum mechanics. He argues that consciousness is not a product of conventional computation but is instead a result of "orchestrated objective reduction" (Orch-OR), a process that occurs within microtubules inside neurons. This theory suggests that consciousness is non-computable and cannot be fully explained by classical physics.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Bernard Baars</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A cognitive neuroscientist and pioneer of the Global Workspace Theory (GWT) of consciousness. He proposed that consciousness arises from a “global workspace” in the brain, a kind of central processing stage where unconscious, specialized brain processors can broadcast information. This theory suggests that conscious attention acts like a spotlight, making certain information available to the entire system for unified, integrated processing.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Michael Graziano</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A neuroscientist and psychologist known for his Attention Schema Theory (AST). AST proposes that consciousness is a brain-generated model of attention. The brain constructs a simplified schematic of its own state of attention, and this model is what we experience as consciousness. Graziano argues that we are not “aware” in a mystical sense, but rather that the brain is a machine that builds a simplified, useful model of itself to control behavior.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Anil Seth</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A British neuroscientist who studies consciousness and its neural basis. He is a strong proponent of the predictive processing framework, viewing conscious experience as the brain’s best “predictive guess” about the causes of sensory signals. He argues that we don’t passively perceive the world but actively create a controlled hallucination of it based on our internal predictions and prior beliefs.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Susan Blackmore</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A British writer and psychologist known for her work on memes, evolutionary theory, and consciousness. She argues that consciousness is a grand illusion, a compelling fiction created by the brain. She is a strong advocate for the idea that there is no single "conscious self" and that our sense of a unified self is a constructed narrative, not a fundamental property of the mind.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Ned Block</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American philosopher known for his critiques of functionalism and for distinguishing between two types of consciousness. He coined the terms “access consciousness,” which is the ability to use information for reasoning and action, and “phenomenal consciousness,” which is the subjective, experiential aspect of consciousness. He argues that phenomenal consciousness is the true “hard problem.”</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">John Searle</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American philosopher known for his “Chinese Room” thought experiment, which is a powerful critique of the idea that artificial intelligence can achieve true understanding. He argues that a computer simply manipulates symbols according to a program without any actual comprehension, a process that is fundamentally different from a conscious human mind that has subjective experiences and genuine intentionality.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Patricia Churchland</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A Canadian-American philosopher known as a central figure in eliminative materialism. This view holds that folk psychology, our common-sense understanding of the mind based on concepts like belief and desire, is a flawed theory that will eventually be replaced by a more precise, neuroscientific account. She argues that a complete understanding of consciousness will come from looking at the brain, not by analyzing abstract concepts.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Paul Churchland</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A Canadian philosopher and husband of Patricia Churchland, also a proponent of eliminative materialism. He argues that consciousness is a phenomenon of the brain’s ability to represent the world. He suggests that a better understanding of consciousness will come from a new framework based on neural network models, which can better explain how the brain processes and represents information.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Thomas Nagel</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American philosopher known for his influential paper, “What Is It Like to Be a Bat?” In it, he argues that consciousness has an ineliminable subjective character, and that no amount of objective, physical information about the brain can ever explain what it is like to be a conscious being. His work highlights the “subjective point of view” as the central mystery of consciousness, distinct from physical or functional explanations.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Karl Popper</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An Austrian-British philosopher of science, known for his theory of falsifiability, which states that for a theory to be scientific, it must be possible to prove it false. While not a neuroscientist, his philosophy has influenced many thinkers on the nature of science and the scientific method. He was a dualist who believed that the mind and body are distinct entities that interact with one another.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Karl Deisseroth</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American neuroscientist who is a pioneer in the field of optogenetics, a revolutionary technique that uses light to control the activity of genetically modified neurons. His work allows scientists to precisely activate or inactivate specific circuits in the brains of living animals, providing unprecedented insight into the neural basis of behavior, emotion, and consciousness.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Noam Chomsky</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American linguist, philosopher, and political activist who is a key figure in the field of cognitive science. He argues that language is an innate, biological capacity of the human mind, challenging the behaviorist view that language is learned through imitation and reinforcement. His work on “universal grammar” suggests that the mind has a pre-existing structure that governs how we acquire language, a concept that has influenced theories of brain architecture and consciousness.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">David Marr</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A British neuroscientist and computer scientist who made foundational contributions to the computational understanding of vision. His book “Vision” laid out a three-level framework for understanding information processing systems, including the brain. This framework, which includes the computational, algorithmic, and implementational levels, has been highly influential in both cognitive science and artificial intelligence.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Rodolfo Llinás</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A Colombian neuroscientist known for his work on the electrophysiology of neurons and the cerebellum. He developed the theory of “intrinsic oscillations,” which suggests that the brain’s intrinsic electrical activity is the basis for consciousness. He argues that consciousness is a unified sensory experience created by the brain's internal rhythm, not a reaction to external stimuli.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Alva Noë</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American philosopher who proposes an enactive and embodied view of consciousness. He argues against the idea that consciousness is a purely internal, brain-based phenomenon. Instead, he believes that conscious experience is a form of “skillful activity” that arises from the dynamic interaction between the brain, body, and the environment. We don't just perceive the world; we “enact” it through our actions and movements.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Evan Thompson</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A Canadian philosopher and cognitive scientist who has worked to integrate phenomenology (the study of subjective experience) with neuroscience. His work is heavily influenced by the enactive approach, arguing that consciousness is not located in the brain but is a property of the living organism as a whole, shaped by its interactions with the environment.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">V.S. Ramachandran</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An Indian-American neuroscientist who has made significant contributions to the fields of behavioral neurology and visual psychophysics. He is best known for his work on phantom limb syndrome, synesthesia, and other neurological conditions. His research on the human brain's remarkable plasticity has provided key insights into how our subjective experience of the body and consciousness can be altered and reshaped.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Oliver Sacks</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A British neurologist and writer who popularized the field of clinical neurology by writing fascinating case studies of his patients. His books, such as “The Man Who Mistook His Wife for a Hat,” revealed how brain disorders can dramatically alter a person’s perception, memory, and sense of self. His work emphasized the profound link between brain function and conscious experience in a humanistic and accessible way.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Hubert Dreyfus</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American philosopher and a prominent critic of artificial intelligence. He argued that the human mind cannot be modeled as a formal, symbolic-processing machine. His work, which was influenced by phenomenology, emphasized the importance of embodied knowledge and skills that are not based on explicit rules, suggesting that true consciousness requires more than just formal computation.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">John-Dylan Haynes</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A German neuroscientist who conducts research on the neural basis of consciousness and free will. He is famous for his experiments using fMRI to show that the brain’s decision-making process begins several seconds before a person becomes consciously aware of their choice. His work is often cited in debates about whether free will is an illusion and whether conscious decisions are truly free.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Victor Frankl</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An Austrian neurologist, psychiatrist, and Holocaust survivor who developed logotherapy, a school of psychotherapy centered on finding meaning in life. While not a neuroscientist, his work is relevant to the study of consciousness as it explores the highest levels of human experience, including the search for meaning, purpose, and spiritual freedom, even in the face of immense suffering.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">S. Zeki</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A British neurobiologist known for his work on the visual cortex and for pioneering the field of neuroaesthetics. He has shown that different aspects of vision, such as color and form, are processed by separate areas of the brain. He argues that our subjective, conscious experience of vision is created by the brain’s ability to bring these disparate signals together to form a unified image of the world.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Benjamin Libet</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>An American neuroscientist who conducted groundbreaking experiments on the timing of conscious intention and action. He showed that the brain’s neural activity associated with a voluntary movement (the “readiness potential”) begins before a person consciously decides to move. His work has sparked intense debate on the nature of free will and whether conscious decisions are a cause of action or simply an after-the-fact awareness of a decision already made by the brain.</p>
+            </div>
+            <div class="entry person">
+                <div class="entry-header">
+                    <h3 class="entry-title">Stanislas Dehaene</h3>
+                    <span class="category-tag category-tag-person">Person</span>
+                </div>
+                <p>A French cognitive neuroscientist who is a leading proponent of the Global Neuronal Workspace Theory (GNWT). He uses advanced brain imaging techniques to study how conscious thought differs from unconscious processing. His research suggests that consciousness is not a single location but a specific brain state where information is widely broadcast across a network of cortical neurons, allowing for a flexible and integrated response.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Anatomical Compiler</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The process by which an organism's body plan is “compiled” from genetic and bioelectric instructions, akin to how a computer program is compiled from code.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Protoconsciousness</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>A hypothetical form of consciousness or sentience that exists in all living cells, even single-celled organisms, enabling basic goal-seeking behaviors.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Habituation</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>A simple form of learning where an organism decreases its response to a repeated, non-threatening stimulus.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Regenerative Medicine</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The field of medicine focused on regenerating, repairing, or replacing damaged tissues or organs, an area where Levin's work has significant implications.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Computational Bioelectricity</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The study and application of bioelectric signals to control cellular behavior and tissue development.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Embryogenesis</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The process by which an embryo forms and develops.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Planaria</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>A type of flatworm known for its remarkable regenerative abilities, often used in Levin's research.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Epigenetics</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The study of heritable changes in gene expression that are not caused by changes in the DNA sequence.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Pattern-Following</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The idea that biological systems follow a set of internal patterns to build and maintain their structure, which can be influenced by external signals.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Bio-computation</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The use of biological systems, like cells and tissues, to perform computations.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Distributed Cognition</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The idea that intelligence is not localized to a single brain but is spread throughout a system, from individual cells to the entire organism.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Memory</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The ability of biological systems to store and retrieve information, which Levin argues is present even at the cellular level.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Morphogenetics</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The biological process that causes an organism to develop its shape and form.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Embodied Cognition</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The theory that an organism's cognition is deeply dependent on features of its physical body.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Problem-Solving</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The ability of a biological system to find a way to reach its goals, even in novel or changing environments.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Stochasticity</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The presence of random processes in biology, which Levin suggests can be harnessed by an agent to achieve goals.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Collective Intelligence</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The emergent intelligence that arises from the interactions of a group of organisms or cells.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Self-Organization</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The process where a system spontaneously forms a structured pattern without external guidance.</p>
+            </div>
+            <div class="entry michael-levin">
+                <div class="entry-header">
+                    <h3 class="entry-title">Homeostasis</h3>
+                    <span class="category-tag category-tag-michael-levin">Michael Levin</span>
+                </div>
+                <p>The ability of a system to maintain a stable internal state despite external changes.</p>
+            </div>
+
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Prediction Error</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The difference between what the brain predicts will happen and what actually happens.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Generative Model</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The brain's internal model of the world that it uses to generate predictions about sensory input.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Free Energy Principle</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>A formal theory suggesting that all living systems minimize the difference between their internal models and the external world.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Active Inference</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The process by which an organism acts on the world to minimize prediction errors, thereby confirming its internal models.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Precision Weighting</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The process by which the brain adjusts the relative importance of sensory input versus its own internal predictions.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Prior</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The brain's pre-existing belief or expectation about a state of the world before receiving new sensory information.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Posterior</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The brain's updated belief about a state of the world after receiving new sensory information.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Bayesian Brain Hypothesis</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The idea that the brain operates using a Bayesian inference process, constantly updating its beliefs based on new evidence.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Helmholtz Machine</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>A type of neural network model that uses prediction and error correction to learn a generative model of its input.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Unconscious Inference</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The idea that the brain makes automatic, unconscious assumptions to fill in missing sensory information.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Predictive Coding</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>A specific neural implementation of predictive processing, where neurons signal prediction errors up a cortical hierarchy.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Hierarchical Predictive Processing</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The idea that the brain's predictive models are organized in a hierarchy, with higher levels predicting the activity of lower levels.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Attention</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The process of allocating computational resources to sensory inputs, which in a predictive processing framework is seen as increasing the precision of certain signals.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Hallucination</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>A perception in the absence of an external stimulus, which in predictive processing is seen as the brain's priors or predictions overriding sensory input.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Delusion</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>A false belief that is resistant to evidence, which can be viewed as an over-weighted prior that is not being updated by new sensory information.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Sensory Attenuation</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The brain's process of "turning down" the precision of its own motor commands to avoid generating prediction errors when it expects a certain sensory outcome.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Embodied Predictive Processing</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The extension of predictive processing to include the body and its actions as part of the system that minimizes prediction errors.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Inference to the Best Explanation</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The process of choosing the best hypothesis to explain a set of data, which is at the core of predictive processing.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Prediction-Error Minimization</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The overarching goal of the brain in predictive processing, which drives perception, cognition, and action.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Top-Down Prediction</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>Predictions flowing from higher cortical areas to lower ones.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Bottom-Up Signal</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>Sensory information flowing from lower cortical areas to higher ones.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Perceptual Inference</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The process of using a generative model to infer the most likely cause of a given sensory input.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Proprioception</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The sense of the relative position of one's own body parts, which is a key component of embodied predictive processing.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Interoception</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>The sense of the internal state of the body, which is also a crucial part of the predictive processing framework.</p>
+            </div>
+            <div class="entry predictive-processing">
+                <div class="entry-header">
+                    <h3 class="entry-title">Expectation</h3>
+                    <span class="category-tag category-tag-predictive-processing">Predictive Processing</span>
+                </div>
+                <p>A belief about a future event, which is a core component of a prediction.</p>
+            </div>
+
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Neural Correlates of Consciousness (NCC)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The minimal set of neural events and mechanisms sufficient for a specific conscious experience.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Integrated Information Theory (IIT)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A theory that posits consciousness is a physical property of matter that has the ability to cause-and-effect a large repertoire of states in an irreducible way. Consciousness is theorized to be related to the system's "phi" value, which is a measure of its integrated information.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Phi (Φ)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A measure of integrated information in IIT, which is proposed to be a quantitative measure of consciousness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Recurrent Processing</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The feedback loops of information flow in the brain, which are thought to be essential for conscious experience.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Attention Schema Theory (AST)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A theory proposing that consciousness is the brain's internal model of its own attention, which allows for metacognitive awareness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Neural Geometry</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The study of the brain's structure and how its geometric properties might give rise to cognitive functions, including consciousness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Cortical Column</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A basic organizational unit of the cerebral cortex, composed of neurons that share similar response properties.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Thalamocortical Loop</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The reciprocal connections between the thalamus and the cerebral cortex, which are believed to be essential for consciousness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Cerebellum</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A part of the brain important for motor control, but which is not typically considered part of the NCC.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Metacognition</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>Awareness and understanding of one's own thought processes.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">A-Consciousness</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A term used to describe information that is "access-conscious," meaning it is available for use in reasoning, reporting, and action.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">P-Consciousness</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A term for "phenomenal consciousness," or the raw, subjective experience of the world.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Binocular Rivalry</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A phenomenon where two different images are presented to each eye, and the brain alternates between perceiving one or the other, often used to study the NCC.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Masking</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A technique used in neuroscience experiments to prevent a stimulus from reaching conscious awareness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Parietal Cortex</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A brain region involved in sensory integration, spatial awareness, and attention, often implicated in consciousness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Prefrontal Cortex</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The frontmost part of the brain, involved in executive functions, decision-making, and self-awareness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Default Mode Network (DMN)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A network of brain regions that is active when the mind is not focused on a specific task, often associated with daydreaming and self-referential thought.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Neural Synchronization</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The coordinated firing of neurons in different brain regions, which is often observed during conscious states.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Anesthesia</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A medical state where a person is rendered unconscious, often studied to understand the mechanisms of consciousness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Coma</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A state of deep unconsciousness where a person is unresponsive to external stimuli.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Vegetative State</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A state of unconsciousness where a person is awake but shows no signs of awareness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Minimally Conscious State (MCS)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A state where a person has some limited and inconsistent signs of awareness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Neurophenomenology</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A research approach that combines the study of subjective conscious experience (phenomenology) with objective neuroscientific data.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Cerebral Cortex</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The outer layer of the brain, responsible for higher cognitive functions.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Thalamus</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A brain structure that acts as a relay station for sensory and motor signals to the cerebral cortex.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Basal Ganglia</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A group of subcortical nuclei involved in motor control, learning, and emotion.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Insula</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A brain region involved in consciousness, emotion, and internal bodily sensations.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Amygdala</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A brain region involved in processing emotions, particularly fear.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Corpus Callosum</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A large bundle of nerve fibers that connects the two cerebral hemispheres.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Split-Brain</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A condition where the corpus callosum is severed, leading to a separation of consciousness between the two hemispheres.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Binding Problem</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The challenge of how the brain integrates information from different sensory modalities into a single, unified conscious experience.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Subconsciousness</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The part of the mind that is not currently in conscious awareness but can be brought to it.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Unconsciousness</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A state of not being aware, either due to natural sleep or medical conditions.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Wakefulness</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A state of being awake and able to respond to the environment.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Arousal</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The state of being alert and responsive.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Sleep</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A naturally recurring state of mind and body characterized by altered consciousness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Dreaming</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A state of consciousness characterized by sensory, cognitive, and emotional events during sleep.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Lucid Dreaming</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A dream in which the dreamer is aware that they are dreaming.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Neuroplasticity</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The brain's ability to reorganize itself by forming new neural connections throughout life.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Functional Magnetic Resonance Imaging (fMRI)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A neuroimaging technique that measures brain activity by detecting changes in blood flow.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Electroencephalography (EEG)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A neurophysiological measurement technique that records the brain's electrical activity.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Magnetoencephalography (MEG)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A neuroimaging technique that measures the magnetic fields produced by the brain's electrical currents.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Diffusion Tensor Imaging (DTI)</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>An MRI technique that maps white matter tracts in the brain, used to study brain connectivity.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Optogenetics</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A biological technique that uses light to control neurons in living tissue that have been genetically modified to express light-sensitive ion channels.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Neural Oscillation</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>Rhythmic or repetitive electrical activity in the nervous system.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Gamma Waves</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A type of neural oscillation often associated with conscious awareness and attention.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Alpha Waves</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A type of brain wave associated with a relaxed, wakeful state.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Beta Waves</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A type of brain wave associated with a normal waking state of consciousness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Delta Waves</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A type of brain wave associated with deep, dreamless sleep.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Theta Waves</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A type of brain wave associated with a state of deep relaxation, meditation, or light sleep.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Subliminal Perception</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The ability to perceive stimuli without conscious awareness.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Change Blindness</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The failure to notice a change in a visual scene.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Inattentional Blindness</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The failure to notice a fully visible, but unexpected object in a visual display.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Split-Brain Syndrome</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The set of symptoms caused by the disconnection of the two cerebral hemispheres.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Anosognosia</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A deficit of self-awareness, where a person is unaware of a neurological or cognitive impairment.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Locked-in Syndrome</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A condition in which a patient is aware but cannot move or communicate verbally due to complete paralysis of nearly all voluntary muscles.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Blindsight</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The ability to respond to visual stimuli without consciously perceiving them.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Synesthesia</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>A perceptual phenomenon in which stimulation of one sensory or cognitive pathway leads to involuntary experiences in a second sensory or cognitive pathway.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Visual Cortex</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The part of the cerebral cortex that processes visual information.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Auditory Cortex</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The part of the cerebral cortex that processes auditory information.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Somatosensory Cortex</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The part of the cerebral cortex that processes sensory information from the body.</p>
+            </div>
+            <div class="entry neuroscience">
+                <div class="entry-header">
+                    <h3 class="entry-title">Motor Cortex</h3>
+                    <span class="category-tag category-tag-neuroscience">Neuroscience</span>
+                </div>
+                <p>The part of the cerebral cortex that is involved in planning, controlling, and executing voluntary movements.</p>
+            </div>
+        </div>
+    </main>
+    <div id="footer-placeholder"></div>
+    <script src="../dictionary-app.js"></script>
 </body>
 </html>

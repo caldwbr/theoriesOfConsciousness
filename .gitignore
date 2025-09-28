@@ -89,6 +89,8 @@ npm-debug.log*
 *.svg
 *.webp
 
+P1.json
+
 # Song files
 *.mp3
 *.wav

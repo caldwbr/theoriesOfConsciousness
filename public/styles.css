@@ -122,10 +122,10 @@ header h1 {
 /* Dictionary page and filter styles */
 .filter-controls {
     text-align: center;
-    margin: 3rem 0 2rem;
+    margin: 0 0 0; /* Reduced margins to minimize space */
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 1px;
     flex-wrap: wrap;
 }
 
@@ -164,22 +164,92 @@ header h1 {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.entry:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+/* New CSS for the entry header and tag */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #d1c9bd;
+    padding-bottom: 8px;
+    margin-bottom: 1rem;
 }
 
-.entry h3 {
-    margin-top: 0;
-    color: #2b2b2b;
-    border-bottom: 1px solid #d1c9bd; /* Match the main heading line */
-    padding-bottom: 8px;
+.entry-header h3 {
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
     font-size: 1.5em;
     font-weight: 500;
 }
 
+.entry-header h3.entry-title {
+    color: #2b2b2b;
+}
+
+.category-tag {
+    font-size: 0.8em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+}
+
+/* Unique colors for each category tag */
+.category-tag-ring-bank {
+    background-color: #a35d4f; /* Warm accent color */
+}
+
+.category-tag-mainstream {
+    background-color: #007bff; /* Blue */
+}
+
+.category-tag-michael-levin {
+    background-color: #dc3545; /* Red */
+}
+
+.category-tag-predictive-processing {
+    background-color: #28a745; /* Green */
+}
+
+.category-tag-neuroscience {
+    background-color: #6c757d; /* Gray */
+}
+
+.category-tag-immanuel-kant {
+    background-color: #556b2f; /* Dark olive green */
+}
+
+.category-tag-person {
+    background-color: #8b4513; /* A warm saddle brown */
+}
+
+.category-tag-math {
+    background-color: #4CAF50; /* A vibrant green */
+}
+
+.category-tag-dynamics {
+    background-color: #2196F3; /* A bright blue */
+}
+
+.category-tag-book {
+    background-color: #9c27b0; /* A deep purple */
+}
+
+.category-tag-paper {
+    background-color: #FF9800; /* A bold orange */
+}
+
+.category-tag-video {
+    background-color: #FF0000; /* A bold, pure red for YouTube */
+}
+
+/* Ensure existing entry p tags are correctly styled */
 .entry p {
     color: #4b4b4b;
+    margin-top: 0;
     margin-bottom: 0;
 }
 
@@ -199,4 +269,147 @@ header h1 {
         width: 100%;
         margin-bottom: 10px;
     }
+}
+
+/* Collapse whitespace in entry text and hide truly empty paragraphs */
+.entry p { white-space: normal; }
+.entry p:empty { display: none; }
+
+.footer-container {
+    text-align: center;
+    max-width: 900px;
+    margin: 2rem auto 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid #d1c9bd; /* A subtle, elegant top border */
+    font-size: 0.9em;
+    color: #5d5d5d;
+}
+
+.footer-container p {
+    margin: 0.5em 0;
+}
+
+.card-link { display:block; text-decoration:none; color:inherit; }
+
+.card-link { display:block; text-decoration:none; color:inherit; }
+.entry p { white-space: normal; }
+.entry p:empty { display: none; }
+
+/* clicks inside controls OR plot elements should never trigger the card link */
+.card-link .controls,
+.card-link .controls *,
+.card-link #morlet-graph,
+.card-link input[type="range"],
+.card-link .plotly-graph-div {
+  pointer-events: auto;
+}
+
+/* Prevent card link behavior on ALL interactive plot elements */
+.card-link #morlet-graph,
+.card-link input[type="range"],
+.card-link .plotly-graph-div,
+.card-link .js-plotly-plot,
+.card-link .modebar,
+.card-link .modebar-group,
+.card-link .plot-container,
+.card-link .svg-container {
+  pointer-events: auto !important;
+}
+
+/* Optional: Make it clear these elements are interactive */
+.card-link input[type="range"] {
+  cursor: grab;
+}
+
+.card-link input[type="range"]:active {
+  cursor: grabbing;
+}
+
+/* COMPLETELY isolate the Morlet plot from any link behavior */
+#complex-morlet-wavelet-math,
+#complex-morlet-wavelet-math *:not(.entry-title) {
+  pointer-events: auto !important;
+}
+
+.entry-link-symbol {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    cursor: pointer;
+    font-size: 1.2em;
+    opacity: 0.7;
+    transition: opacity 0.2s, transform 0.2s;
+    pointer-events: auto;
+    z-index: 10;
+}
+
+.entry-link-symbol:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* Ensure Plotly gets full control */
+#morlet-graph, 
+.plotly-graph-div, 
+.js-plotly-plot,
+input[type="range"] {
+    pointer-events: auto !important;
+}
+
+/* Remove any lingering hover effects */
+.card-link { 
+    display: block; 
+    text-decoration: none; 
+    color: inherit; 
+}
+
+/* REMOVE ALL CARD HOVER EFFECTS */
+.entry {
+    transform: none !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05) !important;
+}
+
+.card-link:hover .entry {
+    transform: none !important;
+}
+
+/* INSTEAD, add this more targeted approach: */
+.card-link {
+    cursor: default; /* Keep this but remove pointer-events: none */
+}
+
+/* Make ONLY the entry content non-clickable, but keep buttons interactive */
+.card-link .entry {
+    pointer-events: none;
+}
+
+/* Allow clicks on iframes and video containers */
+.card-link .entry iframe,
+.card-link .entry .video-container,
+.card-link .entry .video-container * {
+    pointer-events: auto !important;
+}
+
+/* But explicitly allow pointer events for interactive elements */
+.card-link .entry button,
+.card-link .entry input,
+.card-link .entry select,
+.card-link .entry textarea,
+.card-link .entry #morlet-graph,
+.card-link .entry #lorenz-plot,
+.card-link .entry .plotly-graph-div {
+    pointer-events: auto !important;
+}
+
+/* Ensure buttons look and feel clickable */
+#lorenz-play-button,
+#lorenz-stop-button, 
+#lorenz-reset-button {
+    cursor: pointer;
+    pointer-events: auto !important;
+}
+
+/* Keep the symbol clickable */
+.entry-link-symbol {
+    pointer-events: auto;
 }
