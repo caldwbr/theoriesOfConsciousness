@@ -469,4 +469,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 8. Initial Render ---
     render();
+
+    // --- 9. Lazy Load Videos ---
+    const lazyLoadVideos = () => {
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const video = entry.target;
+                    // Remove preload and set autoplay
+                    video.removeAttribute('preload');
+                    video.setAttribute('autoplay', '');
+                    video.setAttribute('playsinline', '');
+                    video.muted = true;
+
+                    // Try to play the video
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.log('Autoplay prevented, adding controls');
+                            video.setAttribute('controls', '');
+                        });
+                    }
+
+                    videoObserver.unobserve(video);
+                }
+            });
+        });
+
+        document.querySelectorAll('.entry-video video').forEach(video => {
+            videoObserver.observe(video);
+        });
+    };
+
+    // Initialize lazy loading after DOM is ready
+    document.addEventListener('DOMContentLoaded', lazyLoadVideos);
 });
