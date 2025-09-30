@@ -112,3 +112,5 @@ P1.json
 *.mkv
 *.zip
 *.dmg
+
+public/rawJournals/

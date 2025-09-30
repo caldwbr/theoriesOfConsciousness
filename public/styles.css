@@ -565,3 +565,39 @@ input[type="range"] {
     transform: translateY(-1px);
     box-shadow: 0 2px 8px rgba(163, 93, 79, 0.3);
 }
+
+/* Entry images */
+.entry-image {
+    margin: 1.5rem 0;
+    text-align: center;
+}
+
+.entry-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    border: 1px solid #e8e6e1;
+    /* Ensure smooth loading */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.entry-image img[loading="lazy"] {
+    opacity: 1; /* Remove fade-in if using native lazy loading */
+}
+
+.entry-image img.loaded {
+    opacity: 1;
+}
+
+/* Mobile adjustment for entry images */
+@media (max-width: 768px) {
+    .entry-image {
+        margin: 1rem 0;
+    }
+    
+    .entry-image img {
+        max-width: 95%;
+    }
+}
