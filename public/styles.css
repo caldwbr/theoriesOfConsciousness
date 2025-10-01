@@ -29,19 +29,22 @@ h1 { font-size: 3em; text-align: center; }
 h2 { font-size: 2.2em; }
 h3 { font-size: 1.6em; }
 
-
 /* Main content area */
 main {
-    max-width: 900px;
-    margin: auto;
+    max-width: 1000px;
+    margin: 0 auto;
     padding: 2rem;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-/* Header and navigation (unchanged from previous) */
+/* Header and navigation */
 header {
     text-align: center;
     padding: 2rem 0;
     background-color: #fcfbf8;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 header h1 {
@@ -58,6 +61,7 @@ header h1 {
     justify-content: center;
     gap: 30px;
     flex-wrap: wrap;
+    max-width: 100%;
 }
 
 .dropdown {
@@ -124,14 +128,15 @@ header h1 {
     color: #1a1a1a;
 }
 
-/* Dictionary page and filter styles */
+/* Filter controls and buttons */
 .filter-controls {
     text-align: center;
-    margin: 0 0 0; /* Reduced margins to minimize space */
+    margin: 0;
     display: flex;
     justify-content: center;
     gap: 1px;
     flex-wrap: wrap;
+    max-width: 100%;
 }
 
 .filter-btn {
@@ -140,7 +145,7 @@ header h1 {
     padding: 10px 18px;
     font-size: 1em;
     font-weight: bold;
-    border: none; /* No border for a clean look */
+    border: none;
     cursor: pointer;
     transition: all 0.3s ease;
     letter-spacing: 1px;
@@ -148,315 +153,37 @@ header h1 {
 }
 
 .filter-btn.active {
-    color: #a35d4f; /* A warm, beautiful accent color */
-    border-bottom: 2px solid #a35d4f; /* A clean, modern indicator line */
+    color: #a35d4f;
+    border-bottom: 2px solid #a35d4f;
 }
 
 .filter-btn:hover:not(.active) {
     color: #1a1a1a;
 }
 
+/* Grid layout for dictionary entries */
 #dictionary-entries {
     display: grid;
     gap: 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
 }
 
+/* Entry card styling */
 .entry {
+    display: flex;
+    flex-direction: column;
     background-color: #ffffff;
     padding: 2rem;
     border-radius: 8px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05); /* Softer, more elegant shadow */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* New CSS for the entry header and tag */
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #d1c9bd;
-    padding-bottom: 8px;
-    margin-bottom: 1rem;
-}
-
-.entry-header h3 {
-    margin: 0;
-    padding: 0;
-    border-bottom: none;
-    font-size: 1.5em;
-    font-weight: 500;
-}
-
-.entry-header h3.entry-title {
-    color: #2b2b2b;
-}
-
-.category-tag {
-    font-size: 0.8em;
-    padding: 4px 8px;
-    border-radius: 4px;
-    color: white;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    flex-shrink: 0;
-}
-
-/* Beautiful, distinguishable category tag colors */
-.category-tag-mainstream {
-    background-color: #6c757d; /* Neutral gray for foundational concepts */
-}
-
-.category-tag-ring-bank {
-    background-color: #a35d4f; /* Keep your warm accent color */
-}
-
-.category-tag-michael-levin {
-    background-color: #20c997; /* Fresh teal for bioelectric research */
-}
-
-.category-tag-predictive-processing {
-    background-color: #e83e8c; /* Vibrant pink for modern cognitive theory */
-}
-
-.category-tag-neuroscience {
-    background-color: #6f42c1; /* Rich purple for brain science */
-}
-
-.category-tag-neural-nets {
-    background-color: #fd7e14; /* Warm orange for AI/neural networks */
-}
-
-.category-tag-immanuel-kant {
-    background-color: #7952b3; /* Deep violet for classical philosophy */
-}
-
-.category-tag-person {
-    background-color: #20c997; /* Teal (same as Levin) for people */
-}
-
-.category-tag-math {
-    background-color: #17a2b8; /* Cyan blue for mathematical concepts */
-}
-
-.category-tag-dynamics {
-    background-color: #2196F3; /* Keep your nice bright blue */
-}
-
-.category-tag-book {
-    background-color: #343a40; /* Dark charcoal for books */
-}
-
-.category-tag-paper {
-    background-color: #6c757d; /* Medium gray for academic papers */
-}
-
-.category-tag-video {
-    background-color: #FF0000; /* Keep YouTube red */
-}
-
-/* Ensure existing entry p tags are correctly styled */
-.entry p {
-    color: #4b4b4b;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-/* Responsive design - COMPREHENSIVE FIX */
-@media (max-width: 768px) {
-    /* Reset body constraints */
-    body {
-        padding: 0;
-        margin: 0;
-        width: 100vw;
-        overflow-x: hidden;
-    }
-    
-    /* Header container - full width with consistent padding */
-    #header-placeholder {
-        width: 100%;
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-    
-    /* Actual header element - match main content padding */
-    #header-placeholder > header {
-        width: 100%;
-        box-sizing: border-box;
-        padding: 2rem 1rem !important;
-        margin: 0;
-    }
-    
-    /* Header content - force full available width */
-    #header-placeholder header h1 {
-        width: 100%;
-        box-sizing: border-box;
-        margin: 0 auto;
-        text-align: center;
-    }
-    
-    #header-placeholder .header-menu {
-        width: 100%;
-        box-sizing: border-box;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.5rem;
-        margin: 1rem 0 0 0;
-    }
-    
-    #header-placeholder .dropdown {
-        width: 100%;
-    }
-    
-    #header-placeholder .dropbtn,
-    #header-placeholder .nav-link {
-        width: 100%;
-        display: block;
-        text-align: center;
-        box-sizing: border-box;
-    }
-    
-    #header-placeholder .dropdown-content {
-        width: 100%;
-        min-width: auto;
-        position: relative;
-        left: 0;
-        right: 0;
-    }
-    
-    /* Main content - same padding as header */
-    main {
-        width: 100%;
-        max-width: 100%;
-        padding: 0 1rem;
-        margin: 0;
-        box-sizing: border-box;
-    }
-    
-    /* Filter controls */
-    .filter-controls {
-        flex-direction: column;
-        align-items: stretch;
-        width: 100%;
-        gap: 0.5rem;
-        margin: 1rem 0;
-    }
-    
-    .filter-btn {
-        width: 100%;
-        margin-bottom: 0;
-        text-align: center;
-    }
-    
-    /* Dictionary entries */
-    #dictionary-entries {
-        width: 100%;
-    }
-    
-    .entry {
-        width: 100%;
-        box-sizing: border-box;
-    }
-    
-    /* Fix for iframes and videos */
-    .video-container {
-        width: 100%;
-        position: relative;
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        height: 0;
-        overflow: hidden;
-    }
-    
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100% !important;
-        height: 100% !important;
-        max-width: 100%;
-    }
-    
-    /* Fix for Plotly containers */
-    .plotly-graph-div,
-    #morlet-graph,
-    #lorenz-plot {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-    
-    /* Ensure all interactive elements don't break layout */
-    .card-link .entry iframe,
-    .card-link .entry .video-container,
-    .card-link .entry .plotly-graph-div {
-        max-width: 100% !important;
-        width: 100% !important;
-    }
-    
-    h1 { 
-        font-size: 2em; 
-        width: 100%;
-        text-align: center;
-    }
-}
-/* Collapse whitespace in entry text and hide truly empty paragraphs */
-.entry p { white-space: normal; }
-.entry p:empty { display: none; }
-
-.footer-container {
-    text-align: center;
-    max-width: 900px;
-    margin: 2rem auto 2rem;
-    padding: 2rem 0;
-    border-top: 1px solid #d1c9bd; /* A subtle, elegant top border */
-    font-size: 0.9em;
-    color: #5d5d5d;
-}
-
-.footer-container p {
-    margin: 0.5em 0;
-}
-
-.card-link { display:block; text-decoration:none; color:inherit; }
-
-.card-link { display:block; text-decoration:none; color:inherit; }
-.entry p { white-space: normal; }
-.entry p:empty { display: none; }
-
-/* clicks inside controls OR plot elements should never trigger the card link */
-.card-link .controls,
-.card-link .controls *,
-.card-link #morlet-graph,
-.card-link input[type="range"],
-.card-link .plotly-graph-div {
-  pointer-events: auto;
-}
-
-/* Prevent card link behavior on ALL interactive plot elements */
-.card-link #morlet-graph,
-.card-link input[type="range"],
-.card-link .plotly-graph-div,
-.card-link .js-plotly-plot,
-.card-link .modebar,
-.card-link .modebar-group,
-.card-link .plot-container,
-.card-link .svg-container {
-  pointer-events: auto !important;
-}
-
-/* Optional: Make it clear these elements are interactive */
-.card-link input[type="range"] {
-  cursor: grab;
-}
-
-.card-link input[type="range"]:active {
-  cursor: grabbing;
-}
-
-/* COMPLETELY isolate the Morlet plot from any link behavior */
-#complex-morlet-wavelet-math,
-#complex-morlet-wavelet-math *:not(.entry-title) {
-  pointer-events: auto !important;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .entry-link-symbol {
@@ -471,135 +198,107 @@ header h1 {
     z-index: 10;
 }
 
-.entry-link-symbol:hover {
-    opacity: 1;
-    transform: scale(1.1);
+/* Entry header and category tags */
+.entry-header {
+    display: flex;
+    justify-content: flex-start; /* ← CHANGE from space-between to flex-start */
+    align-items: center;
+    border-bottom: 1px solid #d1c9bd;
+    padding-bottom: 8px;
+    margin-bottom: 1rem;
+    width: 100%;
+    gap: 12px; /* ← ADD gap between title and tags */
 }
 
-/* Ensure Plotly gets full control */
-#morlet-graph, 
-.plotly-graph-div, 
-.js-plotly-plot,
-input[type="range"] {
-    pointer-events: auto !important;
-}
-
-/* Remove any lingering hover effects */
-.card-link { 
-    display: block; 
-    text-decoration: none; 
-    color: inherit; 
-}
-
-/* REMOVE ALL CARD HOVER EFFECTS */
-.entry {
-    transform: none !important;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.05) !important;
-}
-
-.card-link:hover .entry {
-    transform: none !important;
-}
-
-/* INSTEAD, add this more targeted approach: */
-.card-link {
-    cursor: default; /* Keep this but remove pointer-events: none */
-}
-
-/* Make ONLY the entry content non-clickable, but keep buttons interactive */
-.card-link .entry {
-    pointer-events: none;
-}
-
-/* Allow clicks on iframes and video containers */
-.card-link .entry iframe,
-.card-link .entry .video-container,
-.card-link .entry .video-container * {
-    pointer-events: auto !important;
-}
-
-/* But explicitly allow pointer events for interactive elements */
-.card-link .entry button,
-.card-link .entry input,
-.card-link .entry select,
-.card-link .entry textarea,
-.card-link .entry #morlet-graph,
-.card-link .entry #lorenz-plot,
-.card-link .entry .plotly-graph-div {
-    pointer-events: auto !important;
-}
-
-/* Ensure buttons look and feel clickable */
-#lorenz-play-button,
-#lorenz-stop-button, 
-#lorenz-reset-button {
-    cursor: pointer;
-    pointer-events: auto !important;
-}
-
-/* Keep the symbol clickable */
-.entry-link-symbol {
-    pointer-events: auto;
-}
-
-/* Allow affiliate links to be clickable */
-.card-link .entry a,
-.card-link .entry .affiliate-link {
-    pointer-events: auto !important;
-}
-
-.affiliate-link {
-    display: inline-block;
-    background: #a35d4f;
-    color: white;
-    padding: 6px 12px;
-    border-radius: 4px; /* Smaller radius for rectangle */
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    font-size: 0.9em;
-}
-
-.affiliate-link:hover {
-    background: #8a4d3f;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(163, 93, 79, 0.3);
-}
-
-/* Entry images */
-.entry-image {
-    margin: 1.5rem 0;
-    text-align: center;
-}
-
-.entry-image img {
+.entry-header h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
+    font-weight: 500;
     max-width: 100%;
-    height: auto;
-    border-radius: 6px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-    border: 1px solid #e8e6e1;
-    /* Ensure smooth loading */
-    opacity: 0;
-    transition: opacity 0.3s ease;
 }
 
-.entry-image img[loading="lazy"] {
-    opacity: 1; /* Remove fade-in if using native lazy loading */
+/* Remove all the right-side positioning from category tags */
+.category-tag {
+    font-size: 0.8em;
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    /* REMOVE margin-right, max-width, etc. */
 }
 
-.entry-image img.loaded {
-    opacity: 1;
+
+
+
+/* Category tag colors */
+.category-tag-mainstream {
+    background-color: #6c757d;
 }
 
-/* Mobile adjustment for entry images */
-@media (max-width: 768px) {
-    .entry-image {
-        margin: 1rem 0;
-    }
-    
-    .entry-image img {
-        max-width: 95%;
-    }
+.category-tag-ring-bank {
+    background-color: #a35d4f;
+}
+
+.category-tag-michael-levin {
+    background-color: #20c997;
+}
+
+.category-tag-predictive-processing {
+    background-color: #e83e8c;
+}
+
+.category-tag-neuroscience {
+    background-color: #6f42c1;
+}
+
+.category-tag-neural-nets {
+    background-color: #fd7e14;
+}
+
+.category-tag-immanuel-kant {
+    background-color: #7952b3;
+}
+
+.category-tag-person {
+    background-color: #20c997;
+}
+
+.category-tag-math {
+    background-color: #17a2b8;
+}
+
+.category-tag-dynamics {
+    background-color: #2196F3;
+}
+
+.category-tag-book {
+    background-color: #343a40;
+}
+
+.category-tag-paper {
+    background-color: #6c757d;
+}
+
+.category-tag-video {
+    background-color: #FF0000;
+}
+
+/* Entry paragraphs */
+.entry p {
+    color: #4b4b4b;
+    margin-top: 0;
+    margin-bottom: 0;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
+.entry ul, .entry li {
+    max-width: 100%;
+    overflow-wrap: break-word;
 }
 
 /* Media containers for side-by-side layout */
@@ -608,40 +307,33 @@ input[type="range"] {
     gap: 1.5rem;
     margin: 1.5rem 0;
     align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .entry-media-container .entry-image,
 .entry-media-container .entry-video {
     flex: 1;
     margin: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .entry-media-container .entry-image img,
 .entry-media-container .entry-video video {
     width: 100%;
     height: auto;
+    max-width: 100%;
 }
 
-/* Mobile layout */
-@media (max-width: 768px) {
-    .entry-media-container {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .entry-media-container .entry-image img,
-    .entry-media-container .entry-video video {
-        max-width: 100%;
-    }
-}
-
-/* Entry videos */
-.entry-video {
+/* Entry images */
+.entry-image {
     margin: 1.5rem 0;
     text-align: center;
+    max-width: 100%;
 }
 
-.entry-video video {
+.entry-image img {
     max-width: 100%;
     height: auto;
     border-radius: 6px;
@@ -649,24 +341,22 @@ input[type="range"] {
     border: 1px solid #e8e6e1;
 }
 
-/* Mobile adjustment for entry videos */
-@media (max-width: 768px) {
-    .entry-video {
-        margin: 1rem 0;
-    }
-    
-    .entry-video video {
-        max-width: 95%;
-    }
+/* Video Container Styling */
+.entry-video {
+    width: 100%;
+    min-height: 200px;
+    height: auto;
+    overflow: visible;
+    max-width: 100%;
 }
 
-/* YouTube iframe container */
 .video-container {
     position: relative;
     width: 100%;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%;
     height: 0;
     overflow: hidden;
+    max-width: 100%;
 }
 
 .video-container iframe {
@@ -675,18 +365,141 @@ input[type="range"] {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 6px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    max-width: 100%;
 }
 
-/* For side-by-side layout */
-.entry-media-container .video-container {
-    padding-bottom: 56.25%; /* Maintain 16:9 aspect ratio */
-}
-
-/* Mobile adjustment */
+/* Mobile Adjustments */
 @media (max-width: 768px) {
-    .entry-media-container .video-container {
+    body {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    main {
+        width: 100%;
+        max-width: 100%;
+        padding: 0 0;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    #header-placeholder {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    #header-placeholder > header {
+        width: 100%;
+        padding: 1rem 1rem !important;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    #header-placeholder header h1 {
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 2rem;
+    }
+
+    #header-placeholder .header-menu {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        margin: 1rem 0 0 0;
+        padding: 0 1rem;
+        box-sizing: border-box;
+    }
+
+    .filter-controls {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 0.5rem;
+        margin: 1rem 0;
+        padding: 0 1rem;
+        box-sizing: border-box;
+    }
+
+    .filter-btn {
+        width: 100%;
+        margin-bottom: 0;
+        text-align: center;
+    }
+
+    #dictionary-entries {
+        width: 100%;
+        padding: 1rem;
+        margin: 0;
+    }
+
+    .entry {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 1rem;
+        margin: 0;
+    }
+
+    .entry-media-container {
+        flex-direction: column;
+        gap: 0;
+        margin: 0 0;
+    }
+
+    .entry-media-container .entry-image,
+    .entry-media-container .entry-video {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .video-container {
         padding-bottom: 56.25%;
     }
+
+    h1 { 
+        font-size: 2em; 
+        width: 100%;
+        text-align: center;
+    }
+}
+
+/* Collapse whitespace in entry text and hide truly empty paragraphs */
+.entry p { white-space: normal; }
+.entry p:empty { display: none; }
+
+.footer-container {
+    text-align: center;
+    max-width: 900px;
+    margin: 2rem auto 2rem;
+    padding: 2rem 0;
+    border-top: 1px solid #d1c9bd;
+    font-size: 0.9em;
+    color: #5d5d5d;
+}
+
+.footer-container p {
+    margin: 0.5em 0;
+}
+
+/* Add this to your CSS - CRITICAL FIX */
+.card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Ensure card-link doesn't break the grid layout */
+#dictionary-entries > .card-link {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
 }

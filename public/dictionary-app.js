@@ -52,14 +52,25 @@ document.addEventListener('DOMContentLoaded', () => {
             entry.id = slug;
 
             let card = entry.parentElement;
+
+            // FIX: Only create card-link if it doesn't already exist AND properly replace the entry
             if (!(card && card.classList && card.classList.contains('card-link'))) {
                 card = document.createElement('a');
                 card.className = 'card-link';
-                entry.replaceWith(card);
+
+                // CRITICAL FIX: Properly replace the entry with card-link
+                entry.parentNode.insertBefore(card, entry);
                 card.appendChild(entry);
             }
+
             card.setAttribute('href', `#${slug}`);
             card.style.display = 'block';
+
+            // CRITICAL FIX: Ensure card-link takes full width
+            card.style.width = '100%';
+            card.style.maxWidth = '100%';
+            card.style.boxSizing = 'border-box';
+
             return card;
         });
     };
@@ -470,37 +481,52 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 8. Initial Render ---
     render();
 
-    // --- 9. Lazy Load Videos ---
-    const lazyLoadVideos = () => {
+    // --- 9. Lazy Load Videos and iFrame YouTube ---
+    const lazyLoadVideosAndIframes = () => {
         const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const video = entry.target;
-                    // Remove preload and set autoplay
-                    video.removeAttribute('preload');
-                    video.setAttribute('autoplay', '');
-                    video.setAttribute('playsinline', '');
-                    video.muted = true;
+                    const target = entry.target;
 
-                    // Try to play the video
-                    const playPromise = video.play();
-                    if (playPromise !== undefined) {
-                        playPromise.catch(error => {
-                            console.log('Autoplay prevented, adding controls');
-                            video.setAttribute('controls', '');
-                        });
+                    if (target.tagName.toLowerCase() === 'video') {
+                        // HTML5 video lazy load
+                        target.removeAttribute('preload');
+                        target.setAttribute('autoplay', '');
+                        target.setAttribute('playsinline', '');
+                        target.muted = true;
+
+                        const playPromise = target.play();
+                        if (playPromise !== undefined) {
+                            playPromise.catch(error => {
+                                console.log('Autoplay prevented, adding controls');
+                                target.setAttribute('controls', '');
+                            });
+                        }
+
+                    } else if (target.tagName.toLowerCase() === 'iframe') {
+                        // YouTube iframe lazy load
+                        if (target.dataset.src) {
+                            target.src = target.dataset.src;
+                        }
                     }
 
-                    videoObserver.unobserve(video);
+                    videoObserver.unobserve(target);
                 }
             });
-        });
+        }, { rootMargin: "200px 0px" }); // preload slightly before viewport
 
+        // Observe all HTML5 video elements
         document.querySelectorAll('.entry-video video').forEach(video => {
             videoObserver.observe(video);
+        });
+
+        // Observe all iframe elements inside .entry-video
+        document.querySelectorAll('.entry-video iframe[data-src]').forEach(iframe => {
+            videoObserver.observe(iframe);
         });
     };
 
     // Initialize lazy loading after DOM is ready
-    document.addEventListener('DOMContentLoaded', lazyLoadVideos);
+    document.addEventListener('DOMContentLoaded', lazyLoadVideosAndIframes);
+
 });
