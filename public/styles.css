@@ -368,6 +368,51 @@ header h1 {
     max-width: 100%;
 }
 
+/* Aspect Ratio Containers */
+.aspect-ratio-portrait {
+    aspect-ratio: 3/4; /* 3:4 portrait ratio */
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.aspect-ratio-landscape {
+    aspect-ratio: 4/3; /* 4:3 landscape ratio */
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.aspect-ratio-square {
+    aspect-ratio: 1/1; /* 1:1 square ratio */
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Image styling within aspect ratio containers */
+.aspect-ratio-portrait img,
+.aspect-ratio-landscape img,
+.aspect-ratio-square img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* General Image Styling */
+.entry-media-container .entry-image {
+    margin: 1.5rem 0;
+    text-align: center;
+    max-width: 100%;
+}
+
+.entry-media-container .entry-image img {
+    border-radius: 6px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8e6e1;
+}
+
 /* Mobile Adjustments */
 @media (max-width: 768px) {
     body {
@@ -447,15 +492,13 @@ header h1 {
     }
 
     .entry-media-container {
-        flex-direction: column;
-        gap: 0;
+        display: block;  /* Stack images vertically */
         margin: 0 0;
     }
 
-    .entry-media-container .entry-image,
-    .entry-media-container .entry-video {
-        flex: 1 1 100%;
-        max-width: 100%;
+    .entry-media-container .entry-image {
+        width: 100%;  /* Full width on mobile */
+        margin-bottom: 1rem;  /* Add some space between images */
     }
 
     .video-container {
@@ -468,6 +511,36 @@ header h1 {
         text-align: center;
     }
 }
+
+/* Medium to Large Screens (Tablet or Small Desktop) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .entry-media-container {
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap */
+        gap: 1.5rem; /* Add some space between the images */
+    }
+
+    .entry-image {
+        width: 90%;  /* Two images per row */
+        margin-bottom: 1.5rem;
+    }
+}
+
+/* Large Screens (Desktops and larger) */
+@media (min-width: 1025px) {
+    .entry-media-container {
+        display: flex;
+        flex-wrap: wrap;  /* Allow items to wrap */
+        gap: 1.5rem;  /* Add space between items */
+    }
+
+    .entry-image {
+        width: 80%;  /* Three images per row */
+        margin-bottom: 1.5rem;
+    }
+}
+
+
 
 /* Collapse whitespace in entry text and hide truly empty paragraphs */
 .entry p { white-space: normal; }
@@ -485,6 +558,32 @@ header h1 {
 
 .footer-container p {
     margin: 0.5em 0;
+}
+
+.chevron-image {
+    width: 200px;
+    aspect-ratio: 3 / 4; /* Sets the height to be 4/3 of the width */
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 1.5rem; /* Add spacing between the images */
+}
+
+/* Flexbox for the container to place the images side-by-side */
+.entry-media-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+/* This targets the images *inside* your new class */
+.chevron-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 6px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8e6e1;
 }
 
 /* Add this to your CSS - CRITICAL FIX */
