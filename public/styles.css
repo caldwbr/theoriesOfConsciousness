@@ -251,6 +251,10 @@ header h1 {
     background-color: #e83e8c;
 }
 
+.category-tag-postdictive-processing {
+    background-color: aquamarine;
+}
+
 .category-tag-neuroscience {
     background-color: #6f42c1;
 }
@@ -269,6 +273,10 @@ header h1 {
 
 .category-tag-math {
     background-color: #17a2b8;
+}
+
+.category-tag-signals {
+    background-color: chartreuse;
 }
 
 .category-tag-dynamics {

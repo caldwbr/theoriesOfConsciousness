@@ -1,0 +1,388 @@
+%% 3D Ring Theory Animation with Video Recording - Revised Version
+% Clear workspace
+clear; clc; close all;
+
+%% Video setup
+video_filename = 'ring_theory_3d_revised.mp4';
+v = VideoWriter(video_filename, 'MPEG-4');
+v.FrameRate = 20;  % 20 fps for smooth animation
+v.Quality = 95;    % High quality
+open(v);
+
+fprintf('Recording video: %s\n', video_filename);
+
+%% Animation parameters - SPEED UP 2x
+total_time = 18;  % Slightly longer to show all modes
+dt = 0.05;
+t = 0:dt:total_time;
+
+%% 3D parameters
+radius = 1;
+ring_height = 2.5;  % Fixed height for print head
+fade_time = 1.5;    % HALVED: Time for printed points/rings to fade out
+
+%% Mode parameters - SPEED UP 2x
+continuous_speed = 2*pi/2;  % DOUBLED: rad/sec
+
+% Discontinuous: 80ms active, 20ms gap (scaled for visualization)
+disc_active_time = 1.6;  % HALVED: 80% of 2sec cycle  
+disc_gap_time = 0.4;     % HALVED: 20% gap
+
+% Compressed: faster active phase
+comp_active_time = 1.0;  % HALVED
+comp_cycle_time = 2.0;   % HALVED
+
+%% Create figure with 4 subplots
+figure('Position', [50, 50, 2000, 600], 'Color', 'white');
+
+% Store printed POINTS (not rings) for first three modes
+printed_points_cont = [];  % [time, angle, x, y]
+printed_points_disc = [];
+printed_points_comp = [];
+% Store printed RINGS only for interrupt mode
+printed_rings_interrupt = [];
+
+for i = 1:length(t)
+    clf;
+    
+    %% Continuous mode (left) - Steady print head with flowing POINTS
+    subplot(1,4,1);
+    hold on;
+    
+    % Draw steady print head ring at fixed height
+    theta_ring = linspace(0, 2*pi, 50);
+    x_head = radius * cos(theta_ring);
+    y_head = radius * sin(theta_ring);
+    z_head = ring_height * ones(size(x_head));
+    plot3(x_head, y_head, z_head, 'b-', 'LineWidth', 3, 'Color', [0 0 1]);
+    
+    % Draw tracer and arm on print head
+    angle_cont = mod(t(i) * continuous_speed, 2*pi);
+    x_tracer = radius * cos(angle_cont);
+    y_tracer = radius * sin(angle_cont);
+    z_tracer = ring_height;
+    
+    plot3(x_tracer, y_tracer, z_tracer, 'o', 'MarkerSize', 10, ...
+          'MarkerFaceColor', 'y', 'MarkerEdgeColor', 'k');
+    plot3([0, x_tracer], [0, y_tracer], [z_tracer, z_tracer], 'y-', 'LineWidth', 3);
+    
+    % Manage printed POINTS (flow downward and fade) - NOT RINGS
+    new_printed_cont = [];
+    for j = 1:size(printed_points_cont, 1)
+        point_data = printed_points_cont(j,:);
+        print_time = point_data(1);
+        print_angle = point_data(2);
+        print_x = point_data(3);
+        print_y = point_data(4);
+        age = t(i) - print_time;
+        
+        if age < fade_time
+            % Calculate position (flow downward)
+            z_pos = ring_height - age * 3.0;  % DOUBLE flow speed
+            
+            % Calculate fade opacity and adjust color
+            opacity = 1 - (age / fade_time);
+            base_color = [0 0.7 1];  % Blue color for continuous mode
+            faded_color = base_color * opacity;
+            
+            % Draw faded POINT (not ring)
+            plot3(print_x, print_y, z_pos, 'o', 'MarkerSize', 6, ...
+                  'MarkerFaceColor', faded_color, 'MarkerEdgeColor', 'none');
+            
+            new_printed_cont = [new_printed_cont; point_data];
+        end
+    end
+    printed_points_cont = new_printed_cont;
+    
+    % Add new printed POINT continuously (more frequently)
+    if mod(t(i), 0.2) < dt  % INCREASED frequency
+        printed_points_cont = [printed_points_cont; [t(i), angle_cont, x_tracer, y_tracer]];
+    end
+    
+    title('Continuous Mode', 'FontSize', 14, 'FontWeight', 'bold');
+    xlabel('X'); ylabel('Y'); zlabel('Time Flow ↓');
+    axis equal; grid on;
+    view(45, 30);
+    xlim([-1.5,1.5]); ylim([-1.5,1.5]); zlim([-2, 3.5]);
+    hold off;
+    
+    %% Discontinuous mode (middle left) - Interrupted printing of POINTS
+    subplot(1,4,2);
+    hold on;
+    
+    % Draw steady print head ring
+    plot3(x_head, y_head, z_head, 'r-', 'LineWidth', 3, 'Color', [1 0 0]);
+    
+    % Calculate discontinuous phase
+    cycle_time_disc = mod(t(i), disc_active_time + disc_gap_time);
+    
+    if cycle_time_disc < disc_active_time
+        % Active phase
+        angle_disc = 2*pi * (cycle_time_disc / disc_active_time);
+        tracer_color = 'y';
+        arm_color = 'y';
+        phase_text = 'ACTIVE';
+        bg_color = 'white';
+        
+        % Draw tracer and arm
+        x_tracer = radius * cos(angle_disc);
+        y_tracer = radius * sin(angle_disc);
+        z_tracer = ring_height;
+        
+        plot3(x_tracer, y_tracer, z_tracer, 'o', 'MarkerSize', 10, ...
+              'MarkerFaceColor', tracer_color, 'MarkerEdgeColor', 'k');
+        plot3([0, x_tracer], [0, y_tracer], [z_tracer, z_tracer], '-', ...
+              'Color', arm_color, 'LineWidth', 3);
+        
+        % Print POINTS during active phase (more frequently)
+        if mod(t(i), 0.15) < dt  % INCREASED frequency
+            printed_points_disc = [printed_points_disc; [t(i), angle_disc, x_tracer, y_tracer]];
+        end
+        
+    else
+        % Gap phase
+        tracer_color = [0.3 0.3 0.3];
+        arm_color = [0.3 0.3 0.3];
+        phase_text = 'GAP';
+        bg_color = [0.95 0.95 0.95];
+        
+        % Show tracer at end position
+        x_tracer = radius * cos(2*pi);
+        y_tracer = radius * sin(2*pi);
+        z_tracer = ring_height;
+        
+        plot3(x_tracer, y_tracer, z_tracer, 'o', 'MarkerSize', 10, ...
+              'MarkerFaceColor', tracer_color, 'MarkerEdgeColor', 'k');
+        plot3([0, x_tracer], [0, y_tracer], [z_tracer, z_tracer], '-', ...
+              'Color', arm_color, 'LineWidth', 3);
+    end
+    
+    % Manage printed POINTS for discontinuous mode
+    new_printed_disc = [];
+    for j = 1:size(printed_points_disc, 1)
+        point_data = printed_points_disc(j,:);
+        print_time = point_data(1);
+        print_angle = point_data(2);
+        print_x = point_data(3);
+        print_y = point_data(4);
+        age = t(i) - print_time;
+        
+        if age < fade_time
+            z_pos = ring_height - age * 3.0;  % DOUBLE flow speed
+            opacity = 1 - (age / fade_time);
+            base_color = [1 0.3 0.3];  % Red color for discontinuous mode
+            faded_color = base_color * opacity;
+            
+            plot3(print_x, print_y, z_pos, 'o', 'MarkerSize', 6, ...
+                  'MarkerFaceColor', faded_color, 'MarkerEdgeColor', 'none');
+            
+            new_printed_disc = [new_printed_disc; point_data];
+        end
+    end
+    printed_points_disc = new_printed_disc;
+    
+    title('Discontinuous Mode', 'FontSize', 14, 'FontWeight', 'bold');
+    xlabel('X'); ylabel('Y'); zlabel('Time Flow ↓');
+    axis equal; grid on;
+    view(45, 30);
+    xlim([-1.5,1.5]); ylim([-1.5,1.5]); zlim([-2, 3.5]);
+    set(gca, 'Color', bg_color);
+    hold off;
+    
+    %% Compressed mode (middle right) - Faster printing of POINTS
+    subplot(1,4,3);
+    hold on;
+    
+    % Draw steady print head ring
+    plot3(x_head, y_head, z_head, 'g-', 'LineWidth', 3, 'Color', [0 0.8 0]);
+    
+    % Calculate compressed phase
+    cycle_time_comp = mod(t(i), comp_cycle_time);
+    
+    if cycle_time_comp < comp_active_time
+        % Active phase (compressed)
+        angle_comp = 2*pi * (cycle_time_comp / comp_active_time);
+        tracer_color = 'y';
+        arm_color = 'y';
+        phase_text = 'ACTIVE (COMP)';
+        bg_color = 'white';
+        
+        % Draw tracer and arm
+        x_tracer = radius * cos(angle_comp);
+        y_tracer = radius * sin(angle_comp);
+        z_tracer = ring_height;
+        
+        plot3(x_tracer, y_tracer, z_tracer, 'o', 'MarkerSize', 10, ...
+              'MarkerFaceColor', tracer_color, 'MarkerEdgeColor', 'k');
+        plot3([0, x_tracer], [0, y_tracer], [z_tracer, z_tracer], '-', ...
+              'Color', arm_color, 'LineWidth', 3);
+        
+        % Print POINTS during compressed active phase (very frequently)
+        if mod(t(i), 0.1) < dt  % INCREASED frequency
+            printed_points_comp = [printed_points_comp; [t(i), angle_comp, x_tracer, y_tracer]];
+        end
+        
+    else
+        % Extended gap phase
+        tracer_color = [0.3 0.3 0.3];
+        arm_color = [0.3 0.3 0.3];
+        phase_text = 'EXTENDED GAP';
+        bg_color = [0.95 0.95 0.95];
+        
+        % Show tracer at end position
+        x_tracer = radius * cos(2*pi);
+        y_tracer = radius * sin(2*pi);
+        z_tracer = ring_height;
+        
+        plot3(x_tracer, y_tracer, z_tracer, 'o', 'MarkerSize', 10, ...
+              'MarkerFaceColor', tracer_color, 'MarkerEdgeColor', 'k');
+        plot3([0, x_tracer], [0, y_tracer], [z_tracer, z_tracer], '-', ...
+              'Color', arm_color, 'LineWidth', 3);
+    end
+    
+    % Manage printed POINTS for compressed mode
+    new_printed_comp = [];
+    for j = 1:size(printed_points_comp, 1)
+        point_data = printed_points_comp(j,:);
+        print_time = point_data(1);
+        print_angle = point_data(2);
+        print_x = point_data(3);
+        print_y = point_data(4);
+        age = t(i) - print_time;
+        
+        if age < fade_time
+            z_pos = ring_height - age * 3.0;  % DOUBLE flow speed
+            opacity = 1 - (age / fade_time);
+            base_color = [0.3 1 0.3];  % Green color for compressed mode
+            faded_color = base_color * opacity;
+            
+            plot3(print_x, print_y, z_pos, 'o', 'MarkerSize', 6, ...
+                  'MarkerFaceColor', faded_color, 'MarkerEdgeColor', 'none');
+            
+            new_printed_comp = [new_printed_comp; point_data];
+        end
+    end
+    printed_points_comp = new_printed_comp;
+    
+    title('Compressed Mode', 'FontSize', 14, 'FontWeight', 'bold');
+    xlabel('X'); ylabel('Y'); zlabel('Time Flow ↓');
+    axis equal; grid on;
+    view(45, 30);
+    xlim([-1.5,1.5]); ylim([-1.5,1.5]); zlim([-2, 3.5]);
+    set(gca, 'Color', bg_color);
+    hold off;
+    
+%% Interrupt mode (far right) - Instant full ring printing with gaps
+subplot(1,4,4);
+hold on;
+
+% Draw steady print head ring
+plot3(x_head, y_head, z_head, 'm-', 'LineWidth', 3, 'Color', [1 0 1]);
+
+% Interrupt mode parameters - SPEED UP 2x
+interrupt_cycle_time = 2.0;  % HALVED: Total cycle time
+interrupt_print_duration = 0.05; % HALVED: Very brief print time
+
+cycle_time_int = mod(t(i), interrupt_cycle_time);
+
+if cycle_time_int < interrupt_print_duration
+    % INSTANT PRINTING PHASE - Show complete ring
+    tracer_color = 'y';
+    arm_color = 'y';
+    phase_text = 'INSTANT PRINT!';
+    bg_color = [1 0.9 0.9];  % Light red flash
+    
+    % Draw complete ring at print head (all points simultaneously)
+    x_ring = radius * cos(theta_ring);
+    y_ring = radius * sin(theta_ring);
+    z_ring = ring_height * ones(size(x_ring));
+    plot3(x_ring, y_ring, z_ring, 'm-', 'LineWidth', 3, 'Color', [1 0 1]);
+    
+    % Show tracer at phase=0 position
+    x_tracer = radius * cos(0);
+    y_tracer = radius * sin(0);
+    z_tracer = ring_height;
+    
+    plot3(x_tracer, y_tracer, z_tracer, 'o', 'MarkerSize', 12, ...
+          'MarkerFaceColor', 'y', 'MarkerEdgeColor', 'k');
+    plot3([0, x_tracer], [0, y_tracer], [z_tracer, z_tracer], 'y-', 'LineWidth', 4);
+    
+    % Print a new ring to flow downward (captures the instant print)
+    if cycle_time_int < dt  % Only add once per print cycle
+        printed_rings_interrupt = [printed_rings_interrupt; [t(i), 0]];
+    end
+    
+else
+    % GAP PHASE - Show nothing printing, just waiting
+    tracer_color = [0.3 0.3 0.3];
+    arm_color = [0.3 0.3 0.3];
+    
+    % Show dim tracer at phase=0 position
+    x_tracer = radius * cos(0);
+    y_tracer = radius * sin(0);
+    z_tracer = ring_height;
+    
+    plot3(x_tracer, y_tracer, z_tracer, 'o', 'MarkerSize', 8, ...
+          'MarkerFaceColor', [0.5 0.5 0.5], 'MarkerEdgeColor', 'k');
+    plot3([0, x_tracer], [0, y_tracer], [z_tracer, z_tracer], '-', ...
+          'Color', [0.5 0.5 0.5], 'LineWidth', 1);
+    
+    time_until_next = interrupt_cycle_time - cycle_time_int;
+    phase_text = sprintf('GAP: next in %.1fs', time_until_next);
+    bg_color = [0.95 0.95 0.95];  % Gray background during gap
+end    
+    % Manage printed RINGS for interrupt mode
+    new_printed_int = [];
+    for j = 1:size(printed_rings_interrupt, 1)
+        ring_data = printed_rings_interrupt(j,:);
+        print_time = ring_data(1);
+        print_angle = ring_data(2);
+        age = t(i) - print_time;
+        
+        if age < fade_time
+            z_pos = ring_height - age * 3.0;  % DOUBLE flow speed
+            opacity = 1 - (age / fade_time);
+            base_color = [1 0 1];  % Magenta color for interrupt mode
+            faded_color = base_color * opacity;
+            
+            % Draw complete ring (always at phase=0 for interrupt mode)
+            x_print = radius * cos(theta_ring);
+            y_print = radius * sin(theta_ring);
+            z_print = z_pos * ones(size(x_print));
+            
+            plot3(x_print, y_print, z_print, '-', 'LineWidth', 2, ...
+                  'Color', faded_color);
+            
+            new_printed_int = [new_printed_int; [print_time, print_angle]];
+        end
+    end
+    printed_rings_interrupt = new_printed_int;
+    
+    title('Interrupt Mode', 'FontSize', 14, 'FontWeight', 'bold');
+    xlabel('X'); ylabel('Y'); zlabel('Time Flow ↓');
+    axis equal; grid on;
+    view(45, 30);
+    xlim([-1.5,1.5]); ylim([-1.5,1.5]); zlim([-2, 3.5]);
+    set(gca, 'Color', bg_color);
+    hold off;
+    
+    % Add overall title
+    sgtitle({'Ring Theory: Printing Modes of Consciousness'}, ...
+            'FontSize', 16, 'FontWeight', 'bold');
+    
+    % Capture frame and add to video
+    frame = getframe(gcf);
+    writeVideo(v, frame);
+    
+    % Display progress
+    if mod(i, 10) == 0
+        fprintf('Progress: %.1f%%\n', 100*i/length(t));
+    end
+    
+    drawnow;
+end
+
+% Close video file
+close(v);
+fprintf('Video saved as: %s\n', video_filename);
+fprintf('Animation complete!\n');
