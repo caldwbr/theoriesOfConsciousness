@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HST66CSWTB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HST66CSWTB');
+    </script>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Integrated Information Theory: Consciousness as Integrated Information</title>
+    <meta name="description" content="Exploring how consciousness arises from the integrated information capacity of physical systems through the lens of Integrated Information Theory." />
+    <meta name="keywords" content="integrated information theory, IIT, consciousness, phi, Tononi, Koch, consciousness measurement" />
+    <meta name="author" content="Brad Caldwell">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #9b59b6;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+            --highlight-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background-color: #f8f9fa;
+        }
+        
+        article {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+        
+        h3 {
+            color: var(--dark-color);
+            margin-top: 1.8rem;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            max-width: 65ch;
+        }
+        
+        strong {
+            color: var(--primary-color);
+        }
+        
+        .intro-block {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            border-left: 4px solid var(--secondary-color);
+            margin: 2rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .callout {
+            background: #fff8e1;
+            padding: 1.2rem;
+            border-left: 4px solid #ffc107;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .insight {
+            background: #e8f5e9;
+            padding: 1.2rem;
+            border-left: 4px solid #4caf50;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .theory-card {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .footnote-ref {
+            vertical-align: super;
+            font-size: 0.8em;
+            color: var(--secondary-color);
+            text-decoration: none;
+            margin-left: 2px;
+        }
+        
+        .footnote-ref:hover {
+            text-decoration: underline;
+        }
+        
+        .footnotes {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        .footnotes ol {
+            padding-left: 1.5rem;
+        }
+        
+        .footnotes li {
+            margin-bottom: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        .footnotes a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .footnotes a:hover {
+            text-decoration: underline;
+        }
+        
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .concept {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--accent-color);
+        }
+        
+        .theorist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .theorist-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--secondary-color);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .axiom-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .axiom-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #9b59b6;
+        }
+        
+        .math-highlight {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 4px solid #e74c3c;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .quote {
+            font-style: italic;
+            color: #555;
+            border-left: 3px solid #ccc;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .author {
+            text-align: right;
+            font-style: normal;
+            color: #777;
+            margin-top: 0.5rem;
+        }
+        
+        .subcategory-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .theorist-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .theorist {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 0 10px;
+            }
+            
+            article {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .concept-grid, .theorist-grid, .axiom-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          fetch("/header.html").then(res => res.text()).then(html => {
+              document.getElementById("header-placeholder").innerHTML = html;
+          });
+          fetch('/footer.html')
+            .then(response => response.text())
+            .then(html => { document.getElementById('footer-placeholder').innerHTML = html; });
+      });
+    </script>
+
+    <main>
+      <article>
+        <header>
+          <h1>Integrated Information Theory: Consciousness as Integrated Information</h1>
+          <p class="subtitle">Exploring how consciousness arises from the capacity of systems to integrate information</p>
+        </header>
+
+        <section>
+          <h2>The Mathematics of Consciousness</h2>
+          
+          <div class="intro-block">
+            <p>Integrated Information Theory (IIT) proposes that consciousness corresponds to the capacity of a system to integrate information<sup><a href="#fn1" id="r1">1</a></sup>. Developed by neuroscientist Giulio Tononi, IIT provides both a theoretical framework and a mathematical measure (Φ, pronounced "phi") for quantifying consciousness.</p>
+          </div>
+          
+          <p>Unlike other theories that focus on specific neural correlates or functional roles, IIT starts from the essential properties of consciousness itself and works backward to determine what physical systems could support it. The theory makes the bold claim that <strong>consciousness is identical to a system's integrated information</strong>.</p>
+          
+          <div class="callout">
+            <p><strong>Core Proposition:</strong> The quantity and quality of consciousness are determined by a system's Φ value—its capacity for integrated information. A system is conscious to the extent that it can generate more information as a whole than the sum of its parts.</p>
+          </div>
+          
+          <h3>The Fundamental Axioms of Consciousness</h3>
+          
+          <div class="axiom-grid">
+            <div class="axiom-card">
+              <h4>Intrinsic Existence</h4>
+              <p>Consciousness exists from its own intrinsic perspective, independent of external observers.</p>
+              <div class="insight">
+                <p><strong>Implication:</strong> Consciousness is not something we infer from behavior but something that exists in itself.</p>
+              </div>
+            </div>
+            
+            <div class="axiom-card">
+              <h4>Composition</h4>
+              <p>Consciousness is structured, composed of multiple phenomenological distinctions within a single experience.</p>
+              <div class="insight">
+                <p><strong>Implication:</strong> Every conscious experience consists of various elements (colors, shapes, sounds) bound together.</p>
+              </div>
+            </div>
+            
+            <div class="axiom-card">
+              <h4>Information</h4>
+              <p>Consciousness is specific and informative—each experience differs from countless others.</p>
+              <div class="insight">
+                <p><strong>Implication:</strong> Consciousness is not generic but highly specific in its content.</p>
+              </div>
+            </div>
+            
+            <div class="axiom-card">
+              <h4>Integration</h4>
+              <p>Consciousness is unified—each experience is irreducible to independent components.</p>
+              <div class="insight">
+                <p><strong>Implication:</strong> You cannot experience the left visual field separately from the right.</p>
+              </div>
+            </div>
+            
+            <div class="axiom-card">
+              <h4>Exclusion</h4>
+              <p>Consciousness is definite in content and spatiotemporal grain—it excludes alternative contents and grains.</p>
+              <div class="insight">
+                <p><strong>Implication:</strong> Consciousness has specific boundaries—you're either conscious of something or you're not.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Key Proponents and Their Contributions</h2>
+          
+          <div class="theorist-grid">
+            <div class="theorist-card">
+              <h3>Giulio Tononi</h3>
+              <p><strong>Role:</strong> Primary Architect of IIT</p>
+              <p>Tononi developed IIT from his background in neuroscience and psychiatry. His work began with studying sleep and consciousness disorders, leading to the insight that consciousness depends on the brain's ability to integrate information.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "Consciousness is integrated information. The quality of consciousness is determined by the informational relationships generated by complex of elements in a state."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Christof Koch</h3>
+              <p><strong>Role:</strong> Chief Scientific Officer, Allen Institute for Brain Science</p>
+              <p>Koch collaborated with Tononi to develop and promote IIT, bringing experimental validation and broader scientific credibility to the theory. His work focuses on finding neural correlates of consciousness that align with IIT predictions.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "IIT provides the only promising, comprehensive, and leading theory of consciousness that is mathematically precise and experimentally testable."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Melanie Boly</h3>
+              <p><strong>Role:</strong> Clinical Researcher</p>
+              <p>Boly has conducted extensive research applying IIT to clinical settings, particularly in assessing consciousness in patients with disorders of consciousness (coma, vegetative state, minimally conscious state).</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> Demonstrated that Φ correlates with levels of consciousness across different brain states and clinical conditions.</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Larissa Albantakis</h3>
+              <p><strong>Role:</strong> Computational Neuroscientist</p>
+              <p>Albantakis works on the mathematical foundations of IIT and develops computational tools for calculating Φ in complex systems. Her research explores how causal structures give rise to integrated information.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> Developed advanced computational methods for measuring integrated information in neural networks and other complex systems.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>The Mathematics of Φ</h2>
+          
+          <div class="theory-card">
+            <h3>Measuring Integrated Information</h3>
+            <p><strong>Core Concept:</strong> Φ quantifies the information generated by a system as a whole above and beyond the information generated by its parts independently.</p>
+          </div>
+          
+          <p>The mathematical formulation of IIT has evolved through several versions (IIT 1.0 to 4.0), with increasing sophistication in how integrated information is calculated:</p>
+          
+          <div class="math-highlight">
+            Φ = the minimum amount of effective information that is lost when a system is partitioned into independent components
+          </div>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Cause-Effect Power</h4>
+              <p>A system must have both causes (how current state constrains past states) and effects (how current state constrains future states).</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Minimum Information Partition</h4>
+              <p>Φ is calculated by finding the partition of the system that minimizes the information loss—the "weakest link" in integration.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Qualia Space</h4>
+              <p>The quality of consciousness corresponds to the shape of the cause-effect structure in a high-dimensional "qualia space."</p>
+            </div>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Calculating Consciousness</h3>
+            <p>To compute Φ for a system, IIT requires:</p>
+            <ul>
+              <li><strong>System Identification:</strong> Determine the elements and their possible states</li>
+              <li><strong>Transition Probabilities:</strong> Map how current states determine future states</li>
+              <li><strong>Cause-Effect Repertoire:</strong> Calculate how each element constrains past and future states</li>
+              <li><strong>Integration:</strong> Find the minimum information partition and compute Φ</li>
+              <li><strong>Maximally Irreducible Cause-Effect Structure:</strong> Identify the complex with highest Φ</li>
+            </ul>
+            <p>This process identifies the "main complex"—the set of elements that generates the most integrated information.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>How IIT Explains Key Features of Consciousness</h2>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>The Hard Problem</h4>
+              <p>IIT doesn't solve the hard problem but reframes it: consciousness simply <em>is</em> integrated information, so any system with sufficient Φ is conscious by definition.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Unity of Consciousness</h4>
+              <p>The binding problem is solved naturally—consciousness is unified because information is integrated across the system.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Levels of Consciousness</h4>
+              <p>Different states (wakefulness, sleep, anesthesia) correspond to different levels of integrated information in the brain.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Content of Consciousness</h4>
+              <p>Different experiences correspond to different shapes in qualia space—the specific cause-effect structure of the system.</p>
+            </div>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Clinical Applications</h3>
+            <p>IIT has practical implications for assessing consciousness in clinical settings:</p>
+            <ul>
+              <li><strong>Disorders of Consciousness:</strong> Measuring Φ could help distinguish between vegetative state, minimally conscious state, and locked-in syndrome</li>
+              <li><strong>Anesthesia Monitoring:</strong> Tracking integrated information could provide better measures of anesthetic depth</li>
+              <li><strong>Brain Injury Prognosis:</strong> Φ measurements might predict recovery potential in coma patients</li>
+              <li><strong>Developmental Studies:</strong> Tracking how Φ develops in infants could illuminate the emergence of consciousness</li>
+            </ul>
+          </div>
+        </section>
+
+        <section>
+          <h2>Comparison with Other Theories</h2>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Theory</th>
+                <th>View on Consciousness</th>
+                <th>Strengths</th>
+                <th>Weaknesses</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Integrated Information Theory</strong></td>
+                <td>Identical to integrated information (Φ)</td>
+                <td>Mathematically precise, makes testable predictions, explains unity of consciousness</td>
+                <td>Computationally intractable for large systems, panpsychist implications</td>
+              </tr>
+              <tr>
+                <td><strong>Global Workspace Theory</strong></td>
+                <td>Information globally available to multiple processors</td>
+                <td>Aligns with cognitive psychology, explains access consciousness</td>
+                <td>Doesn't address phenomenal consciousness directly</td>
+              </tr>
+              <tr>
+                <td><strong>Higher-Order Thought</strong></td>
+                <td>Consciousness requires meta-representation</td>
+                <td>Explains self-awareness and introspection</td>
+                <td>Circularity problems, doesn't explain basic sensory consciousness</td>
+              </tr>
+              <tr>
+                <td><strong>Predictive Processing</strong></td>
+                <td>Consciousness as predictive model of world</td>
+                <td>Unifies perception and action, explains many cognitive phenomena</td>
+                <td>Doesn't specify why some predictions are conscious and others aren't</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Challenges and Controversies</h2>
+          
+          <div class="subcategory-section">
+            <h3>The Computational Explosion Problem</h3>
+            <p><strong>Challenge:</strong> Calculating Φ for systems with more than a few elements becomes computationally intractable.</p>
+            <p><strong>Response:</strong> Researchers are developing approximations and heuristics. For practical applications, we don't need exact Φ values—approximations may suffice.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Panpsychism Worries</h3>
+            <p><strong>Challenge:</strong> If simple systems have non-zero Φ, does that mean everything is conscious?</p>
+            <p><strong>Response:</strong> IIT does imply that consciousness comes in degrees, with simple systems having minimal consciousness. But most objects have Φ ≈ 0 due to lack of integration.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Circularity Concerns</h3>
+            <p><strong>Challenge:</strong> The axioms are derived from introspection about consciousness, then used to explain consciousness.</p>
+            <p><strong>Response:</strong> IIT proponents argue this is a feature, not a bug—the theory takes consciousness seriously as a starting point.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Empirical Validation</h3>
+            <p><strong>Challenge:</strong> Limited direct evidence that Φ actually measures consciousness.</p>
+            <p><strong>Response:</strong> Ongoing research shows correlations between Φ estimates and behavioral measures of consciousness, but more work is needed.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Current Research and Future Directions</h2>
+          
+          <p>IIT continues to evolve and inspire new research directions:</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Practical Measures</h4>
+              <p>Developing clinically useful approximations of Φ that can be measured with EEG or fMRI.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Artificial Consciousness</h4>
+              <p>Exploring whether AI systems could become conscious if they achieve sufficient integrated information.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Cross-Species Comparisons</h4>
+              <p>Investigating whether different animals have different levels and qualities of consciousness based on their neural architectures.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Theoretical Extensions</h4>
+              <p>Refining the mathematical framework to better handle complex, dynamic systems.</p>
+            </div>
+          </div>
+          
+          <div class="callout">
+            <p><strong>Future Outlook:</strong> IIT represents one of the most ambitious and mathematically rigorous approaches to consciousness. While challenges remain, its ability to generate precise, testable predictions continues to drive both theoretical and experimental progress in consciousness science.</p>
+          </div>
+          
+          <div class="quote">
+            "IIT is not just another theory of consciousness. It is a fundamental shift in how we think about the relationship between physical processes and subjective experience."
+            <div class="author">— Christof Koch</div>
+          </div>
+        </section>
+
+        <section class="footnotes">
+          <h2>References</h2>
+          <ol>
+            <li id="fn1">Tononi, G. (2004). "An information integration theory of consciousness". <em>BMC Neuroscience</em>. <a href="#r1">↩</a></li>
+            <li id="fn2">Tononi, G. (2008). "Consciousness as integrated information: a provisional manifesto". <em>Biological Bulletin</em>. <a href="#r2">↩</a></li>
+            <li id="fn3">Oizumi, M., Albantakis, L., & Tononi, G. (2014). "From the phenomenology to the mechanisms of consciousness: Integrated Information Theory 3.0". <em>PLoS Computational Biology</em>. <a href="#r3">↩</a></li>
+            <li id="fn4">Koch, C. (2019). <em>The Feeling of Life Itself: Why Consciousness Is Widespread but Can't Be Computed</em>. MIT Press. <a href="#r4">↩</a></li>
+            <li id="fn5">Tononi, G., Boly, M., Massimini, M., & Koch, C. (2016). "Integrated information theory: from consciousness to its physical substrate". <em>Nature Reviews Neuroscience</em>. <a href="#r5">↩</a></li>
+            <li id="fn6">Albantakis, L. (2019). "Integrated information theory". In <em>Beyond Neural Correlates of Consciousness</em>. Routledge. <a href="#r6">↩</a></li>
+            <li id="fn7">Mediano, P. A. M., et al. (2020). "Towards an extended taxonomy of information dynamics via Integrated Information Decomposition". <em>arXiv</em>. <a href="#r7">↩</a></li>
+          </ol>
+        </section>
+
+        <section id="contact-info">
+          <h2>Continue the Discussion</h2>
+          <p>Integrated Information Theory represents a mathematically sophisticated approach to understanding consciousness that bridges neuroscience, information theory, and philosophy. If you have thoughts, questions, or want to explore how IIT interfaces with other theories of consciousness, reach out at <a href="mailto:caldwbr@gmail.com">caldwbr@gmail.com</a>.</p>
+        </section>
+      </article>
+    </main>
+    
+    <div id="footer-placeholder"></div>
+</body>
+</html>

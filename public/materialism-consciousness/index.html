@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HST66CSWTB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HST66CSWTB');
+    </script>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Materialism: Consciousness as Physical Phenomenon</title>
+    <meta name="description" content="Exploring materialist theories of consciousness - from eliminative materialism to identity theory and functionalism." />
+    <meta name="keywords" content="materialism, consciousness, philosophy of mind, identity theory, functionalism, eliminative materialism, emergentism" />
+    <meta name="author" content="Brad Caldwell">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <link rel="stylesheet" href="../styles.css" />
+<style>
+    :root {
+        --primary-color: #2c3e50;
+        --secondary-color: #3498db;
+        --accent-color: #9b59b6;
+        --light-color: #ecf0f1;
+        --dark-color: #34495e;
+        --highlight-color: #e74c3c;
+    }
+    
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        background-color: #f8f9fa;
+    }
+    
+    article {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin: 2rem 0;
+    }
+    
+    header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #eee;
+    }
+    
+    h1 {
+        color: var(--primary-color);
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .subtitle {
+        font-size: 1.2rem;
+        color: var(--dark-color);
+        font-style: italic;
+        margin-bottom: 1.5rem;
+    }
+    
+    h2 {
+        color: var(--secondary-color);
+        border-bottom: 2px solid var(--light-color);
+        padding-bottom: 0.5rem;
+        margin-top: 2.5rem;
+    }
+    
+    h3 {
+        color: var(--dark-color);
+        margin-top: 1.8rem;
+    }
+    
+    p {
+        margin-bottom: 1.2rem;
+        max-width: 65ch; /* Better readability */
+    }
+    
+    strong {
+        color: var(--primary-color);
+    }
+    
+    .intro-block {
+        background: #f0f7ff;
+        padding: 1.5rem;
+        border-left: 4px solid var(--secondary-color);
+        margin: 2rem 0;
+        border-radius: 0 4px 4px 0;
+    }
+    
+    .callout {
+        background: #fff8e1;
+        padding: 1.2rem;
+        border-left: 4px solid #ffc107;
+        margin: 1.5rem 0;
+        border-radius: 0 4px 4px 0;
+    }
+    
+    .insight {
+        background: #e8f5e9;
+        padding: 1.2rem;
+        border-left: 4px solid #4caf50;
+        margin: 1.5rem 0;
+        border-radius: 0 4px 4px 0;
+    }
+    
+    .theory-card {
+        background: #f5f5f5;
+        padding: 1.5rem;
+        margin: 1.5rem 0;
+        border-radius: 8px;
+        border-left: 4px solid var(--accent-color);
+    }
+    
+    .footnote-ref {
+        vertical-align: super;
+        font-size: 0.8em;
+        color: var(--secondary-color);
+        text-decoration: none;
+        margin-left: 2px;
+    }
+    
+    .footnote-ref:hover {
+        text-decoration: underline;
+    }
+    
+    .footnotes {
+        margin-top: 3rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #ddd;
+    }
+    
+    .footnotes ol {
+        padding-left: 1.5rem;
+    }
+    
+    .footnotes li {
+        margin-bottom: 0.8rem;
+        line-height: 1.5;
+    }
+    
+    .footnotes a {
+        color: var(--secondary-color);
+        text-decoration: none;
+    }
+    
+    .footnotes a:hover {
+        text-decoration: underline;
+    }
+    
+    .concept-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+    
+    .concept {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        border-top: 4px solid var(--accent-color);
+    }
+    
+    .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 2rem 0;
+    }
+    
+    .comparison-table th, .comparison-table td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+    
+    .comparison-table th {
+        background-color: var(--primary-color);
+        color: white;
+    }
+    
+    .comparison-table tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    
+    .quote {
+        font-style: italic;
+        color: #555;
+        border-left: 3px solid #ccc;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    .author {
+        text-align: right;
+        font-style: normal;
+        color: #777;
+        margin-top: 0.5rem;
+    }
+    
+    /* Comprehensive Overview Styles */
+    .comprehensive-overview {
+        margin: 2rem 0;
+    }
+
+    .category {
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid var(--secondary-color);
+    }
+
+    .category h3 {
+        margin-top: 0;
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .subcategories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .subcategory {
+        background: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        border: 1px solid #ddd;
+        font-size: 0.85rem;
+        transition: all 0.2s ease;
+    }
+
+    .subcategory:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .subcategory.eliminative {
+        border-color: #e74c3c;
+        background: #fdedec;
+    }
+
+    .subcategory.epiphenomenalism {
+        border-color: #9b59b6;
+        background: #f4ecf7;
+    }
+
+    .subcategory.functionalism {
+        border-color: #3498db;
+        background: #ebf5fb;
+    }
+
+    .subcategory.emergence {
+        border-color: #2ecc71;
+        background: #eafaf1;
+    }
+
+    .subcategory.identity {
+        border-color: #f39c12;
+        background: #fef9e7;
+    }
+
+    .subcategory.highlight-theory {
+        border-color: #e74c3c;
+        background: #fdedec;
+        font-weight: bold;
+        box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+    }
+    
+    /* Materialism Chart Styles */
+    .materialism-chart {
+        width: 100%;
+        margin: 2rem 0;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        background: white;
+    }
+
+    .chart-header {
+        background: linear-gradient(135deg, #2c3e50, #3498db);
+        color: white;
+        padding: 1.2rem;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.3rem;
+        letter-spacing: 0.5px;
+    }
+
+    .chart-row {
+        display: flex;
+        border-bottom: 1px solid #e9ecef;
+        transition: background-color 0.2s ease;
+    }
+
+    .chart-row:hover {
+        background-color: #f8f9fa;
+    }
+
+    .chart-row:last-child {
+        border-bottom: none;
+    }
+
+    .highlight-row {
+        background-color: #f0f8ff !important;
+        border-left: 4px solid #3498db;
+    }
+
+    .chart-category {
+        background-color: #f8f9fa;
+        padding: 1rem 1.2rem;
+        width: 200px;
+        font-weight: 600;
+        color: #2c3e50;
+        border-right: 1px solid #e9ecef;
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+    }
+
+    .chart-items {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0.8rem;
+        width: calc(100% - 200px);
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    .chart-item {
+        background: white;
+        padding: 0.5rem 0.8rem;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        border: 1px solid #e9ecef;
+        color: #495057;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+
+    .chart-item:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        border-color: #3498db;
+    }
+
+    .highlight-item {
+        background: linear-gradient(135deg, #3498db, #2980b9);
+        color: white;
+        border-color: #2980b9;
+        font-weight: 600;
+        box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
+    }
+    
+    /* Additional Component Styles */
+    .theorist-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin: 1rem 0;
+    }
+
+    .theorist {
+        background: white;
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        border: 1px solid #ddd;
+        font-size: 0.9rem;
+    }
+
+    .subcategory-section {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border-left: 4px solid var(--secondary-color);
+    }
+
+    .subcategory-section h3 {
+        margin-top: 0;
+        color: var(--primary-color);
+    }
+    
+    .ring-bank-highlight {
+        background: #f0f8ff;
+        padding: 1.5rem;
+        border-radius: 8px;
+        border-left: 4px solid #3498db;
+        margin: 2rem 0;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .ring-bank-highlight h3 {
+        color: #2c3e50;
+        margin-top: 0;
+        border-bottom: 1px solid #3498db;
+        padding-bottom: 0.5rem;
+    }
+
+    .ring-bank-highlight ul {
+        margin: 1rem 0;
+        padding-left: 1.5rem;
+    }
+
+    .ring-bank-highlight li {
+        margin-bottom: 0.8rem;
+        line-height: 1.5;
+    }
+
+    .ring-bank-highlight strong {
+        color: #2c3e50;
+    }
+
+    .ring-bank-highlight em {
+        color: #7d3c98;
+        font-style: italic;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        body {
+            padding: 0 10px;
+        }
+        
+        article {
+            padding: 1rem;
+        }
+        
+        h1 {
+            font-size: 2rem;
+        }
+        
+        .concept-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .chart-row {
+            flex-direction: column;
+        }
+        
+        .chart-category, .chart-items {
+            width: 100%;
+        }
+        
+        .chart-category {
+            border-right: none;
+            border-bottom: 1px solid #e9ecef;
+            padding: 0.8rem 1rem;
+        }
+        
+        .chart-items {
+            padding: 0.8rem;
+        }
+        
+        .chart-header {
+            font-size: 1.1rem;
+            padding: 1rem;
+        }
+        
+        .subcategories {
+            gap: 0.3rem;
+        }
+        
+        .subcategory {
+            font-size: 0.8rem;
+            padding: 0.3rem 0.6rem;
+        }
+    }
+</style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          fetch("/header.html").then(res => res.text()).then(html => {
+              document.getElementById("header-placeholder").innerHTML = html;
+          });
+          fetch('/footer.html')
+            .then(response => response.text())
+            .then(html => { document.getElementById('footer-placeholder').innerHTML = html; });
+      });
+    </script>
+
+    <main>
+      <article>
+        <header>
+          <h1>Materialism: Consciousness as Physical Phenomenon</h1>
+          <p class="subtitle">Exploring how materialist theories explain mind and consciousness through physical processes</p>
+        </header>
+
+        <section>
+          <h2>The Materialist Framework</h2>
+          
+          <div class="intro-block">
+            <p>Materialism, in the philosophy of mind, is the monistic view that matter is fundamental, and that mind and consciousness are entirely products of material processes<sup><a href="#fn1" id="r1">1</a></sup>. According to this view, conscious mental activity is identical with neural activity in the brain<sup><a href="#fn2" id="r2">2</a></sup>.</p>
+          </div>
+          
+          <p>Materialism stands in stark contrast to dualism or idealism, which treat consciousness as irreducible or fundamental on its own<sup><a href="#fn3" id="r3">3</a></sup><sup><a href="#fn4" id="r4">4</a></sup>. Materialists argue that as neuroscience advances, it will fully explain consciousness in terms of brain events, or even that our very concepts of "mind" will be refined or replaced by physical terms.</p>
+          
+          <div class="callout">
+            <p><strong>Core Materialist Position:</strong> There is no non-physical "mind-stuff" separate from the body; what we call the mind is simply the functioning of the physical brain.</p>
+          </div>
+          
+        <div class="materialism-chart">
+          <div class="chart-header">Materialism in Robert Lawrence Khan's Consciousness Framework</div>
+
+          <div class="chart-row">
+            <div class="chart-category">1. Philosophical</div>
+            <div class="chart-items">
+              <span class="chart-item">Eliminative (Dennett)</span>
+              <span class="chart-item">Epiphenomenalism (Jackson)</span>
+              <span class="chart-item">Functionalism (Block, Searle, Lycan)</span>
+              <span class="chart-item">Emergence (Deacon)</span>
+              <span class="chart-item">Identity Theory (Place, Smart)</span>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div class="chart-category">2. Neurobiological</div>
+            <div class="chart-items">
+              <span class="chart-item">Edelman</span>
+              <span class="chart-item">Crick-Koch</span>
+              <span class="chart-item">Baars</span>
+              <span class="chart-item">Dennett</span>
+              <span class="chart-item">Mirsky</span>
+              <span class="chart-item">Graziano</span>
+              <span class="chart-item">Sapolsky</span>
+              <span class="chart-item">Mitchell</span>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div class="chart-category">3. Electromagnetic</div>
+            <div class="chart-items">
+              <span class="chart-item">Pockett</span>
+              <span class="chart-item">McFadden</span>
+              <span class="chart-item">Llinas</span>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div class="chart-category">4. Computational</div>
+            <div class="chart-items">
+              <span class="chart-item">Grossberg</span>
+              <span class="chart-item">Complex/Adaptive Systems</span>
+              <span class="chart-item">Critical Brain</span>
+              <span class="chart-item">Pribram</span>
+              <span class="chart-item">Mathematical Models</span>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div class="chart-category">5. Pharmacological</div>
+            <div class="chart-items">
+              <span class="chart-item">Predictive Processing</span>
+              <span class="chart-item">Seth</span>
+              <span class="chart-item">Damasio</span>
+              <span class="chart-item">Friston</span>
+              <span class="chart-item">Solms</span>
+              <span class="chart-item">Carhart-Harris</span>
+              <span class="chart-item">Buzsáki</span>
+              <span class="chart-item">Deacon</span>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div class="chart-category">6. Embodied &amp; Enactive</div>
+            <div class="chart-items">
+              <span class="chart-item">Varela</span>
+              <span class="chart-item">Thompson</span>
+              <span class="chart-item">Noë</span>
+              <span class="chart-item">O'Regan</span>
+              <span class="chart-item">Gibson</span>
+              <span class="chart-item">Ciaunica</span>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div class="chart-category">7. Relational</div>
+            <div class="chart-items">
+              <span class="chart-item">Process Philosophy</span>
+              <span class="chart-item">Bitbol</span>
+            </div>
+          </div>
+
+          <div class="chart-row highlight-row">
+            <div class="chart-category">8. Representational</div>
+            <div class="chart-items">
+              <span class="chart-item">First-Order</span>
+              <span class="chart-item">Higher-Order</span>
+              <span class="chart-item">Lamme</span>
+              <span class="chart-item">LeDoux</span>
+              <span class="chart-item">Metzinger</span>
+              <span class="chart-item highlight-item">Ring/Bank Theory (Caldwell)</span>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div class="chart-category">9. Language-Based</div>
+            <div class="chart-items">
+              <span class="chart-item">Chomsky</span>
+              <span class="chart-item">Searle</span>
+              <span class="chart-item">Jaynes</span>
+              <span class="chart-item">Dennett</span>
+            </div>
+          </div>
+
+          <div class="chart-row">
+            <div class="chart-category">10. Phylogenetic</div>
+            <div class="chart-items">
+              <span class="chart-item">Evolutionary Psychology</span>
+              <span class="chart-item">LeDoux</span>
+              <span class="chart-item">Jablonka</span>
+              <span class="chart-item">Reber</span>
+              <span class="chart-item">Feriberg/Mallatt</span>
+              <span class="chart-item">Levin</span>
+            </div>
+          </div>
+        </div>
+          
+          <p>However, materialist theories still grapple with explaining how physical processes yield the feel of experience—the notorious "hard problem" of consciousness<sup><a href="#fn5" id="r5">5</a></sup>. Below we survey the major variants of materialist theories, following Khan's comprehensive framework.</p>
+        </section>
+
+        <section>
+          <h2>Philosophical Materialism: The Foundation</h2>
+
+          <div class="theory-card">
+            <h3>Core Philosophical Approaches</h3>
+            <p><strong>Key Subcategories:</strong> Eliminative, Epiphenomenalism, Functionalism, Emergence, Identity Theory</p>
+            <p><strong>Core Idea:</strong> Consciousness can be fully explained through physical processes without resorting to non-physical substances.</p>
+          </div>
+
+          <div class="subcategory-section">
+            <h3>Eliminative Materialism: The Radical Revision</h3>
+            <p>Our folk psychological concepts of mind are fundamentally flawed and will be replaced by neuroscientific vocabulary.</p>
+            <div class="theorist-list">
+              <span class="theorist">Dennett</span>
+              <span class="theorist">P. Churchland</span>
+              <span class="theorist">P.S. Churchland</span>
+            </div>
+            <p>Eliminative materialists argue that our common-sense understanding of mental states (beliefs, desires, pains) is a primitive "folk psychology" that will eventually be eliminated in favor of direct neuroscientific explanation, much as alchemy gave way to chemistry.</p>
+          </div>
+
+          <div class="subcategory-section">
+            <h3>Epiphenomenalism: The Ghost in the Machine</h3>
+            <p>Mental events are caused by physical events in the brain, but have no causal influence on physical events.</p>
+            <div class="theorist-list">
+              <span class="theorist">Jackson</span>
+              <span class="theorist">Huxley</span>
+            </div>
+            <p>Consciousness is seen as a byproduct of brain processes—like steam from a train engine—that doesn't itself do any causal work. This preserves materialism while acknowledging the apparent difference between physical and mental properties.</p>
+          </div>
+
+          <div class="subcategory-section">
+            <h3>Functionalism: The Software of Mind</h3>
+            <p>Mental states are defined by their causal roles rather than their physical implementation.</p>
+            <div class="theorist-list">
+              <span class="theorist">Block</span>
+              <span class="theorist">Searle</span>
+              <span class="theorist">Lycan</span>
+              <span class="theorist">Putnam</span>
+              <span class="theorist">Fodor</span>
+            </div>
+            <p>Functionalism abstracts away from the physical substrate, focusing on the computational or causal organization that gives rise to mental states. This allows for multiple realizability—the same mental state could be implemented in brains, computers, or alien biology.</p>
+          </div>
+
+          <div class="subcategory-section">
+            <h3>Emergence: More Than the Sum of Parts</h3>
+            <p>Consciousness emerges from complex physical systems but is not reducible to them.</p>
+            <div class="theorist-list">
+              <span class="theorist">Deacon</span>
+              <span class="theorist">Searle</span>
+              <span class="theorist">Humphrey</span>
+            </div>
+            <p>Emergent materialism posits that consciousness is a novel property that arises from complex neural organization, similar to how wetness emerges from H₂O molecules or life emerges from complex biochemistry.</p>
+          </div>
+
+          <div class="subcategory-section">
+            <h3>Identity Theory: Mind-Brain Unity</h3>
+            <p>Mental states are identical to brain states—there is no ontological distinction.</p>
+            <div class="theorist-list">
+              <span class="theorist">Place</span>
+              <span class="theorist">Smart</span>
+              <span class="theorist">Armstrong</span>
+            </div>
+            <p>The classic materialist position: mental states just <em>are</em> physical brain states, much as lightning is electrical discharge or water is H₂O. This type identity theory faces challenges from multiple realizability but remains foundational.</p>
+          </div>
+
+          <div class="callout">
+            <p><strong>Philosophical Materialism's Core Challenge:</strong> All these approaches must confront the "explanatory gap"—how to bridge the chasm between objective physical processes and subjective conscious experience.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Neurobiological Approaches</h2>
+          
+          <div class="theory-card">
+            <h3>Biological Foundations of Consciousness</h3>
+            <p><strong>Key Proponents:</strong> Edelman, Crick, Koch, Baars, Dennett, Mirsky</p>
+            <p><strong>Core Idea:</strong> Consciousness arises from specific biological structures and processes in the brain.</p>
+          </div>
+          
+          <p>Neurobiological materialism focuses on identifying the specific neural correlates and mechanisms that give rise to consciousness. This approach emphasizes empirical research into brain structures, neural networks, and biological processes.</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Neural Darwinism</h4>
+              <p><strong>Gerald Edelman:</strong> Consciousness emerges through selectionist processes in neural populations.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Global Workspace</h4>
+              <p><strong>Bernard Baars:</strong> Consciousness arises from information integration in a global workspace.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Neural Correlates</h4>
+              <p><strong>Francis Crick & Christof Koch:</strong> Focus on identifying specific neural activity patterns correlated with conscious experience.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Electromagnetic Theories</h2>
+          
+          <div class="theory-card">
+            <h3>Electromagnetic Field Theories</h3>
+            <p><strong>Key Proponents:</strong> Pockett, McFadden, Llinas</p>
+            <p><strong>Core Idea:</strong> Consciousness arises from or is identical with the brain's electromagnetic fields.</p>
+          </div>
+          
+          <p>Electromagnetic theories propose that consciousness is directly related to the brain's electromagnetic field rather than (or in addition to) neural firing patterns. These theories often emphasize the unity and binding properties of electromagnetic fields.</p>
+          
+          <div class="theorist-list">
+            <span class="theorist">Susan Pockett</span>
+            <span class="theorist">Johnjoe McFadden</span>
+            <span class="theorist">Rodolfo Llinas</span>
+          </div>
+          
+          <div class="insight">
+            <p><strong>Key Insight:</strong> Electromagnetic fields can integrate information across large neural populations simultaneously, potentially solving the binding problem of how disparate brain activities unite into single conscious experiences.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Computational and Informational Approaches</h2>
+          
+          <div class="theory-card">
+            <h3>Information Processing Models</h3>
+            <p><strong>Key Proponents:</strong> Grossberg, Complex/Adaptive Systems, Critical Brain Theory, Pribram</p>
+            <p><strong>Core Idea:</strong> Consciousness is a form of information processing or computation.</p>
+          </div>
+          
+          <p>Computational approaches view the brain as an information processing system and consciousness as a particular form of computation. These theories range from classical computational models to more recent complex adaptive systems approaches.</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Adaptive Resonance</h4>
+              <p><strong>Stephen Grossberg:</strong> Consciousness arises through resonant states in neural networks.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Holographic Brain</h4>
+              <p><strong>Karl Pribram:</strong> Memory and perception work like holographic processes.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Critical Brain</h4>
+              <p>The brain operates near critical points for optimal information processing.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Pharmacological and Medical Approaches</h2>
+          
+          <div class="theory-card">
+            <h3>Chemical and Predictive Models</h3>
+            <p><strong>Key Proponents:</strong> Predictive Processing, Seth, Damasio, Friston, Solms</p>
+            <p><strong>Core Idea:</strong> Consciousness is deeply tied to bodily states, prediction, and homeostasis.</p>
+          </div>
+          
+          <p>These approaches emphasize the role of neurotransmitters, predictive processing, and interoception in consciousness. They often focus on how the brain models the body and the world to maintain homeostasis.</p>
+          
+          <div class="theorist-list">
+            <span class="theorist">Anil Seth</span>
+            <span class="theorist">Antonio Damasio</span>
+            <span class="theorist">Karl Friston</span>
+            <span class="theorist">Mark Solms</span>
+          </div>
+          
+          <div class="callout">
+            <p><strong>Predictive Processing:</strong> The brain is essentially a prediction engine that constantly updates its models of the world, with consciousness emerging from this predictive processing.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Embodied and Enactive Approaches</h2>
+          
+          <div class="theory-card">
+            <h3>Embodied Cognition</h3>
+            <p><strong>Key Proponents:</strong> Varela, Thompson, Noë, O'Regan</p>
+            <p><strong>Core Idea:</strong> Consciousness emerges from the dynamic interaction between organism and environment.</p>
+          </div>
+          
+          <p>Embodied and enactive approaches reject the idea of consciousness as purely brain-bound, instead emphasizing the role of the entire body and its interactions with the environment.</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Enactivism</h4>
+              <p><strong>Francisco Varela & Evan Thompson:</strong> Consciousness arises through the organism's active engagement with its environment.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Sensorimotor Theory</h4>
+              <p><strong>Alva Noë & Kevin O'Regan:</strong> Perception depends on mastery of sensorimotor contingencies.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Relational Approaches</h2>
+          
+          <div class="theory-card">
+            <h3>Relational and Process Views</h3>
+            <p><strong>Key Proponents:</strong> Process Philosophy, Whitehead, Bitbol</p>
+            <p><strong>Core Idea:</strong> Consciousness emerges from relationships and processes rather than substances.</p>
+          </div>
+          
+          <p>Relational approaches emphasize that consciousness cannot be understood by examining isolated components but must be studied in terms of the dynamic relationships and processes that constitute experience.</p>
+          
+          <div class="theorist-list">
+            <span class="theorist">Michel Bitbol</span>
+            <span class="theorist">Process Philosophers</span>
+          </div>
+        </section>
+
+        <section>
+          <h2>Representational Theories</h2>
+          
+          <div class="theory-card">
+            <h3>Representational Models</h3>
+            <p><strong>Key Proponents:</strong> First-Order, Higher-Order, Lamme, LeDoux, Metzinger</p>
+            <p><strong>Core Idea:</strong> Consciousness involves mental representations of the world or of mental states themselves.</p>
+          </div>
+          
+          <p>Representational theories focus on how the brain represents information and how certain representations become conscious. These range from first-order representations to higher-order thoughts about mental states.</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>First-Order Representation</h4>
+              <p>Consciousness arises when sensory information is represented in a particular format.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Higher-Order Thought</h4>
+              <p>Consciousness requires meta-representations—thoughts about mental states.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Global Workspace</h4>
+              <p>Consciousness arises when information is globally available to multiple cognitive systems.</p>
+            </div>
+          </div>
+          
+<div class="ring-bank-highlight">
+  <h3>Ring/Bank Theory (Materialist, Geometry-First)</h3>
+
+  <p>
+    <strong>Claim in one line:</strong> Consciousness is what it <em>feels like</em> for a physical brain to run
+    <strong>geometric coordination routines</strong> that bind perception, action, and self into a single
+    reference frame—structured dynamics on tissue.
+  </p>
+
+  <p><strong>Core primitives</strong>:</p>
+  <ul>
+    <li><strong>Rings ~ Frames:</strong> Incipient, pre-modal <em>attentional sweeps</em>—transient "screens" cut through the world-sim by onsets (drum hits, snaps, fear spikes, heartbeats). They set the momentary <em>where/when</em> of sampling before full content is deduced/reached.</li>
+    <li><strong>Bank:</strong> The lifelong, layered <em>geometry library</em> (spheres/cylinders/cubes/etc.)—concentric schema volumes the system reuses to scaffold space, body, and scene structure.</li>
+    <li><strong>Flow:</strong> What happens when a ringframe is printed <em>and then kicked out</em>—the ongoing conveyor of frames that gives continuity.</li>
+    <li><strong>Throw:</strong> Inertial jostles that <em>re-position the bank printhead</em> relative to the content—vestibular/proprioceptive/affective perturbations that redirect where the next ring lands.</li>
+    <li><strong>Vibes:</strong> Amplitude modulation on the transient stream that <em>scale-modulates the Bank as it prints</em>—tonic/arousal fields that fatten or thin the geometry on the fly.</li>
+      <li><strong>Paint:</strong> Schema-specific detail with semantics—colors, surfaces, objects, body—<em>the meaningful content realized or deduced</em> from the geometrically sparse touchpointing and tagging of mic and ringframes.</li>
+    <li><strong>Union Set:</strong> The <em>current ringframe</em> as a common coordinate manifold that binds every active schema volume to the same "now-here" reference.</li>
+  </ul>
+
+  <p><strong>Where mechanical switching or agency might enter (quantum-tolerant, microtubule-agnostic):</strong></p>
+  <ul>
+    <li><strong>Threshold levers (agency):</strong> At <em>axon hillocks</em> and <em>synapses</em> near decision thresholds, tiny fluctuations (ion-channel gating, vesicle release probabilities) can be amplified into all-or-nothing spikes. If any quantum indeterminacy is biologically leveraged, this is the plausible site: tipping a marginal spike that selects which ringframe gets printed next.</li>
+      <li><strong>Folded neural net (mechanical switching):</strong> In the brain, sensory inputs (V1, A1, S1) go up one neural net of categorization and abstraction of meaning (to PPC/HPC). Action comes out the bottom (M1) of another neural net. These two are cross-connected (anterior-posterior connectivity) such that <em>abstract meaning (posterior parietal, medial temporal) can trigger appropo abstract response (prefrontal poles)</em> and drive an explicit motor program out the 'bottom' (motor cortex).</li>
+  </ul>
+
+  <p>
+    <strong>TL;DR:</strong> Ring/Bank casts consciousness as the system's real-time maintenance of a shared
+    <em>geometric manifold</em> (Union Set) from which content is painted/deduced—materialist at core, with a realistic slot for <em>agency</em> via threshold-level gating if biology uses that trick.
+  </p>
+</div>
+
+        </section>
+
+        <section>
+          <h2>Language-Based Approaches</h2>
+          
+          <div class="theory-card">
+            <h3>Linguistic and Narrative Models</h3>
+            <p><strong>Key Proponents:</strong> Chomsky, Searle, Jaynes, Dennett</p>
+            <p><strong>Core Idea:</strong> Language and narrative structure play a crucial role in consciousness.</p>
+          </div>
+          
+          <p>Language-based approaches explore how linguistic capabilities and narrative construction shape and possibly constitute conscious experience. These theories range from viewing consciousness as inherently linguistic to seeing language as a tool that structures pre-existing consciousness.</p>
+          
+          <div class="theorist-list">
+            <span class="theorist">Noam Chomsky</span>
+            <span class="theorist">John Searle</span>
+            <span class="theorist">Julian Jaynes</span>
+            <span class="theorist">Daniel Dennett</span>
+          </div>
+        </section>
+
+        <section>
+          <h2>Phylogenetic and Evolutionary Approaches</h2>
+          
+          <div class="theory-card">
+            <h3>Evolutionary Perspectives</h3>
+            <p><strong>Key Proponents:</strong> Evolutionary Psychology, LeDoux, Jablonka, Reber</p>
+            <p><strong>Core Idea:</strong> Consciousness evolved through natural selection and serves adaptive functions.</p>
+          </div>
+          
+          <p>Phylogenetic approaches examine consciousness from an evolutionary perspective, asking why consciousness evolved, what adaptive advantages it provides, and how it developed through evolutionary history.</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Adaptive Function</h4>
+              <p>Consciousness evolved because it provided survival advantages to organisms.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Evolutionary Continuity</h4>
+              <p>Consciousness exists on a continuum across species rather than being uniquely human.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Evolutionary Origins</h4>
+              <p>Trace the evolutionary development of consciousness from simpler forms to human complexity.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Synthesis: The Materialist Landscape</h2>
+          
+          <p>The diversity of materialist approaches reflects the complexity of consciousness itself. While all materialist theories share the fundamental commitment to physical explanation, they differ in their focus:</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Level of Analysis</h4>
+              <p>From quantum fields to evolutionary history, materialists analyze consciousness at multiple scales.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Mechanism Emphasis</h4>
+              <p>Different theories emphasize different mechanisms: neural, computational, representational, etc.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Explanatory Strategy</h4>
+              <p>Some focus on correlates, others on functions, emergence, or evolutionary history.</p>
+            </div>
+          </div>
+          
+          <div class="callout">
+            <p><strong>The Persistent Challenge:</strong> Despite this diversity, all materialist theories must ultimately address the "hard problem" of why and how physical processes give rise to subjective experience.</p>
+          </div>
+          
+          <div class="insight">
+            <p><strong>Materialist Outlook:</strong> The hope of materialism is that being is one—that if we follow the trail of physical processes far enough, we will find our qualia and our "selves" there too, finally understood in the language of physical reality.</p>
+          </div>
+        </section>
+
+        <section class="footnotes">
+          <h2>References</h2>
+          <ol>
+            <li id="fn1">"Materialism." <em>Wikipedia</em>. Retrieved from en.wikipedia.org <a href="#r1">↩</a></li>
+            <li id="fn2">"Identity Theory of Mind." <em>Internet Encyclopedia of Philosophy</em>. Retrieved from iep.utm.edu <a href="#r2">↩</a></li>
+            <li id="fn3">"Dualism (philosophy of mind)." <em>Wikipedia</em>. Retrieved from en.wikipedia.org <a href="#r3">↩</a></li>
+            <li id="fn4">"Idealism." <em>Wikipedia</em>. Retrieved from en.wikipedia.org <a href="#r4">↩</a></li>
+            <li id="fn5">Chalmers, D. J. (1995). Facing Up to the Problem of Consciousness. <em>Journal of Consciousness Studies</em> <a href="#r5">↩</a></li>
+            <li id="fn6">Edelman, G. M. (1989). <em>The Remembered Present: A Biological Theory of Consciousness</em>. Basic Books <a href="#r6">↩</a></li>
+            <li id="fn7">Crick, F., &amp; Koch, C. (1990). Towards a Neurobiological Theory of Consciousness. <em>Seminars in the Neurosciences</em> <a href="#r7">↩</a></li>
+            <li id="fn8">Baars, B. J. (1988). <em>A Cognitive Theory of Consciousness</em>. Cambridge University Press <a href="#r8">↩</a></li>
+            <li id="fn9">McFadden, J. (2002). The Conscious Electromagnetic Information (Cemi) Field Theory. <em>Journal of Consciousness Studies</em> <a href="#r9">↩</a></li>
+            <li id="fn10">Pockett, S. (2000). <em>The Nature of Consciousness: A Hypothesis</em>. Writers Club Press <a href="#r10">↩</a></li>
+            <li id="fn11">Grossberg, S. (1999). The Link between Brain Learning, Attention, and Consciousness. <em>Consciousness and Cognition</em> <a href="#r11">↩</a></li>
+            <li id="fn12">Friston, K. (2010). The Free-Energy Principle: A Unified Brain Theory? <em>Nature Reviews Neuroscience</em> <a href="#r12">↩</a></li>
+            <li id="fn13">Varela, F. J., Thompson, E., &amp; Rosch, E. (1991). <em>The Embodied Mind: Cognitive Science and Human Experience</em>. MIT Press <a href="#r13">↩</a></li>
+            <li id="fn14">Caldwell, B. (2024). <em>Ring/Bank Theory: A Geometric-First Approach to Consciousness</em>. Unpublished manuscript <a href="#r14">↩</a></li>
+          </ol>
+        </section>
+
+        <section id="contact-info">
+          <h2>Continue the Conversation</h2>
+          <p>Materialism represents one of the most influential approaches to understanding consciousness. If you have thoughts, critiques, or want to discuss how materialist theories interface with other approaches, reach out at <a href="mailto:caldwbr@gmail.com">caldwbr@gmail.com</a>.</p>
+        </section>
+      </article>
+    </main>
+    
+    <div id="footer-placeholder"></div>
+</body>
+</html>
