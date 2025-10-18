@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HST66CSWTB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HST66CSWTB');
+    </script>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Attention Schema Theory: A Mechanistic Model of Consciousness</title>
+    <meta name="description" content="Exploring Michael Graziano's Attention Schema Theory as a computational framework for understanding consciousness as a model of attention." />
+    <meta name="keywords" content="attention schema theory, consciousness, Graziano, attention, schema, model, mechanistic" />
+    <meta name="author" content="Brad Caldwell">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        :root {
+            --primary-color: #16a085;
+            --secondary-color: #1abc9c;
+            --accent-color: #3498db;
+            --light-color: #e8f8f5;
+            --dark-color: #2c3e50;
+            --highlight-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background-color: #f8f9fa;
+        }
+        
+        article {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+        
+        h3 {
+            color: var(--dark-color);
+            margin-top: 1.8rem;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            max-width: none;
+        }
+        
+        strong {
+            color: var(--primary-color);
+        }
+        
+        .intro-block {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            border-left: 4px solid var(--secondary-color);
+            margin: 2rem 0;
+            border-radius: 0 4px 4px 0;
+            max-width: none;
+            width: 100%;
+        }
+        
+        .intro-block p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .callout {
+            background: #fff8e1;
+            padding: 1.2rem;
+            border-left: 4px solid #ffc107;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+            max-width: none;
+            width: 100%;
+        }
+        
+        .callout p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .insight {
+            background: #e8f5e9;
+            padding: 1.2rem;
+            border-left: 4px solid #4caf50;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+            max-width: none;
+            width: 100%;
+        }
+        
+        .insight p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .theory-card {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            max-width: none;
+            width: 100%;
+        }
+        
+        .theory-card p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .footnote-ref {
+            vertical-align: super;
+            font-size: 0.8em;
+            color: var(--secondary-color);
+            text-decoration: none;
+            margin-left: 2px;
+        }
+        
+        .footnote-ref:hover {
+            text-decoration: underline;
+        }
+        
+        .footnotes {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        .footnotes ol {
+            padding-left: 1.5rem;
+        }
+        
+        .footnotes li {
+            margin-bottom: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        .footnotes a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .footnotes a:hover {
+            text-decoration: underline;
+        }
+        
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .concept {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--accent-color);
+        }
+        
+        .theorist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .theorist-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--secondary-color);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .subcategory-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+            max-width: none;
+            width: 100%;
+        }
+        
+        .subcategory-section p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .theorist-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .theorist {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+        
+        .variation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .variation-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+        
+        .tradition-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .quote {
+            background: #f9f9f9;
+            border-left: 10px solid #ccc;
+            margin: 1.5em 10px;
+            padding: 0.5em 10px;
+            font-style: italic;
+        }
+        
+        .quote .author {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        
+        .state-chart {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: collapse;
+        }
+        
+        .state-chart th, .state-chart td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        .state-chart th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .state-chart tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 0 10px;
+            }
+            
+            article {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .concept-grid, .theorist-grid, .variation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          fetch("/header.html").then(res => res.text()).then(html => {
+              document.getElementById("header-placeholder").innerHTML = html;
+          });
+          fetch('/footer.html')
+            .then(response => response.text())
+            .then(html => { document.getElementById('footer-placeholder').innerHTML = html; });
+      });
+    </script>
+
+    <main>
+      <article>
+        <header>
+          <h1>Attention Schema Theory: A Mechanistic Model of Consciousness</h1>
+          <p class="subtitle">Exploring Michael Graziano's theory that consciousness arises from the brain's model of its own attention processes</p>
+        </header>
+
+        <section>
+          <h2>The Core Theory: Consciousness as an Attention Schema</h2>
+          
+          <div class="intro-block">
+            <p>Attention Schema Theory (AST), developed by Michael Graziano, proposes that consciousness is the brain's simplified model of its own attention processes<sup><a href="#fn1" id="r1">1</a></sup>. Rather than consciousness being attention itself, AST suggests we're conscious of having consciousness because the brain constructs a schematic model of attention.</p>
+          </div>
+          
+          <p>Graziano's theory builds on the established principle that brains construct models of things in the world to control them better. Just as we have an internal model of our body (body schema) to control movement, AST proposes we have an "attention schema" to control and allocate attention effectively.</p>
+          
+          <div class="callout">
+            <p><strong>Core Proposition:</strong> Subjective awareness is the brain's descriptive model of attention. We don't have direct access to the complex neuronal processes of attention; instead, we experience a simplified, useful representation of those processes.</p>
+          </div>
+          
+          <h3>Key Components of Attention Schema Theory</h3>
+          
+          <div class="variation-grid">
+            <div class="variation-card">
+              <h4>Attention as a Data Handling Process</h4>
+              <p>Attention is a real, mechanistic process in the brain that enhances some signals and suppresses others. This is the actual "thing" being modeled.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "Attention is a data-handling method in the brain, not magic. It's a competition among signals for control of brain resources."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>The Attention Schema</h4>
+              <p>A simplified internal model that describes attention in useful but incomplete terms. This model creates the illusion of a unified, subjective experience.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "The schema doesn't contain the full complexity of attention - it's a cartoonish, simplified description that's useful for control."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Metaphorical Description</h4>
+              <p>The schema describes attention in metaphorical terms as a "subjective experience" or "awareness" because these concepts help predict and control attention.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "Consciousness is the brain's way of saying 'I have a magic essence of awareness' because that's a useful fiction for controlling attention."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Control Function</h4>
+              <p>The primary function of the attention schema is to help control and allocate attention efficiently across different tasks and stimuli.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "We need to model attention to control it, just as we need a body schema to control our limbs effectively."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Social Extension</h4>
+              <p>The same mechanism used to model our own attention is extended to model others' attention, enabling theory of mind and social cognition.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "The ability to attribute consciousness to others uses the same cognitive machinery as attributing it to ourselves."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Illusory Nature</h4>
+              <p>Subjective awareness feels like a direct, non-physical essence because the schema necessarily omits the physical, mechanistic details of attention.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "The hard problem arises because the schema deliberately leaves out the physical details of how attention works."</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>The Control-Theory Framework</h2>
+          
+          <div class="theory-card">
+            <h3>Consciousness as Control Engineering</h3>
+            <p><strong>Core Mechanism:</strong> The brain uses internal models to control complex systems. The attention schema is the control model for the brain's attention processes.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Analogy to Body Schema</h3>
+            <p>AST draws a direct parallel between how we control our body and how we control attention:</p>
+            <ul>
+              <li><strong>Body Schema:</strong> An internal model of body position and dynamics that helps control movement without needing to know muscle physiology</li>
+              <li><strong>Attention Schema:</strong> An internal model of attention that helps control cognitive focus without needing to know neuronal mechanisms</li>
+              <li><strong>Both are incomplete:</strong> The body schema doesn't include details about muscles or nerves; the attention schema doesn't include neuronal details</li>
+              <li><strong>Both enable prediction:</strong> Models help predict future states and plan actions accordingly</li>
+              <li><strong>Both feel direct:</strong> We feel we're directly controlling our body/attention, not using a model</li>
+            </ul>
+            <p>This analogy explains why consciousness feels immediate and non-mechanical despite being a computational process.</p>
+          </div>
+          
+          <div class="insight">
+            <p><strong>Computational Advantage:</strong> Modeling attention as a simple, unified "awareness" is computationally cheaper than tracking all the complex neuronal competitions actually underlying attention. The illusion is efficient.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Key Researchers and Developments</h2>
+          
+          <div class="theorist-grid">
+            <div class="theorist-card">
+              <h3>Michael Graziano</h3>
+              <p><strong>Focus:</strong> Original formulation of Attention Schema Theory</p>
+              <p>Princeton neuroscientist who developed AST as a comprehensive, mechanistic account of consciousness. His work integrates neuroscience, psychology, and engineering principles to explain subjective awareness.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "Consciousness is not attention itself, but the brain's schematic model of attention - a useful descriptive narrative that helps control attention."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Aaron Schurger</h3>
+              <p><strong>Focus:</strong> Neural evidence and experimental paradigms</p>
+              <p>Schurger's work on readiness potentials and decision timing provides evidence that supports AST's claim that consciousness is a post-hoc narrative rather than the cause of decisions.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "Brain activity preceding conscious decisions suggests consciousness is descriptive rather than causal in decision-making."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Webb and Graziano</h3>
+              <p><strong>Focus:</strong> Computational modeling of AST</p>
+              <p>Developed explicit computational models showing how an attention schema could emerge in artificial systems and how it would confer control advantages.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "Computer simulations demonstrate that schema-based control of attention systems is computationally feasible and advantageous."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Kelly et al.</h3>
+              <p><strong>Focus:</strong> Neuroanatomical correlates of attention schema</p>
+              <p>Research identifying specific brain regions, particularly temporoparietal junction and superior temporal sulcus, as potential neural substrates for the attention schema.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "Brain damage studies point to specific regions crucial for both attention control and consciousness attribution."</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Empirical Evidence and Predictions</h2>
+          
+          <div class="tradition-section">
+            <h3>Neural Correlates and Brain Regions</h3>
+            
+            <div class="concept-grid">
+              <div class="concept">
+                <h4>Temporoparietal Junction</h4>
+                <p>AST predicts TPJ involvement in both attention control and theory of mind, as both require modeling attention (own and others').</p>
+              </div>
+              
+              <div class="concept">
+                <h4>Superior Temporal Sulcus</h4>
+                <p>Involved in biological motion perception and social cognition, consistent with AST's claim about social extension of attention modeling.</p>
+              </div>
+              
+              <div class="concept">
+                <h4>Frontal Networks</h4>
+                <p>Executive control regions work with the schema to allocate attention based on the model's predictions and descriptions.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tradition-section">
+            <h3>Clinical and Experimental Evidence</h3>
+            
+            <div class="concept-grid">
+              <div class="concept">
+                <h4>Blindsight</h4>
+                <p>Patients can respond to visual stimuli without conscious awareness, suggesting attention can operate without a functioning schema.</p>
+              </div>
+              
+              <div class="concept">
+                <h4>Hemispatial Neglect</h4>
+                <p>Damage to attention networks causes lack of awareness of one side of space, consistent with schema disruption.</p>
+              </div>
+              
+              <div class="concept">
+                <h4>Autism Spectrum</h4>
+                <p>Difficulties with both attention control and attributing consciousness to others support the social extension aspect of AST.</p>
+              </div>
+            </div>
+          </div>
+          
+          <table class="state-chart">
+            <thead>
+              <tr>
+                <th>Phenomenon</th>
+                <th>AST Explanation</th>
+                <th>Evidence</th>
+                <th>Alternative Explanations</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Subjective Unity</strong></td>
+                <td>The schema creates a simplified, unified description of attention</td>
+                <td>Split-brain patients show unified consciousness despite disconnection</td>
+                <td>Global workspace; quantum coherence</td>
+              </tr>
+              <tr>
+                <td><strong>The Hard Problem</strong></td>
+                <td>Schema omits physical details, creating illusion of non-physical essence</td>
+                <td>All internal models simplify and use useful fictions</td>
+                <td>Dualism; panpsychism; mysterianism</td>
+              </tr>
+              <tr>
+                <td><strong>Social Consciousness</strong></td>
+                <td>Same mechanism used to model own and others' attention</td>
+                <td>Same brain regions for self-awareness and mentalizing</td>
+                <td>Separate mechanisms; mirror neurons</td>
+              </tr>
+              <tr>
+                <td><strong>Attention-Awareness Link</strong></td>
+                <td>Awareness is the schema for attention</td>
+                <td>Strong correlation between attention and consciousness</td>
+                <td>Awareness enables attention; separate but interacting</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>How AST Explains Key Features of Consciousness</h2>
+          
+          <div class="theory-card">
+            <h3>The Schema-Based Solution</h3>
+            <p><strong>Core Mechanism:</strong> Features of consciousness that seem mysterious or non-physical emerge naturally from the properties of schematic models used for control.</p>
+          </div>
+          
+          <p>AST provides parsimonious explanations for many puzzling aspects of consciousness:</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Subjectivity</h4>
+              <p>Feels private and internal because the schema describes an internal process (attention) rather than external objects.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Unity</h4>
+              <p>Experience seems unified because the schema creates a single, simplified description of multiple attention processes.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Intentionality</h4>
+              <p>Consciousness is "about" things because attention is always directed at something, and the schema describes this directedness.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Illusion of Non-Physicality</h4>
+              <p>Consciousness feels non-mechanical because the schema deliberately omits physical details of neuronal competition.</p>
+            </div>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Solving the "Hard Problem"</h3>
+            <p>AST addresses the hard problem by reframing it as an engineering problem:</p>
+            <ul>
+              <li><strong>Why does consciousness exist?</strong> Because control systems need internal models to function effectively</li>
+              <li><strong>Why does it feel like something?</strong> Because the model describes attention as having qualitative properties</li>
+              <li><strong>Why the explanatory gap?</strong> Because the model necessarily omits physical details, creating the illusion of a gap</li>
+              <li><strong>Why is it private?</strong> Because it's a model of an internal process, not external reality</li>
+              <li><strong>Why is it unified?</strong> Because a single, simplified model is more useful than multiple complex ones</li>
+            </ul>
+            <p>According to AST, the hard problem arises from misunderstanding what consciousness is - it's not a mysterious essence but a useful control model.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Comparison with Other Theories</h2>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Theory</th>
+                <th>Primary Mechanism</th>
+                <th>Relationship to AST</th>
+                <th>Key Differences</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Global Workspace</strong></td>
+                <td>Information access and broadcast</td>
+                <td>Compatible - AST could explain why global access feels conscious</td>
+                <td>GWT doesn't explain why access feels like anything; AST provides that explanation</td>
+              </tr>
+              <tr>
+                <td><strong>Higher-Order Thought</strong></td>
+                <td>Meta-representation of mental states</td>
+                <td>Similar in positing meta-representation</td>
+                <td>HOT is more general; AST specifically focuses on attention</td>
+              </tr>
+              <tr>
+                <td><strong>Integrated Information</strong></td>
+                <td>Information integration (Φ)</td>
+                <td>Potentially complementary</td>
+                <td>IIT is more abstract and mathematical; AST is more mechanistic</td>
+              </tr>
+              <tr>
+                <td><strong>Predictive Processing</strong></td>
+                <td>Prediction error minimization</td>
+                <td>Highly compatible - schemas are predictive models</td>
+                <td>PP is more general; AST specifies attention as the key process being modeled</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Challenges and Responses</h2>
+          
+          <div class="subcategory-section">
+            <h3>The "Zombie" Challenge</h3>
+            <p><strong>Challenge:</strong> Couldn't a system control attention without any subjective experience? Why does the model need to feel like anything?</p>
+            <p><strong>Response:</strong> According to AST, the feeling is the model. A system with an attention schema would claim to have subjective experience because that's what the schema represents. The question presupposes a distinction that AST rejects.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Richness of Experience Challenge</h3>
+            <p><strong>Challenge:</strong> Consciousness contains far more richness and detail than seems necessary for attention control.</p>
+            <p><strong>Response:</strong> The richness comes from the sensory information that attention processes, not from the schema itself. The schema is just the "awareness of" that rich content.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Neural Specificity Challenge</h3>
+            <p><strong>Challenge:</strong> It's unclear exactly which neural circuits implement the attention schema and how they differ from attention mechanisms themselves.</p>
+            <p><strong>Response:</strong> Ongoing research is identifying candidate regions (TPJ, STS) and distinguishing between attention control and attention modeling networks.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Evolutionary Challenge</h3>
+            <p><strong>Challenge:</strong> Why would such an elaborate system evolve just to control attention?</p>
+            <p><strong>Response:</strong> The social extension provides additional evolutionary advantage - modeling others' attention enables complex social cognition and cooperation.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Current Research and Future Directions</h2>
+          
+          <p>Attention Schema Theory continues to generate active research across multiple domains:</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Computational Modeling</h4>
+              <p>Developing explicit computational implementations of AST to test its predictions and explore its implications.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Neuroimaging Studies</h4>
+              <p>Using fMRI, EEG, and other methods to identify neural correlates of attention schema and distinguish them from attention processes.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Clinical Applications</h4>
+              <p>Applying AST to understand disorders of consciousness, attention deficits, and social cognition impairments.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>AI Development</h4>
+              <p>Implementing attention schemas in artificial systems to create more flexible, socially aware AI.</p>
+            </div>
+          </div>
+          
+          <div class="callout">
+            <p><strong>Current Status:</strong> AST represents one of the most promising mechanistic theories of consciousness, with growing empirical support and computational implementations. While questions remain, it provides a coherent framework that addresses both the easy and hard problems of consciousness from an engineering perspective.</p>
+          </div>
+          
+          <div class="quote">
+            "Consciousness is not a magical essence but a functional description. The brain computes the description that it has a magical essence because that computation is useful for controlling attention."
+            <div class="author">— Michael Graziano</div>
+          </div>
+        </section>
+
+        <section class="footnotes">
+          <h2>References</h2>
+          <ol>
+            <li id="fn1">Graziano, M.S.A. (2013). <em>Consciousness and the Social Brain</em>. Oxford University Press. <a href="#r1">↩</a></li>
+            <li id="fn2">Graziano, M.S.A. (2019). <em>Rethinking Consciousness: A Scientific Theory of Subjective Experience</em>. W.W. Norton & Company. <a href="#r2">↩</a></li>
+            <li id="fn3">Webb, T.W., & Graziano, M.S.A. (2015). "The attention schema theory: A mechanistic account of subjective awareness". <em>Frontiers in Psychology</em>. <a href="#r3">↩</a></li>
+            <li id="fn4">Graziano, M.S.A., & Kastner, S. (2011). "Human consciousness and its relationship to social neuroscience: A novel hypothesis". <em>Cognitive Neuroscience</em>. <a href="#r4">↩</a></li>
+            <li id="fn5">Kelly, Y.T., Webb, T.W., Meier, J.D., Arcaro, M.J., & Graziano, M.S.A. (2014). "Attributing awareness to oneself and to others". <em>Proceedings of the National Academy of Sciences</em>. <a href="#r5">↩</a></li>
+            <li id="fn6">Schurger, A., et al. (2021). "Neural antecedents of self-attribution of awareness". <em>Consciousness and Cognition</em>. <a href="#r6">↩</a></li>
+            <li id="fn7">Graziano, M.S.A. (2017). "The attention schema theory of consciousness". In <em>The Blackwell Companion to Consciousness</em>. <a href="#r7">↩</a></li>
+          </ol>
+        </section>
+
+        <section id="contact-info">
+          <h2>Continue the Discussion</h2>
+          <p>Attention Schema Theory offers a compelling mechanistic account of consciousness that bridges neuroscience, psychology, and engineering. If you have thoughts, questions, or want to explore how AST interfaces with other theories of consciousness, reach out at <a href="mailto:caldwbr@gmail.com">caldwbr@gmail.com</a>.</p>
+        </section>
+      </article>
+    </main>
+    
+    <div id="footer-placeholder"></div>
+</body>
+</html>

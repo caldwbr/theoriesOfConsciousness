@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HST66CSWTB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HST66CSWTB');
+    </script>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Global Workspace Theory: A Mechanistic Approach to Consciousness</title>
+    <meta name="description" content="Exploring Global Workspace Theory as a mechanistic framework for understanding consciousness, including its neural correlates, computational models, and empirical evidence." />
+    <meta name="keywords" content="global workspace theory, consciousness, Baars, Dehaene, neural correlates, workspace, broadcast, attention" />
+    <meta name="author" content="Brad Caldwell">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        :root {
+            --primary-color: #27ae60;
+            --secondary-color: #2ecc71;
+            --accent-color: #3498db;
+            --light-color: #e8f6ef;
+            --dark-color: #2c3e50;
+            --highlight-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background-color: #f8f9fa;
+        }
+        
+        article {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+        
+        h3 {
+            color: var(--dark-color);
+            margin-top: 1.8rem;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            max-width: none;
+        }
+        
+        strong {
+            color: var(--primary-color);
+        }
+        
+        .intro-block {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            border-left: 4px solid var(--secondary-color);
+            margin: 2rem 0;
+            border-radius: 0 4px 4px 0;
+            max-width: none;
+            width: 100%;
+        }
+        
+        .intro-block p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .callout {
+            background: #fff8e1;
+            padding: 1.2rem;
+            border-left: 4px solid #ffc107;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+            max-width: none;
+            width: 100%;
+        }
+        
+        .callout p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .insight {
+            background: #e8f5e9;
+            padding: 1.2rem;
+            border-left: 4px solid #4caf50;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+            max-width: none;
+            width: 100%;
+        }
+        
+        .insight p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .theory-card {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            max-width: none;
+            width: 100%;
+        }
+        
+        .theory-card p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .footnote-ref {
+            vertical-align: super;
+            font-size: 0.8em;
+            color: var(--secondary-color);
+            text-decoration: none;
+            margin-left: 2px;
+        }
+        
+        .footnote-ref:hover {
+            text-decoration: underline;
+        }
+        
+        .footnotes {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        .footnotes ol {
+            padding-left: 1.5rem;
+        }
+        
+        .footnotes li {
+            margin-bottom: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        .footnotes a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .footnotes a:hover {
+            text-decoration: underline;
+        }
+        
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .concept {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--accent-color);
+        }
+        
+        .theorist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .theorist-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--secondary-color);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .subcategory-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+            max-width: none;
+            width: 100%;
+        }
+        
+        .subcategory-section p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .theorist-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .theorist {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+        
+        .variation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .variation-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+        
+        .tradition-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .quote {
+            background: #f9f9f9;
+            border-left: 10px solid #ccc;
+            margin: 1.5em 10px;
+            padding: 0.5em 10px;
+            font-style: italic;
+        }
+        
+        .quote .author {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        
+        .state-chart {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: collapse;
+        }
+        
+        .state-chart th, .state-chart td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        .state-chart th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .state-chart tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .gwt-diagram {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            display: block;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 1rem;
+            background: white;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 0 10px;
+            }
+            
+            article {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .concept-grid, .theorist-grid, .variation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          fetch("/header.html").then(res => res.text()).then(html => {
+              document.getElementById("header-placeholder").innerHTML = html;
+          });
+          fetch('/footer.html')
+            .then(response => response.text())
+            .then(html => { document.getElementById('footer-placeholder').innerHTML = html; });
+      });
+    </script>
+
+    <main>
+      <article>
+        <header>
+          <h1>Global Workspace Theory: A Mechanistic Approach to Consciousness</h1>
+          <p class="subtitle">How information integration and global availability create conscious experience through a brain-wide workspace architecture</p>
+        </header>
+
+        <section>
+          <h2>The Global Workspace Framework</h2>
+          
+          <div class="intro-block">
+            <p>Global Workspace Theory (GWT) proposes that consciousness arises from a brain-wide "workspace" where information becomes globally available to multiple cognitive systems<sup><a href="#fn1" id="r1">1</a></sup>. Unlike fundamental theories that address why consciousness exists, GWT focuses on how it operates mechanistically.</p>
+          </div>
+          
+          <p>First developed by Bernard Baars and later refined by Stanislas Dehaene and others, GWT suggests that consciousness functions like a theater stage where a "spotlight of attention" selects specific information to be broadcast globally. This broadcast enables coordinated action, access to working memory, and verbal reportability.</p>
+          
+          <div class="callout">
+            <p><strong>Core Proposition:</strong> Consciousness is what happens when information gains access to a global workspace, making it available to multiple specialized processors throughout the brain. Unconscious processes remain encapsulated within their specific modules.</p>
+          </div>
+          
+          <h3>Key Components of the Global Workspace</h3>
+          
+          <div class="variation-grid">
+            <div class="variation-card">
+              <h4>Specialized Processors</h4>
+              <p>Unconscious, modular systems that handle specific tasks like face recognition, language parsing, or motor control. These operate in parallel and outside awareness.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "Most brain processing happens unconsciously in specialized modules that compete for access to consciousness."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Global Workspace</h4>
+              <p>A limited-capacity "stage" where selected information becomes conscious and available to the entire system. This creates a serial bottleneck in parallel processing.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "The workspace creates a central information exchange that allows otherwise isolated processors to cooperate."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Attention Mechanism</h4>
+              <p>The process that selects which information gains access to the global workspace, functioning like a theater spotlight or editor.</p>
+              <div class="insight">
+                <p><Strong>Key Insight:</strong> "Attention is the gatekeeper to consciousness, but not identical to it - we can attend to things without full conscious awareness."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Broadcast Function</h4>
+              <p>The distribution of conscious information back to specialized processors, enabling system-wide coordination and access.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "Conscious broadcast creates voluntary control by making information available to systems that can act upon it."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Contextual Systems</h4>
+              <p>Unconscious knowledge structures that shape conscious content without themselves becoming conscious.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "Consciousness always appears within unconscious contexts that give it meaning and structure."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Self-System</h4>
+              <p>The autobiographical memory and self-concept that provides stability and continuity to conscious experience.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "The self is both a product and a user of the global workspace, creating the experience of personal ownership."</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>The Theater Metaphor</h2>
+          
+          <div class="theory-card">
+            <h3>Consciousness as a Stage</h3>
+            <p><strong>Core Mechanism:</strong> Information processing in the brain can be understood through the metaphor of a theater, with conscious contents appearing on stage before an audience of unconscious specialists.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>The Theater Architecture</h3>
+            <p>Baars' theater metaphor provides an intuitive framework for understanding GWT:</p>
+            <ul>
+              <li><strong>Stage:</strong> The global workspace itself - the limited capacity where conscious contents appear</li>
+              <li><strong>Spotlight:</strong> Selective attention that determines what appears on stage</li>
+              <li><strong>Actors:</strong> The specific contents of consciousness at any moment</li>
+              <li><strong>Audience:</strong> The vast array of unconscious specialized processors that receive the broadcast</li>
+              <li><strong>Director:</strong> Executive and self-systems that influence what appears on stage</li>
+              <li><strong>Context:</strong> The stage setting, props, and script that shape the performance unconsciously</li>
+            </ul>
+            <p>This metaphor helps explain why consciousness has limited capacity, serial nature, and coherent content despite massive parallel unconscious processing.</p>
+          </div>
+          
+          <div class="insight">
+            <p><strong>Neural Correlates:</strong> Neuroimaging studies suggest the global workspace involves a distributed network of prefrontal, parietal, and cingulate regions. Conscious access correlates with sustained, coordinated activity across these areas, particularly the frontoparietal network.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Key Researchers and Developments</h2>
+          
+          <div class="theorist-grid">
+            <div class="theorist-card">
+              <h3>Bernard Baars</h3>
+              <p><strong>Focus:</strong> Original formulation of Global Workspace Theory</p>
+              <p>Baars developed the core GWT framework, emphasizing the theater metaphor and the distinction between conscious global access and unconscious modular processing. His work integrated evidence from cognitive psychology, neuroscience, and clinical cases.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "Consciousness is a facility for accessing, disseminating, and exchanging information, and for exercising global coordination and control."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Stanislas Dehaene</h3>
+              <p><strong>Focus:</strong> Neural global workspace and conscious access</p>
+              <p>Dehaene and colleagues developed the neuronal global workspace model, identifying specific brain networks involved in conscious access. Their research shows how unconscious information becomes conscious through global ignition in frontoparietal networks.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "Conscious access occurs when incoming information ignites a self-sustaining brain-scale state of activity in prefrontal-parietal networks."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Jean-Pierre Changeux</h3>
+              <p><strong>Focus:</strong> Neurocomputational models of conscious access</p>
+              <p>Changeux collaborated with Dehaene on neuronal workspace models, emphasizing the role of long-distance connectivity and spontaneous activity in conscious states. His work bridges neuroscience with computational approaches.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "Consciousness depends on the global availability of information through a network of distributed neurons with long-range connections."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Murray Shanahan</h3>
+              <p><strong>Focus:</strong> Computational implementation and embodiment</p>
+              <p>Shanahan developed detailed computational models of the global workspace, exploring how it could be implemented in artificial systems. His work emphasizes the role of embodiment and narrative structure in consciousness.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "The global workspace enables the brain to tell itself a story, creating the narrative flow of conscious experience."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Anil Seth</h3>
+              <p><strong>Focus:</strong> Predictive processing and conscious contents</p>
+              <p>Seth integrates GWT with predictive processing frameworks, suggesting consciousness involves globally available predictions about the causes of sensory signals. His work emphasizes the controlled hallucination nature of perception.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "Consciousness is a form of controlled hallucination, where predictions become globally available through something like a workspace."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Michael Gazzaniga</h3>
+              <p><strong>Focus:</strong> Interpreter theory and split-brain research</p>
+              <p>Gazzaniga's work with split-brain patients reveals a left-hemisphere "interpreter" that creates coherent narratives from available information, complementing the global workspace concept.</p>
+              <div class="insight">
+                <p><strong>Key Contribution:</strong> "The left hemisphere contains an interpreter that seeks explanations for events, creating the narrative structure of conscious experience."</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Empirical Evidence and Neural Correlates</h2>
+          
+          <div class="tradition-section">
+            <h3>Contrastive Analysis Methodology</h3>
+            
+            <div class="concept-grid">
+              <div class="concept">
+                <h4>Conscious vs. Unconscious Processing</h4>
+                <p>Studies comparing brain activity for consciously perceived stimuli versus identical but unconscious stimuli (through masking, inattention, or priming).</p>
+              </div>
+              
+              <div class="concept">
+                <h4>Global Ignition</h4>
+                <p>Conscious access correlates with late (∼300ms), sustained, distributed activity across frontoparietal networks, while unconscious processing shows early, localized activity.</p>
+              </div>
+              
+              <div class="concept">
+                <h4>Reportability</h4>
+                <p>The ability to verbally report an experience requires global workspace access, making reportability a key operational measure of consciousness in experiments.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tradition-section">
+            <h3>Key Experimental Paradigms</h3>
+            
+            <div class="concept-grid">
+              <div class="concept">
+                <h4>Visual Masking</h4>
+                <p>Briefly presented stimuli followed by masks can remain unconscious, allowing comparison of conscious and unconscious visual processing.</p>
+              </div>
+              
+              <div class="concept">
+                <h4>Attentional Blink</h4>
+                <p>When two targets appear in rapid succession, the second often goes unreported, revealing limits of conscious access.</p>
+              </div>
+              
+              <div class="concept">
+                <h4>Binocular Rivalry</h4>
+                <p>Different images presented to each eye alternate in consciousness, showing how competition for workspace access works.</p>
+              </div>
+            </div>
+          </div>
+          
+          <table class="state-chart">
+            <thead>
+              <tr>
+                <th>Brain Region</th>
+                <th>Function in GWT</th>
+                <th>Evidence</th>
+                <th>Conscious State Correlation</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Prefrontal Cortex</strong></td>
+                <td>Executive control, workspace maintenance</td>
+                <td>Sustained activity during conscious reports</td>
+                <td>Deactivated in sleep, anesthesia, disorders of consciousness</td>
+              </tr>
+              <tr>
+                <td><strong>Parietal Cortex</strong></td>
+                <td>Global integration, spatial attention</td>
+                <td>Coordinated activity with prefrontal regions</td>
+                <td>Disrupted in spatial neglect, altered in meditation</td>
+              </tr>
+              <tr>
+                <td><strong>Anterior Cingulate</strong></td>
+                <td>Conflict monitoring, motivation</td>
+                <td>Active during conscious error detection</td>
+                <td>Abnormal in disorders of volition</td>
+              </tr>
+              <tr>
+                <td><strong>Thalamus</strong></td>
+                <td>Gateway regulation, arousal</td>
+                <td>Thalamocortical loops essential for consciousness</td>
+                <td>Critical for sleep-wake transitions, impaired in coma</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>How GWT Explains Key Features of Consciousness</h2>
+          
+          <div class="theory-card">
+            <h3>The Global Availability Solution</h3>
+            <p><strong>Core Mechanism:</strong> Consciousness emerges when information becomes globally available to multiple cognitive systems, enabling coordination, voluntary control, and reportability.</p>
+          </div>
+          
+          <p>GWT provides mechanistic explanations for many puzzling aspects of consciousness:</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Limited Capacity</h4>
+              <p>The workspace has limited capacity because widespread broadcasting is metabolically expensive and would create interference between systems.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Serial Nature</h4>
+              <p>Consciousness appears serial because the workspace can only broadcast one coherent content at a time, despite massive parallel unconscious processing.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Coherence</h4>
+              <p>Conscious experience is coherent because only consistent information can gain stable access to the workspace - inconsistent contents compete and suppress each other.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Flexibility</h4>
+              <p>Consciousness enables flexible responses because globally available information can be used by any relevant processor, not just the one that initially processed it.</p>
+            </div>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Clinical and Practical Applications</h3>
+            <p>GWT has important implications for understanding various conditions and developing applications:</p>
+            <ul>
+              <li><strong>Disorders of Consciousness:</strong> Coma, vegetative state, and minimal consciousness involve breakdowns in global workspace function</li>
+              <li><strong>Attention Deficits:</strong> ADHD and other attention disorders may involve impaired gatekeeping mechanisms for workspace access</li>
+              <li><strong>Anesthesia:</strong> General anesthetics may work by disrupting global integration while preserving local processing</li>
+              <li><strong>AI Development:</strong> Global workspace architectures provide models for developing more flexible, general artificial intelligence</li>
+              <li><strong>Education:</strong> Understanding conscious access limitations informs teaching methods and cognitive load management</li>
+            </ul>
+            <p>These applications demonstrate the practical value of GWT's mechanistic approach to consciousness.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Comparison with Other Mechanistic Theories</h2>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Theory</th>
+                <th>Primary Mechanism</th>
+                <th>Strengths</th>
+                <th>Limitations</th>
+                <th>Relationship to GWT</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Global Workspace Theory</strong></td>
+                <td>Global information availability</td>
+                <td>Explains limited capacity, reportability, flexibility</td>
+                <td>Doesn't address qualitative experience directly</td>
+                <td>Foundation theory</td>
+              </tr>
+              <tr>
+                <td><strong>Integrated Information Theory</strong></td>
+                <td>Information integration (Φ)</td>
+                <td>Mathematically precise, addresses qualitative experience</td>
+                <td>Computationally intractable, limited empirical support</td>
+                <td>Complementary - GWT could implement IIT</td>
+              </tr>
+              <tr>
+                <td><strong>Predictive Processing</strong></td>
+                <td>Prediction error minimization</td>
+                <td>Unifies perception, action, and learning</td>
+                <td>Doesn't clearly distinguish conscious/unconscious</td>
+                <td>Compatible - GWT could handle global availability of predictions</td>
+              </tr>
+              <tr>
+                <td><strong>Higher-Order Thought</strong></td>
+                <td>Meta-representation</td>
+                <td>Explains subjective awareness and self-consciousness</td>
+                <td>Circularity problems, limited empirical basis</td>
+                <td>Could be implemented within GWT framework</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Challenges and Responses</h2>
+          
+          <div class="subcategory-section">
+            <h3>The "Hard Problem" Challenge</h3>
+            <p><strong>Challenge:</strong> GWT explains the functions and mechanisms of consciousness but doesn't address why global availability should feel like anything at all.</p>
+            <p><strong>Response:</strong> GWT proponents argue they're addressing the "easy problems" first, and understanding mechanisms may eventually illuminate the hard problem. Some suggest qualitative experience emerges from the specific way information is globally integrated.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Neural Specificity Challenge</h3>
+            <p><strong>Challenge:</strong> It's unclear exactly which neural circuits constitute the global workspace and how they differ from other large-scale networks.</p>
+            <p><strong>Response:</strong> Ongoing research is refining the neural correlates, with frontoparietal networks, thalamocortical loops, and specific neurotransmitters all playing roles. The workspace may be a dynamic assembly rather than fixed anatomy.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Animal Consciousness Challenge</h3>
+            <p><strong>Challenge:</strong> If consciousness requires human-like global workspace architecture, does this deny consciousness to animals with different brain organizations?</p>
+            <p><strong>Response:</strong> GWT can be scaled - simpler global workspace architectures might support simpler forms of consciousness. The key is global availability, not specific human implementations.</p>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Computational Implementation Challenge</h3>
+            <p><strong>Challenge:</strong> Creating artificial global workspace systems hasn't yet produced human-like consciousness, suggesting missing ingredients.</p>
+            <p><strong>Response:</strong> Current implementations may lack necessary complexity, embodiment, or specific architectural features. This remains an active research area.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Current Research and Future Directions</h2>
+          
+          <p>Global Workspace Theory continues to evolve through ongoing research:</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Dynamic Network Approaches</h4>
+              <p>Research on how workspace networks dynamically assemble and disassemble, using methods like EEG and fMRI connectivity analysis.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Computational Refinements</h4>
+              <p>Developing more sophisticated neural network models that implement workspace functionality with biological plausibility.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Clinical Applications</h4>
+              <p>Using workspace principles to diagnose and treat disorders of consciousness, and to understand pharmacological effects on consciousness.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Cross-Species Comparisons</h4>
+              <p>Investigating workspace-like architectures across species to understand the evolution of consciousness.</p>
+            </div>
+          </div>
+          
+          <div class="callout">
+            <p><strong>Current Status:</strong> GWT remains one of the most influential and empirically supported mechanistic theories of consciousness. While it may not solve all philosophical problems, it provides a robust framework for understanding how conscious access works and has generated numerous testable predictions confirmed by neuroscience research.</p>
+          </div>
+          
+          <div class="quote">
+            "Global Workspace Theory doesn't claim to solve the hard problem of why we have qualia, but it does provide the most detailed account to date of how conscious cognition works."
+            <div class="author">— Bernard Baars</div>
+          </div>
+        </section>
+
+        <section class="footnotes">
+          <h2>References</h2>
+          <ol>
+            <li id="fn1">Baars, B.J. (1988). <em>A Cognitive Theory of Consciousness</em>. Cambridge University Press. <a href="#r1">↩</a></li>
+            <li id="fn2">Dehaene, S., &amp; Naccache, L. (2001). "Towards a cognitive neuroscience of consciousness: basic evidence and a workspace framework". <em>Cognition</em>. <a href="#r2">↩</a></li>
+            <li id="fn3">Dehaene, S. (2014). <em>Consciousness and the Brain: Deciphering How the Brain Codes Our Thoughts</em>. Viking Press. <a href="#r3">↩</a></li>
+            <li id="fn4">Baars, B.J., &amp; Franklin, S. (2003). "How conscious experience and working memory interact". <em>Trends in Cognitive Sciences</em>. <a href="#r4">↩</a></li>
+            <li id="fn5">Shanahan, M. (2010). <em>Embodiment and the Inner Life: Cognition and Consciousness in the Space of Possible Minds</em>. Oxford University Press. <a href="#r5">↩</a></li>
+            <li id="fn6">Seth, A.K. (2021). <em>Being You: A New Science of Consciousness</em>. Dutton. <a href="#r6">↩</a></li>
+            <li id="fn7">Mashour, G.A., et al. (2020). "Consciousness, anesthesia, and neural global workspace". <em>Neuron</em>. <a href="#r7">↩</a></li>
+            <li id="fn8">Changeux, J.P., &amp; Dehaene, S. (2008). "The neuronal workspace model: Conscious processing and learning". In <em>Learning and Memory: A Comprehensive Reference</em>. <a href="#r8">↩</a></li>
+          </ol>
+        </section>
+
+        <section id="contact-info">
+          <h2>Continue the Discussion</h2>
+          <p>Global Workspace Theory provides a powerful mechanistic framework for understanding how consciousness operates, even if it doesn't address all philosophical questions about why it exists. If you have thoughts, questions, or want to explore how GWT interfaces with other theories of consciousness, reach out at <a href="mailto:caldwbr@gmail.com">caldwbr@gmail.com</a>.</p>
+        </section>
+      </article>
+    </main>
+    
+    <div id="footer-placeholder"></div>
+</body>
+</html>

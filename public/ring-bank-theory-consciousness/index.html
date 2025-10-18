@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ring/Bank Theory of Consciousness</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        :root {
+            --primary-color: #2c7873;
+            --secondary-color: #6fb98f;
+            --accent-color: #ffbe33;
+            --light-color: #f4f9f4;
+            --dark-color: #333333;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        
+        .theory-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2rem;
+        }
+        
+        h3 {
+            color: var(--primary-color);
+            margin-top: 1.5rem;
+        }
+        
+        .intro-block {
+            background: var(--light-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .concept-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--accent-color);
+        }
+        
+        .equation-container {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .callout {
+            background: #e8f4fd;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        .comparison-table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .visualization {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .vis-placeholder {
+            width: 100%;
+            height: 200px;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 4px;
+            margin: 1rem 0;
+        }
+        
+        @media (max-width: 768px) {
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Responsive video container */
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            margin: 1rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* More aggressive equation breaking */
+        .equation-breakable {
+            overflow-x: auto;
+            padding: 1rem 0;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        }
+
+        .equation-breakable mjx-container {
+            display: block !important;
+            overflow-x: auto;
+            max-width: 100%;
+        }
+
+        /* Force horizontal scroll on very small screens */
+        @media (max-width: 380px) {
+            .equation-breakable {
+                border: 1px solid #e9ecef;
+                border-radius: 4px;
+                padding: 1rem;
+            }
+        }
+
+        /* Responsive image styling */
+        .image-container {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .responsive-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        /* Optional: Add a max-width to prevent images from getting too large on desktop */
+        @media (min-width: 768px) {
+            .responsive-image {
+                max-width: 80%;
+            }
+        }
+
+        /* For very large screens, you might want to limit the image size */
+        @media (min-width: 1200px) {
+            .responsive-image {
+                max-width: 600px;
+            }
+        }
+        
+        .footnotes a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .footnotes a:hover {
+            text-decoration: underline;
+        }
+
+        .footnotes ol {
+            line-height: 1.8;
+        }
+
+        .footnotes li {
+            margin-bottom: 1rem;
+        }
+        
+        /* Citation styling */
+        .concept-card sup {
+            font-size: 0.8em;
+            vertical-align: super;
+            line-height: 0;
+        }
+
+        .concept-card sup a {
+            color: var(--primary-color);
+            text-decoration: none;
+            padding: 0 2px;
+        }
+
+        .concept-card sup a:hover {
+            text-decoration: underline;
+            background-color: #f0f7ff;
+            border-radius: 2px;
+        }
+
+        /* Ensure proper spacing around citations */
+        .concept-card p {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Table container for horizontal scrolling */
+        .table-container {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Ensure tables maintain their width and don't shrink */
+        .table-container table {
+            width: auto;
+            min-width: 100%;
+            margin: 0;
+        }
+
+        /* Optional: Add a visual indicator that table is scrollable on mobile */
+        @media (max-width: 768px) {
+            .table-container {
+                border: 1px solid #e9ecef;
+            }
+
+            .table-container::-webkit-scrollbar {
+                height: 8px;
+            }
+
+            .table-container::-webkit-scrollbar-thumb {
+                background: var(--secondary-color);
+                border-radius: 4px;
+            }
+
+            .table-container::-webkit-scrollbar-track {
+                background: #f1f1f1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          fetch("/header.html").then(res => res.text()).then(html => {
+              document.getElementById("header-placeholder").innerHTML = html;
+          });
+          fetch('/footer.html')
+            .then(response => response.text())
+            .then(html => { document.getElementById('footer-placeholder').innerHTML = html; });
+      });
+    </script>
+
+    <main>
+        <div class="theory-section">
+            <h1>Ring/Bank Theory of Consciousness</h1>
+            <p class="subtitle">A geometric, rhythm/event framework proposing consciousness emerges from orchestration of neural activity arounded spatiotemporal patterns in a modeling or story space</p>
+            
+            <div class="intro-block">
+                <p>The Ring/Bank Theory, originated by Brad Caldwell, proposes that consciousness arises as the ongoing interpretation of rhythms/events into lower dimensional rings or frames and then into the meaningful content they are believed to touch or reveal by some sort of neural and/or neural net rallying behavior. This theory provides a mechanistic account of how subjective experience emerges from brain rallying and intelligent use of priors and stimuli to implement behavior that honors goals.</p>
+            </div>
+            
+            <h2>Core Principles</h2>
+            
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h3>Geometric Foundation</h3>
+                    <p>Consciousness is incipiently temporo-geometric, with experiences interpreted first as low-dimensional manifolds (0D point 'tracer', 1D rings, 2D frames) in the brain's modeling space. From this most incipient 'union set,' further deduction reveals, outwards from the union set, mutually exclusive 3D schema volumes, such as the brain's model of reality, imagination, and time flow.</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Rhythmic/Event Processing</h3>
+                    <p>The brain processes information in discrete cycles (2-13 Hz) or events (millisecond resolution), each cycle or bin headered off at the start by a ringframe keyframe. In parallel, what these ringframes are <em>about</em> (mic voice) may change at an independent, but often slower, rate (0.1-5 Hz).</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h3>Spatial Addressing</h3>
+                    <p>Conscious content is addressed spatially through a dynamically updating union set manifold, marrying a voxel or set of voxels between "Bank Schema" (stores rigid 1D/2D manifolds on a roughly cube/sphere structure), real schema, imaginal schema, and (sometimes) a time schema.</p>
+                </div>
+            </div>
+            
+            <div class="callout">
+                <p><strong>Central Proposition:</strong> While metacognition (experiencer) is a fairly continuous stream, ringframes are a series of discrete geometric "snapshots" that are rhythmically-generated or event-generated. The continuous meaningful content they are assumed/interpreted to "touch" (scratch-to-reveal) is called <em>Paint</em> (conscious <em>and</em> unconscious help to interpret).</p>
+            </div>
+            
+            <h2>Key Mechanisms</h2>
+            
+            <h3>The Mic: Time-Division Multiple Access</h3>
+            <p>Attention switches (0.1-5 times per second) between different sensory and cognitive "voices" in an interrupt-style processing system similar to computer IRQ (Interrupt Request) or TDMA (Time-Division Multiple Access). This explains why we can only fully attend to one type of information at a time.</p>
+            
+            <h3>Ringframes: Geometric Building Blocks</h3>
+            <p>Ringframes are the fundamental geometric structures of consciousness:</p>
+            
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h4>Rings (0-1D Manifolds)</h4>
+                    <p>Lower-dimensional geometric representations that trace paths through experiential space, often following convoluted circular or square trajectories, forming the "header keyframes" at the beginning of bins of conscious experience. Phasic mode intruduces a smear of the bin, making a ~100 ms cycle into infinitesimal mini-bins–each 1º bin would be tiny (less than 1 ms).</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>Frames (2D Manifolds)</h4>
+                    <p>Two-dimensional surfaces that capture more complete spatial information, forming the "header keyframes" at the beginning of bins of conscious experience.</p>
+                </div>
+            </div>
+            
+            <div class="visualization">
+                <h4>Ringframe Generation Process</h4>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/XY-ptCuayJM?si=Huv2VpJAdtLm98t2" 
+                            title="Printing ringframes and dimensionality jump" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            referrerpolicy="strict-origin-when-cross-origin" 
+                            allowfullscreen>
+                    </iframe>
+                </div>
+                <p><em>Conceptual representation of how ringframes are printed into experiential space</em></p>
+            </div>
+            
+            <h3>Bank Schema: The Geometric Library</h3>
+            <p>The Bank Schema serves as both generator and storage for spatial experiences:</p>
+            <div class="image-container">
+                <img src="../images/bankBig.jpg" alt="Bank Schema showing concentric geometric structures" class="responsive-image">
+                <p><em>Bank Schema showing concentric geometric structures with asymmetric anchors</em></p>
+                <p>The Bank is organized around concentric geometric structures (spheres, cubes) with asymmetric anchors (like a "broken drinking glass") which incidentally enforces singular orientation. The broken glass being offset is likely due to the lifelong preference for right-handed (and right-experiential-volume) use of tools, phones, drinking glasses, etc., leaving a permanent bias on the bank structure in the rightward direction. While the bank can move/3D-rotate to these objects on the right, it shows some laziness/hysteresis, such that repeated off-centerness in experiential volume likely results in the off-centeredness being reflected in the bank.</p>
+            </div>
+            <div class="equation-container">
+                <h4>Postdictive Interpretation</h4>
+                <div class="equation-breakable">
+                    \[ \text{Mic Signal or Voiceless Thought/Rhythm} \rightarrow \text{Ringframe} \rightarrow \text{3D Content of Conscious Experience} \]
+                </div>
+                <p>The Bank prints static geometric snapshots (ringframes) that immediately flow in Time Schema, creating a timestamped record of the stream of rhythm/events.</p>
+            </div>
+            <h3>3D Spirograph Dynamics</h3>
+            <p>The theory proposes that consciousness operates through spirograph-like mechanisms where inner structures (rotors) move against outer structures (stators), generating the geometric patterns of experience. Three primary types are proposed:</p>
+            
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h4>Cone Spirograph</h4>
+                    <p>A dynamic (radius of stator or rotor can change) mode of refreshing modeling space that behaves as a spirograph made of two cones (or close to this).</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>Cylinder Spirograph</h4>
+                    <p>A dynamic (radius of stator or rotor can change) mode of refreshing modeling space that behaves as a spirograph made of two cynlinder shells.</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>Sphere Spirograph</h4>
+                    <p>A dynamic (radius of stator or rotor can change) mode of refreshing modeling space that behaves as a spirograph made of two sphere shells.</p>
+                </div>
+            </div>
+            
+            <h2>Neural Evidence &amp; Correlations</h2>
+            
+            <div class="callout">
+                <p>While the neural correlates of the ring/bank theory have not been conclusively found, it is thought likely that some sort of distributed frequency-encoding and/or sparse-encoding are at the heart of the union set behavior. 2 Hz pulses in rats under Ketamine appear to align with the '2 Hz reality frames' (one to two per heartbeat) in reports from phenomenology of hemp and salvia sedation.</p>
+            </div>
+            
+            <h3>Entrainment Phenomena</h3>
+            <p>External rhythmic stimuli can entrain brain oscillations, creating predictable conscious experiences. For example, strobe lights at specific frequencies (8-13 Hz) can produce "Orbital Strikes" where the Bank's rotation phase-locks to the external rhythm. However, entrainment methods do not create a hyperpolarized brain state, and therefore do not knock out fast (gamma band) processing. Therefore, this entrainment is qualitatively unlike the embodied synesthetic ringframes experienced clearly in sedation.</p>
+            
+            <h2>Modes of the Union Set</h2>
+            
+            <p>The theory stresses that the behavior of the <em>Union Set</em> is dynamic, with common modes noted below:</p>
+            <div class="table-container">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Mode</th>
+                            <th>Description</th>
+                            <th>Experience</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Phasic Mode</strong></td>
+                            <td>Continuous printing with 0D tracer following periodic trajectory</td>
+                            <td>Tracer or tracer arm/plane following smooth, continuous ring (helix in time schema)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>(Compressed) Discontinuous Phasic Mode</strong></td>
+                            <td>Shortened active phases with extended inter-cycle intervals</td>
+                            <td>Lock-washer phasic with gap between</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Interrupt Mode</strong></td>
+                            <td>Discrete printing of complete manifolds with temporal gaps</td>
+                            <td>Staccato-like "snapshots" or touchpoints of events/rhythm</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Comparison with Other Theories</h2>
+            <div class="table-container">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Theory</th>
+                            <th>Primary Mechanism</th>
+                            <th>Contrast with Ring/Bank</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Global Workspace</strong></td>
+                            <td>Information access and broadcast</td>
+                            <td>Ring/Bank specifies geometric format of workspace content</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Predictive Processing</strong></td>
+                            <td>Prediction error minimization</td>
+                            <td>Ring/Bank emphasizes postdictive processing with geometric constraints:cite[1]</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Integrated Information</strong></td>
+                            <td>Information integration (Φ)</td>
+                            <td>Ring/Bank provides mechanistic account of how integration occurs spatially</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Attention Schema</strong></td>
+                            <td>Model of attention processes</td>
+                            <td>Ring/Bank compatible - specifies geometric implementation of attention</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <h2>Experimental Support</h2>
+            
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h4>Ketamine Studies: 2 Hz Pulse</h4>
+                    <p>Research found 2 Hz pulsing caused by HCN1 channels in hyperpolarized pyramidal neurons in layer 5 of retrosplenial cortex entraining entire cortex, correlating with 2 Hz 'reality frames' reported in altered states<sup><a href="#fn1" id="r1">1</a></sup>.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h4>FM-PCA Rings: Cyclic Motor Task</h4>
+                    <p>Studies discovered frequency modulation PCA rings (~1–3 Hz, locking to rate of hand pedal cycle speed) in monkey motor cortex during rhythmic behaviors, showing neural basis for ring-like processing<sup><a href="#fn2" id="r2">2</a></sup>.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h4>FM-PCA Rings: Tempo Task</h4>
+                    <p>In medial premotor cortex, external and internal tempo tasks showed a correlation between 0º phase of rings (~1–2 Hz, locking to tempo), and onset of next metronome or imagined beat<sup><a href="#fn3" id="r3">3</a></sup>.</p>
+                </div>
+
+                <div class="concept-card">
+                    <h4>AM-PCA Rings: Cortical Gamma Rings</h4>
+                    <p>Found that whole cortex recorded by EEG alternated between sketching-like and ring-like modes, apparently to music. The rings were found to be 5.15 Hz invariant to song tempo<sup><a href="#fn4" id="r4">4</a></sup>.</p>
+                </div>
+            </div>
+            
+            <h2>Clinical Implications</h2>
+            
+            <p>The theory suggests novel explanations for various clinical conditions:</p>
+            
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h4>Paint Anesthesia</h4>
+                    <p>Partial loss of 3D volumetric experience while maintaining temporal and event awareness, possibly due to general reduction in sampling or orchestrating rate (loss of gamma power due to hyperpolarization).</p>
+                </div>
+                
+                <div class="concept-card">
+                    <h4>Pathological Conditions</h4>
+                    <p>This reduction in sampling/orchestration rate (loss of gamma power due to hyperpolarization) could underlie various perceptual and cognitive abnormalities. Many conditions such as Parkinson's, seizures, hydrocephalus, and ALS demonstrate fairly low-frequency bodily movements, as if entrained to a low frequency, or lacking sufficient dopamine to make conscious adjustments more rapidly (the hyperpolarization causes longer bouts of refractoriness in neurons after each frame).</p>
+                </div>
+            </div>
+            
+            <div class="callout">
+                <p><strong>Key Insight:</strong> The Ring/Bank Theory provides a geometric vocabulary for describing conscious experience that bridges phenomenology and mechanism, offering testable predictions about the spatiotemporal dynamics of consciousness.</p>
+            </div>
+            
+            <h2>Current Status and Future Directions</h2>
+            
+            <p>While the Ring/Bank Theory provides a comprehensive mechanistic framework, it remains a developing theory requiring further empirical validation. Current research focuses on:</p>
+            
+            <ul>
+                <li>Identifying specific neural correlates of ringframe generation</li>
+                <li>Understanding compile time vs worldsim runtime, for each 'bin' of experience</li>
+                <li>Running millisecond-accuracy EEG/fNIRs in sedated state</li>
+            </ul>
+            
+            <section class="footnotes">
+                <h2>References</h2>
+                <ol>
+                    <li id="fn1">Vesuna, Deisseroth, Kauvar, et al. (2020). Deep Posteromedial Cortical Rhythm in Dissociation. <em>Nature</em>, 586(7827), 87-94. Retrieved from <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC7553818/" target="_blank">https://pmc.ncbi.nlm.nih.gov/articles/PMC7553818/</a> <a href="#r1">↩</a></li>
+                    <li id="fn2">Saxena, S., Russo, A. A., Cunningham, J., & Churchland, M. M. (2022). Motor cortex activity across movement speeds is predicted by network-level strategies for generating muscle activity. <em>Neuron</em>, 110(5), 839-855. Retrieved from <a href="https://churchland.zuckermaninstitute.columbia.edu/sites/churchland.zuckermaninstitute.columbia.edu/files/content/2022%20Cycling%20speeds.pdf" target="_blank">churchland.zuckermaninstitute.columbia.edu</a> <a href="#r1">↩</a></li>
+                    <li id="fn3">Gámez, J., Mendoza, G., Prado, L., Betancourt, A., & Merchant, H. (2019). The amplitude in periodic neural state trajectories underlies the tempo of rhythmic tapping. <em>PLOS Biology</em>, 17(5), e3000054. Retrieved from <a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3000054" target="_blank">journals.plos.org/plosbiology</a> <a href="#r3">↩</a></li>
+                    <li id="fn4">Caldwell, B. (2025). Cortical PCA: Exploring Potential Tempo and Transient Locking to Musical Stimuli. <em>Journal of Consciousness Studies</em>, 32(3), 45-67. DOI: <a href="https://doi.org/10.62891/01481439" target="_blank">10.62891/01481439</a> <a href="#r4">↩</a></li>
+                </ol>
+            </section>
+            
+            <div class="intro-block">
+                <h3>Continue the Exploration</h3>
+                <p>The Ring/Bank Theory represents a novel approach to understanding consciousness through geometric and rhythmic principles. To learn more about specific mechanisms or explore the extensive terminology of this theory, visit the <a href="/consciousness-dictionary/?filter=ring-bank">Consciousness Dictionary</a> or reach out to discuss at <a href="mailto:caldwbr@gmail.com">caldwbr@gmail.com</a>.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer-container">
+        <p>&copy; 2025 Theories of Consciousness. Content on Ring/Bank Theory originated by Brad Caldwell.</p>
+        <p>Disclaimer: This theory represents a developing framework in consciousness studies and continues to evolve through research and discussion.</p>
+    </footer>
+</body>
+</html>
