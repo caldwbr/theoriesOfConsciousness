@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HST66CSWTB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HST66CSWTB');
+    </script>
+    
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Challenge to Consciousness: Philosophical and Scientific Critiques</title>
+    <meta name="description" content="Exploring fundamental challenges to consciousness theories including the hard problem, mysterianism, free will debates, and critiques of reductionist approaches." />
+    <meta name="keywords" content="consciousness, challenge, hard problem, Nagel, McGinn, Harris, Eagleman, Tallis, Nagasawa, Musser, Davies" />
+    <meta name="author" content="Brad Caldwell">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        :root {
+            --primary-color: #8e44ad;
+            --secondary-color: #9b59b6;
+            --accent-color: #3498db;
+            --light-color: #f5eef8;
+            --dark-color: #2c3e50;
+            --highlight-color: #e74c3c;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            background-color: #f8f9fa;
+        }
+        
+        article {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            border-bottom: 2px solid var(--light-color);
+            padding-bottom: 0.5rem;
+            margin-top: 2.5rem;
+        }
+        
+        h3 {
+            color: var(--dark-color);
+            margin-top: 1.8rem;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            max-width: none;
+        }
+        
+        strong {
+            color: var(--primary-color);
+        }
+        
+        .intro-block {
+            background: #f0f7ff;
+            padding: 1.5rem;
+            border-left: 4px solid var(--secondary-color);
+            margin: 2rem 0;
+            border-radius: 0 4px 4px 0;
+            max-width: none;
+            width: 100%;
+        }
+        
+        .intro-block p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .callout {
+            background: #fff8e1;
+            padding: 1.2rem;
+            border-left: 4px solid #ffc107;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+            max-width: none;
+            width: 100%;
+        }
+        
+        .callout p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .insight {
+            background: #e8f5e9;
+            padding: 1.2rem;
+            border-left: 4px solid #4caf50;
+            margin: 1.5rem 0;
+            border-radius: 0 4px 4px 0;
+            max-width: none;
+            width: 100%;
+        }
+        
+        .insight p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .theory-card {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            max-width: none;
+            width: 100%;
+        }
+        
+        .theory-card p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .footnote-ref {
+            vertical-align: super;
+            font-size: 0.8em;
+            color: var(--secondary-color);
+            text-decoration: none;
+            margin-left: 2px;
+        }
+        
+        .footnote-ref:hover {
+            text-decoration: underline;
+        }
+        
+        .footnotes {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #ddd;
+        }
+        
+        .footnotes ol {
+            padding-left: 1.5rem;
+        }
+        
+        .footnotes li {
+            margin-bottom: 0.8rem;
+            line-height: 1.5;
+        }
+        
+        .footnotes a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        
+        .footnotes a:hover {
+            text-decoration: underline;
+        }
+        
+        .concept-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .concept {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--accent-color);
+        }
+        
+        .theorist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .theorist-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-top: 4px solid var(--secondary-color);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .subcategory-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+            max-width: none;
+            width: 100%;
+        }
+        
+        .subcategory-section p {
+            max-width: none;
+            width: 100%;
+        }
+        
+        .theorist-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .theorist {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            font-size: 0.9rem;
+        }
+        
+        .variation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .variation-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+        
+        .tradition-section {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .quote {
+            background: #f9f9f9;
+            border-left: 10px solid #ccc;
+            margin: 1.5em 10px;
+            padding: 0.5em 10px;
+            font-style: italic;
+        }
+        
+        .quote .author {
+            text-align: right;
+            font-weight: bold;
+            margin-top: 0.5rem;
+        }
+        
+        .state-chart {
+            width: 100%;
+            margin: 2rem 0;
+            border-collapse: collapse;
+        }
+        
+        .state-chart th, .state-chart td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        .state-chart th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .state-chart tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 0 10px;
+            }
+            
+            article {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .concept-grid, .theorist-grid, .variation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+          fetch("/header.html").then(res => res.text()).then(html => {
+              document.getElementById("header-placeholder").innerHTML = html;
+          });
+          fetch('/footer.html')
+            .then(response => response.text())
+            .then(html => { document.getElementById('footer-placeholder').innerHTML = html; });
+      });
+    </script>
+
+    <main>
+      <article>
+        <header>
+          <h1>Challenge to Consciousness: Philosophical and Scientific Critiques</h1>
+          <p class="subtitle">Examining fundamental challenges to understanding consciousness from philosophical, scientific, and conceptual perspectives</p>
+        </header>
+
+        <section>
+          <h2>The Landscape of Consciousness Challenges</h2>
+          
+          <div class="intro-block">
+            <p>Despite decades of research and theorizing, consciousness remains one of the most challenging phenomena to explain<sup><a href="#fn1" id="r1">1</a></sup>. Various thinkers have identified fundamental problems with existing approaches, questioning whether we can ever fully understand subjective experience through objective methods.</p>
+          </div>
+          
+          <p>The "hard problem" of consciousness, articulated by David Chalmers but anticipated by many earlier thinkers, represents just one of several profound challenges. From cognitive limitations to conceptual paradoxes, these critiques force us to reconsider our basic assumptions about mind, matter, and the nature of explanation itself.</p>
+          
+          <div class="callout">
+            <p><strong>Core Proposition:</strong> The challenges to understanding consciousness may be fundamental rather than temporary, pointing to limitations in our cognitive capacities, conceptual frameworks, or scientific methods.</p>
+          </div>
+          
+          <h3>Major Categories of Challenges</h3>
+          
+          <div class="variation-grid">
+            <div class="variation-card">
+              <h4>The Explanatory Gap</h4>
+              <p>The fundamental disconnect between physical processes and subjective experience, first articulated by Leibniz and later developed by Nagel and others.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "No amount of physical information can tell us what it's like to be a bat." - Thomas Nagel</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Cognitive Closure</h4>
+              <p>The possibility that human minds may be inherently incapable of solving the mind-body problem, proposed by Colin McGinn.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "Some problems may be beyond our cognitive capacities, just as quantum mechanics is beyond a dog's understanding."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>The Free Will Problem</h4>
+              <p>Neuroscientific evidence challenging traditional notions of free will and moral responsibility.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "Free will is an illusion, but it's a necessary one for social functioning." - Sam Harris</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Reductionist Limitations</h4>
+              <p>Critiques of attempts to reduce consciousness to neural activity or computational processes.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "Consciousness cannot be reduced to what the brain does anymore than literature can be reduced to what a typewriter does." - Raymond Tallis</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>The Measurement Problem</h4>
+              <p>Difficulties in objectively measuring and quantifying subjective experience.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "We lack the conceptual tools to bridge first-person and third-person perspectives."</p>
+              </div>
+            </div>
+            
+            <div class="variation-card">
+              <h4>Conceptual Confusion</h4>
+              <p>Problems arising from unclear or contradictory concepts in consciousness studies.</p>
+              <div class="insight">
+                <p><strong>Key Insight:</strong> "We don't yet know what a proper theory of consciousness would even look like."</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>Key Thinkers and Their Challenges</h2>
+          
+          <div class="theorist-grid">
+            <div class="theorist-card">
+              <h3>Thomas Nagel</h3>
+              <p><strong>Focus:</strong> The subjective character of experience</p>
+              <p>Nagel's seminal paper "What Is It Like to Be a Bat?" argues that subjective experience cannot be captured by objective physical descriptions. No matter how much we know about bat neurophysiology, we can never know what it's like to experience echolocation.</p>
+              <div class="insight">
+                <p><strong>Key Challenge:</strong> "The existence of a subjective 'what it's like' aspect of experience creates an unbridgeable gap between physical processes and consciousness."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Colin McGinn</h3>
+              <p><strong>Focus:</strong> Cognitive closure and mysterianism</p>
+              <p>McGinn proposes that human cognitive capacities may be fundamentally limited when it comes to understanding consciousness. Just as a dog cannot understand quantum mechanics, humans may lack the cognitive machinery to solve the mind-body problem.</p>
+              <div class="insight">
+                <p><strong>Key Challenge:</strong> "The problem may not be with consciousness itself but with the inherent limitations of our problem-solving abilities."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Sam Harris</h3>
+              <p><strong>Focus:</strong> Neuroscience of free will</p>
+              <p>Harris argues that neuroscience demonstrates free will is an illusion. Our decisions arise from unconscious neural processes, and the feeling of conscious choice is a post-hoc rationalization.</p>
+              <div class="insight">
+                <p><strong>Key Challenge:</strong> "If free will is an illusion, our entire framework of moral responsibility and legal culpability needs radical revision."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>David Eagleman</h3>
+              <p><strong>Focus:</strong> Neurolaw and responsibility</p>
+              <p>Eagleman explores how neuroscience challenges traditional legal concepts of responsibility. He argues for a forward-looking legal system focused on behavior modification rather than backward-looking blame.</p>
+              <div class="insight">
+                <p><strong>Key Challenge:</strong> "Different brains create different moral actors - the legal system must account for neurological diversity."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Raymond Tallis</h3>
+              <p><strong>Focus:</strong> Critique of neuroscientific reductionism</p>
+              <p>Tallis argues against what he calls "neuromania" - the reduction of human experience to brain activity. He emphasizes the importance of culture, language, and interpersonal relations in understanding consciousness.</p>
+              <div class="insight">
+                <p><strong>Key Challenge:</strong> "Consciousness cannot be understood by looking only at brains - we must account for the entire human world of meaning and culture."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Yujin Nagasawa</h3>
+              <p><strong>Focus:</strong> The problem of evil and consciousness</p>
+              <p>Nagasawa explores philosophical challenges at the intersection of consciousness, divinity, and suffering. His work addresses how consciousness creates unique problems for theodicy and philosophical theology.</p>
+              <div class="insight">
+                <p><strong>Key Challenge:</strong> "The existence of consciousness creates unique versions of the problem of evil that challenge traditional theological responses."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>George Musser</h3>
+              <p><strong>Focus:</strong> Spacetime and consciousness</p>
+              <p>Musser explores the relationship between consciousness and fundamental physics, particularly quantum mechanics and spacetime. He examines whether new physics might be needed to explain consciousness.</p>
+              <div class="insight">
+                <p><strong>Key Challenge:</strong> "Our current physical theories may be inadequate to explain how consciousness arises from matter."</p>
+              </div>
+            </div>
+            
+            <div class="theorist-card">
+              <h3>Paul Davies</h3>
+              <p><strong>Focus:</strong> Physics of emergence and complexity</p>
+              <p>Davies examines how complex systems like consciousness can emerge from simple physical laws. He explores whether new principles of organization and information processing are needed.</p>
+              <div class="insight">
+                <p><strong>Key Challenge:</strong> "We need new physical concepts to explain how mind emerges from matter without resorting to dualism or mysticism."</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2>How Challenges Reshape Consciousness Research</h2>
+          
+          <div class="theory-card">
+            <h3>The Problem-First Approach</h3>
+            <p><strong>Core Mechanism:</strong> Starting with fundamental challenges forces us to question basic assumptions and develop more robust theoretical frameworks.</p>
+          </div>
+          
+          <p>These challenges don't just point out problems - they actively reshape how we approach consciousness research:</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Methodological Refinement</h4>
+              <p>Challenges force researchers to develop more sophisticated methods that account for first-person experience.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Conceptual Clarification</h4>
+              <p>Identifying problems helps clarify ambiguous concepts and identify circular reasoning.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Theory Development</h4>
+              <p>Challenges drive the development of new theories that attempt to address fundamental problems.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Interdisciplinary Integration</h4>
+              <p>Addressing challenges requires integrating insights from philosophy, neuroscience, psychology, and physics.</p>
+            </div>
+          </div>
+          
+          <div class="subcategory-section">
+            <h3>Responses to Major Challenges</h3>
+            <p>Researchers have developed various responses to these fundamental challenges:</p>
+            <ul>
+              <li><strong>To the Explanatory Gap:</strong> Some propose new fundamental laws or properties; others argue the gap is conceptual rather than ontological</li>
+              <li><strong>To Cognitive Closure:</strong> Some accept limitations but continue research; others argue new conceptual frameworks might overcome them</li>
+              <li><strong>To Free Will Challenges:</strong> Compatibilist positions attempt to reconcile determinism with meaningful choice</li>
+              <li><strong>To Reductionist Critiques:</strong> Non-reductive physicalism and emergentist positions offer alternatives</li>
+              <li><strong>To Measurement Problems:</strong> New phenomenological methods and neurophenomenology attempt to bridge the gap</li>
+            </ul>
+            <p>Each challenge has generated sophisticated responses that advance our understanding even when they don't provide definitive solutions.</p>
+          </div>
+        </section>
+
+        <section>
+          <h2>Comparison of Major Challenges</h2>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Challenge</th>
+                <th>Primary Proponent</th>
+                <th>Core Argument</th>
+                <th>Implications</th>
+                <th>Potential Responses</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Explanatory Gap</strong></td>
+                <td>Nagel, Levine</td>
+                <td>Physical accounts cannot explain subjective experience</td>
+                <td>Challenges physicalism; suggests property dualism or panpsychism</td>
+                <td>New fundamental laws; conceptual revision; illusionism</td>
+              </tr>
+              <tr>
+                <td><strong>Cognitive Closure</strong></td>
+                <td>McGinn</td>
+                <td>Human minds cannot solve the mind-body problem</td>
+                <td>Suggests accepting mystery or finding indirect approaches</td>
+                <td>Transhumanism; extended cognition; conceptual breakthroughs</td>
+              </tr>
+              <tr>
+                <td><strong>Free Will Problem</strong></td>
+                <td>Harris, Wegner</td>
+                <td>Neuroscience shows decisions precede conscious awareness</td>
+                <td>Undermines moral responsibility; requires legal system revision</td>
+                <td>Compatibilism; revisionist accounts; pragmatic approaches</td>
+              </tr>
+              <tr>
+                <td><strong>Reductionist Critique</strong></td>
+                <td>Tallis, Searle</td>
+                <td>Consciousness cannot be reduced to neural activity</td>
+                <td>Requires new approaches that account for meaning and culture</td>
+                <td>Non-reductive physicalism; embodied cognition; extended mind</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section>
+          <h2>Current Research and Future Directions</h2>
+          
+          <p>Research addressing these challenges continues to evolve across multiple disciplines:</p>
+          
+          <div class="concept-grid">
+            <div class="concept">
+              <h4>Integrated Information Theory</h4>
+              <p>Attempts to mathematically quantify consciousness and bridge the explanatory gap.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Global Workspace Theories</h4>
+              <p>Focus on functional architectures that might explain conscious access.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Predictive Processing</h4>
+              <p>Frames consciousness as prediction error minimization, potentially addressing some challenges.</p>
+            </div>
+            
+            <div class="concept">
+              <h4>Quantum Approaches</h4>
+              <p>Explores whether quantum phenomena might help explain consciousness.</p>
+            </div>
+          </div>
+          
+          <div class="callout">
+            <p><strong>Current Status:</strong> While fundamental challenges remain, research continues to make progress on specific aspects of consciousness. Most researchers now acknowledge the depth of these challenges while continuing to develop increasingly sophisticated approaches.</p>
+          </div>
+          
+          <div class="quote">
+            "The fact that a problem is difficult doesn't mean it's insoluble. But we may need to radically rethink our approach and even our conception of what counts as a solution."
+            <div class="author">— David Chalmers</div>
+          </div>
+        </section>
+
+        <section class="footnotes">
+          <h2>References</h2>
+          <ol>
+            <li id="fn1">Nagel, T. (1974). "What Is It Like to Be a Bat?". <em>The Philosophical Review</em>. <a href="#r1">↩</a></li>
+            <li id="fn2">McGinn, C. (1989). "Can We Solve the Mind-Body Problem?". <em>Mind</em>. <a href="#r2">↩</a></li>
+            <li id="fn3">Harris, S. (2012). <em>Free Will</em>. Free Press. <a href="#r3">↩</a></li>
+            <li id="fn4">Eagleman, D. (2011). <em>Incognito: The Secret Lives of the Brain</em>. Pantheon. <a href="#r4">↩</a></li>
+            <li id="fn5">Tallis, R. (2011). <em>Aping Mankind: Neuromania, Darwinitis and the Misrepresentation of Humanity</em>. Acumen. <a href="#r5">↩</a></li>
+            <li id="fn6">Nagasawa, Y. (2017). <em>Miracles: A Very Short Introduction</em>. Oxford University Press. <a href="#r6">↩</a></li>
+            <li id="fn7">Musser, G. (2015). <em>Spooky Action at a Distance: The Phenomenon That Reimagines Space and Time</em>. Scientific American. <a href="#r7">↩</a></li>
+            <li id="fn8">Davies, P. (2019). <em>The Demon in the Machine: How Hidden Webs of Information Are Solving the Mystery of Life</em>. University of Chicago Press. <a href="#r8">↩</a></li>
+            <li id="fn9">Chalmers, D. (1996). <em>The Conscious Mind: In Search of a Fundamental Theory</em>. Oxford University Press. <a href="#r9">↩</a></li>
+          </ol>
+        </section>
+
+        <section id="contact-info">
+          <h2>Continue the Discussion</h2>
+          <p>The challenges to understanding consciousness represent some of the deepest problems in science and philosophy. If you have thoughts, questions, or want to explore how these challenges inform consciousness theory, reach out at <a href="mailto:caldwbr@gmail.com">caldwbr@gmail.com</a>.</p>
+        </section>
+      </article>
+    </main>
+    
+    <div id="footer-placeholder"></div>
+</body>
+</html>
