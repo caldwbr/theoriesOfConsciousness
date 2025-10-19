@@ -8,10 +8,41 @@
     <meta name="author" content="Brad Caldwell">
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="preconnect" href="https://theoriesofconsciousness.com">
     <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
-    <div id="header-placeholder"></div>
+    <header>
+        <h1><a href="https://www.theoriesofconsciousness.com">Theories of Consciousness</a></h1>
+        <div class="header-menu">
+            <div class="dropdown">
+                <button class="dropbtn">Fundamental Theories</button>
+                <div class="dropdown-content">
+                    <a href="/materialism-consciousness/">1. Materialism</a>
+                    <a href="/non-reductive-physicalism-consciousness/">2. Non-Reductive Physicalism</a>
+                    <a href="/quantum-consciousness/">3. Quantum</a>
+                    <a href="/integrated-information-theory-consciousness/">4. IIT</a>
+                    <a href="/panpsychism-consciousness/">5. Panpsychism</a>
+                    <a href="/monism-consciousness/">6. Monism</a>
+                    <a href="/dualism-consciousness/">7. Dualism</a>
+                    <a href="/idealism-consciousness/">8. Idealism</a>
+                    <a href="/altered-states-consciousness/">9. Altered States</a>
+                    <a href="/challenges-consciousness/">10. Challenges</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Mechanism Theories</button>
+                <div class="dropdown-content">
+                    <a href="/ring-bank-theory-consciousness/">1. Ring/Bank Theory</a>
+                    <a href="/global-workspace-theory-consciousness/">2. Global Workspace Theory</a>
+                    <a href="/integrated-information-theory-consciousness/">3. IIT</a>
+                    <a href="/attention-schema-theory-consciousness/">4. Attention Schema Theory</a>
+                    <a href="/predictive-processing-consciousness/">5. Predictive Processing</a>
+                </div>
+            </div>
+            <a href="/consciousness-dictionary/" class="nav-link">Dictionary</a>
+        </div>
+    </header>
     <script>
     document.addEventListener('DOMContentLoaded', () => {
       const fixNbsp = (root) => {
@@ -21,16 +52,6 @@
         nodes.forEach(n => { n.nodeValue = n.nodeValue.replace(/\$nbsp;?/gi,' ').replace(/\u00A0+/g,' '); });
         root.querySelectorAll('p').forEach(p => { if (/^[\s\u00A0]*$/.test(p.textContent)) p.remove(); });
       };
-
-      fetch("/header.html").then(r => r.text()).then(html => {
-        const el = document.getElementById("header-placeholder");
-        el.innerHTML = html;
-        fixNbsp(el);
-      });
-      fetch('/footer.html').then(r => r.text()).then(html => {
-        const el = document.getElementById('footer-placeholder');
-        if (el) { el.innerHTML = html; fixNbsp(el); }
-      });
     });
     </script>
     <main>
@@ -2551,7 +2572,12 @@
             </div>
         </div>
     </main>
-    <div id="footer-placeholder"></div>
+    <div class="footer-container">
+        <div class="footer-content">
+            <p>&copy; 2025 Brad Caldwell.</p>
+            <p>All Rights Reserved.</p>
+        </div>
+    </div>
     <script src="../dictionary-app.js"></script>
 </body>
 </html>

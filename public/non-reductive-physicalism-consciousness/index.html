@@ -20,7 +20,7 @@
     <meta name="keywords" content="non-reductive physicalism, consciousness, emergence, Ellis, Murphy, van Inwagen, Nagasawa, Sanfey, Northoff" />
     <meta name="author" content="Brad Caldwell">
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    
+    <link rel="preconnect" href="https://theoriesofconsciousness.com">
     <link rel="stylesheet" href="../styles.css" />
     <style>
         :root {
@@ -38,7 +38,7 @@
             color: #333;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 10px;
             background-color: #f8f9fa;
         }
         
@@ -47,7 +47,7 @@
             padding: 2rem;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin: 2rem 0;
+            margin: 0;
         }
         
         header {
@@ -268,17 +268,37 @@
     </style>
 </head>
 <body>
-    <div id="header-placeholder"></div>
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-          fetch("/header.html").then(res => res.text()).then(html => {
-              document.getElementById("header-placeholder").innerHTML = html;
-          });
-          fetch('/footer.html')
-            .then(response => response.text())
-            .then(html => { document.getElementById('footer-placeholder').innerHTML = html; });
-      });
-    </script>
+    <header>
+        <h1><a href="https://www.theoriesofconsciousness.com">Theories of Consciousness</a></h1>
+        <div class="header-menu">
+            <div class="dropdown">
+                <button class="dropbtn">Fundamental Theories</button>
+                <div class="dropdown-content">
+                    <a href="/materialism-consciousness/">1. Materialism</a>
+                    <a href="/non-reductive-physicalism-consciousness/">2. Non-Reductive Physicalism</a>
+                    <a href="/quantum-consciousness/">3. Quantum</a>
+                    <a href="/integrated-information-theory-consciousness/">4. IIT</a>
+                    <a href="/panpsychism-consciousness/">5. Panpsychism</a>
+                    <a href="/monism-consciousness/">6. Monism</a>
+                    <a href="/dualism-consciousness/">7. Dualism</a>
+                    <a href="/idealism-consciousness/">8. Idealism</a>
+                    <a href="/altered-states-consciousness/">9. Altered States</a>
+                    <a href="/challenges-consciousness/">10. Challenges</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Mechanism Theories</button>
+                <div class="dropdown-content">
+                    <a href="/ring-bank-theory-consciousness/">1. Ring/Bank Theory</a>
+                    <a href="/global-workspace-theory-consciousness/">2. Global Workspace Theory</a>
+                    <a href="/integrated-information-theory-consciousness/">3. IIT</a>
+                    <a href="/attention-schema-theory-consciousness/">4. Attention Schema Theory</a>
+                    <a href="/predictive-processing-consciousness/">5. Predictive Processing</a>
+                </div>
+            </div>
+            <a href="/consciousness-dictionary/" class="nav-link">Dictionary</a>
+        </div>
+    </header>
 
     <main>
       <article>
@@ -546,6 +566,11 @@
       </article>
     </main>
     
-    <div id="footer-placeholder"></div>
+    <div class="footer-container">
+        <div class="footer-content">
+            <p>&copy; 2025 Brad Caldwell.</p>
+            <p>All Rights Reserved.</p>
+        </div>
+    </div>
 </body>
 </html>
