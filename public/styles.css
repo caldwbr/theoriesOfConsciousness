@@ -683,3 +683,171 @@ header h1 {
         }
     }
 }
+
+/* Fix for main page sections - minimal and safe */
+#video-presentation,
+#papers-apps-links,
+#contact-info {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin: 2rem 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Ensure these sections don't break on mobile */
+@media (max-width: 768px) {
+    #video-presentation,
+    #papers-apps-links,
+    #contact-info {
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
+
+/* FIX THE PARENT CONTAINERS */
+#dictionary-entries {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Ensure main container doesn't add extra width */
+main {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 1rem !important; /* Add some padding instead of margin */
+    box-sizing: border-box !important;
+}
+
+/* Nuclear option for mobile */
+@media (max-width: 768px) {
+    body {
+        width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+    
+    main {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 1rem !important;
+        margin: 0 !important;
+    }
+    
+    #dictionary-entries {
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    
+    .card-link {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    .entry {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 1rem !important;
+        border-radius: 0 !important;
+    }
+}
+
+.card-link { 
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    position: static !important;
+    left: auto !important;
+    right: auto !important;
+}
+
+@media (max-width: 768px) {
+    .card-link {
+        width: 94vw !important;
+        max-width: 94vw !important;
+        margin-left: calc(-47vw + 50%) !important;
+        margin-right: calc(-47vw + 50%) !important;
+    }
+}
+
+.entry-media-container {
+    display: flex;
+    flex-wrap: wrap; /* CRITICAL - allows wrapping */
+    gap: 1.5rem;
+    align-items: flex-start; /* Don't force equal heights */
+}
+
+.entry-media-container .entry-image,
+.entry-media-container .entry-video {
+    flex: 1 1 300px; /* Flexible, min 300px, can wrap */
+    min-width: 0; /* Allows shrinking */
+}
+
+/* On mobile, force single column */
+@media (max-width: 768px) {
+    .entry-media-container {
+        flex-direction: column;
+    }
+    
+    .entry-media-container .entry-image,
+    .entry-media-container .entry-video {
+        flex: 1 1 100%; /* Full width on mobile */
+        width: 100%;
+    }
+    
+    .entry-media-container .entry-video iframe {
+        height: 200px; /* Consistent height on mobile */
+    }
+}
+
+.entry-header {
+    display: flex;
+    flex-wrap: wrap; /* CRITICAL - allows wrapping */
+    gap: 0.5rem;
+    align-items: flex-start;
+    border-bottom: 1px solid #d1c9bd;
+    padding-bottom: 8px;
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.entry-header h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5em;
+    font-weight: 500;
+    max-width: 100%;
+    /* Allow the title to wrap naturally */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+    .entry-header {
+        flex-direction: row; /* Keep them in a row */
+        flex-wrap: wrap; /* But allow wrapping */
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .entry-header h3 {
+        width: auto; /* NOT 100% - let title be natural width */
+        margin-bottom: 0; /* Remove the bottom margin */
+        flex-shrink: 1; /* Allow title to shrink if needed */
+    }
+    
+    .category-tag {
+        flex-shrink: 0; /* Don't let tags shrink */
+    }
+}
