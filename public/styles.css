@@ -873,3 +873,21 @@ main {
 .card-link {
     position: relative !important;
 }
+
+.affiliate-link {
+    display: inline-block;
+    background: #a35d4f; /* Brown color */
+    color: white !important;
+    padding: 8px 16px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin: 0.5rem 0;
+}
+
+.affiliate-link:hover {
+    background: #8a4c3f; /* Darker brown on hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
