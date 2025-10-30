@@ -897,3 +897,144 @@ main {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+/* Paper-specific styles that override your main styles for theory pages */
+.theory-page body {
+    font-family: "Times New Roman", serif !important;
+    color: #333 !important;
+    background: white !important;
+    max-width: 8.5in !important;
+    margin: 0 auto !important;
+    padding: 1in !important;
+}
+
+.theory-page main {
+    max-width: none !important;
+    padding: 0 !important;
+}
+
+.theory-page h1, 
+.theory-page h2, 
+.theory-page h3, 
+.theory-page h4 {
+    font-family: "Times New Roman", serif !important;
+    color: #0064c8 !important;
+    border-bottom: 1px solid #ccc !important;
+    text-align: left !important;
+}
+
+.theory-page h1 {
+    font-size: 1.8em !important;
+    border-bottom: 2px solid #0064c8 !important;
+}
+
+/* Table styles for the paper */
+.theory-page table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    margin: 1em 0 !important;
+}
+
+.theory-page th, 
+.theory-page td {
+    border: 1px solid #ddd !important;
+    padding: 8px !important;
+    text-align: left !important;
+}
+
+.theory-page th {
+    background-color: #f2f2f2 !important;
+    font-weight: bold !important;
+}
+
+/* Figure styles */
+.theory-page .figure {
+    text-align: center !important;
+    margin: 2em 0 !important;
+}
+
+.theory-page .figure img {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+.theory-page .caption {
+    font-style: italic !important;
+    margin-top: 0.5em !important;
+}
+
+/* Abstract box */
+.theory-page .abstract {
+    background: #f8f9fa !important;
+    padding: 1em !important;
+    border-left: 4px solid #0064c8 !important;
+    margin: 1em 0 !important;
+}
+
+/* Bibliography */
+.theory-page .bibliography {
+    margin-top: 2em !important;
+}
+
+.theory-page .bib-item {
+    margin-bottom: 0.5em !important;
+    padding-left: 2em !important;
+    text-indent: -2em !important;
+}
+
+/* Hide your site's header/footer on paper pages if needed */
+.theory-page header,
+.theory-page .footer-container {
+    display: none !important;
+}
+
+/* Math equation containers for horizontal scrolling */
+.math-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 1em 0;
+    padding: 0.5em 0;
+}
+
+/* Ensure equations don't break the layout */
+.math-container .equation {
+    min-width: min-content;
+    padding: 0 1em;
+}
+
+/* Bibliography items horizontal scrolling */
+.bib-item {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: 0.5em;
+    padding-left: 2em;
+    text-indent: -2em;
+}
+
+/* Add visual scroll indicators on mobile */
+@media (max-width: 768px) {
+    .math-container,
+    .bib-item {
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+        background: #f8f9fa;
+    }
+    
+    .math-container::-webkit-scrollbar,
+    .bib-item::-webkit-scrollbar {
+        height: 6px;
+    }
+    
+    .math-container::-webkit-scrollbar-thumb,
+    .bib-item::-webkit-scrollbar-thumb {
+        background: #0064c8;
+        border-radius: 3px;
+    }
+    
+    .math-container::-webkit-scrollbar-track,
+    .bib-item::-webkit-scrollbar-track {
+        background: #e9ecef;
+    }
+}

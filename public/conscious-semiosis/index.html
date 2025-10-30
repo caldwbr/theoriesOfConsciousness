@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HST66CSWTB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HST66CSWTB');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ring Bank Theory of Conscious Semiosis | Theories of Consciousness</title>
+    <link rel="preconnect" href="https://theoriesofconsciousness.com">
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        /* Base styles matching academic paper formatting */
+        body {
+            font-family: "Times New Roman", serif;
+            line-height: 1.6;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0 0.1in;
+            color: #333;
+            background: white;
+        }
+        
+        h1, h2, h3, h4 {
+            color: #0064c8; /* ringblue */
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+        
+        h1 {
+            font-size: 1.8em;
+            text-align: center;
+            border-bottom: 2px solid #0064c8;
+            padding-bottom: 0.5em;
+        }
+        
+        h2 {
+            font-size: 1.4em;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 0.3em;
+        }
+        
+        h3 { font-size: 1.2em; }
+        h4 { font-size: 1.1em; }
+        
+        .abstract {
+            background: #f8f9fa;
+            padding: 1em;
+            border-left: 4px solid #0064c8;
+            margin: 1em 0;
+        }
+        
+        .keywords {
+            font-style: italic;
+            margin: 1em 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        .math {
+            font-family: "Times New Roman", serif;
+            font-style: italic;
+        }
+        
+        .equation {
+            text-align: center;
+            margin: 1em 0;
+        }
+        
+        .figure {
+            text-align: center;
+            margin: 2em 0;
+        }
+        
+        .figure img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .caption {
+            font-style: italic;
+            margin-top: 0.5em;
+        }
+        
+        .bibliography {
+            margin-top: 2em;
+        }
+        
+        .bib-item {
+            margin-bottom: 0.5em;
+            padding-left: 2em;
+            text-indent: -2em;
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                padding: 0;
+                max-width: none;
+            }
+        }
+    </style>
+    <!-- MathJax for LaTeX rendering -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                A: "{\\mathcal{A}}",
+                B: "{\\mathcal{B}}", 
+                R: "{\\mathcal{R}}",
+                I: "{\\mathcal{I}}",
+                T: "{\\mathcal{T}}",
+                M: "{\\mathcal{M}}",
+                D: "{\\mathcal{D}}",
+                Ustruct: "{\\mathcal{U}_{\\mathrm{struct}}}",
+                Sim: "{\\mathrm{Sim}}",
+                SO: "{\\mathrm{SO}}",
+                vec: ["{\\mathbf{#1}}", 1]
+            }
+        },
+        svg: {
+            fontCache: 'global'
+        }
+    };
+    </script>
+</head>
+<body class="theory-paper">
+    <header>
+        <h1><a href="https://www.theoriesofconsciousness.com">Theories of Consciousness</a></h1>
+        <div class="header-menu">
+            <div class="dropdown">
+                <button class="dropbtn">Fundamental Theories</button>
+                <div class="dropdown-content">
+                    <a href="/materialism-consciousness/">1. Materialism</a>
+                    <a href="/non-reductive-physicalism-consciousness/">2. Non-Reductive Physicalism</a>
+                    <a href="/quantum-consciousness/">3. Quantum</a>
+                    <a href="/integrated-information-theory-consciousness/">4. IIT</a>
+                    <a href="/panpsychism-consciousness/">5. Panpsychism</a>
+                    <a href="/monism-consciousness/">6. Monism</a>
+                    <a href="/dualism-consciousness/">7. Dualism</a>
+                    <a href="/idealism-consciousness/">8. Idealism</a>
+                    <a href="/altered-states-consciousness/">9. Altered States</a>
+                    <a href="/challenges-consciousness/">10. Challenges</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Mechanism Theories</button>
+                <div class="dropdown-content">
+                    <a href="/ring-bank-theory-consciousness/">1. Ring/Bank Theory</a>
+                    <a href="/global-workspace-theory-consciousness/">2. Global Workspace Theory</a>
+                    <a href="/integrated-information-theory-consciousness/">3. IIT</a>
+                    <a href="/attention-schema-theory-consciousness/">4. Attention Schema Theory</a>
+                    <a href="/predictive-processing-consciousness/">5. Predictive Processing</a>
+                </div>
+            </div>
+            <a href="/consciousness-dictionary/" class="nav-link">Dictionary</a>
+        </div>
+    </header>
+
+    <h1>Ring Bank Theory of Conscious Semiosis:<br>Baseline Dynamics and Aboutness Modulation</h1>
+    
+    <div style="text-align: center;">
+        <strong>Brad Caldwell, BSCE</strong><br>
+        <a href="mailto:caldwbr@gmail.com">caldwbr@gmail.com</a><br>
+        <em>October 29, 2025</em>
+    </div>
+
+    <div class="abstract">
+        <strong>Abstract</strong><br>
+        <strong>Ring Bank Theory</strong> (RBT) is a geometric, access-first account of conscious semiosis. The theory posits a perspective-invariant <strong>Bank</strong> $\B$ (a shape manifold acted on by $\Sim(3)$), a dynamic, low-dimensional <strong>Access Manifold</strong> $\A(t)$ on which conscious sampling/printing occurs, and a <strong>Time Schema</strong> $\T$ that turns discrete prints into apparent flow. <strong>Real</strong> ($\R$) and <strong>Imaginal</strong> ($\I$) schemas are readouts reconstructed with characteristic latency (yet extrapolating predictively into the present) from recent ringframes $\rho$ produced by a <strong>printing operator</strong> $\Pi$ acting on $\A$. <strong>Baseline dynamics</strong> supply cadence (spirographic, stationary, chirp), while <strong>aboutness modulation</strong> provides context-sensitive adjustments of pose (via $\Sim(3)$), intra-bank walks, and timing. A point-process <strong>hazard</strong> $h(t)$ mixes baseline rhythm, high-level "mic" events $\M$, and adaptation to schedule interrupt-like prints, while phasic modes are continuously modulated rather than gated. The framework yields testable predictions for hyperpolarization bottlenecks, photic entrainment, cardiac-phase effects, vestibular "throw," and dual-plane refresh, and it integrates classic phenomenology (rings, bank skewer, vibes, paint) with Lie-group posing and point-process statistics [1-5].
+    </div>
+
+    <div class="keywords">
+        <strong>Keywords:</strong> consciousness, semiosis, geometry, shape space, similarity group, hybrid dynamical system, hazard function, cross-frequency coupling, retrosplenial cortex, pulvinar, DMN, dissociation.
+    </div>
+
+    <h2>1 Introduction</h2>
+    
+    <p>RBT treats conscious experience as <em>semiosis in motion</em>. Instead of beginning with content, RBT begins with <em>when and where</em> access happens, and lets <em>what</em> (paint/semantics) be the downstream consequence. We articulate three organizing claims:</p>
+    
+    <ol>
+        <li><strong>Access-first geometry.</strong> Conscious sampling occurs on a dynamic, low-dimensional <em>Access Manifold</em> $\A(t)$ embedded in a posed <em>Bank</em> $\B$ (a shape manifold under $\Sim(3)$). A printing operator $\Pi$ writes ringframes $\rho(t)$ that populate a fading <em>Time Schema</em> $\T$.</li>
+        <li><strong>Baseline vs. aboutness.</strong> A slow <em>baseline</em> sets macro-cadence and bank behavior; <em>aboutness modulation</em> steers pose, intra-bank walks, and timing so that access meets the currently relevant object of thought or action.</li>
+        <li><strong>Semiosis as cascade.</strong> A Peircean-style three-stage cascade links mic/baseline driven prints (representamina) to $\R/\I$ readouts (interpretants) and then to threats/affordances and action (objects) [6]. Aboutness is sometimes controlled, often modulated.</li>
+    </ol>
+    
+    <p>This paper consolidates prior drafts into a self-consistent formalization, gives precise operational definitions for modes of printing, and outlines falsifiable predictions aligned with neural observations in dissociation/hyperpolarization and task-related dynamics [7-11].</p>
+
+    <h2>2 Core Objects</h2>
+
+    <h3>2.1 Bank ($\B$): 3D Shape Space with $\Sim(3)$ Action</h3>
+    
+    <p>In plain terms, the Bank is largely a cube/sphere agglomerated object, with hundreds of concentric copies scaling inwards. In reality, every shape you model stores lightly upon it. Let $\mathcal{S}$ denote a shape space of configurations modulo translation, rotation, and scale (<em>Kendall-type</em> shape space). The Bank $\B$ could be thought of as a single, extremely complex shape, and as such, could be considered a latent point (or submanifold) $S\in\mathcal{S}$ encoding perspective-invariant relational geometry (compare Lehar's concentric scaffolds [3,4]). A conscious <em>display</em> chooses a pose $g(t)\in\Sim(3)$ acting on a canonical representative:</p>
+    <div class="math-container">
+        <div class="equation">
+            $$X_{\text{display}}(t) := g(t)\cdot S,\qquad g(t) = \bigl(s(t), R(t), t(t)\bigr), \quad R(t) \in \SO(3)$$
+        </div>
+    </div>
+    
+    <p>Content and context can restrict $g(t)$ to a <em>coset</em> $g(t)H$ where $H$ stabilizes $S$ (symmetries). This separation of <em>shape</em> (what) and <em>pose</em> (where/how big) makes <em>attitude misalignment</em> precise: e.g., a yaw error is a systematic rotation in $R(t)$ between body- and environment-subspaces (cf. grasp underreach anecdote).</p>
+
+    <h3>2.2 Real Schema ($\R$): 3D Veridical World Model for Action</h3>
+    
+    <p>The real schema $\R$ is the 3D understanding of the immediate world that guides the body schema and physical movement. It consists of:</p>
+    
+    <ul>
+        <li><strong>Stereo geometry:</strong> Left-eye and right-eye volumes merged into a cyclopean view behind the nose via rotation around the focal object</li>
+        <li><strong>Hierarchical structure:</strong> Nested schemas including body, environment, and key object representations</li>
+        <li><strong>Dual temporal modes:</strong> Both static (present snapshot) and dynamic (changing world) representations</li>
+    </ul>
+    
+    <p>As the servo target for physical action, $\R$ provides the spatial framework for avatar movement and real-world interaction. Movement errors often arise from <strong>attitude misalignment</strong> between the <strong>body schema</strong> and the visually-derived <strong>environment schema</strong> (the two main components of $\R$). For example, a <strong>yaw error</strong> in the body schema—where it is assumed to be rotated slightly clockwise (bird's-eye view) from its actual position relative to the visually perceived refrigerator—results in an underreach when grasping the handle. The arm is miscalculated as being closer to the target than it actually is, despite correct trajectory planning.</p>
+
+    <!-- Continue with remaining sections following the same pattern -->
+
+    <h2>3 Physics Modeling, Schema/Camera Posing, and Perspective</h2>
+    
+    <p>The conscious display $\D$ (or $U_{\text{struct}}$) integrates three geometric streams: <strong>Physics</strong>—the inferred 3D world in $\R$; <strong>Perspective</strong>—the $\mathrm{SE}(3)$ camera pose; <strong>Pose</strong>—the $\Sim(3)$ overlay of Bank and Imaginal schemas. These determine what is seen, from where, and how internal volumes are scaled and placed.</p>
+
+    <h3>3.1 Physics Modeling and Schema/Camera Posing</h3>
+    
+    <p>In computer animation, object physics (an apple falling) and camera scene-framing (orbiting around it) are separate elements jointly linked by keyframes. Similarly, the brain must reify raw signals into physical geometry, position the self-model at a viewpoint, and "pose" the overlay of mental imagery at a specific location, orientation, and scale (the posing is a Sim(3) action on $\I$). Finally, any ongoing aboutness stream is able to exert coordinated modulation on baseline behaviors (of bank, imagination, printing operator timing/modes, selection of $\A$, behavior output, etc.). The conscious display $\D$ (equivalently $U_{\text{struct}}$) is the integrated result of baseline defaults and any coordinated modulation by the aboutness vector $\vec{C}(t)$. The posing of $\B$, $\I$, $\Xi_{\text{Cyclopean}}$, $\Xi_{\text{Mind's Eye}}$, etc., are governed by a small set of Lie groups acting on Euclidean space, shown in Table 1.</p>
+
+    <table>
+        <caption>Table 1: Principal geometric groups governing schema posing and display composition.</caption>
+        <thead>
+            <tr>
+                <th>Group</th>
+                <th>Action</th>
+                <th>Functional Role in Display</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$\mathbf{SO(2)}$</td>
+                <td>Planar rotation in $\mathbb{R}^2$</td>
+                <td>Azimuthal orientation within ringframes</td>
+            </tr>
+            <tr>
+                <td>$\mathbf{Sim(2)}$</td>
+                <td>2D rotation, translation, uniform scaling</td>
+                <td>Projection planes (retinal/imaginative slices)</td>
+            </tr>
+            <tr>
+                <td>$\mathbf{SO(3)}$</td>
+                <td>3D rotation</td>
+                <td>Orientation of body, head, gaze</td>
+            </tr>
+            <tr>
+                <td>$\mathbf{SE(3)}$</td>
+                <td>3D rotation and translation</td>
+                <td>Pose of real and mind's eye cameras</td>
+            </tr>
+            <tr>
+                <td>$\mathbf{Sim(3)}$</td>
+                <td>3D rotation, translation, uniform scaling</td>
+                <td>Bank/imaginal embedding and relative scale</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>$\Sim(3)$ sets global placement; $\mathrm{SE}(3)$ moves cameras within posed spaces. A radiance sphere $L(\omega,\nu)$ describes physical input, while $L_{\text{perc}}(\omega)$ encodes solved perceptual color/intensity per direction, shared by $\R$ and $\I$.</p>
+
+    <h3>3.2 Camera Perspective (Radiance)</h3>
+
+    <p>In addition to geometric transformations, the <strong>radiance sphere</strong> 
+    $L(\omega,\nu)$ represents the directional and frequency-dependent energy distribution over the unit sphere of orientations $\omega \in \mathbb{S}^2$ and spectral domain $\nu$.
+    This quantity captures the angular structure of visual illumination 
+    and serves as the input to derive painted detail (<em>paint</em>) within the posed $\R$ schema.</p>
+
+    <div class="math-container">
+        <div class="equation">
+            $$L_{\text{phys}}(\omega, \nu) : \mathbb{S}^2 \times \mathbb{R}^+ \rightarrow \mathbb{R}^+$$
+        </div>
+    </div>
+
+    <table>
+        <caption>Physical radiance field definition</caption>
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Meaning</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$L_{\text{phys}}$</td>
+                <td>Radiance — the amount of light per unit area, per direction, and per frequency</td>
+            </tr>
+            <tr>
+                <td>$\omega$</td>
+                <td>A direction on the unit sphere $\mathbb{S}^2$ (a vector pointing outward from the eye or sensor)</td>
+            </tr>
+            <tr>
+                <td>$\nu$</td>
+                <td>Frequency of light in hertz (sometimes expressed as wavelength $\lambda$ in meters)</td>
+            </tr>
+            <tr>
+                <td>$\mathbb{S}^2 \times \mathbb{R}^+$</td>
+                <td>Domain: all viewing directions (unit sphere) $\times$ all positive frequencies</td>
+            </tr>
+            <tr>
+                <td>$\mathbb{R}^+$</td>
+                <td>Range: a single positive real value — radiance in watts·m$^{-2}$·sr$^{-1}$·Hz$^{-1}$</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>Perceptually, the 2-D visual field of $\R$ or $\I$ consists of a single color (derived from a 3D opponent-color manifold of H/S/B) and intensity for any solid angle $\omega$.</p>
+
+    <div class="math-container">
+        <div class="equation">
+            $$L_{\text{perc}}(\omega) : \mathbb{S}^2 \rightarrow \mathbb{C}_{\text{perc}} \times \mathbb{R}^+$$
+        </div>
+    </div>
+
+    <table>
+        <caption>Perceptual radiance field definition</caption>
+        <thead>
+            <tr>
+                <th>Symbol</th>
+                <th>Meaning</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>$L_{\text{perc}}$</td>
+                <td>Perceptual radiance — the <em>conscious</em> color and intensity assigned to direction $\omega$</td>
+            </tr>
+            <tr>
+                <td>$\omega$</td>
+                <td>A direction on the perceptual sphere $\mathbb{S}^2$ (each ray of conscious visual space)</td>
+            </tr>
+            <tr>
+                <td>$\mathbb{C}_{\text{perc}}$</td>
+                <td>The perceptual color space (e.g., a 3D opponent-color manifold of hue, saturation, brightness)</td>
+            </tr>
+            <tr>
+                <td>$\mathbb{S}^2$</td>
+                <td>Domain: all perceptual ray directions in the conscious field</td>
+            </tr>
+            <tr>
+                <td>$\mathbb{C}_{\text{perc}} \times \mathbb{R}^+$</td>
+                <td>Range: one perceived color and intensity for each direction</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <caption>Camera reference frames and their associated radiance fields</caption>
+        <thead>
+            <tr>
+                <th>Level</th>
+                <th>Camera</th>
+                <th>Field</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Physical</td>
+                <td><em>Retinal Camera</em><br>(biological eyes)</td>
+                <td>$L_{\text{phys}}(\omega,\nu)$ — physical radiance: intensity as a function of viewing direction $\omega \in \mathbb{S}^2$ and frequency $\nu \in \mathbb{R}^+$. Represents incoming spectral energy (intensities of red through violet) before any cortical processing.</td>
+            </tr>
+            <tr>
+                <td>Perceptual<br>(External Scene)</td>
+                <td><em>Cyclopean Camera</em><br>(fused-avatar eye)</td>
+                <td>$L_{\text{perc}}(\omega)$ — perceptual radiance: the solved percept for each direction $\omega$, i.e. one experienced color and brightness value derived from external sensory input.</td>
+            </tr>
+            <tr>
+                <td>Perceptual<br>(Internal Scene)</td>
+                <td><em>Imaginal Camera</em><br>(mind's eye)</td>
+                <td>$L_{\text{perc}}(\omega)$ — same perceptual format (color and brightness per direction), but sourced from internally generated schema geometry rather than current retinal input.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>$L_{\text{phys}}$ is the physical spectral input, while $L_{\text{perc}}$ is the unified perceptual radiance field for both externally grounded and internally generated scenes ($\R$ and $\I$). 
+    The Cyclopean and mind's eyes can each be modeled as infinitesimal point cameras embedded in the conscious display, possessing full $\mathrm{SE}(3)$ freedom with defined up, gaze, and left vectors for capturing perspective views from $\R$ and/or $\I$.</p>
+
+    <ol>
+        <li><strong>The spatial inverse problem:</strong> the eyes receive two-dimensional radiance patterns, yet the system must reify a three-dimensional world as their cause. Each retinal image is an array of directions $\omega$ whose depth structure must be inferred as reified source/altering objects within the real schema $\R$.</li>
+
+        <li><strong>The color inverse problem:</strong> light from a distal surface (e.g. brown wallpaper) may pass through multiple semi-transparent layers—such as two layers of green glass from a Coke bottle and two of a red balloon—before reaching the eyes. V1 arrives at a single mixed color and intensity for that direction, yet the visual system must recover and assign distinct colors to the reified objects responsible for the mixture: the red balloon, the green Coke bottle, and the brown wall. This is analogous to cel animation rendered in three dimensions: each layer (wall, Coke bottle, balloon) contributes to the final pixel but retains its own object-attached color property in the reconstructed scene.</li>
+
+        <li><strong>Perspective color vs. object color:</strong> in the conscious display, each viewing direction $\omega$ carries only one apparent color and intensity; but in the reified real schema $R$, multiple voxel locations along that ray—sometimes five or more—each possess their own color property anchored to object meaning and depth.</li>
+    </ol>
+
+    <h2>4 Aboutness Modulation and Multidimensional Control</h2>
+
+    <p>The Bank $\B$ operates under rhythmic baseline behaviors (stationary, revolving, or ebb/flow),  
+    which maintain ongoing $\Sim(3)$ motion and spatial coherence. Superimposed upon these baselines  
+    is a multidimensional modulation envelope governed by an <em>aboutness vector</em> $\vec{C}(t)$ that 
+    coordinates pose, timing, and access across all active schemas.</p>
+
+    <h3>4.1 Bank Baseline Behaviors and Modulation Envelope</h3>
+
+    <ul>
+        <li><strong>Stationary:</strong> Fixed $\Sim(3)$ pose requiring explicit $\T$ schema stabilization.</li>
+        <li><strong>Revolving (primary):</strong> Continuous $\Sim(3)$ motion with toroidal geometry—manifesting as <em>pure rotation</em>, <em>spirographic rolling</em>, or <em>tidally locked orbit</em>—with major radius ranging from compact (tight spirograph) to extended (torus-scale) trajectories. Cylinder, sphere, and cone variants of spirographic behavior may occur.</li>
+        <li><strong>Ebb/Flow:</strong> Hybrid oscillation combining slow scale-shifts with rapid inertial jerks.</li>
+    </ul>
+
+    <p>These baselines are continuously deformed by a modulation envelope acting through three control domains:</p>
+    <div class="math-container">
+        <div class="equation">
+            $$\begin{align*}
+            \textbf{Pose adjustment:} & \quad \Delta g(t) \in \Sim(3),\\
+            \textbf{Intra-bank walk/shape-shift:} & \quad \A_{\text{shift}}(t) \subset \B,\\
+            \textbf{Temporal synchronization:} & \quad t_{\text{align}} = \arg\min_t \|\B(t) - \vec{x}_{\text{target}}\|.
+            \end{align*}$$
+        </div>
+    </div>
+    <h3>4.2 Coordinated Aboutness Field</h3>
+
+    <p>Aboutness is represented by a vector $\vec{C}(t)$ in concept space,  
+    but functionally behaves as a global control field synchronizing multiple geometric systems.  
+    It jointly modulates:</p>
+
+    <ul>
+        <li>The $\Sim(3)$ pose of the <strong>Imaginal schema</strong> $\I$ (scale, 3D orientation, and translation);</li>
+        <li>The $\Sim(3)$ pose of the <strong>Bank</strong> $\B$, adjusting the reference geometry.</li>
+        <li>The <strong>selection</strong> of the access manifold $\A$, which also fixes the effective $\Sim(3)$ pose of $\T$, and the <strong>timing</strong> of operations by $\Pi$.</li>
+        <li>The <strong>mode and signal</strong> of the printing operator $\Pi$  
+              (phasic, compressed phasic, interrupt, or extrusion),  
+              determining how ringframes $\rho(t)$ materialize in $\T$.</li>
+        <li>The <strong>head/eye turns</strong> of the avatar (and of the mind's avatar, when present as a non-servo, pretend body schema in $\I$), and <strong>orbits, jumps</strong>, and other exotic behaviors of the mind's eye. All of these are examples of dynamic SE(3) posing of head and $\Xi_{\text{Cyclopean}}$ and $\Xi_{\text{Mind's Eye}}$.</li>
+        <li><strong>Jump-cuts</strong> and <strong>orbital cross-fades</strong> between $\R$ and $\I$ (as facilitated by $\Xi_{\text{Cyclopean}}$ and $\Xi_{\text{Mind's Eye}}$), and varying opacity overlays of $\I$ visible to $\Xi_{\text{Cyclopean}}$.</li>
+    </ul>
+
+    <p>Thus, $\vec{C}(t)$ orchestrates simultaneous modulation across all these manifolds,  
+    binding pose, access, and printing into a unified act of reference.</p>
+
+    <h3>4.3 Capture Dynamics and Timescales</h3>
+
+    <div class="math-container">
+        <div class="equation">
+            $$\Delta g(t) = f(\vec{C},t), \qquad \vec{C} \in \text{Concept Space}.$$
+        </div>
+    </div>
+
+    <p><strong>Capture timescales:</strong></p>
+    <ul>
+        <li><strong>Short-term (Keyframing):</strong> Rapid modulations (100–500 ms) in "mic voice" (aboutness)  
+              — e.g., hand gesture shifts, driving gaze changes, cooking task transitions.</li>
+        <li><strong>Long-term (Locked capture):</strong> Sustained alignment (seconds)  
+              — e.g., tracking an object, watching a performer, or following a melody.</li>
+    </ul>
+
+    <h3>4.4 Unified Control Formulation</h3>
+
+    <p>Baseline dynamics integrate with aboutness-driven modulation as:</p>
+    <div class="math-container">
+        <div class="equation">
+            $$\begin{align*}
+            \textbf{Baseline:} & \quad \B_\mathcal{D} = g_\mathcal{D}(\B),\\
+            \textbf{Modulated:} & \quad \B_{\mathcal{D},\text{mod}}(t) = \B_\mathcal{D} + \Delta g(\vec{C},t),\\
+            \textbf{Aboutness:} & \quad \vec{C} =
+              \begin{cases}
+              \text{Top-down: intentional focus, self/goal-driven}\\
+              \text{Bottom-up: sensory salience or hazard-driven.}
+              \end{cases}
+            \end{align*}$$
+        </div>
+    </div>
+    <h3>4.5 Unified System Dynamics</h3>
+
+    <p>The overall system evolves under dual influences:  
+    <strong>aboutness-driven modulation</strong> versus <strong>attractor-state inertia</strong>:</p>
+    <div class="math-container">
+        <div class="equation">
+            $$\frac{d}{dt}
+            \begin{bmatrix}
+            \B \\[4pt]
+            \A \\[4pt]
+            \Pi \\[4pt]
+            \I \\[4pt]
+            \Xi
+            \end{bmatrix}
+            =
+            \alpha\,F(\vec{C}(t))
+            +
+            \gamma\,H\!\left(
+            \begin{bmatrix}
+            \B \\[4pt]
+            \A \\[4pt]
+            \Pi \\[4pt]
+            \I \\[4pt]
+            \Xi
+            \end{bmatrix}_{\text{current}}
+            \right),$$
+        </div>
+    </div>
+    <p>where $F$ describes $\vec{C}(t)$–driven coordination across all schemas and cameras,  
+    and $H$ denotes the system's tendency to maintain its current coupled configuration.  
+    $\alpha$ and $\gamma$ weight novelty versus habit.</p>
+
+    <h3>4.6 Operational Examples</h3>
+
+    <ul>
+        <li><strong>Popcorn stand:</strong> scent $\rightarrow\vec{C}$ = popcorn location $\rightarrow$ $\B$ orients + scales + $\A$ walks.</li>
+        <li><strong>Street performance:</strong> visual salience $\rightarrow\vec{C}$ = juggler $\rightarrow$ long-term general capture, fast-moving balls may capture more transiently.</li>
+        <li><strong>Driving:</strong> $\vec{C}$ cycles: road $\rightarrow$ mirror $\rightarrow$ speedometer — keyframed attention.</li>
+        <li><strong>Daydream:</strong> $\vec{C}$ = imaginal surf scenario $\rightarrow$ extended internal capture.</li>
+        <li><strong>"Throw" (acceleration aboutness):</strong> A driver turns sharply to the left. This is rendered in $\D$ as the throw of $\A$ and $\B$ rightward and/or upward in $\R$.</li>
+        <li><strong>"Vibes" (amplitude envelope aboutness):</strong> The loud cymbal crashes of a song, or the texture of a violin note, modulate some facet (radius, frequency, attitude, intensity) of $\A$ in $\R$.</li>
+    </ul>
+
+    <p>Aboutness, then, is not merely attentional bias but a  
+    coordinated multidimensional modulation linking $\B$, $\I$, $\A$, $\T$, $\Pi$, and the observer cameras  
+    into one temporally bound act of conscious reference.  
+    In hypnagogia—when wakeful control slips and sensory gating relaxes—aboutness can drive $\I$ so completely  
+    that its geometry and paint are experienced as real.  
+    Aboutness is likely capable of recruiting veridical imagery patterns in early visual cortex (V1),  
+    consistent with recent decoding evidence showing that imagined content evokes V1 activity  
+    indistinguishable from real visual input in phantasic individuals [9],  
+    suggesting that retinotopic, stimulus-like activation of V1 correlates with the presence and degree  
+    of perceptual "paint," even when abstractly driven from top-down, and even if the final correlate  
+    of conscious perception resides higher in the cortical hierarchy.</p>
+
+    <h2>5 Access and Printing Modes</h2>
+
+    <p>Let $\theta \in [0,\, 2\pi + \varepsilon)$ parameterize a local card/perimeter $\A$, 
+    where $\varepsilon &gt; 0$ denotes a transient overshoot characteristic of compressed phasic motion.
+    Define the <em>active-phase set</em> $\Pi(t)\subseteq[0,2\pi)$:</p>
+    <div class="math-container">
+        <div class="equation">
+            $$\begin{align*}
+            \textbf{Phasic:}\quad &
+            \Pi(t)=\{\theta^\ast(t)\},\ \dot{\theta}^\ast=\omega_\theta,\\
+            \textbf{Compressed phasic:}\quad &
+            \Pi(t)=\{\theta^\ast(t)\}\ \text{for }t\in[t_k,t_k+\tau_\theta],\ \varnothing\ \text{otherwise},\\
+            \textbf{Interrupt:}\quad &
+            \Pi(t)=\{\theta\,|\,\theta\in[0,2\pi)\}\ \text{at }t=t_k,\ \varnothing\ \text{otherwise},\\
+            \textbf{Extrusion:}\quad &
+            \Pi(t)=\{\theta\,|\,\theta\in[0,2\pi)\}\ \forall t\in[t_0,t_1].
+            \end{align*}$$
+        </div>
+    </div>
+    <p>These modes appear at any scale (micro/local vs. macro/global) and can nest, e.g., a smooth global carrier with local interrupt "cards." "Rolodex" arises from tidally-locked orbital or rotational macrocycles hosting interrupt microcards (another name for ringframes $\rho$).</p>
+
+    <h2>6 Hazard-Gated Timing</h2>
+
+    <p>Interrupt scheduling follows a point-process hazard</p>
+    <div class="math-container">
+        <div class="equation">
+            $$\boxed{h(t)=\beta(t)+\sum_i g(\alpha_i)\,k(t-t_i)-a(t)}$$
+        </div>
+    </div>
+    <p>with baseline $\beta(t)$, mic events at times $t_i$ with salience $\alpha_i$, event kernel $k(\cdot)$, and adaptation $a(t)$. Likelihood and survival follow standard point-process form; Ogata thinning simulates exactly. Photic entrainment elevates visual hazards selectively; non-visual channels can run in parallel. In phasic regimes, $\beta(t)$ and $\M$ modulate trajectory rather than gate.</p>
+
+    <h2>7 Semiosis Cascade</h2>
+
+    <p>RBT recasts Peircean semiosis as a three-stage temporal cascade:</p>
+
+    <ol>
+        <li><strong>Perceptual:</strong> mic/baseline (representamina) $\rightarrow$ prints $\rho$ on $\A$ (interpretant) $\rightarrow$ proto-object.</li>
+        <li><strong>Cognitive:</strong> proto-object drives $\R/\I$ reconstruction (interpretant), yielding object-level content.</li>
+        <li><strong>Metacognitive/action:</strong> $\R/\I$ becomes representamen for threat/affordance interpretation, shaping behavior (object) [6].</li>
+    </ol>
+
+    <h2>8 Neural Correlates and Predictions</h2>
+
+    <p><strong>Hyperpolarization bottleneck.</strong> Dissociative states exhibit slow ($\sim 2$ Hz) envelopes with fast bursts ($\sim 80$ Hz) [7,8]. RBT predicts interrupt-dominant access with long gaps, global cards per slow crest, and gamma bursts as print signatures.<br>
+    <strong>Motor/temporal rings.</strong> Latent rotational trajectories in motor cortex and timing tasks map onto ringframes and card cadence [10,11].<br>
+    <strong>Photic entrainment.</strong> 10–13 Hz strobe locks visual-plane access; content planes may show multiple faster passes per attentional bin.<br>
+    <strong>Cardiac-phase gating.</strong> Heartbeat-coupled mic events bias hazard $h(t)$, altering interrupt likelihood.<br>
+    <strong>Vestibular "throw."</strong> Transients shift pose via $\Sim(3)$ perturbations, briefly re-siting $\A$ for re-lock.</p>
+
+    <p>Empirical program: EEG beta/gamma power crests synchronized with musical transients [5].</p>
+
+    <h2>9 Methods Sketch for Testing</h2>
+
+    <ol>
+        <li><strong>Point-process modeling of frame events:</strong> infer $h(t)$ from discrete "card" times (blink-aligned, saccade-aligned, photic-locked), compare baseline-only vs. +mic vs. +adaptation models.</li>
+        <li><strong>Dual-plane refresh:</strong> separate an attentional plane (slow) from a content plane (fast) via cross-frequency nested rate analysis.</li>
+    </ol>
+
+    <h2>10 Phenomenology Snapshots</h2>
+
+    <p><strong>Abortive wave.</strong> A global interrupt upon eye closure: $h(t)$ spikes, $\A$ prints against a black input, $\R$ fails to assemble rich paint; a turbulent ripple passes over the visual field plane.</p>
+
+    <p><strong>Overexposure wave.</strong> Sudden bright entry causes a saturated print; the visual plane momentarily destabilizes under extreme luminance before re-stabilizing.</p>
+
+    <p><strong>Gross$\to$fine.</strong> A half-second chirp from $\sim 4\rightarrow 40$ Hz prints successive geometric refinements (low to high geometric frequency; e.g., spatial frequency in 3D); color/paint arrives late [2].</p>
+
+    <p><strong>Dissociation.</strong> Strong slow baseline with a transient, seconds-long anticorrelation of phase of brain regions may correlate with "true" dissociation (metacognition detaches from control of avatar in $\R$ and becomes observer-only).</p>
+
+    <h2>11 Acknowledgments of Prior Observations</h2>
+
+    <p>Carl Sagan's "Mr. X" imagery suggested outlines-first semiosis: "outlines of...instant appreciation" seems to describe $\R$ magically appearing from the operation of $\Pi$ on $\A$ [6]. Lehar described cyclic gross$\to$fine rendering and concentric scaffolds [2,3]; see also Cube Flipper's exegesis [12]. Our prior EEG results showed beta/gamma power aligned to musical transients consistent with access gating [5].</p>
+
+    <h2>12 Conclusion</h2>
+
+    <p>RBT frames conscious semiosis as the geometry and timing of access followed by conceptual understanding. The Bank $\B$ (posed by $\Sim(3)$), the Access Manifold $\A$, and the printing operator $\Pi$, together deliver ringframes $\rho$ into the Time Schema $\T$ (guided by $\vec{C}$, driven by $\M(t)$ and $\beta(t)$), from which $\R$ and $\I$ are read out with latency. Baseline dynamics establish cadence; aboutness modulation steers pose/walk/timing to bind "what matters now." The hazard formalism unifies phasic modulation and interrupt gating, connecting phenomenology to testable neural signatures across normal, entrained, hyperpolarized (sedated), and anesthetized states.
+    Hyperpolarization is thought to collapse distributed bank usage into a single embodied stream of phenomenology: as membrane potentials drift downward and NMDA-dependent excitation weakens, beta/gamma activity vanishes, and cortical dynamics become globally entrained—first around the alpha range (∼10 Hz), then slowing into delta during deep sedation (2–4 Hz), and finally into ultra-slow oscillations near 1 Hz under anesthesia, where multiplexed access effectively ceases.</p>
+
+    <h2>Symbol/Notation Glossary</h2>
+
+    <ul>
+        <li>$\B$: Bank (shape manifold), $S\in\mathcal{S}$ modulo translation/rotation/scale.</li>
+        <li>$\Sim(3)$: similarity group (scale $s&gt;0$, $R\in\SO(3)$, translation $t\in\mathbb{R}^3$).</li>
+        <li>$g(t)\in\Sim(3)$: pose/scale action placing $S$ for display.</li>
+        <li>$\A(t)\subset X_{\mathrm{display}}(t)$: Access Manifold (local $0$–$2$D).</li>
+        <li>$\rho(t)=\Pi(\A,S,g)$: ringframe printed into $\T$.</li>
+        <li>$\T$: Time Schema (fading buffer/flowfield).</li>
+        <li>$\R,\I$: Real/Imaginal readouts reconstructed from recent $\rho$ and context.</li>
+        <li>$h(t)$: hazard (instantaneous print likelihood); $\beta(t)$: baseline cadence; $a(t)$: adaptation.</li>
+    </ul>
+
+    <div class="figure">
+        <!-- Replace with your screenshot -->
+        <img src="../images/bankBig.jpg" alt="Bank ℬ: a shape in Kendall space posed by g(t)∈Sim(3)">
+        <div class="caption"><strong>Bank $\B$:</strong> a shape in Kendall space posed by $g(t)\in\Sim(3)$ (scale, rotation, translation).</div>
+    </div>
+
+    <div class="figure">
+        <img src="../images/schemas4.jpg" alt="Operational intersection vs. structural union">
+        <div class="caption"><strong>Operational intersection vs. structural union:</strong> multiple 3D schemas form $\Ustruct$; conscious sampling occurs on the $0$–$2$D access manifold $\A(t)$ ($\A$ is here labeled "union set," as in the shared, intersecting voxels between all schemas) (models from [13,14]).</div>
+    </div>
+
+    <div class="figure">
+        <div style="display: flex; justify-content: space-between; gap: 20px;">
+            <div style="flex: 1; text-align: center;">
+                <img src="../images/gazeVectorz1.jpg" alt="Clear hemishell with frame triad" style="max-height: 200px; width: auto;">
+                <div class="caption">(a) Clear hemishell with frame triad (gaze, up, left)</div>
+            </div>
+            <div style="flex: 1; text-align: center;">
+                <img src="../images/gazeVectorz2.jpg" alt="Painted hemishell with colored ray-rods" style="max-height: 200px; width: auto;">
+                <div class="caption">(b) Painted hemishell with colored ray-rods</div>
+            </div>
+        </div>
+        <div class="caption">Incoming light is modeled as straight rays converging at the pupil. (a) A viewing-frame triad within a clear hemispherical dome. (b) A painted hemishell on $\mathbb{S}^2$ illustrates directions $\omega$ for $L_{\text{phys}}(\omega,\nu)$ and $L_{\text{perc}}(\omega)$. Real and mind's eye cameras [$\Xi_{\text{Cyclopean}}$, $\Xi_{\text{Mind's Eye}}$] have $\mathrm{SE}(3)$ freedom within posed $\R$ and $\I$.</div>
+    </div>
+
+    <div class="figure">
+        <img src="../images/sphereSpirographBank.jpg" alt="Global spirographic mode">
+        <div class="caption"><strong>Global "all-hot" spirographic mode:</strong> the entire bank shell is active and moves as a unit under $g(t)$.</div>
+    </div>
+
+    <div class="figure">
+        <img src="../images/ph2in.jpg" alt="Continuum of access">
+        <div class="caption"><strong>Continuum of access:</strong> phasic $\rightarrow$ compressed phasic $\rightarrow$ interrupt.</div>
+    </div>
+
+    <div class="figure">
+        <table style="width: 100%; border: none;">
+            <tr>
+                <td style="text-align: center; width: 50%;">
+                    <img src="../images/closeUpLookDownChasm.jpg" alt="Radial history gradient view" style="max-height: 200px; width: auto;">
+                    <div class="caption">(a) Radial history gradient view</div>
+                </td>
+                <td style="text-align: center; width: 50%;">
+                    <img src="../images/justTheSkewer.jpg" alt="Pure skewer geometry" style="max-height: 200px; width: auto;">
+                    <div class="caption">(b) Pure skewer geometry</div>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: center; width: 50%;">
+                    <img src="../images/bAndSkewerCutThruBank.jpg" alt="Cross-section through bank" style="max-width: 100%; height: 200px; object-fit: contain;">
+                    <div class="caption">(c) Cross-section through bank</div>
+                </td>
+                <td style="text-align: center; width: 50%;">
+                    <img src="../images/simplebAndSkewer.jpg" alt="Letter b skewer pathway" style="max-width: 100%; height: 200px; object-fit: contain;">
+                    <div class="caption">(d) Letter "b" skewer pathway</div>
+                </td>
+            </tr>
+        </table>
+        <div class="caption"><strong>Radial History Stack (Bank Skewer $\B_{\mathrm{Sk}}$):</strong> Content instances organize radially: present (outer) to past (inner). (a) Temporal gradient view; (b) Pure skewer geometry; (c) Cross-section through bank; (d) Letter "b" pathway. Enables overview of concept history when $\A$ prints nearby, supporting serial dependence and emotional pathway following. Skewer itself inferred; chasm/layers phenomenologically accessible but typically subconscious due to rapid printing, $\R$ dominance, and latch-on to most recent case.</div>
+    </div>
+
+    <div class="figure">
+        <img src="../images/placeholder1.jpg" alt="Horizontal torus with cards">
+        <div class="caption"><strong>Horizontal torus: 3D macrocycle with tangent-facing microcycle "cards."</strong> Pattern: $M{=}8$, $B{=}5$ bright and $3$ dark.</div>
+    </div>
+
+    <div class="figure">
+        <img src="../images/placeholder2.jpg" alt="Macro x micro torus unwrapped">
+        <div class="caption"><strong>Macro$\times$micro torus (unwrapped, blip rendering).</strong> One macrocycle ($T_{\mathrm{macro}}$) with $M{=}8$ micro slots; pattern $B{=}5$ bright, $3$ dark. Each slot shows a brief blip (bright or dim) with silence for the rest of the slot—matching interrupt-like micro-prints or compressed-phasic micro sweeps whose active fraction $d=\tau/T$ is small and hazard/adaptation-modulated.</div>
+    </div>
+
+    <div class="figure">
+        <img src="../images/placeholder3.jpg" alt="Vertical sagittal torus paddlewheel">
+        <div class="caption"><strong>Vertical (sagittal) torus ("paddlewheel"):</strong> In this mode, the access manifold is a card-like plane (or its perimeter) carried around a 2-s macrocycle. It turns <em>hot</em> only in brief blips, spaced $\sim$250 ms apart (4 Hz), a pattern typical of hypnagogia as beta/gamma power wanes and global theta–delta entrainment rises. Each theta/delta crest corresponds to printing one card: upper-sector (bright) cards broadcast imaginal content; lower-sector (dim) cards lightly interface with the Real schema as the mic line shuts down and the baseline rhythm sets the dream frame rate. Timing: per-card perimeter microcycle $\tau_{\mathrm{micro}}\!\approx\!10$ ms (near-instant sweep), inter-card period $T_{\mathrm{micro}}\!\approx\!250$ ms, macrocycle $T_{\mathrm{macro}}\!\approx\!2$ s.</div>
+    </div>
+
+    <div class="figure">
+        <img src="../images/photicBreakdown.jpg" alt="Photic drive breakdown">
+        <div class="caption"><strong>Photic Drive Breakdown:</strong> Under 13 Hz strobe entrainment, $\B$ (and thus $\A$) rotate in a tidally locked orbit. In light hyperpolarization, the "paint" flash may fragment into $\B$ revolving 13 times per second, printing one bright flash-card per revolution and leaving a trace of higher-frequency ($\sim$260 Hz) dark cards. Roughly 20 cards are produced per revolution, implying spatial–temporal precision of $\sim$200 $\mu$s in modeling space.</div>
+    </div>
+
+    <div class="figure">
+        <img src="../images/rolodexUnroll.jpg" alt="Unwrapped breakdown">
+        <div class="caption"><strong>Unwrapped Breakdown:</strong> As $\tau \!\rightarrow\! 0$, each card's local $\theta$-phase compresses into a near-instant blip, leaving most of the card-to-card microperiod $T$ silent or passive.</div>
+    </div>
+
+    <div class="figure">
+        <img src="../images/softServe.jpeg" alt="Global mode example">
+        <div class="caption"><strong>Global mode example (shown as compressed phasic):</strong> A macrocycle contains a compressed active phase $\tau$ within a larger period $T$ (major circle of the torus). A hot plane—locally in <strong>extrusion mode</strong>—completes one revolution during $\tau$, then holds its pose for the remainder of $T$ ($\tau &lt; T$).</div>
+    </div>
+
+    <h2>Bibliography</h2>
+
+    <div class="bibliography">
+        <div class="bib-item">[1] Caldwell, Brad (2022). <em>Rings of Fire: How the Brain Makes Consciousness</em>.</div>
+
+        <div class="bib-item">[2] Caldwell, Brad (2023). <em>Perceptual Optics</em>.</div>
+
+        <div class="bib-item">[3] Vesuna, S. et al. (2020). Deep posteromedial cortical rhythm in dissociation. <em>Nature</em>.</div>
+
+        <div class="bib-item">[4] Saxena, S., Russo, A. A., Cunningham, J., & Churchland, M. M. (2022). Motor cortex activity across movement speeds is predicted by network-level strategies for generating muscle activity. <em>Neuron</em>, 110(5), 839–855.</div>
+
+        <div class="bib-item">[5] Gámez, J., Mendoza, G., Prado, L., Betancourt, A., & Merchant, H. (2019). The amplitude in periodic neural state trajectories underlies the tempo of rhythmic tapping. <em>PLOS Biology</em>, 17(5), e3000054.</div>
+
+        <div class="bib-item">[6] Sagan, Carl. (n.d.). <em>Mr. X</em>. Organism Earth. Retrieved from <a href="https://www.organism.earth/library/document/mr-x">https://www.organism.earth/library/document/mr-x</a>.</div>
+
+        <div class="bib-item">[7] Caldwell, Brad. (2025). <em>Spectral Amplitude Modulation in EEG: Potential Correlations with Musical Stimuli</em>. Figshare. DOI: 10.6084/m9.figshare.27115354. <a href="https://nodes.desci.com/dpid/419/v1">https://nodes.desci.com/dpid/419/v1</a>.</div>
+
+        <div class="bib-item">[8] Adam, E., Kowalski, M., Akeju, O., Miller, E. K., Brown, E. N., McCarthy, M. M., & Kopell, N. (2024). Ketamine can produce oscillatory dynamics by engaging mechanisms dependent on the kinetics of NMDA receptors. <em>PNAS</em>, 121(22), e2402732121.</div>
+
+        <div class="bib-item">[9] Lehar, Steven. (2008). <em>The Constructive Aspect of Visual Perception</em>.</div>
+
+        <div class="bib-item">[10] Lehar, Steven. (2010). <em>The Grand Illusion: A Psychonautical Odyssey</em>.</div>
+
+        <div class="bib-item">[11] Cube Flipper. (2022, November 22). <em>An introduction to Steven Lehar, part II</em>.</div>
+
+        <div class="bib-item">[12] Chang, S., Zhang, X., Cao, Y., Pearson, J., & Meng, M. (2025). <em>Imageless imagery in aphantasia revealed by early visual cortex decoding</em>. Current Biology, 35, 591–599. <a href="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/Meng_2025.pdf?alt=media&token=8fedc858-c582-47de-8f9e-c2ed8039764a">https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/Meng_2025.pdf?alt=media&amp;token=8fedc858-c582-47de-8f9e-c2ed8039764a</a></div>
+
+        <div class="bib-item">[13] Ronnie_Yonk. <em>[3D Model of Cobain and Stage]</em>. Cults. Retrieved [2022].</div>
+
+        <div class="bib-item">[14] GIGI_TOYS. <em>[3D Model of Driver/Wheel]</em>. Cults. Retrieved [2022].</div>
+    </div>
+
+    <div class="footer-container">
+        <div class="footer-content">
+            <p>&copy; 2025 Brad Caldwell.</p>
+            <p>All Rights Reserved.</p>
+        </div>
+    </div>
+
+</body>
+</html>
