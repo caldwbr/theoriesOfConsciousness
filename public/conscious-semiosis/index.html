@@ -224,7 +224,7 @@
         </div>
     </div>
     
-    <p>Content and context can restrict $g(t)$ to a <em>coset</em> $g(t)H$ where $H$ stabilizes $S$ (symmetries). This separation of <em>shape</em> (what) and <em>pose</em> (where/how big) makes <em>attitude misalignment</em> precise: e.g., a yaw error is a systematic rotation in $R(t)$ between body- and environment-subspaces (cf. grasp underreach anecdote).</p>
+    <p>Content and context (aboutness, discussed in greater precision later as modulating up to all variables of conscious rendering jointly) can restrict $g(t)$ to a <em>coset</em> $g(t)H$ where $H$ stabilizes $S$ (symmetries). This separation of <em>shape</em> (what) and <em>pose</em> (where/how big) makes <em>attitude misalignment</em> precise: e.g., a yaw error is a systematic rotation in $R(t)$ between body- and environment-subspaces (cf. grasp underreach anecdote).</p>
 
     <h3>2.2 Real Schema ($\R$): 3D Veridical World Model for Action</h3>
     
@@ -238,7 +238,152 @@
     
     <p>As the servo target for physical action, $\R$ provides the spatial framework for avatar movement and real-world interaction. Movement errors often arise from <strong>attitude misalignment</strong> between the <strong>body schema</strong> and the visually-derived <strong>environment schema</strong> (the two main components of $\R$). For example, a <strong>yaw error</strong> in the body schema—where it is assumed to be rotated slightly clockwise (bird's-eye view) from its actual position relative to the visually perceived refrigerator—results in an underreach when grasping the handle. The arm is miscalculated as being closer to the target than it actually is, despite correct trajectory planning.</p>
 
-    <!-- Continue with remaining sections following the same pattern -->
+    <h3>2.3 Imaginal Schema ($\I$): 3D Non-Veridical Workspace with Sim(3) Action</h3>
+
+    <p>The imaginal schema $\I$ provides a dynamic volumetric overlay to the real schema $\R$, serving as a workspace for non-veridical spatial representation and reasoning. Key properties include:</p>
+
+    <ul>
+        <li><strong>Functional scope:</strong> Generates hypothetical situations, warning imagery (e.g., potential bitten-finger flash when bringing fingers into mouth while eating chips to induce caution), memories, conceptual contemplation, action simulations, and dream content,</li>
+        <li><strong>Viewing perspective:</strong> Typically observed by a "mind's eye" that can orbit and relocate (and $\I$ itself can rapidly zoom) independently of the avatar's cyclopean eye in $\R$, though dreams and certain cases may embed a "mind's avatar" within $\I$,</li>
+        <li><strong>Dynamic interaction:</strong> Frequent switching between $\R$ and $\I$ occurs during normal cognition, with $\I$ serving as a temporary workspace before returning to reality-based processing,</li>
+        <li><strong>Display dominance:</strong> While often overlaying $\R$, $\I$ can fully dominate conscious frames, creating anticorrelated periods of purely imaginal or real experience,</li>
+        <li><strong>Volumetric scaling:</strong> Objects are dynamically rescaled relative to $\R$ with extreme rapidity—comparable to the fastest camera zoom—frequently enlarging small elements for detailed inspection,</li>
+        <li><strong>Variable visibility:</strong> Ranges from completely transparent to vivid and photorealistic, with individual differences in conscious access—some experience $\I$ as plain as day while others have little visual awareness,</li>
+        <li><strong>Non-veridical content:</strong> Supports imagined, remembered, or potential future geometries—places, times, and scenarios not matching to $\R$,</li>
+        <li><strong>Geometric utility:</strong> Maintains full spatial functionality regardless of visibility, enabling both conscious inspection and "blindsight"-style geometric processing.</li>
+    </ul>
+
+    <p>Unlike the action-oriented $\R$, $\I$ serves as a flexible workspace where metacognition operates as observer of non-literal geometric content. It is possible to have more than one $\I$ at once.</p>
+
+    <h3>2.4 Time Schema ($\T$): 3D Flowfield and Fading Buffer with Sim(3) Action</h3>
+
+    <p>$\T$ stores recent prints as a fading temporal stack, producing the <em>illusion of continuity</em> via overlap of access windows:</p>
+
+    <ul>
+        <li><strong>Ringframe sequencing:</strong> fading history of recent $\rho(\tau)$ over $\tau\in[t-\Delta,t]$ yields continuity.</li>
+        <li><strong>Multi-modal timing:</strong> supports both continuous phasic scanning and discrete interrupts.</li>
+        <li><strong>Dynamic cadence:</strong> governed by competition between baseline rhythm $\beta(t)$ and mic events.</li>
+    </ul>
+
+    <p>Conscious "printing" is the act of the operator $\Pi$ sampling on $\A$:</p>
+
+    <div class="math-container">
+        <div class="equation">
+            $$\rho(t) = \Pi(\A(t), S, g(t)),\qquad \A(t) \subseteq \B,\qquad \rho(t) \hookrightarrow \T.$$
+        </div>
+    </div>
+
+    <p>$\T$ functions as a fading stack or flowfield of recent $\rho$ printed by $\Pi$ on $\A$, yielding apparent
+    continuity from discrete acts of access. The activity of $\Pi$ may follow
+    either of two drives: a transient, high-level mic signal $\M(t)$ conveying structured
+    content, or an endogenous baseline rhythm $\beta(t)$ maintained by refractory
+    dynamics when $\M(t)$ is silent. Thus,</p>
+
+    <div class="math-container">
+        <div class="equation">
+            $$\Pi(t) =
+            \begin{cases}
+            f(\M(t)), & \text{if mic-driven},\\[4pt]
+            \beta(t), & \text{if silent or quiescent.}
+            \end{cases}$$
+        </div>
+    </div>
+
+    <p>Phasic modes correspond to continuous modulation of $\beta(t)$ by $\M(t)$,
+    whereas interrupt modes reflect discrete, hazard-scheduled prints.
+    Both contribute to the ongoing flowfield of $\T$, which merges the
+    outputs of $\Pi$ into a seemingly continuous conscious stream.</p>
+
+    <h3>2.5 Real $\R$ and Imaginal $\I$ are Readouts with Latency</h3>
+
+    <p>We treat $\R$ (veridical, action-oriented) and $\I$ (non-veridical, constructive) as readouts integrating recent prints:</p>
+
+    <div class="math-container">
+        <div class="equation">
+            $$[\R(t),\I(t)] := f\!\left(\int_{t-\Delta}^{t}G(t-\tau)\,[\rho(\tau),\R(\tau),\I(\tau)]\,d\tau\right)$$
+        </div>
+    </div>
+
+    <p>with a causal kernel $G$. Vividness and rapid zooms reflect gain and $\Sim(3)$ pose control over IT/PPC codes. $\I$ may overlay or dominate $\R$.</p>
+
+    <h3>2.6 Access Manifold ($\A$, 0–2D) and Display ($\D$ (=$\Ustruct$))</h3>
+
+    <p>We distinguish the <em>structural union</em> (full conscious display, union of schemas on manifold)</p>
+
+    <div class="math-container">
+        <div class="equation">
+            $$\Ustruct(t) := \B(t) \cup \R(t) \cup \I(t) \cup \T(t)$$
+        </div>
+    </div>
+
+    <p>from the <em>operational access manifold</em> (intersection of schemas)</p>
+
+    <div class="math-container">
+        <div class="equation">
+            $$\A(t) := \B(t) \cap \R(t) \cap \I(t) \cap \T(t),\qquad \A(t) \subseteq \B.$$
+        </div>
+    </div>
+
+    <p>which is the locus where conscious sampling may occur "now." $\Ustruct$ is everything in the display; $\A$ is what is <em>touched</em> between schemas—a subset of $\B$ that often exhibits a graded excitability or printing potential,
+    sometimes spreading radially from a central focus outward across the bank.</p>
+
+    <h3>2.7 Ringframes ($\rho$): 0–2D Fading Manifolds</h3>
+
+    <p>A ringframe $\rho(t)$ is material printed by the operator $\Pi$ on the access manifold $\A$ into the time schema $\T$.  
+    It is the basic unit of conscious access, bridging $\B \rightarrow \A \rightarrow \T$.</p>
+
+    <ul>
+        <li><strong>Ring:</strong> 0–1D print — a tracer following a path or the instantaneous print of that path.</li>
+        <li><strong>Frame:</strong> 2D print — access activity that sweeps or fills an area of $\A$ over time, whether all at once or by motion.</li>
+    </ul>
+
+    <p>Both are printed from the Bank $\B$, posed by $g(t)\in\Sim(3)$, and deposited in $\T$ as a record.  
+    Phasic modes yield seamless cycles (helices in $\T$), compressed phasic modes yield lock-washer type geometries in $\T$, and interrupt modes produce discrete frames in $\T$. Square trajectories; swept or extruded contours; unclosed V, U or linear manifolds (as trajectories or swept contours); etc.; are all still considered ringframe material, since they arise from the same act of printing by $\Pi$ on $\A$ into $\T$. As hippocampal patients retain immediate present context, it is <em>not</em> thought that the time schema/ringframes are instantiated by the HPC, although the greater HPC (including EC), RSP, and DMN (including ACC/mPFC) <em>might</em> be at play.</p>
+
+    <h3>2.8 Printing Operator ($\Pi$): Sampling the Access Manifold $\A$</h3>
+
+    <p>The printing operator $\Pi$ samples the access manifold $\A$ and deposits ringframe material $\rho$ into the time schema $\T$. 
+    It operates in distinct temporal modes—phasic, compressed phasic, interrupt, and extrusion—that determine how $\A$ is sampled over time.</p>
+
+    <h3>2.9 Mic Signal ($\M$), Voice ($\vec{C}$), and Baseline Rhythm ($\beta$)</h3>
+
+    <p>The printing operator $\Pi$ is primarily driven by the high-level mic signal $\M(t)$,  
+    guided by the aboutness vector $\vec{C}(t)$, and sustained in silence by the baseline rhythm $\beta(t)$.</p>
+
+    <ul>
+        <li><strong>Mic signal $\boldsymbol{\M(t)}$:</strong>  
+        A transient, structured drive carrying any high-level events of consciousness.  
+        $\M(t)$ modulates the printing operator $\Pi$, producing organized ringframes that embody  
+        current goals, percepts, or thoughts. It is the amplitude envelope (if present) of any active "voice" aboutness vector (if present).</li>
+
+        <li><strong>Voice (aboutness vector $\boldsymbol{\vec{C}(t)}$):</strong>  
+        A directional vector in concept space that is what $\M(t)$ and $\beta(t)$ are about.  
+        $\vec{C}(t)$ governs <em>what</em> the system is about, biasing both $\M(t)$ and $\beta(t)$  
+        toward the appropriate conceptual or perceptual surface within $\D$.</li>
+
+        <li><strong>Baseline rhythm $\boldsymbol{\beta(t)}$:</strong>  
+        An endogenous oscillation emerging from refractory dynamics, maintaining access continuity  
+        when $\M(t)$ is quiescent. $\beta(t)$ provides the rhythmic substrate on which $\M(t)$ rides,  
+        filling silent periods with spontaneous prints that preserve temporal coherence in $\T$. $\beta(t)$ provides a silent, slow (2–7 Hz) frame rate of dream and daydream imagery (which may also use $\M(t)$).</li>
+    </ul>
+
+    <p>In concert, $\M(t)$ provides structure, $\vec{C}(t)$ supplies intent,  
+    and $\beta(t)$ sustains a minimal frame rate—together orchestrating the ongoing printstream of consciousness.</p>
+
+    <h3>2.10 Observer Cameras ($\Xi_{\text{Cyclopean}}$, $\Xi_{\text{Mind's Eye}}$)</h3>
+
+    <p>The two conscious viewpoints are modeled as infinitesimal point cameras with full $\mathrm{SE}(3)$ freedom.
+    $\Xi_{\text{Cyclopean}}$ represents the fused avatar or "real" eye within $\R$, while
+    $\Xi_{\text{Mind's Eye}}$ represents the internally oriented "imaginal" eye within $\I$.
+    Each camera defines a right-handed coordinate frame with orthonormal basis vectors for gaze, up, and left:</p>
+
+    <div class="math-container">
+        <div class="equation">
+            $$\Xi_{\text{Cyclopean}},\, \Xi_{\text{Mind's Eye}} \in \mathrm{SE}(3), \qquad \{\vec{g}, \vec{u}, \vec{l}\} = \text{(gaze, up, left)}.$$
+        </div>
+    </div>
+
+    <p>Together, these provide the perspective impingement operators through which the $\R$ and $\I$ are viewed within the conscious display $\D$.</p>
 
     <h2>3 Physics Modeling, Schema/Camera Posing, and Perspective</h2>
     
