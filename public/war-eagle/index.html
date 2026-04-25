@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>War Eagle Song</title>
+<meta charset="UTF-8">
+<style>
+body{font-family:'Segoe UI',sans-serif;max-width:900px;margin:0 auto;padding:20px;background:#1a1a2e;color:#eee}
+h1{text-align:center;color:#00d9ff;margin-bottom:4px}
+.sub{text-align:center;color:#888;margin-bottom:16px;font-size:13px}
+.controls{background:#16213e;padding:20px;border-radius:10px;margin-bottom:20px}
+.controls h3{margin-top:0;color:#00d9ff}
+button{background:#00d9ff;color:#1a1a2e;border:none;padding:10px 20px;margin:4px;border-radius:5px;cursor:pointer;font-weight:bold;font-size:13px}
+button:hover{background:#00b8d4}
+button.stop{background:#ff4466;color:#fff}
+label{display:block;margin:10px 0 4px;font-size:13px;color:#aaa}
+input[type=range]{width:100%;accent-color:#00d9ff}
+select{background:#0f3460;color:#eee;border:1px solid #00d9ff;padding:8px;border-radius:5px;font-size:13px}
+#nowPlaying{text-align:center;font-size:16px;color:#00d9ff;margin:12px 0;min-height:1.4em}
+.note-display{background:#0f3460;padding:12px;border-radius:5px;margin-top:10px;font-family:monospace;font-size:11px;max-height:260px;overflow-y:auto;white-space:pre-wrap}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.val{color:#00d9ff;font-weight:bold;min-width:36px;font-size:13px}
+</style>
+</head>
+<body>
+<h1>War Eagle! — Flute/Piccolo</h1>
+<p class="sub">Fast March · Bb Major · 4/4</p>
+
+<div class="controls">
+  <h3>Playback Controls</h3>
+  <div class="row">
+    <button id="playBtn" onclick="playPiece()">▶ Play</button>
+    <button class="stop" onclick="stopPlayback()">⏹ Stop</button>
+    <button onclick="downloadWAV()">⬇ Download WAV</button>
+    <select id="waveType">
+      <option value="square">Square (buzzy/band)</option>
+      <option value="sawtooth">Sawtooth (brassy)</option>
+      <option value="triangle" selected>Triangle (flute-ish)</option>
+      <option value="sine">Sine (pure)</option>
+    </select>
+  </div>
+  <label>Tempo: <span class="val" id="tempoVal">160</span> BPM</label>
+  <input type="range" id="tempo" min="80" max="220" value="160" oninput="document.getElementById('tempoVal').textContent=this.value">
+  <label>Volume: <span class="val" id="volVal">75</span>%</label>
+  <input type="range" id="volume" min="0" max="100" value="75" oninput="document.getElementById('volVal').textContent=this.value">
+</div>
+
+<div id="nowPlaying"></div>
+<div class="note-display" id="scoreDisplay"></div>
+
+<script>
+const MEASURES = [
+  {label:'M1',           notes:[['F5',2]]},
+  {label:'M2',           notes:[['D6',1],['C6',1]]},
+  {label:'M3',           notes:[['Bb5',0.5],['Bb5',1],['G5',0.5]]},
+  {label:'M4',           notes:[['F5',2]]},
+  {label:'M5',           notes:[['A5',0.5],['A5',1],['Bb5',0.5]]},
+  {label:'M6',           notes:[['C6',1],['F5',1]]},
+  {label:'M7',           notes:[['Bb5',0.5],['Bb5',1.0],['C6',0.5]]},
+  {label:'M8',           notes:[['D6',2]]},
+  {label:'M9 [Reh.9]',   notes:[['F5',2]]},
+  {label:'M10',          notes:[['D6',1],['C6',1]]},
+  {label:'M11',          notes:[['Bb5',0.5],['Bb5',1],['G5',0.5]]},
+  {label:'M12',          notes:[['F5',2]]},
+  {label:'M13',          notes:[['A5',0.5],['Ab5',1],['A5',0.5]]},
+  {label:'M14',          notes:[['Bb5',0.5],['A5',0.5],['G5',1]]},
+  {label:'M15',          notes:[['C6',1],['F6',1]]},
+  {label:'M16',          notes:[['F6',1],['F6',1]]},
+  {label:'M17 [Reh.17]', notes:[['F6',1.5],['Eb6',0.5]]},
+  {label:'M18',          notes:[['D6',1],['C6',1]]},
+  {label:'M19',          notes:[['Bb5',0.5],['Bb5',1],['C6',0.5]]},
+  {label:'M20',          notes:[['D6',2]]},
+  {label:'M21',          notes:[['G6',0.5],['G6',0.5],['F6',1]]},
+  {label:'M22',          notes:[['G6',0.5],['G6',0.5],['F6',1]]},
+  {label:'M23',          notes:[['Eb6',0.5],['Eb6',1],['D6',0.5]]},
+  {label:'M24',          notes:[['C6',1],['F6',1]]},
+  {label:'M25 [Reh.25]', notes:[['F5',2]]},
+  {label:'M26',          notes:[['D6',1],['C6',1]]},
+  {label:'M27',          notes:[['Bb5',1],['C6',1]]},
+  {label:'M28',          notes:[['D6',1],['G6',1]]},
+  {label:'M29',          notes:[['F6',0.5],['E6',1],['F6',0.5]]},
+  {label:'M30',          notes:[['G6',1],['A6',1]]},
+  {label:'M31',          notes:[['Bb6',2]]},
+];
+
+const NOTE_MAP = {C:0,'C#':1,Db:1,D:2,'D#':3,Eb:3,E:4,F:5,'F#':6,Gb:6,G:7,'G#':8,Ab:8,A:9,'A#':10,Bb:10,B:11};
+
+function hz(name) {
+  if (name === 'R') return 0;
+  // NOTE: use [0-9] not \d — \d gets mangled when this file is processed through template literals
+  var m = name.match(/^([A-G](?:#|b)?)([0-9])$/);
+  if (!m) return 0;
+  var midi = (parseInt(m[2]) + 1) * 12 + NOTE_MAP[m[1]];
+  return 440 * Math.pow(2, (midi - 69) / 12);
+}
+
+function buildGraph(actx, bpm, wave, volFrac) {
+  var beat = 60 / bpm;
+  var master = actx.createGain();
+  master.gain.value = volFrac * 0.5;
+  master.connect(actx.destination);
+  var atk = 0.015, rel = 0.04;
+  var t = actx.currentTime + 0.05;
+  var times = [];
+  for (var i = 0; i < MEASURES.length; i++) {
+    var meas = MEASURES[i];
+    times.push({t: t, label: meas.label});
+    for (var j = 0; j < meas.notes.length; j++) {
+      var note = meas.notes[j][0];
+      var dur  = meas.notes[j][1];
+      var d = dur * beat;
+      var f = hz(note);
+      if (f > 0) {
+        var osc = actx.createOscillator();
+        var env = actx.createGain();
+        osc.type = wave;
+        osc.frequency.value = f;
+        env.gain.setValueAtTime(0, t);
+        env.gain.linearRampToValueAtTime(1, t + atk);
+        env.gain.setValueAtTime(1, t + d - rel);
+        env.gain.linearRampToValueAtTime(0, t + d);
+        osc.connect(env);
+        env.connect(master);
+        osc.start(t);
+        osc.stop(t + d);
+      }
+      t += d;
+    }
+  }
+  return {endTime: t, times: times};
+}
+
+var liveCtx = null, timers = [], playing = false;
+
+function getVals() {
+  return {
+    bpm:  parseInt(document.getElementById('tempo').value),
+    wave: document.getElementById('waveType').value,
+    vol:  parseInt(document.getElementById('volume').value) / 100
+  };
+}
+
+async function playPiece() {
+  if (playing) return;
+  if (!liveCtx) liveCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (liveCtx.state === 'suspended') await liveCtx.resume();
+  var v = getVals();
+  var result = buildGraph(liveCtx, v.bpm, v.wave, v.vol);
+  playing = true;
+  document.getElementById('playBtn').textContent = '▶ Playing…';
+  var now = liveCtx.currentTime;
+  result.times.forEach(function(item) {
+    timers.push(setTimeout(function() {
+      document.getElementById('nowPlaying').textContent = item.label;
+    }, Math.max(0, (item.t - now) * 1000)));
+  });
+  timers.push(setTimeout(function() {
+    playing = false;
+    document.getElementById('playBtn').textContent = '▶ Play';
+    document.getElementById('nowPlaying').textContent = 'Done! — War Eagle!';
+  }, (result.endTime - now) * 1000));
+}
+
+function stopPlayback() {
+  playing = false;
+  timers.forEach(function(t) { clearTimeout(t); });
+  timers = [];
+  if (liveCtx) { liveCtx.close(); liveCtx = null; }
+  document.getElementById('playBtn').textContent = '▶ Play';
+  document.getElementById('nowPlaying').textContent = '';
+}
+
+async function downloadWAV() {
+  document.getElementById('nowPlaying').textContent = 'Rendering…';
+  var v = getVals();
+  var totalBeats = MEASURES.reduce(function(s, m) {
+    return s + m.notes.reduce(function(ss, n) { return ss + n[1]; }, 0);
+  }, 0);
+  var totalSec = totalBeats * (60 / v.bpm) + 0.4;
+  var sr = 44100;
+  var oCtx = new OfflineAudioContext(1, Math.ceil(totalSec * sr), sr);
+  buildGraph(oCtx, v.bpm, v.wave, v.vol);
+  var rendered = await oCtx.startRendering();
+  var wav = toWav(rendered);
+  var url = URL.createObjectURL(new Blob([wav], {type: 'audio/wav'}));
+  var a = document.createElement('a');
+  a.href = url; a.download = 'war_eagle.wav'; a.click();
+  URL.revokeObjectURL(url);
+  document.getElementById('nowPlaying').textContent = 'Downloaded war_eagle.wav — drag into Dopplerize!';
+}
+
+function toWav(buf) {
+  var s = buf.getChannelData(0), len = s.length, sr = buf.sampleRate;
+  var ab = new ArrayBuffer(44 + len * 2);
+  var dv = new DataView(ab);
+  function wr(o, str) { for (var i = 0; i < str.length; i++) dv.setUint8(o + i, str.charCodeAt(i)); }
+  wr(0,'RIFF'); dv.setUint32(4, 36 + len*2, true); wr(8,'WAVE');
+  wr(12,'fmt '); dv.setUint32(16,16,true); dv.setUint16(20,1,true); dv.setUint16(22,1,true);
+  dv.setUint32(24,sr,true); dv.setUint32(28,sr*2,true); dv.setUint16(32,2,true); dv.setUint16(34,16,true);
+  wr(36,'data'); dv.setUint32(40, len*2, true);
+  for (var i = 0; i < len; i++) {
+    var v = Math.max(-1, Math.min(1, s[i]));
+    dv.setInt16(44 + i*2, v < 0 ? v * 0x8000 : v * 0x7FFF, true);
+  }
+  return ab;
+}
+
+function displayScore() {
+  var t = 'War Eagle! — Note Data\n======================\n';
+  for (var i = 0; i < MEASURES.length; i++) {
+    var m = MEASURES[i];
+    var notes = m.notes.map(function(n) { return n[0] + '(' + n[1] + 'bt)'; }).join('  ');
+    t += (m.label + '                ').slice(0,18) + ' ' + notes + '\n';
+  }
+  document.getElementById('scoreDisplay').textContent = t;
+}
+displayScore();
+</script>
+</body>
+</html>

@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HST66CSWTB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HST66CSWTB');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geometric Compression in Consciousness | Theories of Consciousness</title>
+    <link rel="preconnect" href="https://theoriesofconsciousness.com">
+    <link rel="stylesheet" href="../styles.css" />
+    <style>
+        body {
+            font-family: "Times New Roman", serif;
+            line-height: 1.6;
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0 0.1in;
+            color: #333;
+            background: white;
+        }
+
+        h1, h2, h3, h4 {
+            color: #0064c8;
+            margin-top: 1.5em;
+            margin-bottom: 0.5em;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            text-align: center;
+            border-bottom: 2px solid #0064c8;
+            padding-bottom: 0.5em;
+        }
+
+        h2 {
+            font-size: 1.4em;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 0.3em;
+        }
+
+        h3 { font-size: 1.2em; }
+        h4 { font-size: 1.1em; }
+
+        .abstract {
+            background: #f8f9fa;
+            padding: 1em;
+            border-left: 4px solid #0064c8;
+            margin: 1em 0;
+        }
+
+        .keywords {
+            font-style: italic;
+            margin: 1em 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1em 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        .math {
+            font-family: "Times New Roman", serif;
+            font-style: italic;
+        }
+
+        .equation {
+            text-align: center;
+            margin: 1em 0;
+            font-style: italic;
+        }
+
+        .figure {
+            text-align: center;
+            margin: 2em 0;
+        }
+
+        .figure img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .caption {
+            font-style: italic;
+            margin-top: 0.5em;
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        .bibliography {
+            margin-top: 2em;
+        }
+
+        .bib-item {
+            margin-bottom: 0.5em;
+            padding-left: 2em;
+            text-indent: -2em;
+        }
+
+        .analogy-box {
+            background: #eef6ff;
+            border: 1px solid #b0d0f0;
+            border-left: 4px solid #0064c8;
+            padding: 1em 1.2em;
+            margin: 1.5em 0;
+            border-radius: 3px;
+        }
+
+        .analogy-box .analogy-label {
+            font-weight: bold;
+            color: #0064c8;
+            font-size: 0.9em;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.4em;
+        }
+
+        .comparison-table td:first-child {
+            font-weight: bold;
+            color: #0064c8;
+            white-space: nowrap;
+        }
+
+        .token-demo {
+            font-family: "Courier New", monospace;
+            font-size: 0.88em;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 0.8em 1em;
+            margin: 1em 0;
+            border-radius: 3px;
+            overflow-x: auto;
+            white-space: pre;
+        }
+
+        .token-lit {
+            background: #dbeafe;
+            color: #1e40af;
+            border-radius: 2px;
+            padding: 0 2px;
+        }
+
+        .token-match {
+            background: #fef3c7;
+            color: #92400e;
+            border-radius: 2px;
+            padding: 0 2px;
+            border-bottom: 2px solid #f59e0b;
+        }
+
+        .inline-code {
+            font-family: "Courier New", monospace;
+            font-size: 0.9em;
+            background: #f0f0f0;
+            padding: 1px 4px;
+            border-radius: 2px;
+        }
+
+        /* interactive viewer styles */
+        #viewer-wrap {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 1em;
+            margin: 1.5em 0;
+            background: #fafafa;
+        }
+
+        #viewer-wrap .vlegend {
+            display: flex;
+            gap: 1.5em;
+            font-size: 0.85em;
+            margin-bottom: 0.8em;
+            flex-wrap: wrap;
+        }
+
+        #viewer-wrap .vleg-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #viewer-wrap .vswatch {
+            width: 14px;
+            height: 14px;
+            border-radius: 2px;
+            display: inline-block;
+        }
+
+        #tstream {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 1em;
+        }
+
+        .vtok {
+            font-family: "Courier New", monospace;
+            font-size: 0.82em;
+            padding: 2px 6px;
+            border-radius: 3px;
+            cursor: default;
+            border: 1px solid transparent;
+        }
+
+        .vtok-l { background: #dbeafe; color: #1e3a8a; border-color: #93c5fd; }
+        .vtok-m { background: #fef3c7; color: #78350f; border-color: #fcd34d; }
+
+        #trecon {
+            font-family: "Times New Roman", serif;
+            font-size: 1em;
+            line-height: 1.8;
+            word-break: break-word;
+            background: white;
+            border: 1px solid #e0e0e0;
+            padding: 0.7em 1em;
+            border-radius: 3px;
+            margin-bottom: 0.5em;
+        }
+
+        #tdetail {
+            font-family: "Courier New", monospace;
+            font-size: 0.82em;
+            color: #555;
+            min-height: 1.4em;
+        }
+
+        .span-l { background: #dbeafe; color: #1e3a8a; border-radius: 2px; }
+        .span-m { background: #fef3c7; color: #78350f; border-radius: 2px; border-bottom: 2px solid #f59e0b; }
+
+        @media print {
+            body { padding: 0; max-width: none; }
+        }
+    </style>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            displayMath: [['$$', '$$'], ['\\[', '\\]']],
+            macros: {
+                A: "{\\mathcal{A}}",
+                B: "{\\mathcal{B}}",
+                R: "{\\mathcal{R}}",
+                I: "{\\mathcal{I}}",
+                T: "{\\mathcal{T}}",
+                M: "{\\mathcal{M}}",
+                Sim: "{\\mathrm{Sim}}",
+                SO: "{\\mathrm{SO}}"
+            }
+        }
+    };
+    </script>
+</head>
+<body class="theory-paper">
+    <header>
+        <h1><a href="https://www.theoriesofconsciousness.com">Theories of Consciousness</a></h1>
+        <div class="header-menu">
+            <div class="dropdown">
+                <button class="dropbtn">Fundamental Theories</button>
+                <div class="dropdown-content">
+                    <a href="/materialism-consciousness/">1. Materialism</a>
+                    <a href="/non-reductive-physicalism-consciousness/">2. Non-Reductive Physicalism</a>
+                    <a href="/quantum-consciousness/">3. Quantum</a>
+                    <a href="/integrated-information-theory-consciousness/">4. IIT</a>
+                    <a href="/panpsychism-consciousness/">5. Panpsychism</a>
+                    <a href="/monism-consciousness/">6. Monism</a>
+                    <a href="/dualism-consciousness/">7. Dualism</a>
+                    <a href="/idealism-consciousness/">8. Idealism</a>
+                    <a href="/altered-states-consciousness/">9. Altered States</a>
+                    <a href="/challenges-consciousness/">10. Challenges</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Mechanism Theories</button>
+                <div class="dropdown-content">
+                    <a href="/ring-bank-theory-consciousness/">1. Ring/Bank Theory</a>
+                    <a href="/global-workspace-theory-consciousness/">2. Global Workspace Theory</a>
+                    <a href="/integrated-information-theory-consciousness/">3. IIT</a>
+                    <a href="/attention-schema-theory-consciousness/">4. Attention Schema Theory</a>
+                    <a href="/predictive-processing-consciousness/">5. Predictive Processing</a>
+                </div>
+            </div>
+            <a href="/consciousness-dictionary/" class="nav-link">Dictionary</a>
+        </div>
+    </header>
+
+    <h1>Geometric Compression in Consciousness:<br>From ZIP Files to Ringframes</h1>
+
+    <div style="text-align: center;">
+        <strong>Brad Caldwell, BSCE</strong><br>
+        <a href="mailto:caldwbr@gmail.com">caldwbr@gmail.com</a><br>
+        <em>2025</em>
+    </div>
+
+    <div class="abstract">
+        <strong>Abstract</strong><br>
+        Modern data compression — specifically the DEFLATE algorithm underlying ZIP files — operates in two stages: a <strong>Lempel–Ziv (LZ77)</strong> pass that eliminates redundancy by replacing repeated byte sequences with back-references, followed by a <strong>Huffman coding</strong> pass that assigns shorter bit-codes to more frequent symbols. This article argues that the conscious brain performs an analogous but fundamentally different kind of compression. Rather than operating on a flat byte stream, the brain compresses a high-dimensional, full-3D conscious scene into a low-dimensional <em>access manifold</em> $\A(t)$ — a 0–2D ringframe swept or printed by the operator $\Pi$ through the Bank $\B$. The amplitude of the driving signal (the mic $\M(t)$) determines how fully the compressed token can be <em>decompressed</em> back into rich 3D phenomenology: high-amplitude bursts expand into vividly painted, spatially detailed conscious frames; low-amplitude or quiescent periods reduce the printstream to skeletal geometry or silence. This geometric compression is not a metaphor — it is the proposed mechanism by which a bandwidth-limited access event can nonetheless reconstruct the apparent fullness of conscious experience.
+    </div>
+
+    <div class="keywords">
+        <strong>Keywords:</strong> LZ77, Huffman coding, DEFLATE, compression, consciousness, ringframes, access manifold, mic signal, geometric dimensionality reduction, Ring Bank Theory.
+    </div>
+
+
+    <h2>1 Two Kinds of Compression</h2>
+
+    <p>When you save a file as a ZIP, your computer runs a two-stage algorithm. First, it scans the byte stream for repeated patterns and replaces them with pointers — "copy 42 bytes from 43 positions back." This is Lempel–Ziv, or LZ77. Second, it replaces the most common remaining symbols with shorter bit-codes — Huffman coding. Both stages are reversible: given the compressed token, you can reconstruct the original exactly.</p>
+
+    <p>The brain does something structurally similar when it generates conscious experience — but the geometry is inverted, the dimensionality is the key variable, and the "decompression" is not lossless reconstruction but <em>perceptual expansion</em>. Understanding the analogy clarifies why conscious access is narrow, why high arousal makes perception richer, and why the <em>amplitude</em> of a neural burst should be the lever controlling phenomenal vividness.</p>
+
+
+    <h2>2 Stage 1: Lempel–Ziv (LZ77) — Eliminating Temporal Redundancy</h2>
+
+    <h3>2.1 How LZ77 Works</h3>
+
+    <p>LZ77 scans a data stream with a sliding window. At each position, it asks: does a string starting here also appear somewhere earlier in the window? If yes, it emits a <em>match token</em> <span class="inline-code">(length, distance)</span> instead of the raw bytes. If no match long enough is found, it emits a <em>literal token</em> — the raw byte. The result is a <em>token stream</em> of interleaved literals and back-references that is typically much shorter than the original.</p>
+
+    <p>As a concrete example, consider compressing the string:</p>
+
+    <div class="token-demo">Hello DEFLATE! This is a compression test. Hello DEFLATE! This is a compression test.
+&#x21D3;
+LZ77 token stream:
+<span class="token-lit">H</span> <span class="token-lit">e</span> <span class="token-lit">l</span> <span class="token-lit">l</span> <span class="token-lit">o</span> <span class="token-lit"> </span> <span class="token-lit">D</span> <span class="token-lit">E</span> <span class="token-lit">F</span> <span class="token-lit">L</span> <span class="token-lit">A</span> <span class="token-lit">T</span> <span class="token-lit">E</span> <span class="token-lit">!</span> <span class="token-lit"> </span> <span class="token-lit">T</span> <span class="token-lit">h</span> <span class="token-lit">i</span> <span class="token-lit">s</span> <span class="token-lit"> </span> <span class="token-match">[3,3]</span> <span class="token-lit">a</span> <span class="token-lit"> </span> <span class="token-lit">c</span> <span class="token-lit">o</span> <span class="token-lit">m</span> <span class="token-lit">p</span> <span class="token-lit">r</span> <span class="token-lit">e</span> <span class="token-lit">s</span> <span class="token-lit">s</span> <span class="token-lit">i</span> <span class="token-lit">o</span> <span class="token-lit">n</span> <span class="token-lit"> </span> <span class="token-lit">t</span> <span class="token-lit">e</span> <span class="token-lit">s</span> <span class="token-lit">t</span> <span class="token-lit">.</span> <span class="token-lit"> </span> <span class="token-match">[42,43]</span> <span class="token-lit">\n</span></div>
+
+    <p>The match token <span class="inline-code">[3,3]</span> means: "go back 3 characters, copy 3 bytes" — recovering "is ". The match token <span class="inline-code">[42,43]</span> means: "go back 43 characters, copy 42 bytes" — recovering the entire first sentence. Eighty-six bytes of input compress to 43 tokens, many of which are single-byte literals.</p>
+
+    <p>The interactive viewer below shows this token stream for a real compressed file. Blue chips are literals; amber chips are back-references. The reconstructed text below shows the same coloring, so you can see exactly which spans came from back-references versus direct encoding.</p>
+
+    <!-- Interactive LZ77 viewer -->
+    <div id="viewer-wrap">
+        <div class="vlegend">
+            <div class="vleg-item"><span class="vswatch" style="background:#dbeafe;border:1px solid #93c5fd;"></span> literal byte</div>
+            <div class="vleg-item"><span class="vswatch" style="background:#fef3c7;border:1px solid #fcd34d;"></span> back-reference (match)</div>
+        </div>
+        <div style="font-size:0.85em;font-weight:bold;color:#555;margin-bottom:4px;">Token stream</div>
+        <div id="tstream"></div>
+        <div style="font-size:0.85em;font-weight:bold;color:#555;margin-bottom:4px;">Reconstructed text</div>
+        <div id="trecon"></div>
+        <div id="tdetail">hover a token to inspect</div>
+    </div>
+
+    <p>What LZ77 exploits is <em>temporal redundancy</em>: patterns that appear more than once in a flat, sequential stream. The compressed token is a recipe for reconstruction, not the thing itself.</p>
+
+    <h3>2.2 What LZ77 Cannot Do</h3>
+
+    <p>LZ77 says nothing about the <em>structure</em> of the data — it treats bytes as a flat sequence. It cannot exploit the fact that a JPEG encodes spatial neighborhoods, or that an audio file encodes harmonic structure. Its compression is purely sequential. This is important because the brain's content is not a flat byte stream — it is a <em>posed 3D geometry</em>. The analogue to LZ77 in the brain is therefore not sequential back-reference but something richer: <em>geometric</em> back-reference, retrieving an object or scene from the Bank $\B$ by pose rather than by byte offset.</p>
+
+
+    <h2>3 Stage 2: Huffman Coding — Frequency-Based Symbol Compression</h2>
+
+    <h3>3.1 How Huffman Coding Works</h3>
+
+    <p>After LZ77, the token stream still contains many symbols — literal byte values, length codes, distance codes. Huffman coding assigns a variable-length binary code to each symbol, with shorter codes for more frequent symbols. The result is that "e" (frequent in English) might be encoded in 7 bits while a rare punctuation byte requires 9. The codes are prefix-free, so decompression is unambiguous.</p>
+
+    <p>Together, LZ77 and Huffman form DEFLATE — the algorithm inside every ZIP, gzip, and PNG file. The two stages attack redundancy at different levels: LZ77 removes <em>repetition across the stream</em>; Huffman removes <em>symbol-frequency imbalance within the remaining tokens</em>.</p>
+
+    <table>
+        <caption>Table 1: DEFLATE's two compression stages</caption>
+        <thead>
+            <tr>
+                <th>Stage</th>
+                <th>What it removes</th>
+                <th>Mechanism</th>
+                <th>Output</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>LZ77</td>
+                <td>Sequential repetition</td>
+                <td>Back-references by (length, distance)</td>
+                <td>Token stream of literals + matches</td>
+            </tr>
+            <tr>
+                <td>Huffman</td>
+                <td>Symbol frequency imbalance</td>
+                <td>Variable-length prefix codes</td>
+                <td>Compact bitstream</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>3.2 The Key Insight: Compression is Dimensional Reduction on a Flat Space</h3>
+
+    <p>Both LZ77 and Huffman operate on a one-dimensional byte stream. They are clever algorithms for exploiting statistical structure in that stream. But they share a fundamental property: the compressed representation is still a flat token sequence. Decompression is a deterministic algorithm that runs forward through the token stream and reconstructs the original, byte for byte.</p>
+
+    <p>This is critical: the "decompressor" in DEFLATE has no model of what the data <em>means</em>. It reconstructs mechanically. A picture of a face and a picture of noise compress differently (faces compress better) but the decompressor doesn't know it's looking at a face — it just follows the tokens.</p>
+
+    <p>The brain's situation is the opposite. The brain has a very rich model — the Bank $\B$ — and uses it to do something far more powerful than token replay.</p>
+
+
+    <h2>4 The Brain's Compression: Geometric Dimensionality Reduction</h2>
+
+    <h3>4.1 The Access Manifold as Compressed Token</h3>
+
+    <p>Ring Bank Theory (RBT) proposes that conscious access does not sample the full 3D content of the Bank $\B$ at once. Instead, the printing operator $\Pi$ operates on a <em>low-dimensional access manifold</em> $\A(t) \subseteq \B$, which is a 0–2D submanifold: a point, a curve, a surface, or something in between. What gets deposited into the Time Schema $\T$ at any given moment is a <em>ringframe</em> $\rho(t)$ — the material printed on $\A$, not the full 3D volume.</p>
+
+    <div class="equation">
+        $$\rho(t) = \Pi(\A(t), S, g(t)), \qquad \A(t) \subseteq \B, \qquad \rho(t) \hookrightarrow \T$$
+    </div>
+
+    <p>The ringframe is the compressed token. It is geometrically thin — potentially as thin as a single traversal of a curve — but it is not a flat byte sequence. It is a <em>posed geometric event</em> in $\Sim(3)$: it carries scale, orientation, translation, and shape information that, together with the Bank it samples from, is sufficient to reconstruct a rich 3D percept.</p>
+
+    <div class="analogy-box">
+        <div class="analogy-label">Analogy</div>
+        LZ77 replaces a repeated byte string with a back-reference <span class="inline-code">(length=42, dist=43)</span>. The Bank does the analogous thing geometrically: rather than re-encoding an entire 3D scene from scratch, the printing operator samples a thin slice of a pre-stored shape manifold. The Bank is the "sliding window" — but it is a window into 3D shape space, not a flat byte buffer. The pose $g(t) \in \Sim(3)$ is the back-reference address.
+    </div>
+
+    <h3>4.2 The Mic Signal as Decompression Amplitude</h3>
+
+    <p>In DEFLATE, the decompressor has a fixed algorithm: given a token, it reconstructs the original bytes completely and losslessly. In the brain, decompression is not fixed — it is <em>amplitude-dependent</em>.</p>
+
+    <p>The mic signal $\M(t)$ is a transient, structured drive that modulates the printing operator $\Pi$. When $\M(t)$ is large — during active perception, high arousal, or intense attention — the ringframe can expand into a vividly painted, spatially detailed 3D conscious frame. When $\M(t)$ is small or quiescent, the printstream reduces to skeletal geometry: outlines, rough structure, perhaps color without detail, or in the extreme, pure timing with no geometric content at all.</p>
+
+    <p>This is the key phenomenological prediction: <strong>the amplitude of the neural burst is the lever that controls how fully a compressed geometric token decompresses into rich conscious experience.</strong></p>
+
+    <table class="comparison-table">
+        <caption>Table 2: DEFLATE vs. brain geometric compression</caption>
+        <thead>
+            <tr>
+                <th>Dimension</th>
+                <th>DEFLATE (ZIP)</th>
+                <th>Brain (RBT)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Data space</td>
+                <td>Flat byte stream (1D sequence)</td>
+                <td>Posed 3D shape manifold ($\B$ under $\Sim(3)$)</td>
+            </tr>
+            <tr>
+                <td>Stage 1 compression</td>
+                <td>LZ77: replace repeated byte strings with (len, dist) tokens</td>
+                <td>Geometric: sample thin $\A(t) \subseteq \B$ rather than full 3D volume; pose $g(t)$ is the "address"</td>
+            </tr>
+            <tr>
+                <td>Stage 2 compression</td>
+                <td>Huffman: shorter codes for frequent symbols</td>
+                <td>Frequency/salience weighting: high-salience objects get richer, more frequent access; low-salience objects get sparse sampling</td>
+            </tr>
+            <tr>
+                <td>Compressed token</td>
+                <td>Bit sequence: literals + back-reference codes</td>
+                <td>Ringframe $\rho(t)$: a posed 0–2D geometric event in $\T$</td>
+            </tr>
+            <tr>
+                <td>Decompressor</td>
+                <td>Fixed algorithm; always lossless</td>
+                <td>Amplitude-dependent: $\M(t)$ controls how fully $\rho$ expands into painted 3D phenomenology</td>
+            </tr>
+            <tr>
+                <td>Decompressed output</td>
+                <td>Original byte stream, identical to input</td>
+                <td>Real/Imaginal readouts $\R(t), \I(t)$: 3D scenes with paint, semantics, and spatial detail</td>
+            </tr>
+            <tr>
+                <td>"Window" / dictionary</td>
+                <td>Recent byte history (sliding window, up to 32 KB)</td>
+                <td>The Bank $\B$: a full shape manifold of stored objects/scenes, posed by $g(t) \in \Sim(3)$</td>
+            </tr>
+            <tr>
+                <td>What is exploited</td>
+                <td>Sequential repetition + symbol frequency</td>
+                <td>Geometric redundancy: full 3D scenes can be reconstructed from thin 0–2D samples given the right Bank and pose</td>
+            </tr>
+            <tr>
+                <td>Lossless?</td>
+                <td>Yes — bit-perfect reconstruction</td>
+                <td>No — reconstruction is constructive and amplitude-gated; "lossiness" is the phenomenology of degraded states</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>4.3 The Extreme Case: Mic Transient Only</h3>
+
+    <p>In the most compressed mode of conscious access, the ringframe reduces to a pure mic transient: a point event in time with almost no geometric content — just a timing spike carrying a salience tag and a conceptual address (the aboutness vector $\vec{C}$). This is the analogue of a single Huffman code in isolation: almost no bits, maximum redundancy exploitation, but only useful if the receiver has the full dictionary (the Bank) and can reconstruct from context.</p>
+
+    <p>This extreme compression corresponds phenomenologically to what happens at the boundary of sleep, in dissociation, or under deep sedation: conscious content is no longer a richly painted 3D scene but a sequence of sparse "blips" or "cards," each carrying minimal geometric information but enough temporal and conceptual structure to orient the system. The Bank is still there; the reconstruction machinery is still there; only the amplitude — $\M(t)$ — has dropped below the threshold that would allow full decompression.</p>
+
+    <div class="analogy-box">
+        <div class="analogy-label">Phenomenological note</div>
+        Carl Sagan's account of altered perception describes "outlines of...instant appreciation" — a skeleton scene that arrives whole but unpainted, detail filling in afterward. This is consistent with a high-amplitude mic transient producing a well-posed ringframe (skeleton geometry arrives immediately) followed by a slower $\R$/$\I$ readout integrating paint and semantic detail. The outline is the compressed token; the painted scene is the decompressed readout.
+    </div>
+
+
+    <h2>5 The Readout as Decompression</h2>
+
+    <p>In DEFLATE, decompression is a forward pass through the token stream: literals are emitted directly; match tokens trigger a copy from the output buffer. The output buffer at time $t$ is everything decoded so far — the "expanded" history.</p>
+
+    <p>RBT models the analogous process as a causal integration of recent ringframes:</p>
+
+    <div class="equation">
+        $$[\R(t),\I(t)] := f\!\left(\int_{t-\Delta}^{t}G(t-\tau)\,[\rho(\tau),\R(\tau),\I(\tau)]\,d\tau\right)$$
+    </div>
+
+    <p>The kernel $G(t-\tau)$ weights recent ringframes by recency (fading). The Real and Imaginal schemas $\R$ and $\I$ are the expanded, 3D readouts — the "decompressed output." They are constructed from recent ringframes plus the current state of the schemas themselves — exactly like an LZ77 decompressor that uses its own output buffer as the back-reference source.</p>
+
+    <p>What controls the <em>quality</em> of this decompression? In DEFLATE the answer is trivial — the algorithm is fixed. In the brain the answer is the amplitude and structure of $\M(t)$. A strong mic signal allows full Sim(3) pose resolution of the Bank, rich paint via radiance sphere $L_\text{perc}(\omega)$, and deep semantic interpretation. A weak or absent mic signal allows only coarse pose, no paint, and minimal semantics — a skeleton scene at best.</p>
+
+    <table>
+        <caption>Table 3: Mic amplitude and phenomenal decompression quality</caption>
+        <thead>
+            <tr>
+                <th>$\M(t)$ amplitude</th>
+                <th>Ringframe dimensionality</th>
+                <th>Phenomenal quality</th>
+                <th>Analogous state</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>High (active perception)</td>
+                <td>2D frame, full sweep</td>
+                <td>Vivid, painted, spatially detailed 3D scene</td>
+                <td>Alert waking</td>
+            </tr>
+            <tr>
+                <td>Medium (relaxed, daydream)</td>
+                <td>1D ring, partial sweep</td>
+                <td>Moderate vividness, coarse geometry, partial paint</td>
+                <td>Relaxed waking, hypnagogia onset</td>
+            </tr>
+            <tr>
+                <td>Low (theta/delta dominant)</td>
+                <td>Near-0D, blip-like</td>
+                <td>Skeletal outlines, minimal paint, rough schema</td>
+                <td>Deep hypnagogia, light sedation</td>
+            </tr>
+            <tr>
+                <td>Near-zero (quiescent)</td>
+                <td>Timing spike only</td>
+                <td>Conceptual/temporal tag, no geometry</td>
+                <td>Deep sedation, dissociation</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h2>6 Why Geometric Compression is Not Just a Metaphor</h2>
+
+    <p>One might object: is this analogy not purely rhetorical? ZIP files have nothing to do with neurons. The response is that the compression/decompression structure is not an analogy imposed from outside but a consequence of the architecture RBT proposes:</p>
+
+    <ol>
+        <li><strong>The Bank is a pre-stored dictionary.</strong> LZ77 works because repeated patterns exist in a window of recent bytes. The Bank works because the brain stores a rich manifold of shapes and scenes — compressed into a latent geometry — against which any current input can be matched and posed. The pose $g(t) \in \Sim(3)$ is the back-reference address. The Bank entry is the dictionary entry.</li>
+
+        <li><strong>The ringframe is a lossy compressed token.</strong> LZ77's match token is small because it just says "copy from there." The ringframe is small in dimensionality because it just says "sample here on the Bank at this pose." Both are much smaller than the thing they recover.</li>
+
+        <li><strong>The readout is constructive decompression.</strong> LZ77's decompressor copies bytes from its output buffer — it uses what it has already decoded to decode more. The $\R$/$\I$ readout integrates recent ringframes using its own current state — exactly the same structure: using decoded output to decode the next piece.</li>
+
+        <li><strong>Amplitude controls decompression depth.</strong> This has no analogue in lossless DEFLATE but is the key architectural difference: in the brain, the decompressor's power is variable. This is what allows a single mechanism to span the range from vivid waking perception to dreamless sedation — the same Bank, the same printing operator, but $\M(t)$ dialed from maximum to zero.</li>
+    </ol>
+
+
+    <h2>7 Implications and Predictions</h2>
+
+    <h3>7.1 Hyperpolarization as Compression Without Decompression Power</h3>
+
+    <p>Under ketamine, dissociatives, or deep sedation, beta/gamma power collapses and global dynamics slow toward delta. RBT interprets this as a progressive reduction in $\M(t)$ amplitude: the Bank and its geometric structure are preserved (patients retain implicit knowledge of themselves and their world), but the mic signal cannot sustain full decompression. Patients report fragmented, low-detail imagery or none at all — consistent with ringframes reducing toward 0D blips that the readout machinery cannot fully expand.</p>
+
+    <h3>7.2 The "Outlines First" Phenomenon</h3>
+
+    <p>A gross-to-fine chirp ($\sim 4 \rightarrow 40$ Hz over ~500 ms) prints successive geometric refinements into $\T$, with paint arriving late. This is the temporal signature of partial decompression followed by full decompression: the low-frequency print gives pose and outline (the "pointer"), and the subsequent high-frequency activity fleshes out detail and color (the "copy"). LZ77 has no such temporal structure — it reconstructs immediately. The brain's decompression is intrinsically time-extended.</p>
+
+    <h3>7.3 Vividness and Phantasia</h3>
+
+    <p>Individual differences in mental imagery vividness (aphantasia vs. hyperphantasia) correspond, in this framework, to differences in the gain of $\M(t)$ driving the imaginal printing operator. High gain = strong mic transients = full decompression of Bank geometry into $\I$ with paint. Low gain = weak transients = skeletal or absent imaginal content, even though the Bank geometry is present and usable for "blindsight"-style geometric processing.</p>
+
+    <h3>7.4 The Hazard Function as a Compressed Schedule</h3>
+
+    <p>The point-process hazard $h(t) = \beta(t) + \sum_i g(\alpha_i) k(t - t_i) - a(t)$ is the brain's equivalent of a Huffman code: it allocates printing resources in proportion to salience. High-salience events ($\alpha_i$ large) get more prints, shorter inter-print intervals — analogous to frequent symbols getting shorter Huffman codes. The schedule itself is compressed: the baseline $\beta(t)$ carries most prints cheaply, while the salience terms $g(\alpha_i)$ add targeted bursts only when needed.</p>
+
+
+    <h2>8 The Inversion: Brain Compresses High-to-Low, Decompresses Low-to-High</h2>
+
+    <p>DEFLATE compresses a high-entropy byte stream into a lower-entropy bitstream. It works best when the source has redundancy. The brain's situation is the opposite in a crucial sense: the source (the world) is high-dimensional, but the Bank has <em>already extracted the redundancy</em> — it is a learned manifold of shapes and scenes, not a raw byte stream. The brain then compresses <em>access</em> to this manifold, not the manifold itself. The ringframe is a thin sample of an already-compressed representation. Decompression is then expansion — using the Bank's learned geometry plus the mic signal's power to recover the full 3D phenomenal scene.</p>
+
+    <p>This is the fundamental inversion: ZIP compresses by removing redundancy from raw data. The brain compresses by reducing the dimensionality of <em>access</em> to an already-structured internal model, and decompresses by expanding that access using amplitude-gated reconstruction. The Bank is the compression artifact; the ringframe is the pointer into it; the $\R$/$\I$ readout is the decompressed output; and $\M(t)$ is the decompressor's power supply.</p>
+
+    <div class="analogy-box">
+        <div class="analogy-label">Summary</div>
+        <strong>ZIP:</strong> raw bytes → LZ77 tokens → Huffman bits → (lossless) → raw bytes<br><br>
+        <strong>Brain:</strong> 3D world → Bank $\B$ (learned geometry) → ringframe $\rho(t)$ on thin $\A(t)$ → (amplitude-gated) → $\R(t)$/$\I(t)$ readout (painted 3D scene)
+    </div>
+
+
+    <h2>9 Conclusion</h2>
+
+    <p>DEFLATE's LZ77 + Huffman pipeline is a clean example of two-stage compression applied to flat byte streams. The brain performs a structurally analogous operation in a higher-dimensional, geometric setting: the Bank provides the dictionary; the access manifold provides the compressed pointer; the mic signal provides the decompression power; and the Real/Imaginal readout provides the expanded conscious scene. Unlike DEFLATE, the brain's decompression is lossy in a phenomenologically meaningful way — the degree of expansion from pointer to full scene is continuously controlled by the amplitude of the driving signal. This makes the analogy more than rhetorical: it is a mechanistic proposal about why conscious experience has the bandwidth it has, why vividness tracks arousal, and why the geometry of access — ringframes, bank traversal, $\Sim(3)$ posing — is the right level at which to describe the compression that makes consciousness possible.</p>
+
+
+    <h2>Bibliography</h2>
+
+    <div class="bibliography">
+        <div class="bib-item">[1] Caldwell, Brad (2022). <em>Rings of Fire: How the Brain Makes Consciousness</em>.</div>
+        <div class="bib-item">[2] Caldwell, Brad (2023). <em>Perceptual Optics</em>.</div>
+        <div class="bib-item">[3] Caldwell, Brad (2025). <em>Ring Bank Theory of Conscious Semiosis: Baseline Dynamics and Aboutness Modulation</em>. theoriesofconsciousness.com.</div>
+        <div class="bib-item">[4] Deutsch, P. (1996). <em>DEFLATE Compressed Data Format Specification version 1.3</em>. RFC 1951. IETF.</div>
+        <div class="bib-item">[5] Ziv, J., & Lempel, A. (1977). A universal algorithm for sequential data compression. <em>IEEE Transactions on Information Theory</em>, 23(3), 337–343.</div>
+        <div class="bib-item">[6] Huffman, D. A. (1952). A method for the construction of minimum-redundancy codes. <em>Proceedings of the IRE</em>, 40(9), 1098–1101.</div>
+        <div class="bib-item">[7] Vesuna, S. et al. (2020). Deep posteromedial cortical rhythm in dissociation. <em>Nature</em>.</div>
+        <div class="bib-item">[8] Adam, E., et al. (2024). Ketamine can produce oscillatory dynamics by engaging mechanisms dependent on the kinetics of NMDA receptors. <em>PNAS</em>, 121(22), e2402732121.</div>
+        <div class="bib-item">[9] Chang, S., Zhang, X., Cao, Y., Pearson, J., & Meng, M. (2025). Imageless imagery in aphantasia revealed by early visual cortex decoding. <em>Current Biology</em>, 35, 591–599.</div>
+        <div class="bib-item">[10] Lehar, Steven. (2008). <em>The Constructive Aspect of Visual Perception</em>.</div>
+        <div class="bib-item">[11] Sagan, Carl. (n.d.). <em>Mr. X</em>. Organism Earth.</div>
+    </div>
+
+    <div class="footer-container">
+        <div class="footer-content">
+            <p>&copy; 2025 Brad Caldwell.</p>
+            <p>All Rights Reserved.</p>
+        </div>
+    </div>
+
+    <script>
+    const TOKENS = [
+        {t:'l',v:72,c:'H'},{t:'l',v:101,c:'e'},{t:'l',v:108,c:'l'},{t:'l',v:108,c:'l'},{t:'l',v:111,c:'o'},
+        {t:'l',v:32,c:' '},{t:'l',v:68,c:'D'},{t:'l',v:69,c:'E'},{t:'l',v:70,c:'F'},{t:'l',v:76,c:'L'},
+        {t:'l',v:65,c:'A'},{t:'l',v:84,c:'T'},{t:'l',v:69,c:'E'},{t:'l',v:33,c:'!'},{t:'l',v:32,c:' '},
+        {t:'l',v:84,c:'T'},{t:'l',v:104,c:'h'},{t:'l',v:105,c:'i'},{t:'l',v:115,c:'s'},{t:'l',v:32,c:' '},
+        {t:'m',l:3,d:3},
+        {t:'l',v:97,c:'a'},{t:'l',v:32,c:' '},{t:'l',v:99,c:'c'},{t:'l',v:111,c:'o'},{t:'l',v:109,c:'m'},
+        {t:'l',v:112,c:'p'},{t:'l',v:114,c:'r'},{t:'l',v:101,c:'e'},{t:'l',v:115,c:'s'},{t:'l',v:115,c:'s'},
+        {t:'l',v:105,c:'i'},{t:'l',v:111,c:'o'},{t:'l',v:110,c:'n'},{t:'l',v:32,c:' '},{t:'l',v:116,c:'t'},
+        {t:'l',v:101,c:'e'},{t:'l',v:115,c:'s'},{t:'l',v:116,c:'t'},{t:'l',v:46,c:'.'},{t:'l',v:32,c:' '},
+        {t:'m',l:42,d:43},
+        {t:'l',v:10,c:'\n'}
+    ];
+
+    function buildOutput(tokens) {
+        const out = [];
+        for (const tok of tokens) {
+            if (tok.t === 'l') { out.push(tok.c === '\n' ? '\n' : tok.c); }
+            else { for (let i = 0; i < tok.l; i++) out.push(out[out.length - tok.d]); }
+        }
+        return out;
+    }
+
+    const output = buildOutput(TOKENS);
+    const detail = document.getElementById('tdetail');
+
+    const tstream = document.getElementById('tstream');
+    TOKENS.forEach((tok, i) => {
+        const el = document.createElement('span');
+        el.className = 'vtok ' + (tok.t === 'l' ? 'vtok-l' : 'vtok-m');
+        el.textContent = tok.t === 'l'
+            ? (tok.c === '\n' ? '\\n' : tok.c === ' ' ? 'SP' : tok.c)
+            : `[${tok.l},${tok.d}]`;
+        el.onmouseenter = () => {
+            if (tok.t === 'l') {
+                detail.textContent = `token ${i}  LIT  byte=${tok.v}  char='${tok.c}'`;
+            } else {
+                let p = 0;
+                for (let k = 0; k < i; k++) p += TOKENS[k].t === 'l' ? 1 : TOKENS[k].l;
+                const copied = output.slice(p, p + tok.l).join('').replace(/\n/g,'\\n');
+                detail.textContent = `token ${i}  MATCH  len=${tok.l}  dist=${tok.d}  copies: "${copied}"`;
+            }
+        };
+        el.onmouseleave = () => { detail.textContent = 'hover a token to inspect'; };
+        tstream.appendChild(el);
+    });
+
+    const trecon = document.getElementById('trecon');
+    let opos = 0;
+    TOKENS.forEach((tok, i) => {
+        const sp = document.createElement('span');
+        if (tok.t === 'l') {
+            sp.className = 'span-l';
+            sp.textContent = tok.c === '\n' ? '\n' : tok.c === ' ' ? '\u00a0' : tok.c;
+            opos++;
+        } else {
+            sp.className = 'span-m';
+            sp.textContent = output.slice(opos, opos + tok.l).join('').replace(/ /g,'\u00a0');
+            sp.onmouseenter = () => {
+                const copied = output.slice(opos, opos + tok.l).join('').replace(/\n/g,'\\n');
+                detail.textContent = `token ${i}  MATCH  len=${tok.l}  dist=${tok.d}  copies: "${copied}"`;
+            };
+            sp.onmouseleave = () => { detail.textContent = 'hover a token to inspect'; };
+            opos += tok.l;
+        }
+        trecon.appendChild(sp);
+    });
+    </script>
+
+</body>
+</html>

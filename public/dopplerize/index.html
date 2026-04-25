@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Dopplerize</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="canonical" href="https://theoriesofconsciousness.com/dopplerize/">
+    <meta name="robots" content="index, follow">
+    <style>
+    :root {
+        --bg: #0a0a0f;
+        --panel: #14141a;
+        --text: #c9d1d9;
+        --accent: #3b82f6;
+        --border: #2a2a35;
+        --muted: #6b7280
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0
+    }
+
+    body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        padding: 1.5rem 1rem;
+        min-height: 100vh
+    }
+
+    .container {
+        max-width: 860px;
+        margin: 0 auto
+    }
+
+    h1 {
+        text-align: center;
+        color: var(--accent);
+        font-size: 1.4rem;
+        margin-bottom: .2rem
+    }
+
+    .sub {
+        text-align: center;
+        color: var(--muted);
+        font-size: .82rem;
+        margin-bottom: 1.2rem
+    }
+
+    .panel {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.1rem;
+        margin-bottom: .9rem
+    }
+
+    .row {
+        display: flex;
+        gap: .6rem;
+        align-items: center;
+        margin-bottom: .75rem;
+        flex-wrap: wrap
+    }
+
+    .file-btn {
+        background: #374151;
+        color: #fff;
+        padding: .5rem .9rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: .85rem;
+        white-space: nowrap
+    }
+
+    .file-btn:hover {
+        background: #4b5563
+    }
+
+    input[type=file] {
+        display: none
+    }
+
+    .fname {
+        font-family: monospace;
+        color: var(--accent);
+        font-size: .82rem;
+        flex: 1;
+        min-width: 80px
+    }
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+        gap: .85rem;
+        margin-bottom: .75rem
+    }
+
+    .ctrl label {
+        display: block;
+        font-size: .8rem;
+        color: var(--muted);
+        margin-bottom: .25rem
+    }
+
+    .ctrl {
+        display: flex;
+        flex-direction: column
+    }
+
+    input[type=range] {
+        width: 100%;
+        accent-color: var(--accent);
+        cursor: pointer
+    }
+
+    .val {
+        text-align: right;
+        font-family: monospace;
+        color: var(--accent);
+        font-size: .8rem;
+        margin-top: .15rem
+    }
+
+    button {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: .55rem .9rem;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: .9rem
+    }
+
+    button:hover {
+        opacity: .88
+    }
+
+    button.sec {
+        background: #374151
+    }
+
+    button.off {
+        background: #374151
+    }
+
+    button.on {
+        background: #2563eb
+    }
+
+    #playBtn {
+        width: 100%;
+        padding: .75rem;
+        font-size: 1rem;
+        margin-top: .3rem
+    }
+
+    canvas {
+        display: block;
+        width: 100%;
+        height: 80px;
+        border-radius: 6px;
+        background: #000;
+        margin-top: .6rem
+    }
+
+    .note {
+        font-size: .78rem;
+        color: var(--muted);
+        margin-top: .5rem;
+        text-align: center
+    }
+
+    .diagwrap {
+        position: relative;
+        height: 90px;
+        background: #000;
+        border-radius: 6px;
+        overflow: hidden;
+        margin-bottom: .75rem
+    }
+
+    #diag {
+        width: 100%;
+        height: 100%
+    }
+
+    .meters {
+        display: flex;
+        gap: .6rem;
+        margin-top: .6rem
+    }
+
+    .meter {
+        flex: 1;
+        background: #0d0d14;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: .4rem .6rem;
+        text-align: center
+    }
+
+    .meter .mlabel {
+        font-size: .7rem;
+        color: var(--muted)
+    }
+
+    .meter .mval {
+        font-family: monospace;
+        font-size: 1rem;
+        color: var(--accent);
+        font-weight: 600
+    }
+
+    .btn-row {
+        display: flex;
+        gap: .6rem;
+        margin-top: .3rem
+    }
+
+    #revBtn {
+        background: #7c3aed;
+        flex: 1;
+        padding: .75rem;
+        font-size: 1rem
+    }
+
+    #revBtn:hover {
+        background: #6d28d9
+    }
+
+    #revBtn.active {
+        background: #f59e0b
+    }
+
+    #revBtn.active:hover {
+        background: #d97706
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚗 Dopplerize</h1>
+        <p class="sub">Physics-accurate Doppler shift + volume attenuation. Upload a short loop, set geometry, listen.</p>
+
+        <div class="panel">
+            <div class="row">
+                <label class="file-btn" for="audioUpload">Load Audio (.mp3/.wav)</label>
+                <input type="file" id="audioUpload" accept="audio/*">
+                <span class="fname" id="fileName">No file loaded</span>
+            </div>
+            <div class="grid">
+                <div class="ctrl">
+                    <label>Vehicle speed (mph)</label>
+                    <input type="range" id="speed" min="10" max="800" value="55">
+                    <div class="val" id="speedVal">55 mph</div>
+                </div>
+                <div class="ctrl">
+                    <label>Road distance (ft)</label>
+                    <input type="range" id="dist" min="5" max="200" value="30">
+                    <div class="val" id="distVal">30 ft</div>
+                </div>
+                <div class="ctrl">
+                    <label>Volume</label>
+                    <input type="range" id="vol" min="0" max="500" value="300">
+                    <div class="val" id="volVal">300%</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="diagwrap">
+                <canvas id="diag">
+                </canvas>
+            </div>
+
+            <div class="grid">
+                <div class="ctrl">
+                    <label>Manual pitch bend (cents)</label>
+                    <input type="range" id="pitchBend" min="-6000" max="6000" value="0" step="10">
+                    <div class="val" id="pbVal">0 ¢</div>
+                </div>
+                <div class="ctrl">
+                    <label>Simulation speed</label>
+                    <input type="range" id="simSpeed" min="0.1" max="3" value="1" step="0.1">
+                    <div class="val" id="ssVal">1.0×</div>
+                </div>
+                <div class="ctrl" style="justify-content:flex-end">
+                    <label>Freeze at closest point</label>
+                    <button id="freezeBtn" class="off" style="margin-top:.35rem">OFF</button>
+                </div>
+            </div>
+
+            <div class="meters">
+                <div class="meter">
+                    <div class="mlabel">Pitch factor</div>
+                    <div class="mval" id="mPitch">—</div>
+                </div>
+                <div class="meter">
+                    <div class="mlabel">Distance</div>
+                    <div class="mval" id="mDist">—</div>
+                </div>
+                <div class="meter">
+                    <div class="mlabel">Gain</div>
+                    <div class="mval" id="mGain">—</div>
+                </div>
+                <div class="meter">
+                    <div class="mlabel">Progress</div>
+                    <div class="mval" id="mProg">—</div>
+                </div>
+            </div>
+
+            <canvas id="scope">
+            </canvas>
+            <div class="note">f = f₀ · c / (c − v_radial) &nbsp;|&nbsp; gain ∝ 1/distance &nbsp;|&nbsp; drive-by window: ±5 s from closest approach</div>
+        </div>
+
+        <div class="btn-row">
+            <button id="playBtn">▶ Play Simulation</button>
+            <button id="revBtn">⇄ Reverse Direction</button>
+        </div>
+    </div>
+    <div class="panel" style="margin-top:1rem">
+      <h3 style="margin:0 0 0.5rem;color:var(--accent)">What is Dopplerize?</h3>
+      <p style="margin:0;font-size:0.9rem;line-height:1.5">
+        <strong>Dopplerize</strong> is a free, browser-based physics simulator that applies the 
+        <a href="https://en.wikipedia.org/wiki/Doppler_effect" target="_blank" style="color:var(--accent);text-decoration:none">Doppler effect</a> 
+        to any audio file. Hear how a car's music changes pitch as it speeds past you—just like in real life. 
+        Perfect for musicians, physics students, sound designers, and curious listeners. 
+        No download, no signup, 100% client-side.
+      </p>
+      <p style="margin:0.5rem 0 0;font-size:0.85rem;color:var(--muted)">
+        🔍 Related searches: Doppler effect simulator, pitch shift audio online, physics sound demo, 
+        car audio Doppler, real-time frequency modulation, Web Audio API demo, educational audio tool
+      </p>
+    </div>
+    <div class="panel" style="margin-top:1.5rem">
+      <h3 style="margin:0 0 0.75rem;color:var(--accent);display:flex;align-items:center;gap:0.5rem">
+        🌊 Why Does Pitch Bend When Things Move? <span style="font-size:0.9em;font-weight:400;color:var(--muted)">(The Doppler Deep Dive)</span>
+      </h3>
+
+      <div style="font-size:0.9rem;line-height:1.6">
+        <p style="margin:0 0 0.75rem">
+          The <strong>Doppler effect</strong> isn't magic — it's geometry + wave physics. When a sound source moves toward you, each wave crest gets emitted from a slightly closer position. The waves <em>compress</em> → higher frequency → higher pitch. When it recedes, waves <em>stretch</em> → lower pitch. 
+        </p>
+
+        <div style="background:rgba(59,130,246,0.1);border-left:3px solid var(--accent);padding:0.75rem;margin:0.75rem 0;border-radius:0 4px 4px 0">
+          <strong style="display:block;margin-bottom:0.25rem">The formula (no panic):</strong>
+          <code style="display:block;background:var(--bg);padding:0.3rem 0.5rem;border-radius:3px;font-size:0.85rem">
+            f_observed = f_source × c / (c ∓ v_radial)
+          </code>
+          <p style="margin:0.3rem 0 0;font-size:0.85rem;color:var(--muted)">
+            <code>c</code> = speed of sound (343 m/s) • <code>v_radial</code> = how fast the source moves toward/away from you
+          </p>
+        </div>
+
+        <h4 style="margin:1rem 0 0.5rem;color:var(--accent);font-size:1.05rem">🎛️ Your Controls, Decoded</h4>
+
+        <dl style="margin:0">
+          <dt style="font-weight:600;margin:0.5rem 0 0.2rem">🚗 Vehicle speed (mph)</dt>
+          <dd style="margin:0 0 0.75rem;color:var(--muted)">
+            Faster car = bigger pitch swing. At 300 mph, the shift is dramatic (~±20%). At 10 mph, it's subtle. 
+            <em>Try:</em> 65 mph + 5 ft distance for that classic "NASCAR flyby" sound.
+          </dd>
+
+          <dt style="font-weight:600;margin:0.5rem 0 0.2rem">📏 Road distance (ft)</dt>
+          <dd style="margin:0 0 0.75rem;color:var(--muted)">
+            This is your <strong>orthogonal distance</strong> — how far you stand from the road's edge. 
+            Close (5 ft) = sudden "WHEEE-oooom" pitch drop. Far (200 ft) = gentle, sweeping glide. 
+            Physics reason: radial velocity changes fastest when you're near the path.
+          </dd>
+
+          <dt style="font-weight:600;margin:0.5rem 0 0.2rem">🔊 Volume</dt>
+          <dd style="margin:0 0 0.75rem;color:var(--muted)">
+            Real sound obeys the <strong>inverse-distance law</strong>: double the distance = quarter the intensity. 
+            We normalize this so "100%" = loudest at closest approach. Crank to 300–500% for headphone-friendly "car stereo" levels.
+          </dd>
+
+          <dt style="font-weight:600;margin:0.5rem 0 0.2rem">🎚️ Manual pitch bend (cents)</dt>
+          <dd style="margin:0 0 0.75rem;color:var(--muted)">
+            Override physics! 100 cents = 1 semitone. Bend +1200 = shift up an octave. 
+            <em>Pro use:</em> Compensate for recording pitch, or create alien vehicle sounds.
+          </dd>
+
+          <dt style="font-weight:600;margin:0.5rem 0 0.2rem">⏱️ Simulation speed</dt>
+          <dd style="margin:0 0 0.75rem;color:var(--muted)">
+            Time dilation for your ears. 0.5× = slow-mo analysis. 3× = quick demo. 
+            Doesn't change physics — just how fast the car "drives" through the 10-second window.
+          </dd>
+
+          <dt style="font-weight:600;margin:0.5rem 0 0.2rem">❄️ Freeze at closest point</dt>
+          <dd style="margin:0 0 0.75rem;color:var(--muted)">
+            Lock the pitch shift at the moment of closest approach. 
+            <em>Why?</em> Sustain that "peak Doppler" tone for analysis, or create a static shifted loop.
+          </dd>
+
+          <dt style="font-weight:600;margin:0.5rem 0 0.2rem">⇄ Reverse direction</dt>
+          <dd style="margin:0 0 0.75rem;color:var(--muted)">
+            Flip the car's travel direction. Physics is symmetric, but perception isn't — 
+            approaching high pitch → receding low pitch feels different than the reverse.
+          </dd>
+        </dl>
+
+        <h4 style="margin:1rem 0 0.5rem;color:var(--accent);font-size:1.05rem">🌌 Doppler in the Wild</h4>
+        <ul style="margin:0;padding-left:1.2rem">
+          <li><strong>🚑 Ambulances:</strong> That iconic "nee-naw" is Doppler + siren modulation. The pitch drop at closest approach is ~15–25% for typical speeds.</li>
+          <li><strong>🏎️ F1 cars:</strong> At 200 mph, the shift is ~±30%. Combined with engine harmonics, it creates that visceral "scream-then-growl" effect.</li>
+          <li><strong>🔭 Astronomy:</strong> Redshift/blueshift of starlight uses the <em>exact same math</em> — but with light speed (c = 300,000 km/s). Hubble measured universe expansion this way.</li>
+          <li><strong>🦇 Bats & dolphins:</strong> They emit calls and listen for Doppler-shifted echoes to calculate prey velocity. Nature's radar.</li>
+        </ul>
+
+        <div style="background:var(--panel);border:1px dashed var(--border);border-radius:6px;padding:0.75rem;margin:1rem 0">
+          <strong style="display:block;margin-bottom:0.3rem">🧪 Try This Experiment:</strong>
+          <ol style="margin:0;padding-left:1.2rem;font-size:0.9rem">
+            <li>Set Speed=65 mph, Distance=10 ft, Volume=300%</li>
+            <li>Click Play, then slowly drag Distance from 10 → 200 ft</li>
+            <li>Listen: the pitch transition changes from "sudden drop" to "smooth glide"</li>
+            <li><em>Why?</em> Radial velocity derivative <code>dv_radial/dt</code> is largest at small distances</li>
+          </ol>
+        </div>
+
+        <p style="margin:0.75rem 0 0;font-size:0.85rem;color:var(--muted);border-top:1px solid var(--border);padding-top:0.75rem">
+          💡 <strong>Fun fact:</strong> Christian Doppler predicted this effect in 1842 using <em>light from binary stars</em>. It took 3 years for someone to test it with <em>trumpeters on a moving train</em>. Science: sometimes you need brass + rails.
+        </p>
+      </div>
+    </div>
+    
+    <div style="text-align:center;margin:0.5rem 0">
+      <canvas id="dopplerViz" width="300" height="60" style="background:var(--bg);border-radius:4px"></canvas>
+      <p style="font-size:0.75rem;color:var(--muted);margin:0.25rem 0 0">Wave compression (approaching) vs. stretching (receding)</p>
+    </div>
+    <div class="panel" style="margin-top:1.5rem">
+      <p style="margin:0;font-size:0.75rem;color:var(--muted);line-height:1.5">
+        <strong>Audio Attribution & License:</strong> 
+        "Alien Nation" by <a href="https://freemusicarchive.org/music/1st_Contact" target="_blank" style="color:var(--accent);text-decoration:none">1st Contact</a> 
+        is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" style="color:var(--accent);text-decoration:none">CC BY-SA 4.0</a>. 
+        This app applies real-time Doppler processing (derivative work). 
+        To comply with ShareAlike, <strong>Dopplerize</strong> and all modifications are released under 
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" style="color:var(--accent);text-decoration:none">CC BY-SA 4.0</a>.
+      </p>
+    </div>
+    <script>
+    let defaultAudioBytes = null; // Store raw fetched bytes
+    const SIM_HALF = 5;
+    const DEFAULT_AUDIO_URL = 'https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/1st%20Contact%20-%20Alien%20Nation.mp3?alt=media&token=20411f25-bb14-4217-a4c3-2c9d409cf351';
+
+    const el = id => document.getElementById(id);
+    const fileInput = el('audioUpload');
+    const fileNameEl = el('fileName');
+    const speedSl = el('speed'),
+        distSl = el('dist'),
+        volSl = el('vol');
+    const pbSl = el('pitchBend'),
+        ssSl = el('simSpeed');
+    const freezeBtn = el('freezeBtn');
+    const playBtn = el('playBtn');
+    const revBtn = el('revBtn');
+    const scopeCv = el('scope'),
+        diagCv = el('diag');
+
+    let audioCtx,
+        audioBuffer,
+        srcNode,
+        gainNode,
+        analyserNode;
+    let isPlaying = false,
+        freeze = false;
+    let direction = 1;
+    let simTime = -SIM_HALF;
+    let rafId,
+        lastTs;
+
+    speedSl.oninput = () => el('speedVal').textContent = speedSl.value + ' mph';
+    distSl.oninput = () => el('distVal').textContent = distSl.value + ' ft';
+    volSl.oninput = () => el('volVal').textContent = volSl.value + '%';
+    pbSl.oninput = () => el('pbVal').textContent = pbSl.value + ' ¢';
+    ssSl.oninput = () => el('ssVal').textContent = parseFloat(ssSl.value).toFixed(1) + '×';
+
+    freezeBtn.onclick = () => {
+        freeze = !freeze;
+        freezeBtn.textContent = freeze ? 'ON' : 'OFF';
+        freezeBtn.className = freeze ? 'on' : 'off';
+    };
+
+    revBtn.onclick = () => {
+        direction *= -1;
+        simTime = -simTime;
+        if (direction === -1) {
+            revBtn.textContent = '⇄ Forward Direction';
+            revBtn.classList.add('active');
+        } else {
+            revBtn.textContent = '⇄ Reverse Direction';
+            revBtn.classList.remove('active');
+        }
+    };
+
+    function resizeCanvas(cv) {
+        const dpr = window.devicePixelRatio || 1;
+        cv.width = cv.clientWidth * dpr;
+        cv.height = cv.clientHeight * dpr;
+    }
+    window.addEventListener('resize', () => {
+        resizeCanvas(scopeCv);
+        resizeCanvas(diagCv);
+        drawDiag(simTime);
+    });
+    resizeCanvas(scopeCv);
+    resizeCanvas(diagCv);
+
+    fileInput.onchange = e => {
+        if (e.target.files[0])
+            loadFile(e.target.files[0]);
+    };
+    document.body.addEventListener('dragover', e => e.preventDefault());
+    document.body.addEventListener('drop', e => {
+        e.preventDefault();
+        if (e.dataTransfer.files[0]) {
+            fileInput.files = e.dataTransfer.files;
+            loadFile(e.dataTransfer.files[0]);
+        }
+    });
+
+    async function ensureCtx() {
+        if (!audioCtx)
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended')
+            await audioCtx.resume();
+    }
+
+    async function loadFile(file) {
+        await ensureCtx();
+        fileNameEl.textContent = 'Decoding…';
+        try {
+            const buf = await file.arrayBuffer();
+            audioBuffer = await audioCtx.decodeAudioData(buf);
+            const name = file.name;
+            fileNameEl.textContent = name.length > 28 ? name.slice(0, 25) + '…' : name;
+        } catch (err) {
+            fileNameEl.textContent = 'Error: ' + err.message;
+        }
+    }
+    
+    async function loadDefaultAudio() {
+        console.log('🎵 loadDefaultAudio() fetching...');
+        fileNameEl.textContent = 'Fetching Alien Nation 1st Contact!…';
+        try {
+            const response = await fetch(DEFAULT_AUDIO_URL);
+            if (!response.ok) throw new Error('HTTP ' + response.status);
+            defaultAudioBytes = await response.arrayBuffer(); // Store raw bytes, DON'T decode yet
+            console.log('✓ Fetched', defaultAudioBytes.byteLength, 'bytes (waiting for user gesture to decode)');
+            fileNameEl.textContent = '✓ Alien Nation ready (click Play)';
+            fileNameEl.title = 'Click Play to start with Alien Nation';
+        } catch (err) {
+            console.error('✗ Fetch failed:', err);
+            fileNameEl.textContent = '⚠ Upload your own file';
+        }
+    }
+
+    function getParams(t) {
+        const c = 343;
+        const v = parseFloat(speedSl.value) * 0.44704;
+        const d = parseFloat(distSl.value) * 0.3048;
+        const x = v * t * direction;
+        const r = Math.sqrt(x * x + d * d);
+        const v_radial = -(v * x) / r;
+        const pitchFactor = c / (c - v_radial);
+        return {
+            pitchFactor,
+            normalizedGain: (1 / r) / (1 / d),
+            distMeters: r
+        };
+    }
+
+    function drawDiag(t) {
+        const cv = diagCv;
+        const dpr = window.devicePixelRatio || 1;
+        const W = cv.clientWidth,
+            H = cv.clientHeight;
+        const ctx = cv.getContext('2d');
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        ctx.save();
+        ctx.scale(dpr, dpr);
+
+        const d_ft = parseFloat(distSl.value);
+        const roadY = H * 0.35;
+        const personY = H * 0.78;
+        const margin = 30;
+        const roadW = W - margin * 2;
+
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(margin, roadY);
+        ctx.lineTo(W - margin, roadY);
+        ctx.stroke();
+        ctx.setLineDash([10, 8]);
+        ctx.strokeStyle = '#444';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(margin, roadY + 8);
+        ctx.lineTo(W - margin, roadY + 8);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        const personX = W / 2;
+        ctx.fillStyle = '#9ca3af';
+        ctx.beginPath();
+        ctx.arc(personX, personY - 10, 5, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = '#9ca3af';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(personX, personY - 5);
+        ctx.lineTo(personX, personY + 6);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(personX - 5, personY);
+        ctx.lineTo(personX + 5, personY);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(personX, personY + 6);
+        ctx.lineTo(personX - 4, personY + 14);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(personX, personY + 6);
+        ctx.lineTo(personX + 4, personY + 14);
+        ctx.stroke();
+
+        ctx.strokeStyle = '#374151';
+        ctx.lineWidth = 1;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(personX, roadY);
+        ctx.lineTo(personX, personY - 15);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#6b7280';
+        ctx.font = '10px system-ui';
+        ctx.textAlign = 'center';
+        ctx.fillText(d_ft + 'ft', personX + 14, (roadY + personY) / 2);
+
+        const frac = (t + SIM_HALF) / (SIM_HALF * 2);
+        const carFrac = direction === 1 ? frac : 1 - frac;
+        const carX = margin + carFrac * roadW;
+        drawCar(ctx, carX, roadY - 8, direction);
+
+        ctx.strokeStyle = '#1d4ed855';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(carX, roadY);
+        ctx.lineTo(personX, roadY);
+        ctx.stroke();
+
+        ctx.restore();
+    }
+
+    function drawCar(ctx, cx, cy, dir) {
+        ctx.save();
+        if (dir === -1) {
+            ctx.translate(cx * 2, 0);
+            ctx.scale(-1, 1);
+        }
+        ctx.fillStyle = '#3b82f6';
+        ctx.fillRect(cx - 14, cy - 6, 28, 10);
+        ctx.fillStyle = '#2563eb';
+        ctx.fillRect(cx - 8, cy - 11, 16, 7);
+        ctx.fillStyle = '#1e3a5f';
+        ctx.beginPath();
+        ctx.arc(cx - 8, cy + 4, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(cx + 8, cy + 4, 4, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = dir === 1 ? '#fef08a' : '#ef4444';
+        ctx.fillRect(cx + 12, cy - 4, 4, 4);
+        ctx.fillStyle = dir === 1 ? '#ef4444' : '#fef08a';
+        ctx.fillRect(cx - 16, cy - 4, 4, 4);
+        ctx.restore();
+    }
+
+    drawDiag(-SIM_HALF);
+
+    playBtn.onclick = () => {
+        isPlaying ? stopSim() : startSim();
+    };
+
+    async function startSim() {
+        // If we have raw bytes but no decoded buffer, decode now (user gesture allowed)
+        if (defaultAudioBytes && !audioBuffer) {
+            await ensureCtx(); // Now allowed because triggered by Play click
+            try {
+                console.log('🔊 Decoding Alien Nation on first play...');
+                audioBuffer = await audioCtx.decodeAudioData(defaultAudioBytes);
+                console.log('✅ Decoded:', audioBuffer.duration.toFixed(2), 's');
+                fileNameEl.textContent = '✓ Alien Nation (playing)';
+            } catch (err) {
+                console.error('❌ Decode failed:', err);
+                alert('Failed to decode Alien Nation! Please upload a different file.');
+                return;
+            }
+        }
+
+        // Rest of your existing startSim() logic...
+        if (!audioBuffer) {
+            alert('Load an audio file first.');
+            return;
+        }
+        await ensureCtx();
+        if (srcNode) { try { srcNode.stop(); } catch(e){} srcNode = null; }
+        gainNode = audioCtx.createGain();
+        analyserNode = audioCtx.createAnalyser();
+        analyserNode.fftSize = 1024;
+        srcNode = audioCtx.createBufferSource();
+        srcNode.buffer = audioBuffer;
+        srcNode.loop = true;
+        srcNode.connect(gainNode);
+        gainNode.connect(analyserNode);
+        analyserNode.connect(audioCtx.destination);
+        srcNode.start();
+        simTime = -SIM_HALF;
+        isPlaying = true;
+        lastTs = null;
+        playBtn.textContent = '⏹ Stop';
+        playBtn.classList.add('sec');
+        rafId = requestAnimationFrame(frame);
+    }
+
+    function stopSim() {
+        isPlaying = false;
+        if (rafId)
+            cancelAnimationFrame(rafId);
+        if (srcNode) {
+            try {
+                srcNode.stop();
+            } catch (e) {}
+            srcNode = null;
+        }
+        playBtn.textContent = '▶ Play Simulation';
+        playBtn.classList.remove('sec');
+        scopeCv.getContext('2d').clearRect(0, 0, scopeCv.width, scopeCv.height);
+        drawDiag(-SIM_HALF);
+        ['mPitch', 'mDist', 'mGain', 'mProg'].forEach(id => el(id).textContent = '—');
+    }
+
+    function frame(ts) {
+        if (!isPlaying)
+            return;
+        rafId = requestAnimationFrame(frame);
+        if (lastTs === null)
+            lastTs = ts;
+        const delta = Math.min((ts - lastTs) / 1000, 0.1);
+        lastTs = ts;
+
+        const simSpd = parseFloat(ssSl.value);
+        if (!freeze) {
+            simTime += delta * simSpd;
+            if (simTime > SIM_HALF)
+                simTime = -SIM_HALF;
+        }
+
+        const {pitchFactor, normalizedGain, distMeters} = getParams(simTime);
+        const bend = Math.pow(2, parseFloat(pbSl.value) / 1200);
+        srcNode.playbackRate.setTargetAtTime(pitchFactor * bend, audioCtx.currentTime, 0.03);
+        gainNode.gain.setTargetAtTime(normalizedGain * (parseFloat(volSl.value) / 100), audioCtx.currentTime, 0.03);
+
+        el('mPitch').textContent = pitchFactor.toFixed(3);
+        el('mDist').textContent = (distMeters * 3.28084).toFixed(0) + ' ft';
+        el('mGain').textContent = (normalizedGain * 100).toFixed(0) + '%';
+        el('mProg').textContent = ((simTime + SIM_HALF) / (SIM_HALF * 2) * 100).toFixed(1) + '%';
+
+        drawDiag(simTime);
+
+        const data = new Uint8Array(analyserNode.frequencyBinCount);
+        analyserNode.getByteTimeDomainData(data);
+        const sCtx = scopeCv.getContext('2d');
+        const dpr = window.devicePixelRatio || 1;
+        const W = scopeCv.clientWidth,
+            H = scopeCv.clientHeight;
+        sCtx.fillStyle = '#000';
+        sCtx.fillRect(0, 0, scopeCv.width, scopeCv.height);
+        sCtx.save();
+        sCtx.scale(dpr, dpr);
+        sCtx.lineWidth = 1.5;
+        sCtx.strokeStyle = '#3b82f6';
+        sCtx.beginPath();
+        const slice = W / data.length;
+        for (let i = 0; i < data.length; i++) {
+            const y = (data[i] / 128.0) * H / 2;
+            i === 0 ? sCtx.moveTo(0, y) : sCtx.lineTo(i * slice, y);
+        }
+        sCtx.stroke();
+        sCtx.restore();
+    }
+
+    // Auto-load default audio when page is ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadDefaultAudio);
+    } else {
+        loadDefaultAudio();
+    }
+    // Add to your script, after DOM ready:
+    function drawDopplerViz() {
+      const cv = document.getElementById('dopplerViz');
+      if (!cv) return;
+      const ctx = cv.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      cv.width = 300 * dpr; cv.height = 60 * dpr;
+      ctx.scale(dpr, dpr);
+
+      ctx.clearRect(0,0,300,60);
+
+      // Approaching (left half)
+      ctx.strokeStyle = '#3b82f6';
+      ctx.lineWidth = 2;
+      for (let i = 0; i < 8; i++) {
+        const x = 20 + i * 15;
+        const spacing = 8 - i * 0.8; // compressing
+        ctx.beginPath();
+        ctx.arc(x, 30, spacing, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Receding (right half)
+      ctx.strokeStyle = '#ef4444';
+      for (let i = 0; i < 8; i++) {
+        const x = 170 + i * 15;
+        const spacing = 4 + i * 0.8; // stretching
+        ctx.beginPath();
+        ctx.arc(x, 30, spacing, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      // Labels
+      ctx.fillStyle = '#3b82f6';
+      ctx.font = '10px system-ui';
+      ctx.fillText('Approaching → higher pitch', 10, 12);
+      ctx.fillStyle = '#ef4444';
+      ctx.fillText('Receding → lower pitch', 180, 12);
+    }
+    // Call once after page load
+    setTimeout(drawDopplerViz, 500);
+    </script>
+</body>
+</html>
