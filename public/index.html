@@ -23,6 +23,55 @@
     <link rel="preconnect" href="https://theoriesofconsciousness.com">
     <link rel="stylesheet" href="styles.css" />
 
+    <!-- ===================================================================
+         Book-promo hero styles. Scoped to #book-promo-hero, which exists
+         only on this page, so these rules cannot affect any other page.
+         Additive only — nothing in styles.css is modified.
+    ==================================================================== -->
+    <style>
+      #book-promo-hero {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        flex-wrap: wrap;
+        background: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        border-top: 5px solid #a35d4f;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        margin: 2rem 0;
+      }
+      #book-promo-hero .bph-cover { flex: 0 0 140px; max-width: 140px; }
+      #book-promo-hero .bph-cover img {
+        width: 100%; height: auto; border-radius: 5px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.2); display: block;
+      }
+      #book-promo-hero .bph-body { flex: 1 1 320px; min-width: 260px; }
+      #book-promo-hero .bph-eyebrow {
+        text-transform: uppercase; letter-spacing: 2px; font-size: 0.78rem;
+        font-weight: 700; color: #a35d4f; margin: 0 0 0.4rem;
+      }
+      #book-promo-hero h2 { margin: 0.2rem 0 0.5rem; }
+      #book-promo-hero .bph-tag {
+        font-family: Georgia, serif; font-style: italic; color: #4b4b4b;
+        margin: 0 0 1rem; font-size: 1.1rem;
+      }
+      #book-promo-hero .bph-btns { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+      #book-promo-hero .bph-ghost {
+        display: inline-block; padding: 8px 16px; border-radius: 20px;
+        border: 2px solid #a35d4f; color: #a35d4f; text-decoration: none;
+        font-weight: bold; transition: all 0.3s ease;
+      }
+      #book-promo-hero .bph-ghost:hover {
+        background: #a35d4f; color: #fff; transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      }
+      @media (max-width: 768px) {
+        #book-promo-hero { justify-content: center; text-align: center; }
+        #book-promo-hero .bph-btns { justify-content: center; }
+      }
+    </style>
+
 </head>
 <body>
     <header>
@@ -58,6 +107,22 @@
     </header>
 
     <main>
+        <!-- ===== Book promo hero (additive; styles scoped to #book-promo-hero) ===== -->
+        <section id="book-promo-hero">
+          <a class="bph-cover" href="/journal-ring-bank-phenomenology/" aria-label="Journal of Ring Bank Phenomenology book page">
+            <img src="images/journal-rbt-cover.jpg" alt="Cover of Journal of Ring Bank Phenomenology by Brad Caldwell" />
+          </a>
+          <div class="bph-body">
+            <p class="bph-eyebrow">New Book &middot; 2026</p>
+            <h2>Journal of Ring Bank Phenomenology</h2>
+            <p class="bph-tag">A 400-page catalogue of first-person case files, read line by line against the geometry of Ring Bank Theory. Hardcover &amp; full-color ebook.</p>
+            <div class="bph-btns">
+              <a class="affiliate-link" href="/journal-ring-bank-phenomenology/">Explore the Book &rarr;</a>
+              <a class="bph-ghost" href="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/Ring_Bank_Theory_____A_Geometry_of_the_Present_Moment.pdf?alt=media&token=84e2aa0e-5631-44a8-933f-d701b4fb86e1" target="_blank" rel="noopener">Read a Free Preview</a>
+            </div>
+          </div>
+        </section>
+
         <section id="video-presentation">
           <h2>Video Map of Fundamental Theories of Consciousness</h2>
           <div class="video-container">
@@ -287,6 +352,7 @@
             <div class="link-group">
                 <h3>Books &amp; Publications</h3>
                 <ul>
+                    <li><strong>Journal of Ring Bank Phenomenology</strong> (New, 2026): <a href="/journal-ring-bank-phenomenology/">Book Page</a> | <a href="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/Ring_Bank_Theory_____A_Geometry_of_the_Present_Moment.pdf?alt=media&token=84e2aa0e-5631-44a8-933f-d701b4fb86e1">Free Preview PDF</a> &mdash; the empirical case-file companion to Ring Bank Theory. Hardcover &amp; full-color ebook coming soon.</li>
                     <li>**Rings of Fire: How the Brain Makes Consciousness:** <a href="https://firebasestorage.googleapis.com/v0/b/theoriesofconsciousness.appspot.com/o/TESTDigital.pdf?alt=media&token=022a247f-e5c4-45e6-b5a6-431853765780">PDF</a> | <a href="https://www.amazon.com/Rings-Fire-Brain-Makes-Consciousness/dp/B0B5K9WBNB">Paperback</a> | <a href="https://www.amazon.com/Rings-Fire-Brain-Makes-Consciousness/dp/B0B5RWKQ3Y/ref=tmm_hrd_swatch_0?_encoding=UTF8&qid=&sr=">Hardcover</a></li>
                     <li>**Perceptual Optics Book Preview:**
                         <ul>
